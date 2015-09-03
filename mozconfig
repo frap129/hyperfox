@@ -1,0 +1,22 @@
+
+# Fennec Configuration
+ac_add_options --enable-application=mobile/android
+ac_add_options --target=arm-linux-androideabi
+ac_add_options --with-android-ndk=$HOME/.mozbuild/android-ndk-r10e
+ac_add_options --with-android-sdk=$HOME/.mozbuild/android-sdk-linux/platforms/android-22
+ac_add_options --disable-debug
+ac_add_options --enable-optimize=-O3
+ac_add_options --enable-release
+
+# SaberMod ARM Toolchain
+ac_add_options --with-android-toolchain=$HOME/arm-linux-androideabi-4.9
+
+# Extra Flags
+CFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity"
+# -g0 -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
+CPPFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0"
+# -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
+LDFLAGS="-O3 -flto=4 -fopenmp -g0"
+
+# Release build
+export SABERMOD_OFFICIAL=true
