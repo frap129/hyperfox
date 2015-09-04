@@ -12,11 +12,7 @@ ac_add_options --enable-release
 ac_add_options --with-android-toolchain=$HOME/arm-linux-androideabi-4.9
 
 # Extra Flags
-CFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity"
-# -g0 -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
-CPPFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0"
-# -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
+CFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
+CPPFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
 LDFLAGS="-O3 -flto=4 -fopenmp -g0"
 
-# Release build
-export SABERMOD_OFFICIAL=true
