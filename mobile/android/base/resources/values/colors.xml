@@ -8,27 +8,27 @@
   <color name="fennec_ui_orange">#ce0a00</color>
   <color name="affirmative_green">#6FBE4A</color>
   <color name="rejection_red">#D23228</color>
-  <color name="action_orange">#E66000</color>
-  <color name="action_orange_pressed">#DC5600</color>
+  <color name="action_orange">#E60000</color>
+  <color name="action_orange_pressed">#DC0000</color>
   <color name="link_blue">#0096DD</color>
   <color name="link_blue_pressed">#0082C6</color>
   <color name="private_browsing_purple">#ce0a00</color>
 
   <color name="placeholder_active_grey">#222222</color>
-  <color name="placeholder_grey">#777777</color>
-  <color name="private_toolbar_grey">#292C29</color>
-  <color name="text_and_tabs_tray_grey">#363B40</color>
-  <color name="tabs_tray_grey_pressed">#45494E</color>
-  <color name="toolbar_icon_grey">#5F6368</color>
+  <color name="placeholder_grey">#3D3D3D</color>
+  <color name="private_toolbar_grey">#1C1A1A</color>
+  <color name="text_and_tabs_tray_grey">#353030</color>
+  <color name="tabs_tray_grey_pressed">#302C2C</color>
+  <color name="toolbar_icon_grey">#4B4545</color>
 
-  <color name="tabs_tray_icon_grey">#AFB1B3</color>
+  <color name="tabs_tray_icon_grey">#353030</color>
   <color name="disabled_grey">#BFBFBF</color>
-  <color name="toolbar_grey_pressed">#D7D7DC</color>
-  <color name="toolbar_menu_dark_grey">#E1E1E6</color>
-  <color name="toolbar_grey">#EBEBF0</color>
+  <color name="toolbar_grey_pressed">#302C2C</color>
+  <color name="toolbar_menu_dark_grey">#1C1A1A</color>
+  <color name="toolbar_grey">#1C1A1A</color>
   <color name="about_page_header_grey">#F5F5F5</color>
 
-  <color name="url_bar_shadow_private">#ce0a00</color>
+  <color name="url_bar_shadow_private">#D74B4B</color>
 
   <!-- Restricted profiles palette -->
 
