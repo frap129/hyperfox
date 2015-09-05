@@ -3,7 +3,7 @@
 #######################
 #
 # This Makefile adds features that aren't attainable
-# through the ./mach build tool. Build Directory 
+# through the ./mach build tool. True build directory 
 # clobbering, PNGQuant optimizations, and automatic
 # build parallelization are the current features.
 #
@@ -16,26 +16,32 @@ all: clean build package
 
 # Optimize with PNGQuant and package apk
 apk:
-	cd obj-arm-linux-androideabi/ && find . -name "*.png" -print0 | xargs -0 -P8 -L1 pngquant --ext .png --force --speed 1 -v && ../mach package
+	@echo "Optimizing images and packaging apk..."
+	cd obj-arm-linux-androideabi/ && find . -name "*.png" -print0 | xargs -0 -P8 -L1 pngquant --ext .png --force --speed 1 && ../mach package
 
 # Build app resources with optimal jobs
 bacon:
+	@echo "Building SaberFox resources..."
 	./mach build $(JOBS)
 	
 # Build app resources
 build:
+	@echo "Building SaberFox resources..."
 	./mach build
 	
 # Clean object directory
 clean:
+	@echo "Cleaning object directory..."
 	./mach clobber
 
 # Delete object directory
 clobber: 
+	@echo "Clobbering object directory..."
 	rm -rf obj-arm-linux-androideabi
 	
 # Package apk
 package:
+	@echo "Packaging apk..."
 	./mach package
 
 # Optimal build combo
