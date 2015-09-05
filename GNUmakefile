@@ -1,7 +1,12 @@
-# This Makefile is used as a shim to aid people with muscle memory
-# so that they can type "make".
+#######################
+## SaberFox Makefile ##
+#######################
 #
-# This file and all of its targets should not be used by anything important.
+# This Makefile adds features that aren't attainable
+# through the ./mach build tool. Build Directory 
+# clobbering, PNGQuant optimizations, and automatic
+# build parallelization are the current features.
+#
 
 # Define Jobs to use for mach
 JOBS="-j $(grep -c ^processor /proc/cpuinfo)"
@@ -13,13 +18,13 @@ all: clean build package
 apk:
 	cd obj-arm-linux-androideabi/ && find . -name "*.png" -print0 | xargs -0 -P8 -L1 pngquant --ext .png --force --speed 1 -v && ../mach package
 
-# Build app resources
-build:
-	./mach build
-
 # Build app resources with optimal jobs
 bacon:
 	./mach build $(JOBS)
+	
+# Build app resources
+build:
+	./mach build
 	
 # Clean object directory
 clean:
@@ -36,4 +41,4 @@ package:
 # Optimal build combo
 saber: clobber bacon apk
 
-.PHONY: all apk build bacon clean clobber package saber
+.PHONY: all apk bacon build clean clobber package saber
