@@ -19,7 +19,7 @@ ac_add_options --enable-release
 ac_add_options --with-android-toolchain=$HOME/arm-linux-androideabi-4.9
 
 # Optimization Flags
-export CFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
-export CPPFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
-export LDFLAGS="-O3 -flto=4 -fopenmp -g0"
+export CFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -pipe -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
+export CPPFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -pipe -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
+export LDFLAGS="-O3 -flto=4 -fopenmp -g0 -pipe"
 
