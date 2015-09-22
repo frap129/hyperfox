@@ -47,5 +47,4 @@ JAVAC_FLAGS = \
   -source $(JAVA_VERSION) \
   -encoding UTF8 \
   -g:source,lines \
-  -Werror \
   $(NULL)
