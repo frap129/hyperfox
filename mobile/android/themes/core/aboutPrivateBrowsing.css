@@ -20,13 +20,13 @@ div.contentSection {
 }
 
 body.private {
-  background-color: #363b40; /* text_and_tabs_tray_grey */
-  color: #afb1b3; /* tabs_tray_icon_grey */
+  background-color: #1C1A1A; /* text_and_tabs_tray_grey */
+  color: #353030; /* tabs_tray_icon_grey */
 }
 
 body.normal {
   background-color: #eeeeee;
-  color: #777777; /* placeholder gray */
+  color: #1C1A1A; /* placeholder gray */
 }
 
 h1 {
@@ -37,7 +37,7 @@ h1 {
 }
 
 body.normal h1 {
-  color: #363b40; /* text_and_tabs_tray_grey */
+  color: #1C1A1A; /* text_and_tabs_tray_grey */
 }
 
 a {
