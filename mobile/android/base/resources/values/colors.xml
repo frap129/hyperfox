@@ -53,7 +53,7 @@
 
   <!-- (bug 1077195) Focused state values are temporary. -->
   <color name="tablet_highlight_focused">#C0C9D0</color>
-p
+
   <!-- highlight on shaped button: 20% white over text_and_tabs_tray_grey -->
   <color name="highlight_shaped">#FF696D71</color>
 
