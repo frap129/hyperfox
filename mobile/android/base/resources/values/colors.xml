@@ -14,11 +14,11 @@
   <color name="link_blue_pressed">#0082C6</color>
   <color name="private_browsing_purple">#ce0a00</color>
 
-  <color name="placeholder_active_grey">#222222</color>
-  <color name="placeholder_grey">#3D3D3D</color>
+  <color name="placeholder_active_grey">#1C1A1A</color>
+  <color name="placeholder_grey">#1C1A1A</color>
   <color name="private_toolbar_grey">#1C1A1A</color>
-  <color name="text_and_tabs_tray_grey">#353030</color>
-  <color name="tabs_tray_grey_pressed">#302C2C</color>
+  <color name="text_and_tabs_tray_grey">#1C1A1A</color>
+  <color name="tabs_tray_grey_pressed">#1C1A1A</color>
   <color name="toolbar_icon_grey">#4B4545</color>
 
   <color name="tabs_tray_icon_grey">#353030</color>
@@ -26,7 +26,7 @@
   <color name="toolbar_grey_pressed">#302C2C</color>
   <color name="toolbar_menu_dark_grey">#1C1A1A</color>
   <color name="toolbar_grey">#1C1A1A</color>
-  <color name="about_page_header_grey">#F5F5F5</color>
+  <color name="about_page_header_grey">#1C1A1A</color>
 
   <color name="url_bar_shadow_private">#D74B4B</color>
 
@@ -53,7 +53,7 @@
 
   <!-- (bug 1077195) Focused state values are temporary. -->
   <color name="tablet_highlight_focused">#C0C9D0</color>
-
+p
   <!-- highlight on shaped button: 20% white over text_and_tabs_tray_grey -->
   <color name="highlight_shaped">#FF696D71</color>
 
@@ -63,7 +63,7 @@
   <!-- highlight on private nav button: 20% white over private_toolbar_grey -->
   <color name="highlight_nav_pb">#FF545654</color>
 
-  <color name="dark_transparent_overlay">#99000000</color>
+  <color name="dark_transparent_overlay">#6B0000</color>
 
   <!-- Firstrun tour -->
   <color name="firstrun_pager_header">#E8E8E8</color>
