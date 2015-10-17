@@ -19,7 +19,6 @@ ac_add_options --enable-release
 ac_add_options --with-android-toolchain=$HOME/arm-linux-androideabi-4.9
 
 # Optimization Flags
-export CFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -pipe -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
-export CPPFLAGS="-O3 -fopenmp -fgraphite -fgraphite-identity -g0 -pipe -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload"
-export LDFLAGS="-O3 -flto=4 -fopenmp -g0 -pipe"
-
+export CFLAGS="-Wno-pragmas -Wno-error -Wno-error=all -O3 -fopenmp -fgraphite -fgraphite-identity -g0 -pipe -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload -fipa-sra -fipa-pta -fipa-cp -fipa-cp-clone -ftree-vectorize" 
+export CPPFLAGS="-Wno-pragmas -Wno-error -Wno-error=all -O3 -fopenmp -fgraphite -fgraphite-identity -g0 -pipe -fira-loop-pressure -fira-hoist-pressure -fipa-sra -fgcse-sm -fgcse-after-reload -fipa-sra -fipa-pta -fipa-cp -fipa-cp-clone -ftree-vectorize" 
+export LDFLAGS="-Wno-pragmas -O3 -flto=4 -fopenmp -fgraphite -fgraphite-identity -floop-flatten -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -g0 -pipe -fipa-sra -fipa-pta -fipa-cp -fipa-cp-clone -ftree-vectorize"
