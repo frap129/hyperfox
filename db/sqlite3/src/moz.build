@@ -42,6 +42,10 @@ for var in ('SQLITE_SECURE_DELETE', 'SQLITE_THREADSAFE', 'SQLITE_CORE',
             'SQLITE_ENABLE_DBSTAT_VTAB'):
     DEFINES[var] = 1
 
+# -DHAVE_USLEEP=1 incorporates the usleep() functions to allow for shorter sleep
+# times when called
+DEFINES['HAVE_USLEEP'] = 1
+
 DEFINES['SQLITE_DEFAULT_PAGE_SIZE'] = 32768
 DEFINES['SQLITE_MAX_DEFAULT_PAGE_SIZE'] = 32768
 DEFINES['SQLITE_MAX_SCHEMA_RETRY'] = 25
