@@ -14,8 +14,8 @@
   <color name="link_blue_pressed">#0082C6</color>
   <color name="private_browsing_purple">#ce0a00</color>
 
-  <color name="placeholder_active_grey">#1C1A1A</color>
-  <color name="placeholder_grey">#1C1A1A</color>
+  <color name="placeholder_active_grey">#999999</color>
+  <color name="placeholder_grey">#999999</color>
   <color name="private_toolbar_grey">#1C1A1A</color>
   <color name="text_and_tabs_tray_grey">#1C1A1A</color>
   <color name="tabs_tray_grey_pressed">#1C1A1A</color>
