@@ -1,22 +1,18 @@
 #######################################
-## SaberFox Build Configuration file ##
+## Hyperfox Build Configuration file ##
 #######################################
-# SaberFox Version
-export MAJOR=1
-export BETA=0
-export ALPHA=0
-
-# SaberFox Config
+# Hyperfox Config
 ac_add_options --enable-application=mobile/android
 ac_add_options --target=arm-linux-androideabi
 ac_add_options --with-android-sdk="/home/frap129/.mozbuild/android-sdk-linux"
 ac_add_options --with-android-ndk="/home/frap129/.mozbuild/android-ndk-r11b"
 ac_add_options --disable-debug
-#ac_add_options --enable-optimize=-O3
+ac_add_options --enable-optimize=-O3
 #ac_add_options --with-thumb=no
-#ac_add_options --with-fpu=neon-vfpv4
+ac_add_options --with-fpu=neon-vfpv4
 ac_add_options --disable-debug-symbols
 ac_add_options --disable-tests
+mk_add_options AUTOCLOBBER=1
 
 # SaberMod ARM Toolchain
 #ac_add_options --with-android-toolchain=$HOME/arm-linux-androideabi-4.9
