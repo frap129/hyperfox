@@ -76,14 +76,14 @@ def librewolf_patches():
 
     enter_srcdir()
     # create the right mozconfig file..
-    exec('cp -v ../../assets/mozconfig .')
+    exec('cp -v ../assets/mozconfig .')
 
     # copy branding files..
     exec("cp -vr ../work/common/source_files/browser .")
     exec("cp -v ../work/windows/files/configure.sh browser/branding/librewolf")
 
     # read lines of .txt file into 'patches'
-    f = open('../../assets/patches-{}.txt'.format(version), "r")
+    f = open('../assets/patches.txt'.format(version), "r")
     lines = f.readlines()
     f.close()
     patches = []
@@ -107,7 +107,7 @@ def librewolf_patches():
 
 
     # copy the build-librewolf.py script into the source folder
-    exec('cp -v ../../assets/build-librewolf.py .')
+    exec('cp -v ../assets/build-librewolf.py .')
     leave_srcdir()
 
 
