@@ -13,7 +13,7 @@ Next step, if you have not done so already, you must create the build environmen
 cp librewolf-$(version)/lw-assets/bootstrap.py .
 python3 bootstrap.py --no-interactive --application-choice=browser
 ```
-It takes about an hour for me to complete, but it needs to be done only once.
+It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems.
 
 Now we're ready to actually build LibreWolf:
 ```
