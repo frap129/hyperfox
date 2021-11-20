@@ -107,8 +107,12 @@ def librewolf_patches():
 
 
     # copy the build-librewolf.py script into the source folder
-    exec('cp -v ../assets/build-librewolf.py .')
+    exec('mkdir -p lw-assets')
+    exec('cp -v ../assets/build-librewolf.py lw-assets')
+    exec('wget -q "https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py"')
+    exec('mv -v bootstrap.py lw-assets')
     leave_srcdir()
+    
 
 
 
