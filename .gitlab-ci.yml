@@ -5,3 +5,7 @@ build-job:
   stage: build
   script:
     - make all
+  artifacts:
+    paths:
+      - librewolf-*.source.tar.gz
+
