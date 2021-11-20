@@ -1,4 +1,4 @@
-## Building
+## Building LibreWolf from source
 First, let's head over to the [releases page](https://gitlab.com/stanzabird/source/-/releases); note and download the latest version. Once downloaded, extract it.
 ```
 export version=94.0.1
@@ -12,16 +12,16 @@ python3 librewolf-$(version)/lw-assets/bootstrap.py
 ```
 It takes about an hour for me to complete, but it needs to be done only once.
 
-Now we're ready to actually build Librewolf:
+Now we're ready to actually build LibreWolf:
 ```
 cd librewplf-$(version)
 ./mach build
 ```
-Then we can run it, 
+Also takes me an hour. Then, we can run it:
 ```
 ./mach run
 ```
-or make a package.
+Or make a package:
 ```
 ./mach package
 ```
