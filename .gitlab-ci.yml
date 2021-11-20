@@ -3,7 +3,6 @@ stages:
 
 build-job:
   stage: build
-  when: manual
   script:
     - make all
   artifacts:

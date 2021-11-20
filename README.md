@@ -1,5 +1,5 @@
 ## Building LibreWolf from source:
-First, let's [download the latest version](https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-94.0.2.source.tar.gz?job=build-job). Once downloaded, extract it.
+First, let's [download the latest tarball](https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-94.0.2.source.tar.gz?job=build-job). Once downloaded, extract it.
 ```
 export version=$(cat version)
 mkdir build
