@@ -23,7 +23,8 @@ def script_exit(statuscode):
     if (time.time() - start_time) > 60:
         # print elapsed time
         elapsed = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
-        print(f"\n\aElapsed time: {elapsed}")
+        print("\n\aElapsed time: {elapsed}")
+        sys.stdout.flush()
 
     sys.exit(statuscode)
 
@@ -31,10 +32,12 @@ def exec(cmd, exit_on_fail = True, do_print = True):
     if cmd != '':
         if do_print:
             print(cmd)
+            sys.stdout.flush()
         if not options.no_execute:
             retval = os.system(cmd)
             if retval != 0 and exit_on_fail:
                 print("fatal error: command '{}' failed".format(cmd))
+                sys.stdout.flush()
                 script_exit(1)
             return retval
         return None
@@ -42,10 +45,12 @@ def exec(cmd, exit_on_fail = True, do_print = True):
 def patch(patchfile):
     cmd = "patch -p1 -i {}".format(patchfile)
     print("\n*** -> {}".format(cmd))
+    sys.stdout.flush()
     if not options.no_execute:
         retval = os.system(cmd)
         if retval != 0:
             print("fatal error: patch '{}' failed".format(patchfile))
+            sys.stdout.flush()
             script_exit(1)
 
 def enter_srcdir(_dir = None):
@@ -54,15 +59,18 @@ def enter_srcdir(_dir = None):
     else:
         dir = _dir
     print("cd {}".format(dir))
+    sys.stdout.flush()
     if not options.no_execute:
         try:
             os.chdir(dir)
         except:
             print("fatal error: can't change to '{}' folder.".format(dir))
+            sys.stdout.flush()
             script_exit(1)
         
 def leave_srcdir():
     print("cd ..")
+    sys.stdout.flush()
     if not options.no_execute:
         os.chdir("..")
 
