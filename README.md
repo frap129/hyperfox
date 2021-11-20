@@ -1,7 +1,9 @@
 ## Building
-First, let's head over to the [releases page](https://gitlab.com/stanzabird/source/-/releases) and download the latest version. Once downloaded, extract it.
+First, let's head over to the [releases page](https://gitlab.com/stanzabird/source/-/releases); note and download the latest version. Once downloaded, extract it.
 ```
-wget -q https://<url>/librewolf-$(version).source.tar.gz
+export version=94.0.1
+
+wget -q https://fresh.librewolf.io/librewolf-$(version)/librewolf-$(version).source.tar.gz
 tar xf librewolf-$(version).source.tar.gz
 ```
 Next step, if you have not done so already, you must create the build environment:
