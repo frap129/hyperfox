@@ -40,7 +40,7 @@ make check
 ```
 If there is a new version, it's a good time to git commit and trigger a CI build job.
 ```
-git commit -am 'v94.0.1' && git push
+git commit -am v$(cat version) && git push
 ```
 To build the source archive:
 ```
