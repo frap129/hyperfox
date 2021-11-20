@@ -7,5 +7,5 @@ build-job:
     - make all
   artifacts:
     paths:
-      - librewolf-*.source.tar.gz
+      - librewolf-*.source.tar.xz
 
