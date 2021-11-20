@@ -1,4 +1,4 @@
-.PHONY : all help clean veryclean fetch extract librewolf-patches check init
+.PHONY : all help clean veryclean librewolf-patches check
 
 
 version_file=./version
@@ -8,22 +8,20 @@ version:=$(shell cat $(version_file))
 ## simplistic archive format selection
 archive_create=tar cfJ
 ext=.tar.xz
-#archive_create=tar cfz
-#ext=.tar.gz
+archive_create=tar cfz
+ext=.tar.gz
 #archive_create=zip -r9
 #ext=.zip
 
 
 help :
-	@echo "use: make [all] [check] [clean] [veryclean] [init]"
+	@echo "use: make [all] [check] [clean] [veryclean]"
 	@echo ""
-	@echo "  all         - make librewolf source archive ${version}."
-	@echo "  check       - check if there is a new version of Firefox."
+	@echo "  all         - Make librewolf source archive ${version}."
+	@echo "  check       - Check if there is a new version of Firefox."
 	@echo ""
-	@echo "  clean       - clean everything except the upstream firefox tarball."
-	@echo "  veryclean   - clean everything and the firefox tarball."
-	@echo ""
-	@echo "  init        - set up local build environment, takes a long time."
+	@echo "  clean       - Clean everything except the upstream firefox tarball."
+	@echo "  veryclean   - Clean everything and the firefox tarball."
 
 
 check :
@@ -41,8 +39,7 @@ veryclean : clean
 	rm -f firefox-$(version).source.tar.xz
 
 
-fetch : 
-	rm -f firefox-$(version).source.tar.xz
+firefox-$(version).source.tar.xz :
 	wget -q https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz
 
 
