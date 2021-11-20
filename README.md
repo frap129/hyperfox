@@ -8,7 +8,7 @@ tar xf librewolf-$(version).source.tar.gz
 ```
 Next step, if you have not done so already, you must create the build environment:
 ```
-python3 librewolf-$(version)/lw-assets/bootstrap.py
+python3 librewolf-$(version)/lw-assets/bootstrap.py --no-interactive --application-choice=browser
 ```
 It takes about an hour for me to complete, but it needs to be done only once.
 
