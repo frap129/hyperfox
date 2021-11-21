@@ -1,19 +1,19 @@
 ## Building LibreWolf from source:
-First, let's [download the latest tarball](https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-94.0.2.source.tar.gz?job=build-job). Once downloaded, extract it.
+First, let's [download the latest tarball](https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-94.0.2.source.tar.gz?job=build-job).
+
+Next, we set a _version_ variable and creat ourselves a build folder.
 ```
 export version=$(cat version)
 mkdir build
 cd build
-
-wget -q https://fresh.librewolf.io/librewolf-$(version)/librewolf-$(version).source.tar.gz
-tar xf librewolf-$(version).source.tar.gz
+tar xf ../librewolf-$(version).source.tar.gz
 ```
 Next step, if you have not done so already, you must create the build environment:
 ```
 cp librewolf-$(version)/lw-assets/bootstrap.py .
 python3 bootstrap.py --no-interactive --application-choice=browser
 ```
-It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems.
+It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Why Mozilla decided to make the build source tree dependent is a bit.. lazy perhaps? I would have liked to be able to set up the build environment in one step, in a second step checkout the entire mozilla source, or in our case, use our own source. It's a waste of time and diskspace.
 
 Now we're ready to actually build LibreWolf:
 ```
