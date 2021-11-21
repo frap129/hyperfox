@@ -1,4 +1,4 @@
-.PHONY : all help clean veryclean librewolf-patches check
+.PHONY : all help clean veryclean librewolf-patches check librewolf
 
 
 version_file=./version
@@ -22,6 +22,7 @@ help :
 	@echo ""
 	@echo "  clean       - Clean everything except the upstream firefox tarball."
 	@echo "  veryclean   - Clean everything and the firefox tarball."
+	@echo "  librewolf   - like 'make all' but after that extract and build it."
 
 
 check :
@@ -37,6 +38,7 @@ clean :
 
 veryclean : clean
 	rm -f firefox-$(version).source.tar.xz
+	rm -rf librewolf
 
 
 firefox-$(version).source.tar.xz :
@@ -58,3 +60,10 @@ librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_f
 	rm -f librewolf-$(version).source$(ext)
 	$(archive_create) librewolf-$(version).source$(ext) librewolf-$(version)
 	rm -rf librewolf-$(version)
+
+
+librewolf : librewolf-$(version).source$(ext)
+	tar xf librewolf-$(version).source$(ext)
+	rm -rf librewolf
+	mv librewolf-$(version) librewolf
+	(cd librewolf && ./mach build && ./mach package)

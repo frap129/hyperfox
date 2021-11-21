@@ -49,3 +49,8 @@ To build the source archive:
 ```
 make all
 ```
+To build librewolf, you can use:
+```
+make librewolf
+```
+this extracts the source, and then tries to `./mach build && ./mach package`.
