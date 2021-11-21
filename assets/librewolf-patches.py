@@ -77,18 +77,15 @@ def leave_srcdir():
 
 
 def librewolf_patches():
-    enter_srcdir('work')
-    exec('git clone --recursive https://gitlab.com/librewolf-community/browser/windows.git')
-    exec('git clone --recursive https://gitlab.com/librewolf-community/browser/common.git')
-    leave_srcdir()
 
     enter_srcdir()
     # create the right mozconfig file..
     exec('cp -v ../assets/mozconfig .')
 
     # copy branding files..
-    exec("cp -vr ../work/common/source_files/browser .")
-    exec("cp -v ../work/windows/files/configure.sh browser/branding/librewolf")
+#    exec("cp -vr ../work/common/source_files/browser .")
+    exec("cp -vr ../themes/browser .")
+#    exec("cp -v ../work/windows/files/configure.sh browser/branding/librewolf")
 
     # read lines of .txt file into 'patches'
     f = open('../assets/patches.txt'.format(version), "r")
@@ -96,26 +93,27 @@ def librewolf_patches():
     f.close()
     patches = []
     for line in lines:
-        patches.append('../work/common/'+line)
+        patches.append('../'+line)
 
         
     for p in patches:
         patch(p)
         
+    exec('mkdir -p lw-assets')
+    
     # insert the settings pane source (experimental)
     if options.settings_pane:
 
         exec('rm -rf librewolf-pref-pane')
         exec('git clone https://gitlab.com/ohfp/librewolf-pref-pane.git')
         os.chdir('librewolf-pref-pane')
-        exec('git diff 1fee314adc81000294fc0cf3196a758e4b64dace > ../librewolf-pref-pane.patch')
+        exec('git diff 1fee314adc81000294fc0cf3196a758e4b64dace > ../lw-assets/librewolf-pref-pane.patch')
         os.chdir('..')        
-        patch('librewolf-pref-pane.patch')
+        patch('lw-assets/librewolf-pref-pane.patch')
         exec('rm -rf librewolf-pref-pane')
 
 
     # copy the build-librewolf.py script into the source folder
-    exec('mkdir -p lw-assets')
     exec('cp -v ../assets/build-librewolf.py lw-assets')
     exec('wget -q "https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py"')
     exec('mv -v bootstrap.py lw-assets')
