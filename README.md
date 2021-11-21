@@ -1,4 +1,5 @@
 ## Building LibreWolf from source:
+
 First, let's [download the latest tarball](https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-94.0.2.source.tar.gz?job=build-job).
 
 Next, we set a _version_ variable and creat ourselves a build folder.
@@ -49,8 +50,8 @@ To build the source archive:
 ```
 make all
 ```
-To build librewolf, you can use:
+If you have a working build environment, you can build librewolf with:
 ```
 make librewolf
 ```
-this extracts the source, and then tries to `./mach build && ./mach package`.
+This extracts the source, and then tries to `./mach build && ./mach package`.
