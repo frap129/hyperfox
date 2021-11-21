@@ -13,7 +13,7 @@ Next step, if you have not done so already, you must create the build environmen
 cp librewolf-$(version)/lw-assets/bootstrap.py .
 python3 bootstrap.py --no-interactive --application-choice=browser
 ```
-It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Why Mozilla decided to make the build source tree dependent is a bit.. lazy perhaps? I would have liked to be able to set up the build environment in one step, in a second step checkout the entire mozilla source, or in our case, use our own source. It's a waste of time and diskspace.
+It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Why Mozilla has no separate 'install-buildenv.py' is a bit beyond me. I would have liked to be able to set up the build environment in one step, in a second step checkout the entire mozilla source, or in our case, use our own source.
 
 Now we're ready to actually build LibreWolf:
 ```
