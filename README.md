@@ -9,9 +9,8 @@ wget -O librewolf-$(version).source.tar.gz https://gitlab.com/stanzabird/source/
 curl -L -o librewolf-$(version).source.tar.gz https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-$(version).source.tar.gz?job=build-job
 ```
 
-Next, we set a _version_ variable and create ourselves a build folder.
+Next, we create ourselves a build folder and extract the tarball.
 ```
-export version=$(cat version)
 mkdir build
 cd build
 tar xf ../librewolf-$(version).source.tar.gz
@@ -36,7 +35,9 @@ Or make a package:
 ```
 ./mach package
 ```
+
 ## Building LibreWolf source tarball:
+
 You don't need the build environment for this. If you don't have write access, just:
 ```
 git clone https://gitlab.com/stanzabird/source.git
