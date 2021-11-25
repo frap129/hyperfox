@@ -65,5 +65,9 @@ librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_f
 librewolf : librewolf-$(version).source$(ext)
 	rm -rf librewolf-$(version)
 	tar xf librewolf-$(version).source$(ext)
+
+	#TODO: fix this when the script is obsolete
+	cp -v librewolf-$(version)/lw-assets/build-librewolf.py librewolf-$(version)
+
 	#TODO: (cd librewolf-$(version) && ./mach build && ./mach package)
-	(cd librewolf-$(version) && python3 lw-assets/build-librewolf.py $(version))
+	(cd librewolf-$(version) && python3 build-librewolf.py $(version))
