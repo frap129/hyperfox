@@ -38,7 +38,7 @@ clean :
 
 veryclean : clean
 	rm -f firefox-$(version).source.tar.xz
-	rm -rf librewolf
+	rm -rf librewolf-$(version)
 
 
 firefox-$(version).source.tar.xz :
@@ -63,8 +63,7 @@ librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_f
 
 
 librewolf : librewolf-$(version).source$(ext)
+	rm -rf librewolf-$(version)
 	tar xf librewolf-$(version).source$(ext)
-	rm -rf librewolf
-	mv librewolf-$(version) librewolf
-	#TODO: (cd librewolf && ./mach build && ./mach package)
-	(cd librewolf && python3 lw-assets/build-librewolf.py $(version))
+	#TODO: (cd librewolf-$(version) && ./mach build && ./mach package)
+	(cd librewolf-$(version) && python3 lw-assets/build-librewolf.py $(version))
