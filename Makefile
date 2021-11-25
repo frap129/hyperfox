@@ -66,4 +66,5 @@ librewolf : librewolf-$(version).source$(ext)
 	tar xf librewolf-$(version).source$(ext)
 	rm -rf librewolf
 	mv librewolf-$(version) librewolf
-	(cd librewolf && ./mach build && ./mach package)
+	#TODO: (cd librewolf && ./mach build && ./mach package)
+	(cd librewolf && python3 lw-assets/build-librewolf.py $(version))
