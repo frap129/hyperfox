@@ -61,13 +61,11 @@ librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_f
 	$(archive_create) librewolf-$(version).source$(ext) librewolf-$(version)
 	rm -rf librewolf-$(version)
 
-
-librewolf : librewolf-$(version).source$(ext)
-	rm -rf librewolf-$(version)
+librewolf-$(version) : librewolf-$(version).source$(ext)
 	tar xf librewolf-$(version).source$(ext)
-
 	#TODO: fix this when the script is obsolete
 	cp -v librewolf-$(version)/lw-assets/build-librewolf.py librewolf-$(version)
 
+librewolf : librewolf-$(version)
 	#TODO: (cd librewolf-$(version) && ./mach build && ./mach package)
 	(cd librewolf-$(version) && python3 build-librewolf.py $(version))
