@@ -89,6 +89,7 @@ _dirname = ""
 
 def post_build(is_macos=False):
     print('--- post_build stage [init] ---------------------------------------')
+    sys.stdout.flush();
     dirname = get_objdir()
     _dirname = dirname
 
@@ -112,6 +113,7 @@ def post_build(is_macos=False):
         patch('package-manifest.patch')
         
     print('--- post_build stage [done] ---------------------------------------')
+    sys.stdout.flush();
 
 
 
@@ -134,5 +136,8 @@ exec('./mach package')
 version = sys.argv[1]
 _dirname = get_objdir()
 artifact = "{}/dist/librewolf-{}.en-US.linux-x86_64.tar.bz2".format(_dirname,version)
+enter_srcdir('/work')
+enter_srcdir()
 cmd = "cp -v {} .".format(artifact)
 exec(cmd)
+leave_srcdir()
