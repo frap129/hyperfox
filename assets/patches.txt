@@ -1,6 +1,5 @@
 patches/about-dialog.patch
 patches/allow-ubo-private-mode.patch
-patches/allow_dark_preference_with_rfp.patch
 patches/context-menu.patch
 patches/megabar.patch
 patches/mozilla-vpn-ad.patch
