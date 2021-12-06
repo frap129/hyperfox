@@ -1,10 +1,10 @@
 ## Building LibreWolf from source:
 
-First, let's **[download the latest tarball](https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-94.0.2.source.tar.gz?job=build-job)**.
+First, let's **[download the latest tarball](https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-95.0.source.tar.gz?job=build-job)**.
 
 To download the latest from a script, use wget/curl like this:
 ```
-export version=94.0.2 # example
+export version=95.0 # example
 wget -O librewolf-$(version).source.tar.gz https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-$(version).source.tar.gz?job=build-job
 curl -L -o librewolf-$(version).source.tar.gz https://gitlab.com/stanzabird/source/-/jobs/artifacts/main/raw/librewolf-$(version).source.tar.gz?job=build-job
 ```
