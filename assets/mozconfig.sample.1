@@ -39,3 +39,9 @@ ac_add_options --with-branding=browser/branding/librewolf
 
 # disable sandboxed wasm libraries. this is temporary as we probably want this
 ac_add_options --without-wasm-sandboxed-libraries
+
+# this setting kills windows, but that's ok for now
+# the problem with windows is probably somewhere in the theme files
+# that nobody wants to touch..
+ac_add_options --with-app-name=librewolf
+
