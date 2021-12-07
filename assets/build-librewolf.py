@@ -134,8 +134,9 @@ exec('MACH_USE_SYSTEM_PYTHON=1 ./mach package')
 ## copy the artifact from obj-* to a friendlier location... to: /work
 version = sys.argv[1]
 _dirname = get_objdir()
-artifact = "{}/dist/firefox-{}.en-US.linux-x86_64.tar.bz2".format(_dirname,version)
+artifact = "{}/dist/librewolf-{}.en-US.linux-x86_64.tar.bz2".format(_dirname,version)
 enter_srcdir('/work')
+
 enter_srcdir()
 cmd = "cp -v {} .".format(artifact)
 exec(cmd)
