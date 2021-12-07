@@ -126,11 +126,10 @@ enter_srcdir(os.path.dirname(os.path.realpath(__file__)))
 
 
 
-
 # perform the build
-exec('./mach build')
+exec('MACH_USE_SYSTEM_PYTHON=1 ./mach build')
 post_build()
-exec('./mach package')
+exec('MACH_USE_SYSTEM_PYTHON=1 ./mach package')
 
 ## copy the artifact from obj-* to a friendlier location... to: /work
 version = sys.argv[1]
