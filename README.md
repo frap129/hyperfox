@@ -18,7 +18,7 @@ tar xf ../librewolf-$(version).source.tar.gz
 Next step, if you have not done so already, you must create the build environment:
 ```
 cp librewolf-$(version)/lw-assets/bootstrap.py .
-python3 bootstrap.py --no-interactive --application-choice=browser
+python3 --no-interactive bootstrap.py --application-choice=browser
 ```
 It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Why Mozilla has no separate 'install-buildenv.py' is a bit beyond me. I would have liked to be able to set up the build environment in one step, in a second step checkout the entire mozilla source, or in our case, use our own source.
 
@@ -46,7 +46,7 @@ make all
 ```
 If you **do** have write access, we're first gonna check for a newer version of Firefox:
 ```
-git clone git@gitlab.com:<your_username>/source.git
+git clone git@gitlab.com:stanzabird/source.git
 cd source
 make check
 ```
