@@ -83,9 +83,10 @@ def librewolf_patches():
     exec('cp -v ../assets/mozconfig .')
 
     # copy branding files..
-#    exec("cp -vr ../work/common/source_files/browser .")
     exec("cp -vr ../themes/browser .")
-#    exec("cp -v ../work/windows/files/configure.sh browser/branding/librewolf")
+
+    # copy the right search-config.json file
+    exec('cp -v ../assets/search-config.json services/settings/dumps/main/search-config.json')
 
     # read lines of .txt file into 'patches'
     f = open('../assets/patches.txt'.format(version), "r")
