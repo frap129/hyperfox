@@ -1,0 +1,55 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#aboutDialog {
+  border-bottom: #00acff 2px solid;
+}
+
+#grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 250px;
+  min-width: 400px;
+  transform: translateY(calc(50vh - 50%));
+}
+
+#left {
+  width: 150px;
+  flex-shrink: 0.5;
+  height: 150px;
+  margin: 25px;
+  background-image: url("chrome://branding/content/logo.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#right {
+  width: 300px;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#wordmark {
+  color: #00acff;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1em;
+}
+
+#version {
+  font-weight: bold;
+  margin-bottom: 4px;
+  user-select: text;
+  -moz-user-focus: normal;
+  cursor: text;
+}
+
+#aboutText {
+  margin-top: 4px;
+}
