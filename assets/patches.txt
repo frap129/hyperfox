@@ -1,7 +1,6 @@
 patches/about-dialog.patch
 patches/allow-ubo-private-mode.patch
 patches/context-menu.patch
-patches/megabar.patch
 patches/mozilla-vpn-ad.patch
 patches/mozilla_dirs.patch
 patches/remove_addons.patch
