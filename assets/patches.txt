@@ -1,3 +1,4 @@
+patches/xmas.patch
 patches/about-dialog.patch
 patches/allow-ubo-private-mode.patch
 patches/context-menu.patch

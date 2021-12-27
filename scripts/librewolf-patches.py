@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+#
+# The script that patches the firefox source into the librewolf source.
+#
+
+
 import os
 import sys
 import optparse
@@ -7,17 +12,16 @@ import time
 import glob
 
 
+#
+# general functions, skip these, they are not that interesting
+#
+
 start_time = time.time()
-
-
 parser = optparse.OptionParser()
 parser.add_option('-n', '--no-execute', dest='no_execute', default=False, action="store_true")
 parser.add_option('-P', '--no-settings-pane', dest='settings_pane', default=True, action="store_false")
 options, args = parser.parse_args()
 
-#
-# general functions
-#
 
 def script_exit(statuscode):
     if (time.time() - start_time) > 60:
@@ -75,10 +79,16 @@ def leave_srcdir():
         os.chdir("..")
 
 
+        
+#
+# This is the only interesting function in this script
+#
+
 
 def librewolf_patches():
 
     enter_srcdir()
+    
     # create the right mozconfig file..
     exec('cp -v ../assets/mozconfig .')
 
@@ -99,32 +109,43 @@ def librewolf_patches():
         
     for p in patches:
         patch(p)
-        
-    exec('mkdir -p lw-assets')
+
+
+    #
+    # Create the 'lw' folder, it contains the librewolf.cfg and policies.json files.
+    #
+    
+    exec('mkdir -p lw')
     
     # insert the settings pane source (experimental)
-    if options.settings_pane:
-
-        exec('rm -rf librewolf-pref-pane')
-        exec('git clone https://gitlab.com/ohfp/librewolf-pref-pane.git')
-        os.chdir('librewolf-pref-pane')
-        exec('git diff 1fee314adc81000294fc0cf3196a758e4b64dace > ../lw-assets/librewolf-pref-pane.patch')
-        os.chdir('..')        
-        patch('lw-assets/librewolf-pref-pane.patch')
-        exec('rm -rf librewolf-pref-pane')
-
-
-    # copy the build-librewolf.py script into the source folder
-    exec('cp -v ../assets/build-librewolf.py lw-assets')
-    exec('wget -q "https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py"')
-    exec('mv -v bootstrap.py lw-assets')
-    leave_srcdir()
+    exec('rm -rf librewolf-pref-pane')
+    exec('git clone https://gitlab.com/ohfp/librewolf-pref-pane.git')
+    os.chdir('librewolf-pref-pane')
+    exec('git diff 1fee314adc81000294fc0cf3196a758e4b64dace > ../lw/librewolf-pref-pane.patch')
+    os.chdir('..')        
+    exec('rm -rf librewolf-pref-pane')
     
+    patch('lw/librewolf-pref-pane.patch')
+    exec('rm -f lw/librewolf-pref-pane.patch')
+
+
+        
+    ##! This is the moment in time we grab the Settings repo HEAD revision
+    exec('git clone https://gitlab.com/librewolf-community/settings.git')
+    exec("cp -v settings/defaults/pref/local-settings.js lw/")
+    exec("cp -v settings/distribution/policies.json lw/")
+    exec("cp -v settings/librewolf.cfg lw/")
+    exec('rm -rf settings')
+
+    # provide a script that fetches and bootstraps Nightly
+    exec('cp -v ../scripts/mozfetch.sh lw')
+    
+    leave_srcdir()
 
 
 
 #
-# Main functionality in this script..
+# Main functionality in this script.. which is to call librewolf_patches()
 #
 
 if len(args) != 1:

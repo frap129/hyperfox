@@ -15,6 +15,7 @@ ext=.tar.gz
 
 
 help :
+
 	@echo "use: make [all] [check] [clean] [veryclean]"
 	@echo ""
 	@echo "  all         - Make librewolf source archive ${version}."
@@ -26,7 +27,7 @@ help :
 
 
 check :
-	@python3 assets/update-version.py
+	@python3 scripts/update-version.py
 
 
 all : librewolf-$(version).source$(ext)
@@ -47,25 +48,24 @@ firefox-$(version).source.tar.xz :
 
 # we take this extra step seperatly because it's so important.
 librewolf-patches :
-	rm -rf work && mkdir -p work
-	python3 assets/librewolf-patches.py $(version)
+	rm -rf work && mkdir work
+	python3 scripts/librewolf-patches.py $(version)
 	rm -rf work
 
 
-librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_file) assets/librewolf-patches.py assets/build-librewolf.py assets/mozconfig assets/patches.txt
+librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_file) scripts/librewolf-patches.py scripts/build-librewolf.py assets/mozconfig assets/patches.txt
 	rm -rf firefox-$(version) librewolf-$(version)
 	tar xf firefox-$(version).source.tar.xz
 	mv firefox-$(version) librewolf-$(version)
+
 	make librewolf-patches
+
 	rm -f librewolf-$(version).source$(ext)
 	$(archive_create) librewolf-$(version).source$(ext) librewolf-$(version)
 	rm -rf librewolf-$(version)
 
 librewolf-$(version) : librewolf-$(version).source$(ext)
 	tar xf librewolf-$(version).source$(ext)
-	#TODO: fix this when the script is obsolete
-	cp -v librewolf-$(version)/lw-assets/build-librewolf.py librewolf-$(version)
 
 librewolf : librewolf-$(version)
-	#TODO: (cd librewolf-$(version) && ./mach build && ./mach package)
-	(cd librewolf-$(version) && python3 build-librewolf.py $(version))
+	(cd librewolf-$(version) && ./mach build && ./mach package)
