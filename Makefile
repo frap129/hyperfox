@@ -34,7 +34,7 @@ all : librewolf-$(version).source$(ext)
 
 
 clean :
-	rm -rf *~ firefox-$(version) librewolf-$(version) librewolf-$(version).source$(ext) work
+	rm -rf *~ firefox-$(version) librewolf-$(version) librewolf-$(version).source$(ext)
 
 
 veryclean : clean
@@ -46,19 +46,12 @@ firefox-$(version).source.tar.xz :
 	wget -q https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz
 
 
-# we take this extra step seperatly because it's so important.
-librewolf-patches :
-	rm -rf work && mkdir work
-	python3 scripts/librewolf-patches.py $(version)
-	rm -rf work
-
-
-librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_file) scripts/librewolf-patches.py scripts/build-librewolf.py assets/mozconfig assets/patches.txt
+librewolf-$(version).source$(ext) : firefox-$(version).source.tar.xz $(version_file) scripts/librewolf-patches.py assets/mozconfig assets/patches.txt
 	rm -rf firefox-$(version) librewolf-$(version)
 	tar xf firefox-$(version).source.tar.xz
 	mv firefox-$(version) librewolf-$(version)
 
-	make librewolf-patches
+	python3 scripts/librewolf-patches.py $(version)
 
 	rm -f librewolf-$(version).source$(ext)
 	$(archive_create) librewolf-$(version).source$(ext) librewolf-$(version)
