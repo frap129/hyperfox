@@ -49,7 +49,9 @@ This source repo supports all that, because it uses these same things to produce
 
 With this mapping, I hope that other builders that can't use our tarball (afterMozilla project, weird distro's), still use the same source/patches as the builders that do use it.
 
-* Another feature: The file [assets/patches.txt](https://gitlab.com/librewolf-community/browser/source/-/blob/main/assets/patches.txt) defines what patches go in. There might be other patches in the _patches/_ folder, for certain distro's or whatever reason.
+### Another feature
+
+The file [assets/patches.txt](https://gitlab.com/librewolf-community/browser/source/-/blob/main/assets/patches.txt) defines what patches go in. These are not the only patches a builder will use, weird distro's etc, will use additional patches. those patches can live in the repo of that distro, or in a subfolder here. I hope this gives everybody the freedom to build anyway they please, like in Common, but with the added benefit that we produce a source tarball.
 
 ## [dev info] Building the LibreWolf source tarball:
 
