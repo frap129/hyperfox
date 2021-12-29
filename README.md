@@ -13,17 +13,17 @@ Next, we create ourselves a build folder and extract the tarball.
 ```
 mkdir build
 cd build
-tar xf ../librewolf-$(version)-$(release).source.tar.gz
+tar xf ../librewolf-95.0.2-1.source.tar.gz
 ```
 Next step, if you have not done so already, you must create the build environment:
 ```
-librewolf-$(version)/lw/mozfetch.sh
+librewolf-95.0.2/lw/mozfetch.sh
 ```
-It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Hack a bit, and if that fails you can ask on our Gitter/matrix channel.
+It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Hack a bit, and if that fails you can ask on our [Gitter](https://gitter.im/librewolf-community/librewolf)/[Matrix](https://matrix.to/#/#librewolf:matrix.org) channels.
 
 Now we're ready to actually build LibreWolf:
 ```
-cd librewolf-$(version)
+cd librewolf-95.0.2
 ./mach build
 ```
 Also takes me an hour. Then, we can run it:
@@ -69,8 +69,6 @@ make check
 If there is a new version, it's a good time to git commit and trigger a CI build job.
 ```
 git commit -am v$(cat version)-$(cat release) && git push
-# or use this, which does the same as above:
-make trigger-ci
 ```
 To build the source archive:
 ```

@@ -66,7 +66,7 @@ librewolf : librewolf-$(version)
 	(cd librewolf-$(version) && ./mach build && ./mach package)
 
 README.md : README.md.in ./version ./release
-	sed "s/__VERSION__/$(version)/g" < $< > tmp
-	sed "s/__RELEASE__/$(release)/g" < tmp > $@
-	rm -f tmp
+	@sed "s/__VERSION__/$(version)/g" < $< > tmp
+	@sed "s/__RELEASE__/$(release)/g" < tmp > $@
+	@rm -f tmp
 
