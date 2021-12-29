@@ -35,6 +35,20 @@ Or make a package:
 ./mach package
 ```
 
+### I want to keep up to date with the latest, but compile myself
+
+1. To first clone the repo:
+```
+git clone https://gitlab.com/librewolf-community/browser/source.git
+cd source
+make librewolf
+```
+2. To keep up-to-date:
+```
+git pull
+make librewolf
+```
+
 ## [dev info] How to use this repo instead of [Common](https://gitlab.com/librewolf-community/browser/common):
 
 Since the dawn of time, we have used **Common** to get _patches_, _source_files_, including _source_files/{branding}_
