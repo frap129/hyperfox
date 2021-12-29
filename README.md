@@ -79,3 +79,17 @@ If you have a working build environment, you can build librewolf with:
 make librewolf
 ```
 This extracts the source, and then tries to `./mach build && ./mach package`.
+
+
+## FAQ: Common issues when setting up the Mozilla build environment
+
+1. it doesnt find a suitable python.
+```
+export MACH_USE_SYSTEM_PYTHON=1
+make librewolf
+```
+2. <python-package-1> requires <python-package-2, which is not installed.
+```
+pip3 install <python-package=2>
+```
+And retry.
