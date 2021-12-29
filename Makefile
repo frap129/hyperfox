@@ -32,6 +32,8 @@ help : README.md
 
 check : README.md
 	@python3 scripts/update-version.py
+	@echo "Current release:" $$(cat ./release)
+	@make --no-print-directory -q README.md
 
 
 all : librewolf-$(version)-$(release).source$(ext) README.md
