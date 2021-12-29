@@ -36,7 +36,22 @@ Or make a package:
 ./mach package
 ```
 
-## Building LibreWolf source tarball:
+## [dev info] How to use this repo instead of [Common](https://gitlab.com/librewolf-community/browser/common):
+
+Since the dawn of time, we have used Common to get _patches_, _source_files_, including _source_files/{branding}_
+
+This source repo supports all that, because it uses the same things to produce the tarball. As far as I can tell, the mapping from Common to Source would be:
+
+* _[patches](https://gitlab.com/librewolf-community/browser/common/-/tree/master/patches)_ -> _[patches](https://gitlab.com/librewolf-community/browser/source/-/tree/main/patches)_
+* _[source\_files](https://gitlab.com/librewolf-community/browser/common/-/tree/master/source_files)/search-config.json_ -> _[assets](https://gitlab.com/librewolf-community/browser/source/-/tree/main/assets)/search-config.json_
+* _source\_files/browser/[branding](https://gitlab.com/librewolf-community/browser/common/-/tree/master/source_files/browser/branding)/librewolf_ -> _themes/browser/[branding](https://gitlab.com/librewolf-community/browser/source/-/tree/main/themes/browser/branding)/librewolf_
+
+
+With this mapping, I hope that other builders that can't use our tarball (afterMozilla project, weird distro's), still use the same source/patches as the builders that do use it.
+
+* Another feature: The file [assets/patches.txt](https://gitlab.com/librewolf-community/browser/source/-/blob/main/assets/patches.txt) defines what patches go in. There might be other patches in the _patches/_ folder, for certain distro's or whatever reason.
+
+## [dev info] Building the LibreWolf source tarball:
 
 Luckly, you don't need the build environment for this. If you don't have write access, just:
 ```
