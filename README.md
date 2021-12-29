@@ -40,7 +40,7 @@ Or make a package:
 
 Since the dawn of time, we have used Common to get _patches_, _source_files_, including _source_files/{branding}_
 
-This source repo supports all that, because it uses the same things to produce the tarball. As far as I can tell, the mapping from Common to Source would be:
+This source repo supports all that, because it uses these same things to produce the tarball. As far as I can tell, the mapping from Common to Source would be:
 
 * _[patches](https://gitlab.com/librewolf-community/browser/common/-/tree/master/patches)_ -> _[patches](https://gitlab.com/librewolf-community/browser/source/-/tree/main/patches)_
 * _[source\_files](https://gitlab.com/librewolf-community/browser/common/-/tree/master/source_files)/search-config.json_ -> _[assets](https://gitlab.com/librewolf-community/browser/source/-/tree/main/assets)/search-config.json_
