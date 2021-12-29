@@ -91,6 +91,7 @@ if s != base_version:
 
     with open('./version', 'w') as f:
         f.write(s)
+    exec('echo 1 > release')
 else:
     print('Latest Firefox release is still {}.'.format(base_version))
     
