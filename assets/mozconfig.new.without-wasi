@@ -23,5 +23,5 @@ mk_add_options MOZ_DATA_REPORTING=0
 mk_add_options MOZ_SERVICES_HEALTHREPORT=0
 mk_add_options MOZ_TELEMETRY_REPORTING=0
 
-# Add your own stuff, like wasi libraries, architecture..
-# ex: `cat mozconfig.orig mozconfig.my > mozconfig`
+# without wasi
+ac_add_options --without-wasm-sandboxed-libraries
