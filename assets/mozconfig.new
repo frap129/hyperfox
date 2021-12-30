@@ -23,5 +23,8 @@ mk_add_options MOZ_DATA_REPORTING=0
 mk_add_options MOZ_SERVICES_HEALTHREPORT=0
 mk_add_options MOZ_TELEMETRY_REPORTING=0
 
-# Add your own stuff, like wasi libraries, architecture..
+# wasi: we ask maintainers to all use this as wasi sysroot..
+ac_add_options --with-wasi-sysroot=$HOME/.mozbuild/wrlb/wasi-sysroot
+
+# Add your own stuff, libraries, architecture, etc..
 # ex: `cat mozconfig.orig mozconfig.my > mozconfig`
