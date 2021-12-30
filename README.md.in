@@ -66,6 +66,10 @@ With this mapping, I hope that other builders that can't use our tarball (afterM
 
 The file [assets/patches.txt](https://gitlab.com/librewolf-community/browser/source/-/blob/main/assets/patches.txt) defines what patches go in. These are not the only patches a builder will use, weird distro's etc, will use additional patches. those patches can live in the repo of that distro, or in a subfolder here. I hope this gives everybody the freedom to build anyway they please, like in Common, but with the added benefit that we produce a source tarball.
 
+### Implementing a build script the new way:
+
+The repository has a short [example shell script](https://gitlab.com/librewolf-community/browser/source/-/blob/main/scripts/fetch-build.sh) on how to use the new-style tarball approach instead of the older patching-it-yourself approach.
+
 ## [dev info] Building the LibreWolf source tarball:
 
 Luckly, you don't need the build environment for this. If you don't have write access, just:
