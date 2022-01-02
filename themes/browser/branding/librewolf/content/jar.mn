@@ -12,3 +12,5 @@ browser.jar:
   content/branding/logo.svg
   content/branding/identity-icons-brand.svg
   content/branding/horizontal-lockup.svg
+  content/branding/about-logo.png                (../empty.png)
+  content/branding/firefox-wordmark.svg          (../empty.svg)
