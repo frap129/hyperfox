@@ -21,8 +21,10 @@ librewolf-95.0.2/lw/mozfetch.sh
 ```
 This would create a _mozilla-unified_ folder in our 'build' folder, or basically anywhere that is your current working directory. It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Hack a bit, and if that fails you can ask on our [Gitter](https://gitter.im/librewolf-community/librewolf)/[Matrix](https://matrix.to/#/#librewolf:matrix.org) channels. There is no need to actually build _mozilla-unified_ (Mozilla Nightly) itself, nor is the folder needed to build LibreWolf. So you can remove it: `rm -rf mozilla-unfied` if you don't plan on using/exploring it.
 
-Since Firefox 95.0, we need to install an additional library, the 'wasi sdk'. This library sandboxes wasm libraries, which is what we do want. The script to do this is: `setup-wasi-linux.sh` but it's still experimental for us. 
-So you have the option to either: setup the wasi sdk using _setup-wasi-linux.sh_ perhaps modifying it. 
+Since Firefox 95.0, we need to install an additional library, the **'wasi sdk'**. This library sandboxes wasm libraries, which is what we do want. The script to do this is: `setup-wasi-linux.sh` but it's still experimental for us. 
+
+So you have the option to either: setup the wasi sdk using _librewolf-95.0.2/lw/setup-wasi-linux.sh_. Please note that this script is a bit buggy and not all kinks have been worked out, but it should work.
+
 Or, the other option is to not use these sandbox libraries: In this case we can't use our standard _mozconfig_ symlink from _mozconfig.new_ into _mozconfig.new.without-wasi_. In that case you have to type something along the lines of:
 ```
 cd librewolf-95.0.2
