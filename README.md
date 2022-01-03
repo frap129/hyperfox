@@ -1,11 +1,11 @@
 ## Building LibreWolf from source:
 
-First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-2.source.tar.gz?job=build-job)**. This tarball is the latest produced by the CI.
+First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-3.source.tar.gz?job=build-job)**. This tarball is the latest produced by the CI.
 
 To download the latest from a script, use wget/curl like this:
 ```
-wget -O librewolf-95.0.2-2.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-2.source.tar.gz?job=build-job
-curl -L -o librewolf-95.0.2-2.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-2.source.tar.gz?job=build-job
+wget -O librewolf-95.0.2-3.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-3.source.tar.gz?job=build-job
+curl -L -o librewolf-95.0.2-3.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-3.source.tar.gz?job=build-job
 ```
 
 Next, we create ourselves a build folder and extract the tarball.
@@ -13,13 +13,22 @@ Next, we create ourselves a build folder and extract the tarball.
 ```
 mkdir build
 cd build
-tar xf ../librewolf-95.0.2-2.source.tar.gz
+tar xf ../librewolf-95.0.2-3.source.tar.gz
 ```
-Next step, if you have not done so already, you must create the build environment:
+Next step, if you have not done so already, you must _create the build environment_:
 ```
 librewolf-95.0.2/lw/mozfetch.sh
 ```
-This would create a _mozilla-unified_ folder in our 'build' folder. It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Hack a bit, and if that fails you can ask on our [Gitter](https://gitter.im/librewolf-community/librewolf)/[Matrix](https://matrix.to/#/#librewolf:matrix.org) channels. There is no need to actually build _mozilla-unified_ (Mozilla Nightly) itself, nor is the folder needed to build LibreWolf. So you can remove it: `rm -rf mozilla-unfied` if you don't plan on using/exploring it.
+This would create a _mozilla-unified_ folder in our 'build' folder, or basically anywhere that is your current working directory. It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Hack a bit, and if that fails you can ask on our [Gitter](https://gitter.im/librewolf-community/librewolf)/[Matrix](https://matrix.to/#/#librewolf:matrix.org) channels. There is no need to actually build _mozilla-unified_ (Mozilla Nightly) itself, nor is the folder needed to build LibreWolf. So you can remove it: `rm -rf mozilla-unfied` if you don't plan on using/exploring it.
+
+Since Firefox 95.0, we need to install an additional library, the 'wasi sdk'. This library sandboxes wasm libraries, which is what we do want. The script to do this is: `setup-wasi-linux.sh` but it's still experimental for us. 
+So you have the option to either: setup the wasi sdk using _setup-wasi-linux.sh_ perhaps modifying it. 
+Or, the other option is to not use these sandbox libraries: In this case we can't use our standard _mozconfig_ symlink from _mozconfig.new_ into _mozconfig.new.without-wasi_. In that case you have to type something along the lines of:
+```
+cd librewolf-95.0.2
+cp lw/mozconfig.new.without-wasi mozconfig
+cd ..
+```
 
 Now we're ready to actually build LibreWolf:
 ```

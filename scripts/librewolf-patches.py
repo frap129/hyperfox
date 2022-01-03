@@ -139,6 +139,7 @@ def librewolf_patches():
 
     # provide a script that fetches and bootstraps Nightly
     exec('cp -v ../scripts/mozfetch.sh lw')
+    exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-wasi lw')
     
     leave_srcdir()
 
