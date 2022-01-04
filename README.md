@@ -33,10 +33,8 @@ A few resources:
 * [Compiling C to WebAssembly using clang/LLVM and WASI](https://00f.net/2019/04/07/compiling-to-webassembly-with-llvm-and-clang/).
 * [Firefox 95 on POWER](https://www.talospace.com/2021/12/firefox-95-on-power.html).
 
-The script to copy the wasi _headers_ to our mozbuild folder: `setup-wasi-linux.sh` 
-
-So you have the option to either: setup the wasi sdk using _librewolf-95.0.2/lw/setup-wasi-linux.sh_. Please note that this script is a bit experimental and not all kinks have been worked out, but it should work.
-This might not be enough on all systems. Some systems have the wasi-libc library already installed, and some don't. It depends on the installed version of Clang, which should be v13.x or above. On debian-based systems: `sudo apt install wasi-libc`, on Arch: `https://archlinux.org/packages/community/any/wasi-libc/` (`pacman -Syu wasi-libc`).
+To setup the wasi sdk _headers_, you can use _librewolf-95.0.2/lw/setup-wasi-linux.sh_. Please note that this script is a bit experimental and not all kinks have been worked out, but it should work.
+This might not be enough on all systems. Some systems have the wasi-libc library already installed, and some don't. It depends on the installed version of Clang/LLVM it seems, which should be v8 or above. On debian-based systems: `sudo apt install wasi-libc`, on Arch: `https://archlinux.org/packages/community/any/wasi-libc/` (`pacman -Syu wasi-libc`). Instructions for macos/windows and perhaps other Linux distro's will be added here soon.
 
 Or, the other option is to not use these sandbox libraries: In this case we can't use our standard _mozconfig_ symlink from _mozconfig.new_ into _mozconfig.new.without-wasi_. In that case you have to type something along the lines of:
 ```
