@@ -15,15 +15,28 @@ mkdir build
 cd build
 tar xf ../librewolf-__VERSION__-__RELEASE__.source.tar.gz
 ```
+
+### build environment
+
 Next step, if you have not done so already, you must _create the build environment_:
 ```
-librewolf-__VERSION__/lw/mozfetch.sh
+./librewolf-__VERSION__/lw/mozfetch.sh
 ```
 This would create a _mozilla-unified_ folder in our 'build' folder, or basically anywhere that is your current working directory. It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Hack a bit, and if that fails you can ask on our [Gitter](https://gitter.im/librewolf-community/librewolf)/[Matrix](https://matrix.to/#/#librewolf:matrix.org) channels. There is no need to actually build _mozilla-unified_ (Mozilla Nightly) itself, nor is the folder needed to build LibreWolf. So you can remove it: `rm -rf mozilla-unfied` if you don't plan on using/exploring it.
 
-Since Firefox 95.0, we need to install an additional library, the **'wasi sdk'**. This library sandboxes wasm libraries, which is what we do want. The script to do this is: `setup-wasi-linux.sh` but it's still experimental for us. 
+#### wasi sdk
 
-So you have the option to either: setup the wasi sdk using _librewolf-__VERSION__/lw/setup-wasi-linux.sh_. Please note that this script is a bit buggy and not all kinks have been worked out, but it should work.
+Since Firefox 95.0, we need to install an additional library, the **'wasi sdk'**. This library sandboxes wasm libraries, which is what we want, but it's still experimental for us to include properly.
+
+A few resources: 
+* mozilla.org: [WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95](https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/).
+* [Compiling C to WebAssembly using clang/LLVM and WASI](https://00f.net/2019/04/07/compiling-to-webassembly-with-llvm-and-clang/).
+* [Firefox 95 on POWER](https://www.talospace.com/2021/12/firefox-95-on-power.html).
+
+The script to copy the wasi _headers_ to our mozbuild folder: `setup-wasi-linux.sh` 
+
+So you have the option to either: setup the wasi sdk using _librewolf-__VERSION__/lw/setup-wasi-linux.sh_. Please note that this script is a bit experimental and not all kinks have been worked out, but it should work.
+This might not be enough on all systems. Some systems have the wasi-libc library already installed, and some don't. It depends on the installed version of Clang, which should be v13.x or above. On debian-based systems: `sudo apt install wasi-libc`, on Arch: `https://archlinux.org/packages/community/any/wasi-libc/` (`pacman -Syu wasi-libc`).
 
 Or, the other option is to not use these sandbox libraries: In this case we can't use our standard _mozconfig_ symlink from _mozconfig.new_ into _mozconfig.new.without-wasi_. In that case you have to type something along the lines of:
 ```
@@ -31,6 +44,7 @@ cd librewolf-__VERSION__
 cp lw/mozconfig.new.without-wasi mozconfig
 cd ..
 ```
+### building librewolf
 
 Now we're ready to actually build LibreWolf:
 ```
