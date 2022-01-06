@@ -131,6 +131,6 @@ make librewolf
 ```
 2. <python-package-1> requires <python-package-2, which is not installed.
 ```
-pip3 install <python-package=2>
+pip3 install <python-package-2>
 ```
 And retry.
