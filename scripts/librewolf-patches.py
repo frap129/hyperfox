@@ -119,7 +119,7 @@ def librewolf_patches():
     
     # insert the settings pane source (experimental)
     exec('rm -rf librewolf-pref-pane')
-    exec('git clone https://gitlab.com/ohfp/librewolf-pref-pane.git')
+    exec('git clone https://gitlab.com/librewolf-community/browser/librewolf-pref-pane.git')
     os.chdir('librewolf-pref-pane')
     exec('git diff 1fee314adc81000294fc0cf3196a758e4b64dace > ../lw/librewolf-pref-pane.patch')
     os.chdir('..')        
