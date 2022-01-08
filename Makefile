@@ -4,6 +4,7 @@
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
 
+include upstream.mk
 
 ## simplistic archive format selection
 
@@ -35,7 +36,6 @@ check : README.md
 	@echo "Current release:" $$(cat ./release)
 	@make --no-print-directory -q README.md
 
-
 all : librewolf-$(version)-$(release).source$(ext) README.md
 
 
@@ -44,18 +44,13 @@ clean :
 
 
 veryclean : clean
-	rm -f firefox-$(version).source.tar.xz
+	rm -f $(upstream_filename)
 	rm -rf librewolf-$(version)
 
-
-firefox-$(version).source.tar.xz :
-	wget -q https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz
-
-
-librewolf-$(version)-$(release).source$(ext) : firefox-$(version).source.tar.xz ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt
-	rm -rf firefox-$(version) librewolf-$(version)
-	tar xf firefox-$(version).source.tar.xz
-	mv firefox-$(version) librewolf-$(version)
+librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt
+	rm -rf $(upstream_dirname) librewolf-$(version)
+	tar xf $(upstream_filename)
+	mv  $(upstream_dirname) librewolf-$(version)
 	python3 scripts/librewolf-patches.py $(version)
 	rm -f librewolf-$(version)-$(release).source$(ext)
 	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
