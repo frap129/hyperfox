@@ -3,8 +3,6 @@
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
 
-include assets/upstream.nightly.mk
-
 ## simplistic archive format selection
 
 #archive_create=tar cfJ
@@ -13,7 +11,6 @@ archive_create=tar cfz
 ext=.tar.gz
 #archive_create=zip -r9
 #ext=.zip
-
 
 
 help : README.md
@@ -33,6 +30,10 @@ check : README.md
 	@python3 scripts/update-version.py
 	@echo "Current release:" $$(cat ./release)
 	@make --no-print-directory -q README.md
+
+
+include upstream.mk
+
 
 all : librewolf-$(version)-$(release).source$(ext) README.md
 

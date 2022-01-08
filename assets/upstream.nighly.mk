@@ -1,14 +1,14 @@
 ## handle different upstreams, like developer,nightly, or distro specific upstream cases
-upstream_filename=bootstrap.py
-upstream_dirname=mozilla-nightly
+upstream_filename=mozilla-unified
+upstream_dirname=mozilla-unified
 $(upstream_filename) :
-	wget -q https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py
+	hg clone https://hg.mozilla.org/mozilla-unified
+	(cd mozilla-unified && hg update)
 ##
 clean_upstream_file :
-	rm -f $(upstream_filename)
 clean_upstream_dir :
-	rm -rf $(upstream_dirname)
 create_lw_from_upstream_dir :
-	python3 bootstrap.py --no-interactive --application-choice=browser
-	mv  $(upstream_dirname) librewolf-$(version)
+	(cd mozilla-unified && hg pull)
+	(cd mozilla-unified && hg update)
+	cp -r $(upstream_dirname) librewolf-$(version)
 

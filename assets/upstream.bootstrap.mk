@@ -1,14 +1,14 @@
 ## handle different upstreams, like developer,nightly, or distro specific upstream cases
-upstream_filename=firefox-$(version).source.tar.xz
-upstream_dirname=firefox-$(version)
+upstream_filename=bootstrap.py
+upstream_dirname=mozilla-nightly
 $(upstream_filename) :
-	wget -q https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz
+	wget -q https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py
 ##
 clean_upstream_file :
 	rm -f $(upstream_filename)
 clean_upstream_dir :
 	rm -rf $(upstream_dirname)
 create_lw_from_upstream_dir :
-	tar xf $(upstream_filename)
+	python3 bootstrap.py --no-interactive --application-choice=browser
 	mv  $(upstream_dirname) librewolf-$(version)
 
