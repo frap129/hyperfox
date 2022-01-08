@@ -1,10 +1,9 @@
 .PHONY : all help clean veryclean librewolf-patches check librewolf
 
-
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
 
-include upstream.mk
+include assets/upstream.nightly.mk
 
 ## simplistic archive format selection
 
@@ -14,7 +13,6 @@ archive_create=tar cfz
 ext=.tar.gz
 #archive_create=zip -r9
 #ext=.zip
-
 
 
 
@@ -42,15 +40,14 @@ all : librewolf-$(version)-$(release).source$(ext) README.md
 clean :
 	rm -rf *~ firefox-$(version) librewolf-$(version) librewolf-$(version)-$(release).source$(ext)
 
-
 veryclean : clean
-	rm -f $(upstream_filename)
+	make clean_upstream_file
 	rm -rf librewolf-$(version)
 
-librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt
-	rm -rf $(upstream_dirname) librewolf-$(version)
-	tar xf $(upstream_filename)
-	mv  $(upstream_dirname) librewolf-$(version)
+librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt README.md
+	make clean_upstream_dir
+	rm -rf librewolf-$(version)
+	make create_lw_from_upstream_dir
 	python3 scripts/librewolf-patches.py $(version)
 	rm -f librewolf-$(version)-$(release).source$(ext)
 	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
