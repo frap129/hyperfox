@@ -1,11 +1,11 @@
 ## Building LibreWolf from source:
 
-First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-4.source.tar.gz?job=build-job)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
+First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0-1.source.tar.gz?job=build-job)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
 
 To download the latest from a script, use wget/curl like this:
 ```
-wget -O librewolf-95.0.2-4.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-4.source.tar.gz?job=build-job
-curl -L -o librewolf-95.0.2-4.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-95.0.2-4.source.tar.gz?job=build-job
+wget -O librewolf-96.0-1.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0-1.source.tar.gz?job=build-job
+curl -L -o librewolf-96.0-1.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0-1.source.tar.gz?job=build-job
 ```
 
 Next, we create ourselves a build folder and extract the tarball.
@@ -13,14 +13,14 @@ Next, we create ourselves a build folder and extract the tarball.
 ```
 mkdir build
 cd build
-tar xf ../librewolf-95.0.2-4.source.tar.gz
+tar xf ../librewolf-96.0-1.source.tar.gz
 ```
 
 ### build environment
 
 Next step, if you have not done so already, you must _create the build environment_:
 ```
-./librewolf-95.0.2/lw/mozfetch.sh
+./librewolf-96.0/lw/mozfetch.sh
 ```
 This would create a _mozilla-unified_ folder in our 'build' folder, or basically anywhere that is your current working directory. It takes about an hour for me to complete, but it needs to be done only once. This step might fail and cause problems. Hack a bit, and if that fails you can ask on our [Gitter](https://gitter.im/librewolf-community/librewolf)/[Matrix](https://matrix.to/#/#librewolf:matrix.org) channels. There is no need to actually build _mozilla-unified_ (Mozilla Nightly) itself, nor is the folder needed to build LibreWolf. So you can remove it: `rm -rf mozilla-unfied` if you don't plan on using/exploring it.
 
@@ -33,12 +33,12 @@ A few resources:
 * [Compiling C to WebAssembly using clang/LLVM and WASI](https://00f.net/2019/04/07/compiling-to-webassembly-with-llvm-and-clang/).
 * [Firefox 95 on POWER](https://www.talospace.com/2021/12/firefox-95-on-power.html).
 
-To setup the wasi sdk _headers_, you can use _librewolf-95.0.2/lw/setup-wasi-linux.sh_. Please note that this script is a bit experimental and not all kinks have been worked out, but it should work.
+To setup the wasi sdk _headers_, you can use _librewolf-96.0/lw/setup-wasi-linux.sh_. Please note that this script is a bit experimental and not all kinks have been worked out, but it should work.
 This might not be enough on all systems. Some systems have the wasi-libc library already installed, and some don't. It depends on the installed version of Clang/LLVM it seems, which should be v8 or above. On debian-based systems: `sudo apt install wasi-libc`, on Arch: `https://archlinux.org/packages/community/any/wasi-libc/` (`pacman -Syu wasi-libc`). Instructions for macos/windows and perhaps other Linux distro's will be added here soon.
 
 Or, the other option is to not use these sandbox libraries: In this case we can't use our standard _mozconfig_ symlink from _mozconfig.new_ into _mozconfig.new.without-wasi_. In that case you have to type something along the lines of:
 ```
-cd librewolf-95.0.2
+cd librewolf-96.0
 cp lw/mozconfig.new.without-wasi mozconfig
 cd ..
 ```
@@ -46,7 +46,7 @@ cd ..
 
 Now we're ready to actually build LibreWolf:
 ```
-cd librewolf-95.0.2
+cd librewolf-96.0
 ./mach build
 ```
 Also takes me an hour. Then, we can run it:
