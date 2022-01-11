@@ -8,7 +8,6 @@ patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
 patches/sed-patches/remove-internal-plugin-certs.patch
 patches/sed-patches/stop-undesired-requests.patch
-patches/ui-patches/add-language-warning.patch
 patches/ui-patches/pref-naming.patch
 patches/ui-patches/remove-branding-urlbar.patch
 patches/ui-patches/remove-cfrprefs.patch
