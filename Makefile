@@ -15,21 +15,21 @@ ext=.tar.gz
 
 help : README.md
 
-	@echo "use: make [all] [check] [clean] [veryclean]"
+	@echo "use: $(MAKE) [all] [check] [clean] [veryclean]"
 	@echo ""
 	@echo "  all         - Make librewolf source archive ${version}-${release}."
 	@echo "  check       - Check if there is a new version of Firefox."
 	@echo ""
 	@echo "  clean       - Clean everything except the upstream firefox tarball."
 	@echo "  veryclean   - Clean everything and the firefox tarball."
-	@echo "  librewolf   - like 'make all' but after that extract and build it."
+	@echo "  librewolf   - like '$(MAKE) all' but after that extract and build it."
 	@echo ""
 
 
 check : README.md
 	@python3 scripts/update-version.py
 	@echo "Current release:" $$(cat ./release)
-	@make --no-print-directory -q README.md
+	@$(MAKE) --no-print-directory -q README.md
 
 
 include upstream.mk
@@ -42,13 +42,13 @@ clean :
 	rm -rf *~ firefox-$(version) librewolf-$(version) librewolf-$(version)-$(release).source$(ext)
 
 veryclean : clean
-	make clean_upstream_file
+	$(MAKE) clean_upstream_file
 	rm -rf librewolf-$(version)
 
 librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt README.md
-	make clean_upstream_dir
+	$(MAKE) clean_upstream_dir
 	rm -rf librewolf-$(version)
-	make create_lw_from_upstream_dir
+	$(MAKE) create_lw_from_upstream_dir
 	python3 scripts/librewolf-patches.py $(version)
 	rm -f librewolf-$(version)-$(release).source$(ext)
 	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
