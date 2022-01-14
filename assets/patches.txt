@@ -1,6 +1,6 @@
-patches/xmas.patch
 patches/allow-ubo-private-mode.patch
 patches/context-menu.patch
+patches/disable-data-reporting-at-compile-time.patch
 patches/mozilla-vpn-ad.patch
 patches/mozilla_dirs.patch
 patches/remove_addons.patch
@@ -15,3 +15,4 @@ patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/remove-snippets-from-home.patch
 patches/ui-patches/sanitizing-description.patch
 patches/urlbarprovider-interventions.patch
+patches/xmas.patch
