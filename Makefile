@@ -15,14 +15,17 @@ ext=.tar.gz
 
 help : README.md
 
-	@echo "use: $(MAKE) [all] [check] [clean] [veryclean]"
+	@echo "use: $(MAKE) [all] [check] [clean] [veryclean] [build] [package] [run]"
 	@echo ""
-	@echo "  all         - Make librewolf source archive ${version}-${release}."
+	@echo "  all         - Make LibreWolf source archive ${version}-${release}."
 	@echo "  check       - Check if there is a new version of Firefox."
 	@echo ""
 	@echo "  clean       - Clean everything except the upstream firefox tarball."
 	@echo "  veryclean   - Clean everything and the firefox tarball."
-	@echo "  librewolf   - like '$(MAKE) all' but after that extract and build it."
+	@echo ""
+	@echo "  build       - Make LibreWolf source archive and then build it."
+	@echo "  package     - Make LibreWolf source archive, then build and package it."
+	@echo "  run         - Make LibreWolf source archive, then build and run it."
 	@echo ""
 
 
@@ -57,8 +60,14 @@ librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./
 librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 	tar xf librewolf-$(version)-$(release).source$(ext)
 
-librewolf : librewolf-$(version)
-	(cd librewolf-$(version) && ./mach build && ./mach package)
+build : librewolf-$(version)
+	(cd librewolf-$(version) && ./mach build)
+
+package : build
+	(cd librewolf-$(version) && ./mach package)
+
+run : build
+	(cd librewolf-$(version) && ./mach run)
 
 README.md : README.md.in ./version ./release
 	@sed "s/__VERSION__/$(version)/g" < $< > tmp
