@@ -9,15 +9,6 @@
      .accesskey = s
  
  startup-restore-warn-on-quit =
-@@ -252,7 +252,7 @@
-     .label = Choose…
-     .accesskey = o
- 
--choose-browser-language-description = Choose the languages used to display menus, messages, and notifications from { -brand-short-name }.
-+choose-browser-language-description = Choose the languages used to display menus, messages, and notifications from { -brand-short-name }. Please notice that, to preserve your privacy, { -brand-short-name } forces en-US as the default language.
- manage-browser-languages-button =
-   .label = Set Alternatives…
-   .accesskey = l
 @@ -409,13 +409,13 @@
      .label = Play DRM-controlled content
      .accesskey = P
