@@ -32,7 +32,6 @@ help : README.md
 check : README.md
 	@python3 scripts/update-version.py
 	@echo "Current release:" $$(cat ./release)
-	@$(MAKE) --no-print-directory -q README.md
 
 
 include upstream.mk
