@@ -119,19 +119,6 @@ def librewolf_patches():
     
     exec('mkdir -p lw')
     
-    # insert the settings pane source (experimental)
-    exec('rm -rf librewolf-pref-pane')
-    exec('git clone https://gitlab.com/librewolf-community/browser/librewolf-pref-pane.git')
-    os.chdir('librewolf-pref-pane')
-    exec('git diff 1fee314adc81000294fc0cf3196a758e4b64dace > ../lw/librewolf-pref-pane.patch')
-    os.chdir('..')        
-    exec('rm -rf librewolf-pref-pane')
-    
-    patch('lw/librewolf-pref-pane.patch')
-    exec('rm -f lw/librewolf-pref-pane.patch')
-
-
-        
     ##! This is the moment in time we grab the Settings repo HEAD revision
     exec('git clone https://gitlab.com/librewolf-community/settings.git')
     exec("cp -v settings/defaults/pref/local-settings.js lw/")
@@ -139,7 +126,7 @@ def librewolf_patches():
     exec("cp -v settings/librewolf.cfg lw/")
     exec('rm -rf settings')
 
-    # provide a script that fetches and bootstraps Nightly
+    # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw')
     exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-wasi ../scripts/setup-wasi-linux.sh lw')
     
