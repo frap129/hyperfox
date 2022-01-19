@@ -110,7 +110,8 @@ def librewolf_patches():
     for p in patches:
         patch(p)
 
-    # apply xmas.patch seperately
+    # apply xmas.patch seperately because not all builders use this repo the same way, and
+    # we don't want to disturbe those workflows.
     patch('../patches/xmas.patch')
 
     #
@@ -119,7 +120,7 @@ def librewolf_patches():
     
     exec('mkdir -p lw')
     
-    ##! This is the moment in time we grab the Settings repo HEAD revision
+    ##! [non-reproducible] This is the moment in time we grab the Settings repo HEAD revision
     exec('git clone https://gitlab.com/librewolf-community/settings.git')
     exec("cp -v settings/defaults/pref/local-settings.js lw/")
     exec("cp -v settings/distribution/policies.json lw/")
