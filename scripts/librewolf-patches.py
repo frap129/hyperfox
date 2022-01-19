@@ -110,6 +110,8 @@ def librewolf_patches():
     for p in patches:
         patch(p)
 
+    # apply xmas.patch seperately
+    patch('../patches/xmas.patch')
 
     #
     # Create the 'lw' folder, it contains the librewolf.cfg and policies.json files.
