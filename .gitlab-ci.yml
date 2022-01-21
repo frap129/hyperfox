@@ -1,11 +1,47 @@
 stages:
   - build
+  - release
 
-build-job:
+Build:
   stage: build
   script:
     - make all
+    - echo VERSION=$(cat version) >> variables.env
+    - echo RELEASE=$(cat release) >> variables.env
   artifacts:
     paths:
-      - librewolf-*.source.*
+      - librewolf-*.source.tar.gz
+    reports:
+      dotenv: variables.env
 
+Release:
+  stage: release
+  when: manual
+  allow_failure: false
+  image: ubuntu
+  needs:
+    - job: "Build"
+      artifacts: true
+  only:
+    - main
+  except:
+    - merge_requests
+  before_script:
+    - apt-get update
+    - apt-get install -y curl
+    - curl -L --output /usr/local/bin/release-cli "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
+    - chmod +x /usr/local/bin/release-cli
+  script:
+    - |
+      curl \
+        --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+        --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz \
+        "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz"
+  release:
+    tag_name: "$VERSION-$RELEASE"
+    description: "LibreWolf v$VERSION-$RELEASE"
+    assets:
+      links:
+        - name: librewolf-$VERSION-$RELEASE.source.tar.gz
+          link_type: package
+          url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz
