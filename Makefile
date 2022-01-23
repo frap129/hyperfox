@@ -51,10 +51,9 @@ librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./
 	$(MAKE) clean_upstream_dir
 	rm -rf librewolf-$(version)
 	$(MAKE) create_lw_from_upstream_dir
-	python3 scripts/librewolf-patches.py $(version)
+	python3 scripts/librewolf-patches.py $(version) $(release)
 	rm -f librewolf-$(version)-$(release).source$(ext)
 	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
-	rm -rf librewolf-$(version)
 
 librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 	tar xf librewolf-$(version)-$(release).source$(ext)
