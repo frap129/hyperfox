@@ -4,6 +4,8 @@ stages:
 
 Build:
   stage: build
+  variables:
+     GIT_SUBMODULE_STRATEGY: recursive
   script:
     - make all
     - echo VERSION=$(cat version) >> variables.env
