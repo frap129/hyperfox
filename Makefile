@@ -61,10 +61,10 @@ librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 build : librewolf-$(version)
 	(cd librewolf-$(version) && ./mach build)
 
-package : librewolf-$(version)
+package : build
 	(cd librewolf-$(version) && ./mach package)
 
-run : librewolf-$(version)
+run : build
 	(cd librewolf-$(version) && ./mach run)
 
 README.md : README.md.in ./version ./release
