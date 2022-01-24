@@ -9,7 +9,6 @@ import os
 import sys
 import optparse
 import time
-import glob
 
 
 #
@@ -99,16 +98,9 @@ def librewolf_patches():
     exec('cp -v ../assets/search-config.json services/settings/dumps/main/search-config.json')
 
     # read lines of .txt file into 'patches'
-    f = open('../assets/patches.txt'.format(version), "r")
-    lines = f.readlines()
-    f.close()
-    patches = []
-    for line in lines:
-        patches.append('../'+line)
-
-        
-    for p in patches:
-        patch(p)
+    with open('../assets/patches.txt'.format(version), "r") as f:
+        for line in f.readlines():
+            patch('../'+line)
 
     # apply xmas.patch seperately because not all builders use this repo the same way, and
     # we don't want to disturbe those workflows.
@@ -130,6 +122,11 @@ def librewolf_patches():
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw')
     exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-wasi ../scripts/setup-wasi-linux.sh lw')
+
+    # override the firefox version
+    for file in ["browser/config/version.txt", "browser/config/version_display.txt"]:
+        with open(file, "w") as f:
+            f.write("{}-{}".format(version,release))
     
     leave_srcdir()
 
@@ -139,10 +136,11 @@ def librewolf_patches():
 # Main functionality in this script.. which is to call librewolf_patches()
 #
 
-if len(args) != 1:
-    sys.stderr.write('error: please specify version of librewolf source')
+if len(args) != 2:
+    sys.stderr.write('error: please specify version and release of librewolf source')
     sys.exit(1)
 version = args[0]
+release = args[1]
 if not os.path.exists('librewolf-{}'.format(version) + '/configure.py'):
     sys.stderr.write('error: folder doesn\'t look like a Firefox folder.')
     sys.exit(1)
