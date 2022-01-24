@@ -45,7 +45,6 @@ clean :
 
 veryclean : clean
 	$(MAKE) clean_upstream_file
-	rm -rf librewolf-$(version)
 
 librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt README.md
 	$(MAKE) clean_upstream_dir
