@@ -1,4 +1,4 @@
-.PHONY : help check all clean veryclean build package run
+.PHONY : help check all clean veryclean build package run update
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -29,8 +29,8 @@ help : README.md
 	@echo ""
 
 
-check : README.md
-	@python3 scripts/update-version.py
+check : update README.md
+	python3 scripts/update-version.py
 	@echo "Current release:" $$(cat ./release)
 
 
@@ -73,3 +73,6 @@ README.md : README.md.in ./version ./release
 	@sed "s/__RELEASE__/$(release)/g" < tmp > $@
 	@rm -f tmp
 
+
+update : README.md
+	git submodule update --recursive --remote
