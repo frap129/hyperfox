@@ -1,0 +1,3 @@
+[submodule "submodules/settings"]
+	path = submodules/settings
+	url = git@gitlab.com:librewolf-community/settings.git

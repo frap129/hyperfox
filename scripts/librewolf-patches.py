@@ -112,16 +112,15 @@ def librewolf_patches():
     
     exec('mkdir -p lw')
     
-    ##! [non-reproducible] This is the moment in time we grab the Settings repo HEAD revision
-    exec('git clone https://gitlab.com/librewolf-community/settings.git')
-    exec("cp -v settings/defaults/pref/local-settings.js lw/")
-    exec("cp -v settings/distribution/policies.json lw/")
-    exec("cp -v settings/librewolf.cfg lw/")
-    exec('rm -rf settings')
+    # getting the librewolf settings repository
+    exec("cp -v ../submodules/settings/defaults/pref/local-settings.js lw/")
+    exec("cp -v ../submodules/settings/distribution/policies.json lw/")
+    exec("cp -v ../submodules/settings/librewolf.cfg lw/")
 
+    
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
-    exec('cp -v ../scripts/mozfetch.sh lw')
-    exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-wasi ../scripts/setup-wasi-linux.sh lw')
+    exec('cp -v ../scripts/mozfetch.sh lw/')
+    exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-wasi ../scripts/setup-wasi-linux.sh lw/')
 
     # override the firefox version
     for file in ["browser/config/version.txt", "browser/config/version_display.txt"]:
