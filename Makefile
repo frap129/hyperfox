@@ -1,4 +1,4 @@
-.PHONY : all help clean veryclean librewolf-patches check librewolf
+.PHONY : help check all clean veryclean build package run
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -54,6 +54,7 @@ librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./
 	python3 scripts/librewolf-patches.py $(version) $(release)
 	rm -f librewolf-$(version)-$(release).source$(ext)
 	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
+	touch librewolf-$(version)
 
 librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 	tar xf librewolf-$(version)-$(release).source$(ext)
@@ -61,10 +62,10 @@ librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 build : librewolf-$(version)
 	(cd librewolf-$(version) && ./mach build)
 
-package : build
+package : librewolf-$(version)
 	(cd librewolf-$(version) && ./mach package)
 
-run : build
+run : librewolf-$(version)
 	(cd librewolf-$(version) && ./mach run)
 
 README.md : README.md.in ./version ./release
