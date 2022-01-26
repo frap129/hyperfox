@@ -1,11 +1,11 @@
 ## Building LibreWolf from source:
 
-First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.2-1.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
+First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.2-2.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
 
 To download the latest from a script, use wget/curl like this:
 ```
-wget -O librewolf-96.0.2-1.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.2-1.source.tar.gz?job=Build
-curl -L -o librewolf-96.0.2-1.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.2-1.source.tar.gz?job=Build
+wget -O librewolf-96.0.2-2.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.2-2.source.tar.gz?job=Build
+curl -L -o librewolf-96.0.2-2.source.tar.gz https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.2-2.source.tar.gz?job=Build
 ```
 
 Next, we create ourselves a build folder and extract the tarball.
@@ -13,7 +13,7 @@ Next, we create ourselves a build folder and extract the tarball.
 ```
 mkdir build
 cd build
-tar xf ../librewolf-96.0.2-1.source.tar.gz
+tar xf ../librewolf-96.0.2-2.source.tar.gz
 ```
 
 ### build environment
