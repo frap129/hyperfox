@@ -19,6 +19,7 @@ help : README.md
 	@echo ""
 	@echo "  all         - Make LibreWolf source archive ${version}-${release}."
 	@echo "  check       - Check if there is a new version of Firefox."
+	@echo "  update      - Update the Settings submodule."
 	@echo ""
 	@echo "  clean       - Clean everything except the upstream firefox tarball."
 	@echo "  veryclean   - Clean everything and the firefox tarball."

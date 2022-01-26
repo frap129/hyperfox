@@ -121,7 +121,6 @@ make librewolf
 ```
 This extracts the source, and then tries to `./mach build && ./mach package`.
 
-
 ## FAQ: Common issues when setting up the Mozilla build environment
 
 1. it doesnt find a suitable python.
