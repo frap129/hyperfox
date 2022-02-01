@@ -4,19 +4,11 @@
 
 "use strict";
 
-/* import-globals-from aboutDialog-appUpdater.js */
-
 // Services = object with smart getters for common XPCOM services
 var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 var { AppConstants } = ChromeUtils.import(
   "resource://gre/modules/AppConstants.jsm"
 );
-if (AppConstants.MOZ_UPDATER) {
-  Services.scriptloader.loadSubScript(
-    "chrome://browser/content/aboutDialog-appUpdater.js",
-    this
-  );
-}
 
 async function init(aEvent) {
   if (aEvent.target != document) {
@@ -49,32 +41,63 @@ async function init(aEvent) {
     }
   }
 
-  // Include the build ID and display warning if this is an "a#" (nightly or aurora) build
-  let versionId = "aboutDialog-version";
-  let versionAttributes = {
-    version: AppConstants.MOZ_APP_VERSION_DISPLAY,
-    bits: Services.appinfo.is64Bit ? 64 : 32,
-  };
+  // Display current version number
+  let versionField = document.getElementById("versionNumber");
+  versionField.innerHTML = AppConstants.MOZ_APP_VERSION_DISPLAY;
 
-  let version = Services.appinfo.version;
-  if (/a\d+$/.test(version)) {
-    versionId = "aboutDialog-version-nightly";
-    let buildID = Services.appinfo.appBuildID;
-    let year = buildID.slice(0, 4);
-    let month = buildID.slice(4, 6);
-    let day = buildID.slice(6, 8);
-    versionAttributes.isodate = `${year}-${month}-${day}`;
+  // If pref "librewolf.aboutMenu.checkVersion" is set to true,
+  // check for new version with the link given in "librewolf.aboutMenu.versionCheckGitlabUrl"
+  if (Services.prefs.getBoolPref("librewolf.aboutMenu.checkVersion", false)) {
+    let versionDiv = document.getElementById("version");
+    const loader = document.createElement("div");
+    loader.classList.add("loader");
+    versionDiv.appendChild(loader);
 
-    document.getElementById("experimental").hidden = false;
-    document.getElementById("communityDesc").hidden = true;
+    function isNewerVersion(newVersionString, oldVersionString) {
+      let [oldVersion, oldRelease] = oldVersionString.replace(/^v/, "").split("-");
+      let [newVersion, newRelease] = newVersionString.replace(/^v/, "").split("-");
+      console.log(oldVersionString, newVersionString)
+      if (oldVersion && newVersion) {
+        if (!oldRelease) oldRelease = "0";
+        if (!newRelease) newRelease = "0";
+
+        // Check version
+        for (let i = 0; i < newVersion.split(".").length; i++) {
+          if (Number(newVersion.split(".")[i]) > Number(oldVersion?.split(".")[i] || "0")) return true;
+        }
+
+        // Check release
+        if (Number(newRelease) > Number(oldRelease)) return true;
+      }
+      return false;
+    }
+
+    fetch(
+      Services.prefs.getStringPref(
+        "librewolf.aboutMenu.versionCheckGitlabUrl",
+        "https://gitlab.com/api/v4/projects/32320088/releases"
+      )
+    )
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          const latestVersion = data[0].tag_name;
+          if (isNewerVersion(latestVersion, AppConstants.MOZ_APP_VERSION_DISPLAY)) {
+            const updateNotice = document.createElement("a");
+            updateNotice.classList.add("text-link");
+            updateNotice.href = data[0]._links.self;
+            updateNotice.onclick = () => window.openWebLinkIn(data[0]._links.self, "tab")
+            updateNotice.innerText = "(Update available)";
+            versionDiv.appendChild(updateNotice);
+          } else {
+            const upToDateNotice = document.createElement("div")
+            upToDateNotice.innerText = "(Up to date)";
+            versionDiv.appendChild(upToDateNotice);
+          }
+        }
+        loader.remove();
+      })
   }
-
-  // Use Fluent arguments for append version and the architecture of the build
-  let versionField = document.getElementById("version");
-
-  document.l10n.setAttributes(versionField, versionId, versionAttributes);
-
-  await document.l10n.translateElements([versionField]);
 
   window.sizeToContent();
 
@@ -85,3 +108,4 @@ async function init(aEvent) {
     );
   }
 }
+ 
