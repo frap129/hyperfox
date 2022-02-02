@@ -1,4 +1,5 @@
 patches/allow-ubo-private-mode.patch
+patches/bootstrap-without-vcs.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/disable-data-reporting-at-compile-time.patch
