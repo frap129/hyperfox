@@ -1,3 +1,6 @@
 [submodule "submodules/settings"]
 	path = submodules/settings
 	url = https://gitlab.com/librewolf-community/settings.git
+[submodule "submodules/librewolf-pref-pane"]
+	path = submodules/librewolf-pref-pane
+	url = https://gitlab.com/librewolf-community/browser/librewolf-pref-pane.git
