@@ -1,0 +1,56 @@
+--- a/python/mozboot/mozboot/bootstrap.py
++++ b/python/mozboot/mozboot/bootstrap.py
+@@ -542,10 +542,7 @@ def current_firefox_checkout(env, hg=None):
+         if child == "":
+             break
+ 
+-    raise UserError(
+-        "Could not identify the root directory of your checkout! "
+-        "Are you running `mach bootstrap` in an hg or git clone?"
+-    )
++    return ("local", os.getcwd())
+ 
+ 
+ def update_git_tools(git, root_state_dir):
+--- a/python/mozversioncontrol/mozversioncontrol/__init__.py
++++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
+@@ -672,6 +672,21 @@ class GitRepository(Repository):
+         self._run("config", name, value)
+ 
+ 
++class LocalRepository(Repository):
++
++    def __init__(self, path):
++        super(LocalRepository, self).__init__(path, tool="true")
++
++    @property
++    def head_ref(self):
++        return ""
++
++    def get_tracked_files_finder(self):
++        files = [os.path.relpath(os.path.join(dp, f), self.path) for dp, dn, fn in os.walk(self.path) for f in fn]
++        files.sort()
++        return FileListFinder(files)
++
++
+ def get_repository_object(path, hg="hg", git="git"):
+     """Get a repository object for the repository at `path`.
+     If `path` is not a known VCS repository, raise an exception.
+@@ -681,7 +696,7 @@ def get_repository_object(path, hg="hg", git="git"):
+     elif os.path.exists(os.path.join(path, ".git")):
+         return GitRepository(path, git=git)
+     else:
+-        raise InvalidRepoPath("Unknown VCS, or not a source checkout: %s" % path)
++        return LocalRepository(path)
+ 
+ 
+ def get_repository_from_build_config(config):
+@@ -705,6 +720,8 @@ def get_repository_from_build_config(config):
+         return HgRepository(config.topsrcdir, hg=config.substs["HG"])
+     elif flavor == "git":
+         return GitRepository(config.topsrcdir, git=config.substs["GIT"])
++    elif flavor == "local":
++        return LocalRepository(config.topsrcdir)
+     else:
+         raise MissingVCSInfo("unknown VCS_CHECKOUT_TYPE value: %s" % flavor)
+ 
