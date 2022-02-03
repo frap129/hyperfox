@@ -77,7 +77,11 @@ librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./
 librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 	tar xf librewolf-$(version)-$(release).source$(ext)
 
+debs=python3 python3-dev python3-pip
+rpms=python3 python3-devel
 bootstrap : librewolf-$(version)
+	(sudo apt -y install $(debs); true)
+	(sudo rpm -y install $(rpms); true)
 	(cd librewolf-$(version) && MOZBUILD_STATE_PATH=$$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser)
 
 build :

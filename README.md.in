@@ -40,3 +40,29 @@ After that, you can either build a tarball from it, or run it:
 make package
 make run
 ```
+#### How to create a patch for problems in mozilla's [bugzilla](https://bugzilla.mozilla.org/).
+
+Well, first of all:
+
+* [Create an account](https://bugzilla.mozilla.org/createaccount.cgi).
+* Handy link: [Bugs Filed Today](https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem&remaction=run&namedcmd=Bugs%20Filed%20Today&sharer_id=1&list_id=15939480).
+* The essential: [Firefox Source Tree Documentation](https://firefox-source-docs.mozilla.org/).
+
+Now that you have a patch, that's not enough to upload to Mozilla. See, Mozilla only accepts patches against Nightly. So here is how to get that:
+```
+hg clone https://hg.mozilla.org/mozilla-unified
+cd mozilla-unified
+hg update
+MOZBUILD_STATE_PATH=$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser
+./mach build
+./mach run
+```
+Now you can apply your patch to Nightly:
+```
+patch -p1 -i ../mypatch.patch
+```
+Now you let Mercurial create the patch:
+```
+hg diff > ../my-nightly-patch.patch
+```
+And it can be uploaded to BugZilla.
