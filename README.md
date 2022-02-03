@@ -15,12 +15,22 @@ make all
 make bootstrap
 make build
 ```
+After that, you can either build a tarball from it, or run it:
+```
+make package
+make run
+```
+The easiest way to make patches is to go to the LibreWolf source folder:
+```
+cd librewolf-$(cat version)
+git init
+git add <path_to_file_you_changed>
+git commit -am initial-commit
+git diff > ../mypatch.patch
+```
+We have Gitter / Matrix rooms, and on the website we have links to the various issue trackers.
 
-
-
-
-
-
+---
 
 
 ## Building LibreWolf from source:

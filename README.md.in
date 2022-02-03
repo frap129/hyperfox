@@ -30,7 +30,7 @@ git diff > ../mypatch.patch
 ```
 We have Gitter / Matrix rooms, and on the website we have links to the various issue trackers.
 
-----
+---
 
 
 ## Building LibreWolf from source:
