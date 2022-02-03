@@ -46,12 +46,7 @@ That should be it for this readme, the stuff below is for more internal backward
 
 
 
-# CI and Docker
-
-
-
-
-
+# CI documentation, wasi, and Docker
 
 
 
