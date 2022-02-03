@@ -9,4 +9,4 @@ MOZ_APP_NAME=librewolf
 MOZ_APP_BASENAME="LibreWolf"
 MOZ_APP_PROFILE=librewolf
 MOZ_APP_VENDOR=LibreWolf
-
+MOZ_APP_DISPLAYNAME=LibreWolf
