@@ -5,7 +5,7 @@ stages:
 Build:
   stage: build
   variables:
-    GIT_SUBMODULE_STRATEGY: recursive
+     GIT_SUBMODULE_STRATEGY: recursive
   script:
     - make all
     - echo VERSION=$(cat version) >> variables.env
@@ -29,6 +29,8 @@ Release:
   except:
     - merge_requests
   before_script:
+    - apt-get update
+    - apt-get install -y curl
     - curl -L --output /usr/local/bin/release-cli "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
     - chmod +x /usr/local/bin/release-cli
   script:
