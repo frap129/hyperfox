@@ -1,4 +1,4 @@
-## LibreWolf build howto
+## The LibreWolf build instructions
 
 1. Clone the git repository via https:
 ```
@@ -30,10 +30,10 @@ git diff > ../mypatch.patch
 ```
 We have Gitter / Matrix rooms, and on the website we have links to the various issue trackers.
 
----
+That should be it for this readme, the stuff below is for more internal backward compatibility. So you can safely ignore it.
 
 
-## Building LibreWolf from source:
+## Building LibreWolf with a tarball instead of git:
 
 First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.3-1.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
 
