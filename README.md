@@ -1,6 +1,6 @@
 ## LibreWolf build instructions
 
-First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.3-1.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
+First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-96.0.3-2.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
 ```
 tar xf <tarball>
 cd <folder>
@@ -40,7 +40,7 @@ After that, you can either build a tarball from it, or run it:
 make package
 make run
 ```
-#### How to create a patch for problems in mozilla's [bugzilla](https://bugzilla.mozilla.org/).
+#### How to create a patch for problems in Mozilla's [Bugzilla](https://bugzilla.mozilla.org/).
 
 Well, first of all:
 
@@ -48,7 +48,7 @@ Well, first of all:
 * Handy link: [Bugs Filed Today](https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem&remaction=run&namedcmd=Bugs%20Filed%20Today&sharer_id=1&list_id=15939480).
 * The essential: [Firefox Source Tree Documentation](https://firefox-source-docs.mozilla.org/).
 
-Now that you have a patch, that's not enough to upload to Mozilla. See, Mozilla only accepts patches against Nightly. So here is how to get that:
+Now that you have a patch in LibreWolf, that's not enough to upload to Mozilla. See, Mozilla only accepts patches against Nightly. So here is how to do that:
 ```
 hg clone https://hg.mozilla.org/mozilla-unified
 cd mozilla-unified
@@ -65,7 +65,7 @@ Now you let Mercurial create the patch:
 ```
 hg diff > ../my-nightly-patch.patch
 ```
-And it can be uploaded to BugZilla.
+And it can be uploaded to Bugzilla.
 
 ##### *(copy of Mozilla readme)* Now the fun starts
 
