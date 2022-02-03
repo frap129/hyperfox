@@ -78,7 +78,7 @@ librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 	tar xf librewolf-$(version)-$(release).source$(ext)
 
 bootstrap : librewolf-$(version)
-	(cd librewolf-$(version) && MOZBUILD_STATE_PATH=$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser)
+	(cd librewolf-$(version) && MOZBUILD_STATE_PATH=$$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser)
 
 build :
 	(cd librewolf-$(version) && ./mach build)
