@@ -1,4 +1,4 @@
-## The LibreWolf build instructions
+## LibreWolf build instructions
 
 First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-__VERSION__-__RELEASE__.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
 ```
@@ -6,7 +6,7 @@ tar xf <tarball>
 cd <folder>
 make bootstrap build package run
 ```
-#### How to make a patch
+#### How to make a patch:
 
 The easiest way to make patches is to go to the LibreWolf source folder:
 ```
