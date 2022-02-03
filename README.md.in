@@ -1,3 +1,28 @@
+## LibreWolf build howto
+
+1. Clone the git repository via https:
+```
+git clone --recursive https://gitlab.com/librewolf-community/browser/source.git
+```
+or Git:
+```
+git clone --recursive git@gitlab.com:librewolf-community/browser/source.git
+```
+cd into it, build the LibreWolf tarball, bootstrap the buld environment, and finally, perform the build:
+```
+cd source
+make all
+make bootstrap
+make build
+```
+
+
+
+
+
+
+
+
 ## Building LibreWolf from source:
 
 First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-__VERSION__-__RELEASE__.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
