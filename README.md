@@ -28,7 +28,7 @@ or Git:
 ```
 git clone --recursive git@gitlab.com:librewolf-community/browser/source.git
 ```
-cd into it, build the LibreWolf tarball, bootstrap the buld environment, and finally, perform the build:
+cd into it, build the LibreWolf tarball, bootstrap the build environment, and finally, perform the build:
 ```
 cd source
 make all
