@@ -1,4 +1,4 @@
-## The LibreWolf build instructions
+## LibreWolf build instructions
 
 1. Clone the git repository via https:
 ```
