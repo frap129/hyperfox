@@ -1,4 +1,4 @@
-.PHONY : help check all clean veryclean build package run update
+.PHONY : help check all clean veryclean bootstrap build package run update
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -9,48 +9,66 @@ release:=$(shell cat ./release)
 #ext=.tar.xz
 archive_create=tar cfz
 ext=.tar.gz
-#archive_create=zip -r9
-#ext=.zip
+
+upstream_filename=firefox-$(version).source.tar.xz
+upstream_dirname=firefox-$(version)
 
 
-help : README.md
+help :
 
 	@echo "use: $(MAKE) [all] [check] [clean] [veryclean] [build] [package] [run]"
 	@echo ""
 	@echo "  all         - Make LibreWolf source archive ${version}-${release}."
 	@echo "  check       - Check if there is a new version of Firefox."
-	@echo "  update      - Update the Settings submodule."
+	@echo "  update      - Update the git submodules and README.md."
 	@echo ""
 	@echo "  clean       - Clean everything except the upstream firefox tarball."
-	@echo "  veryclean   - Clean everything and the firefox tarball."
+	@echo "  veryclean   - Clean everything including the firefox tarball."
 	@echo ""
-	@echo "  build       - Make LibreWolf source archive and then build it."
-	@echo "  package     - Make LibreWolf source archive, then build and package it."
-	@echo "  run         - Make LibreWolf source archive, then build and run it."
+	@echo "  bootstrap   - Make librewolf source archive, and bootstrap the build system."
+	@echo ""
+	@echo "  build       - After a bootstrap, build it."
+	@echo "  package     - After a build, package it."
+	@echo "  run         - After a build, run it."
 	@echo ""
 
 
-check : update README.md
+check :
 	python3 scripts/update-version.py
 	@echo "Current release:" $$(cat ./release)
 
 
-include upstream.mk
+update : README.md
+	git submodule update --recursive --remote
+
+README.md : README.md.in ./version ./release
+	@sed "s/__VERSION__/$(version)/g" < $< > tmp
+	@sed "s/__RELEASE__/$(release)/g" < tmp > $@
+	@rm -f tmp
 
 
-all : librewolf-$(version)-$(release).source$(ext) README.md
+all : librewolf-$(version)-$(release).source$(ext)
 
 
 clean :
 	rm -rf *~ firefox-$(version) librewolf-$(version) librewolf-$(version)-$(release).source$(ext)
 
 veryclean : clean
-	$(MAKE) clean_upstream_file
+	rm -f $(upstream_filename)
 
-librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt README.md
-	$(MAKE) clean_upstream_dir
+#
+# The actual build stuff
+#
+
+
+$(upstream_filename) :
+	wget -q "https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz"
+
+librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt
+	rm -rf $(upstream_dirname)
 	rm -rf librewolf-$(version)
-	$(MAKE) create_lw_from_upstream_dir
+	tar xf $(upstream_filename)
+	mv  $(upstream_dirname) librewolf-$(version)
 	python3 scripts/librewolf-patches.py $(version) $(release)
 	rm -f librewolf-$(version)-$(release).source$(ext)
 	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
@@ -59,20 +77,15 @@ librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./
 librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 	tar xf librewolf-$(version)-$(release).source$(ext)
 
-build : librewolf-$(version)
+bootstrap : librewolf-$(version)
+	(cd librewolf-$(version) && ./mach --no-interactive bootstrap --application-choice=browser)
+
+build :
 	(cd librewolf-$(version) && ./mach build)
 
-package : build
+package :
 	(cd librewolf-$(version) && ./mach package)
 
-run : build
+run :
 	(cd librewolf-$(version) && ./mach run)
 
-README.md : README.md.in ./version ./release
-	@sed "s/__VERSION__/$(version)/g" < $< > tmp
-	@sed "s/__RELEASE__/$(release)/g" < tmp > $@
-	@rm -f tmp
-
-
-update : README.md
-	git submodule update --recursive --remote

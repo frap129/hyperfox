@@ -1,1 +1,0 @@
-assets/upstream.std.mk
