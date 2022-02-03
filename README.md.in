@@ -30,12 +30,31 @@ git diff > ../mypatch.patch
 ```
 We have Gitter / Matrix rooms, and on the website we have links to the various issue trackers.
 
+# Building LibreWolf with a tarball instead of git:
+
+First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-__VERSION__-__RELEASE__.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
+```
+tar xf <tarball>
+cd <folder>
+make bootstrap build package
+```
+
 That should be it for this readme, the stuff below is for more internal backward compatibility. So you can safely ignore it.
 
 
-## Building LibreWolf with a tarball instead of git:
 
-First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-__VERSION__-__RELEASE__.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs).
+
+
+
+# CI and Docker
+
+
+
+
+
+
+
+
 
 To download the latest from a script, use wget/curl like this:
 ```
