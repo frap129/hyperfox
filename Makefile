@@ -73,6 +73,8 @@ librewolf-$(version)-$(release).source$(ext) : $(upstream_filename) ./version ./
 	rm -f librewolf-$(version)-$(release).source$(ext)
 	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
 	touch librewolf-$(version)
+	sha256sum librewolf-$(version)-$(release).source$(ext) > librewolf-$(version)-$(release).source$(ext).sha256sum
+	cat librewolf-$(version)-$(release).source$(ext).sha256sum
 
 librewolf-$(version) : librewolf-$(version)-$(release).source$(ext)
 	tar xf librewolf-$(version)-$(release).source$(ext)
