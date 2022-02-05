@@ -53,6 +53,6 @@ Release:
         - name: librewolf-$VERSION-$RELEASE.source.tar.gz
           link_type: package
           url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz
-        - name: librewolf-$VERSION-$RELEASE.source.tar.gz
+        - name: librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum
           link_type: other
           url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum
