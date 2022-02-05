@@ -53,10 +53,12 @@ all : $(lw_source_tarball)
 
 
 clean :
-	rm -rf *~ $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball)
+	rm -rf *~ $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum
 
 veryclean : clean
 	rm -rf $(ff_source_tarball)
+
+
 
 #
 # The actual build stuff
@@ -71,15 +73,18 @@ $(lw_source_dir) : $(ff_source_tarball) ./version ./release scripts/librewolf-pa
 	tar xf $(ff_source_tarball)
 	mv $(ff_source_dir) $(lw_source_dir)
 	python3 scripts/librewolf-patches.py $(version) $(release)
-	rm -f librewolf-$(version)-$(release).source$(ext)
-	$(archive_create) librewolf-$(version)-$(release).source$(ext) librewolf-$(version)
-	touch librewolf-$(version)
-	sha256sum librewolf-$(version)-$(release).source$(ext) > librewolf-$(version)-$(release).source$(ext).sha256sum
-	cat librewolf-$(version)-$(release).source$(ext).sha256sum
 
 $(lw_source_tarball) : $(lw_source_dir)
 	rm -f $(lw_source_tarball)
 	$(archive_create) $(lw_source_tarball) $(lw_source_dir)
+	touch $(lw_source_dir)
+	sha256sum $(lw_source_tarball) > $(lw_source_tarball).sha256sum
+	cat $(lw_source_tarball).sha256sum
+
+
+
+
+
 
 debs=python3 python3-dev python3-pip
 rpms=python3 python3-devel
@@ -87,6 +92,10 @@ bootstrap : $(lw_source_dir)
 	(sudo apt -y install $(debs); true)
 	(sudo rpm -y install $(rpms); true)
 	(cd $(lw_source_dir) && MOZBUILD_STATE_PATH=$$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser)
+
+
+
+
 
 build : $(lw_source_dir)
 	(cd $(lw_source_dir) && ./mach build)
