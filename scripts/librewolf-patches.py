@@ -58,7 +58,7 @@ def patch(patchfile):
 
 def enter_srcdir(_dir = None):
     if _dir == None:
-        dir = "librewolf-{}".format(version)
+        dir = "librewolf-{}-{}".format(version, release)
     else:
         dir = _dir
     print("cd {}".format(dir))
@@ -140,7 +140,7 @@ if len(args) != 2:
     sys.exit(1)
 version = args[0]
 release = args[1]
-if not os.path.exists('librewolf-{}'.format(version) + '/configure.py'):
+if not os.path.exists('librewolf-{}-{}'.format(version, release) + '/configure.py'):
     sys.stderr.write('error: folder doesn\'t look like a Firefox folder.')
     sys.exit(1)
 
