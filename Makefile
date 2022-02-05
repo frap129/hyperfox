@@ -55,8 +55,8 @@ all : $(lw_source_tarball)
 clean :
 	rm -rf *~ $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball)
 
-veryclean :
-	git clean -fdx
+veryclean : clean
+	rm -rf $(ff_source_tarball)
 
 #
 # The actual build stuff
