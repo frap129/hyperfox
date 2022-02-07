@@ -5,11 +5,12 @@ stages:
 Build:
   stage: build
   variables:
-     GIT_SUBMODULE_STRATEGY: recursive
+    GIT_SUBMODULE_STRATEGY: recursive
   script:
     - make all
     - echo VERSION=$(cat version) >> variables.env
     - echo RELEASE=$(cat release) >> variables.env
+    - echo BUILD_JOB_ID=$CI_JOB_ID >> variables.env
   artifacts:
     paths:
       - librewolf-*.source.tar.gz
@@ -47,7 +48,7 @@ Release:
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum"
   release:
     tag_name: "$VERSION-$RELEASE"
-    description: "LibreWolf v$VERSION-$RELEASE"
+    description: "## LibreWolf Source Release v$VERSION-$RELEASE\n\n- \n\n(Built on GitLab by job [$CI_JOB_ID](https://gitlab.com/librewolf-community/browser/source/-/jobs/$CI_JOB_ID))"
     assets:
       links:
         - name: librewolf-$VERSION-$RELEASE.source.tar.gz
