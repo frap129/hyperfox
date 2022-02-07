@@ -48,7 +48,7 @@ Release:
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum"
   release:
     tag_name: "$VERSION-$RELEASE"
-    description: "## LibreWolf Source Release v$VERSION-$RELEASE\n\n- \n\n(Built on GitLab by job [$CI_JOB_ID](https://gitlab.com/librewolf-community/browser/source/-/jobs/$CI_JOB_ID))"
+    description: "## LibreWolf Source Release v$VERSION-$RELEASE\n\n- \n\n(Built on GitLab by job [$BUILD_JOB_ID](https://gitlab.com/librewolf-community/browser/source/-/jobs/$BUILD_JOB_ID))"
     assets:
       links:
         - name: librewolf-$VERSION-$RELEASE.source.tar.gz
