@@ -30,10 +30,10 @@ index 4f3babe..97c7ec2 100644
     content/browser/preferences/experimental.js
 diff --git a/browser/components/preferences/librewolf.inc.xhtml b/browser/components/preferences/librewolf.inc.xhtml
 new file mode 100644
-index 0000000..b627417
+index 0000000..c13144f
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.inc.xhtml
-@@ -0,0 +1,206 @@
+@@ -0,0 +1,209 @@
 +# This Source Code Form is subject to the terms of the Mozilla Public
 +# License, v. 2.0. If a copy of the MPL was not distributed with this
 +# file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -228,21 +228,24 @@ index 0000000..b627417
 +</hbox>
 +
 +<groupbox data-category="paneLibrewolf" hidden="true">
-+  <hbox>
-+    <label id="librewolf-config-link-wrapper" class="sidebar-footer-link" is="text-link" flex="1">
-+      <image class="sidebar-footer-icon" src="chrome://browser/skin/ion.svg" /> <!-- TODO not the typical way a picture is defined I think, and also we should copy the svg file in case they change it -->
-+      <label id="librewolf-config-link" data-l10n-id="librewolf-config-link"></label>
-+    </label>
-+    <hbox pack="end">
-+      <button id="librewolf-open-profile-button" class="accessory-button" is="highlightable-button" data-l10n-id="librewolf-open-profile"/>
++  <vbox align="start">
++    <hbox>
++      <button id="librewolf-config-link" is="highlightable-button" flex="1">
++        <image class="librewolf-button-icon" src="chrome://browser/skin/ion.svg" /> <!-- TODO not the typical way a picture is defined I think, and also we should copy the svg file in case they change it -->
++        <label data-l10n-id="librewolf-config-link"></label>
++      </button>
++      <button id="librewolf-open-profile" is="highlightable-button" flex="1">
++        <image class="librewolf-button-icon" src="chrome://browser/skin/open.svg" />
++        <label data-l10n-id="librewolf-open-profile"></label>
++      </button>
 +    </hbox>
-+  </hbox>
++  </vbox>
 +</groupbox>
 +
 +</html:template>
 diff --git a/browser/components/preferences/librewolf.js b/browser/components/preferences/librewolf.js
 new file mode 100644
-index 0000000..c460b8c
+index 0000000..68aaffd
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.js
 @@ -0,0 +1,234 @@
@@ -375,7 +378,7 @@ index 0000000..c460b8c
 +    );
 +
 +    // Set event listener on open profile directory button
-+    setEventListener("librewolf-open-profile-button", "command", openProfileDirectory);
++    setEventListener("librewolf-open-profile", "command", openProfileDirectory);
 +    // Set event listener on open about:config button
 +    setEventListener("librewolf-config-link", "click", openAboutConfig);
 +
@@ -745,10 +748,10 @@ index 0000000..8ebf2eb
 +
 diff --git a/browser/themes/shared/preferences/librewolf.css b/browser/themes/shared/preferences/librewolf.css
 new file mode 100644
-index 0000000..aeb550c
+index 0000000..12f926a
 --- /dev/null
 +++ b/browser/themes/shared/preferences/librewolf.css
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,23 @@
 +.librewolf-collapse > input {
 +	display: none;
 +}
@@ -764,6 +767,13 @@ index 0000000..aeb550c
 +.librewolf-warning {
 +	display: inline;
 +	font-size: 0.8em;
++}
++.librewolf-button-icon {
++	width: 16px;
++	height: 16px;
++	margin-right: 8px;
++	-moz-context-properties: fill, fill-opacity;
++	fill: currentColor;
 +}
 diff --git a/browser/themes/shared/preferences/preferences.inc.css b/browser/themes/shared/preferences/preferences.inc.css
 index 31bffd0..1f9fbcf 100644
