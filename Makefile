@@ -92,6 +92,7 @@ bootstrap : $(lw_source_dir)
 	(sudo apt -y install $(debs); true)
 	(sudo rpm -y install $(rpms); true)
 	(cd $(lw_source_dir) && MOZBUILD_STATE_PATH=$$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser)
+	./scripts/setup-wasi-linux.sh
 
 
 

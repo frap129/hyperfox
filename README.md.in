@@ -24,7 +24,7 @@ We have Gitter / Matrix rooms, and on the website we have links to the various i
 ```
 git clone --recursive https://gitlab.com/librewolf-community/browser/source.git
 ```
-or Git:
+or ssh:
 ```
 git clone --recursive git@gitlab.com:librewolf-community/browser/source.git
 ```
