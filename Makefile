@@ -1,4 +1,4 @@
-.PHONY : help check all clean veryclean bootstrap build package run update
+.PHONY : help check all clean veryclean bootstrap build package run update setup-wasi
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -28,14 +28,15 @@ help :
 	@echo "  veryclean   - Clean everything including the firefox tarball."
 	@echo ""
 	@echo "  bootstrap   - Bootstrap the build environment."
+	@echo "  setup-wasi  - Setup WASM sandbox libraries (required on Linux)."
 	@echo ""
-	@echo "  build       - Build LibreWolf (requires bootstraped build environment)."
+	@echo "  build       - Build LibreWolf (requires bootstrapped build environment)."
 	@echo "  package     - Package LibreWolf (requires build)."
 	@echo "  run         - Run LibreWolf (requires build)."
 	@echo ""
 
 
-check :
+check : 
 	python3 scripts/update-version.py
 	@echo "Current release:" $$(cat ./release)
 
@@ -47,6 +48,7 @@ README.md : README.md.in ./version ./release
 	@sed "s/__VERSION__/$(version)/g" < $< > tmp
 	@sed "s/__RELEASE__/$(release)/g" < tmp > $@
 	@rm -f tmp
+	@echo "Updated README.md from README.md.in"
 
 
 all : $(lw_source_tarball)
@@ -92,6 +94,8 @@ bootstrap : $(lw_source_dir)
 	(sudo apt -y install $(debs); true)
 	(sudo rpm -y install $(rpms); true)
 	(cd $(lw_source_dir) && MOZBUILD_STATE_PATH=$$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser)
+
+setup-wasi :
 	./scripts/setup-wasi-linux.sh
 
 
