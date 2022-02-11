@@ -14,7 +14,7 @@
  def update_git_tools(git, root_state_dir):
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
-@@ -672,6 +672,21 @@ class GitRepository(Repository):
+@@ -672,6 +672,27 @@ class GitRepository(Repository):
          self._run("config", name, value)
  
  
@@ -27,8 +27,14 @@
 +    def head_ref(self):
 +        return ""
 +
++    def get_outgoing_files(self):
++        return []
++
++    def get_changed_files(self):
++        return []
++
 +    def get_tracked_files_finder(self):
-+        files = [os.path.relpath(os.path.join(dp, f), self.path) for dp, dn, fn in os.walk(self.path) for f in fn]
++        files = [os.path.relpath(os.path.join(dp, f), self.path).replace("\\","/") for dp, dn, fn in os.walk(self.path) for f in fn]
 +        files.sort()
 +        return FileListFinder(files)
 +
