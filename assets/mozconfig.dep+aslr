@@ -1,0 +1,33 @@
+ac_add_options --enable-application=browser
+
+ac_add_options --allow-addon-sideload
+ac_add_options --disable-crashreporter
+ac_add_options --disable-debug
+ac_add_options --disable-default-browser-agent
+ac_add_options --disable-tests
+ac_add_options --disable-updater
+ac_add_options --enable-hardening
+ac_add_options --enable-release
+ac_add_options --enable-rust-simd
+
+ac_add_options --with-app-name=librewolf
+ac_add_options --with-branding=browser/branding/librewolf
+
+ac_add_options --with-unsigned-addon-scopes=app,system
+
+export MOZ_REQUIRE_SIGNING=
+
+mk_add_options MOZ_CRASHREPORTER=0
+mk_add_options MOZ_DATA_REPORTING=0
+mk_add_options MOZ_SERVICES_HEALTHREPORT=0
+mk_add_options MOZ_TELEMETRY_REPORTING=0
+
+# wasi: we ask maintainers to all use this as wasi sysroot..
+# There is a script 'scripts/setup-wasi-linux.sh' that attempts to download the wasi sdk and place it into the location pointed to below.
+ac_add_options --with-wasi-sysroot=$HOME/.mozbuild/wrlb/wasi-sysroot
+
+# Add your own stuff, libraries, architecture, etc..
+# ex: `cat mozconfig.orig mozconfig.my > mozconfig`
+
+# source: https://gist.github.com/jrelo/f5c976fdc602688a0fd40288fde6d886
+ac_add_options --enable-optimize"-fPIE -fstack-protector-all -D_FORTIFY_SOURCE=2 -O1 -arch x86_64 -Wl,-z,relro,-z,now -Wl,dynamicbase -Wl,nxcompat"
