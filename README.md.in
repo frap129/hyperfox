@@ -1,3 +1,22 @@
+## Active repositories and projects
+
+List of browser build sub projects. These are the locations where people have their repositories and build artifacts.
+
+Currently active build repositories:
+* Linux: Flatpak, AppImage, Arch and other Linux builds of the LibreWolf browser.
+* Bsys5: deb for mint,fedora,ubuntu; dmg for macOS.
+* macOS: The macOS build of LibreWolf.
+* Windows: LibreWolf builds for Windows.
+* Gentoo:
+* OpenBSD:
+* Flatpak: 
+* fedora: bgstack15
+* Debian: bgstack15
+* Arch:
+
+Currently active forks: 
+* FireDragon: https://github.com/dr460nf1r3/firedragon-browser
+
 ## LibreWolf build instructions
 
 First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-__VERSION__-__RELEASE__.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
