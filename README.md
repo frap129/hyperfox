@@ -3,16 +3,16 @@
 List of browser build sub projects. These are the locations where people have their repositories and build artifacts.
 
 Currently active build repositories:
-* Linux: Flatpak, AppImage, Arch and other Linux builds of the LibreWolf browser.
-* Bsys5: deb for mint,fedora,ubuntu; dmg for macOS.
-* macOS: The macOS build of LibreWolf.
-* Windows: LibreWolf builds for Windows.
-* Gentoo:
-* OpenBSD:
-* Flatpak: 
-* fedora: bgstack15 version
-* Debian: bgstack15 version
-* Arch:
+* [Arch](https://gitlab.com/librewolf-community/browser/arch): Arch Linux
+* [Bsys5](https://gitlab.com/librewolf-community/browser/bsys5): deb/rpm for Mint,Fedora,Ubuntu; dmg for MacOS.
+* [Debian](https://gitlab.com/librewolf-community/browser/debian): bgstack15 version
+* [Fedora](https://gitlab.com/librewolf-community/browser/fedora): bgstack15 version
+* [Flatpak](https://gitlab.com/librewolf-community/browser/flatpak): Flatpak
+* [Gentoo](https://gitlab.com/librewolf-community/browser/gentoo): Gentoo
+* [Linux](https://gitlab.com/librewolf-community/browser/linux): Flatpak, AppImage, Arch and other Linux builds of the LibreWolf browser.
+* [MacOS](https://gitlab.com/librewolf-community/browser/macos): The macOS build of LibreWolf.
+* [OpenBSD](https://librewolf.net/installation/openbsd/): OpenBSD page
+* [Windows](https://gitlab.com/librewolf-community/browser/windows): LibreWolf builds for Windows.
 
 Currently active forks: 
 * FireDragon: https://github.com/dr460nf1r3/firedragon-browser
