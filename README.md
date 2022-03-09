@@ -10,8 +10,8 @@ Currently active build repositories:
 * Gentoo:
 * OpenBSD:
 * Flatpak: 
-* fedora: bgstack15
-* Debian: bgstack15
+* fedora: bgstack15 version
+* Debian: bgstack15 version
 * Arch:
 
 Currently active forks: 
