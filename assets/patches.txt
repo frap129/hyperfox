@@ -11,8 +11,8 @@ patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
 patches/sed-patches/remove-internal-plugin-certs.patch
 patches/sed-patches/stop-undesired-requests.patch
-patches/ui-patches/hide-safe-browsing.patch
 patches/ui-patches/pref-naming.patch
+patches/ui-patches/privacy-preferences.patch
 patches/ui-patches/remove-branding-urlbar.patch
 patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
