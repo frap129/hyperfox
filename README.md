@@ -14,7 +14,8 @@ Currently active build repositories:
 * [OpenBSD](https://librewolf.net/installation/openbsd/): OpenBSD page
 * [Windows](https://gitlab.com/librewolf-community/browser/windows): LibreWolf builds for Windows.
 
-Currently active forks: 
+Currently active forks:
+* Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
 * FireDragon: https://github.com/dr460nf1r3/firedragon-browser
 
 ## LibreWolf build instructions
