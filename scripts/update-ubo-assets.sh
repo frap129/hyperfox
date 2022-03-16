@@ -40,5 +40,11 @@ add_filter_list "LegitimateURLShortener" '{
 echo "-> Writing to assets/uBOAssets.json"
 echo $assets | jq -c >./assets/uBOAssets.json
 
+if [[ "$(read -e -p '-? Commit changes? [y/N] '; echo $REPLY)" == [Yy]* ]]; then
+  echo "-> Committing changes"
+  git add assets/uBOAssets.json
+  git commit -m "Update uBOAssets.json with latest changes"
+fi
+
 echo
 echo "Done!"
