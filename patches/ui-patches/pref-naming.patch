@@ -5,7 +5,7 @@
  
  startup-restore-windows-and-tabs =
 -    .label = Open previous windows and tabs
-+    .label = Open previous windows and tabs. <a href="https://librewolf.net/docs/faq/#why-is-session-restore-not-working">What if it doesn't work?</a>
++    .label = Open previous windows and tabs. (requires enabling browsing history)
      .accesskey = s
  
  startup-restore-warn-on-quit =
