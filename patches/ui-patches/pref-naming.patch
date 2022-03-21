@@ -29,7 +29,7 @@
  
  update-application-description = Keep { -brand-short-name } up to date for the best performance, stability, and security.
  
--update-application-version = Version { $version } <a data-l10n-name="learn-more">≈</a>
+-update-application-version = Version { $version } <a data-l10n-name="learn-more">What’s new</a>
 +update-application-version = Version { $version } <a data-l10n-name="learn-more">Visit the repositories</a>
  
  update-history =
