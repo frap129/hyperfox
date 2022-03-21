@@ -1,0 +1,13 @@
+diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
+index 855ee64..617911a 100644
+--- a/browser/components/preferences/main.inc.xhtml
++++ b/browser/components/preferences/main.inc.xhtml
+@@ -32,7 +32,7 @@
+   </vbox>
+ 
+ #ifdef HAVE_SHELL_SERVICE
+-  <vbox id="defaultBrowserBox">
++  <vbox id="defaultBrowserBox" hidden="true">
+     <checkbox id="alwaysCheckDefault" preference="browser.shell.checkDefaultBrowser"
+               disabled="true"
+               data-l10n-id="always-check-default"/>
