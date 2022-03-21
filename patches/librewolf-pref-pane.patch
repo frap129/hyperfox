@@ -30,10 +30,10 @@ index 4f3babe..97c7ec2 100644
     content/browser/preferences/experimental.js
 diff --git a/browser/components/preferences/librewolf.inc.xhtml b/browser/components/preferences/librewolf.inc.xhtml
 new file mode 100644
-index 0000000..c13144f
+index 0000000..f27541d
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.inc.xhtml
-@@ -0,0 +1,209 @@
+@@ -0,0 +1,224 @@
 +# This Source Code Form is subject to the terms of the Mozilla Public
 +# License, v. 2.0. If a copy of the MPL was not distributed with this
 +# file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -78,6 +78,7 @@ index 0000000..c13144f
 +    </vbox>
 +  </vbox>
 +
++  
 +  <hbox>
 +    <checkbox id="librewolf-autocopy-checkbox" data-l10n-id="librewolf-autocopy-checkbox" preference="clipboard.autocopy" flex="1" />
 +    <html:label for="librewolf-autocopy-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
@@ -182,10 +183,24 @@ index 0000000..c13144f
 +    </vbox>
 +  </vbox>
 +
++
 +</groupbox>
 +
 +<groupbox hidden="true" data-category="paneLibrewolf">
 +  <html:h2 data-l10n-id="librewolf-security-heading" />
++
++  <hbox>
++    <checkbox id="librewolf-ocsp-checkbox" data-l10n-id="librewolf-ocsp-checkbox" preference="security.OCSP.require" flex="1" />
++    <html:label for="librewolf-ocsp-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
++  </hbox>
++  <vbox class="librewolf-collapse indent">
++    <html:input type="checkbox" id="librewolf-ocsp-collapse" />
++    <vbox class="librewolf-collapsed tracking-protection-ui content-blocking-category">
++      <label data-l10n-id="librewolf-ocsp-description" />
++      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="librewolf-ocsp-warning1" class="librewolf-warning" /> </html:div>
++      <checkbox preference="security.OCSP.require" label="security.OCSP.require" />
++    </vbox>
++  </vbox>
 +
 +  <hbox>
 +    <checkbox id="librewolf-goog-safe-checkbox" data-l10n-id="librewolf-goog-safe-checkbox" preference="browser.safebrowsing.malware.enabled" flex="1" />
@@ -245,10 +260,10 @@ index 0000000..c13144f
 +</html:template>
 diff --git a/browser/components/preferences/librewolf.js b/browser/components/preferences/librewolf.js
 new file mode 100644
-index 0000000..68aaffd
+index 0000000..ee49f0f
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.js
-@@ -0,0 +1,234 @@
+@@ -0,0 +1,240 @@
 +/* This Source Code Form is subject to the terms of the Mozilla Public
 + * License, v. 2.0. If a copy of the MPL was not distributed with this file,
 + * You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -267,6 +282,7 @@ index 0000000..68aaffd
 +Preferences.addAll([
 +  // IPv6
 +  { id: "network.dns.disableIPv6", type: "bool" },
++  { id: "security.OCSP.require", type: "bool" },
 +  // WebGL
 +  { id: "webgl.disabled", type: "bool" },
 +  // RFP
@@ -312,6 +328,11 @@ index 0000000..68aaffd
 +      "librewolf-ipv6-checkbox",
 +      ["network.dns.disableIPv6"],
 +      [false,                   ],
++    );
++    setBoolSyncListeners(
++      "librewolf-ocsp-checkbox",
++      ["security.OCSP.require"],
++      [true,                   ],
 +    );
 +    setBoolSyncListeners(
 +      "librewolf-autocopy-checkbox",
@@ -542,10 +563,10 @@ index aab4a9e..907a631 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index d276f7a..39f3660 100644
+index d276f7a..127c8e1 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1347,3 +1347,78 @@ choose-download-folder-title = Choose Download Folder:
+@@ -1347,3 +1347,82 @@ choose-download-folder-title = Choose Download Folder:
  #   $service-name (String) - Name of a cloud storage provider like Dropbox, Google Drive, etc...
  save-files-to-cloud-storage =
      .label = Save files to { $service-name }
@@ -578,6 +599,8 @@ index d276f7a..39f3660 100644
 +librewolf-broken-heading = Fingerprinting
 +librewolf-webgl-checkbox =
 +    .label = Enable WebGL
++librewolf-ocsp-checkbox =
++    .label = Enforce OCSP hard-fail
 +librewolf-rfp-checkbox =
 +    .label = Enable ResistFingerprinting
 +librewolf-auto-decline-canvas-checkbox =
@@ -597,6 +620,8 @@ index d276f7a..39f3660 100644
 +
 +librewolf-ipv6-description = Allow { -brand-short-name } to connect using IPv6.
 +librewolf-ipv6-warning1 = Before you change this, make sure your OS uses the IPv6 privacy extension.
++librewolf-ocsp-description = Prevent connecting to a website if the OCSP check cannot be performed.
++librewolf-ocsp-warning1 = This increases security, but it will cause breakage when a OCSP server is down.
 +
 +librewolf-autocopy-description = Select some text to copy it, then paste it with a middle-mouse click.
 +
