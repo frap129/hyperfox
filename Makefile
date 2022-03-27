@@ -1,4 +1,4 @@
-.PHONY : help check all clean veryclean bootstrap build package run update setup-wasi
+.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -30,6 +30,9 @@ help :
 	@echo "  bootstrap   - Bootstrap the build environment."
 	@echo "  setup-wasi  - Setup WASM sandbox libraries (required on Linux)."
 	@echo ""
+	@echo "  fetch       - fetch Firefox source archive."
+	@echo "  dir         - extract Firefox and apply the patches, creating a"
+	@echo "                ready to build librewolf folder."
 	@echo "  build       - Build LibreWolf (requires bootstrapped build environment)."
 	@echo "  package     - Package LibreWolf (requires build)."
 	@echo "  run         - Run LibreWolf (requires build)."
@@ -55,10 +58,10 @@ all : $(lw_source_tarball)
 
 
 clean :
-	rm -rf *~ $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum
+	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum
 
 veryclean : clean
-	rm -rf $(ff_source_tarball)
+	rm -f $(ff_source_tarball) $(ff_source_tarball).asc
 
 
 
@@ -66,9 +69,16 @@ veryclean : clean
 # The actual build stuff
 #
 
+fetch : $(ff_source_tarball)
 
 $(ff_source_tarball) :
+	wget -qO public_key.asc "https://keys.openpgp.org/vks/v1/by-fingerprint/14F26682D0916CDD81E37B6D61B7B526D98F0353"
+	gpg --import public_key.asc
+	rm -f public_key.asc
+	wget -q "https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz.asc" -O $(ff_source_tarball).asc
 	wget -q "https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz" -O $(ff_source_tarball)
+	gpg --verify $(ff_source_tarball).asc $(ff_source_tarball)
+
 
 $(lw_source_dir) : $(ff_source_tarball) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt
 	rm -rf $(ff_source_dir) $(lw_source_dir)
@@ -99,8 +109,7 @@ setup-wasi :
 	./scripts/setup-wasi-linux.sh
 
 
-
-
+dir : $(lw_source_dir)
 
 build : $(lw_source_dir)
 	(cd $(lw_source_dir) && ./mach build)
