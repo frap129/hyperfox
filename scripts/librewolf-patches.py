@@ -92,7 +92,7 @@ def librewolf_patches():
     exec('cp -v ../assets/mozconfig .')
 
     # copy branding files..
-    exec("cp -vr ../themes/browser .")
+    exec("cp -r ../themes/browser .")
 
     # copy the right search-config.json file
     exec('cp -v ../assets/search-config.json services/settings/dumps/main/search-config.json')
