@@ -291,7 +291,7 @@ index 0000000..7a582fb
 +</html:template>
 diff --git a/browser/components/preferences/librewolf.js b/browser/components/preferences/librewolf.js
 new file mode 100644
-index 0000000..dd6eaf2
+index 0000000..72f431c
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.js
 @@ -0,0 +1,260 @@
@@ -452,7 +452,7 @@ index 0000000..dd6eaf2
 +};
 +
 +function syncXOriginPolicy(prefValue) {
-+  if (prefValue == "0") {
++  if (prefValue == "0" || prefValue == "1") {
 +    Services.prefs.setIntPref("network.http.referer.XOriginPolicy", 2);
 +  } else {
 +    Services.prefs.setIntPref("network.http.referer.XOriginPolicy", 0);
@@ -614,7 +614,7 @@ index aab4a9e..907a631 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index d276f7a..12ac60b 100644
+index d276f7a..458ac6f 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
 @@ -1347,3 +1347,93 @@ choose-download-folder-title = Choose Download Folder:
@@ -688,7 +688,7 @@ index d276f7a..12ac60b 100644
 +librewolf-styling-warning1 = Make sure you trust the provider of the theme.
 +
 +librewolf-xorigin-ref-description = Send a referrer only on same-origin.
-+librewolf-xorigin-ref-warning1 = This causes breakage, and when sent refferers will still be trimmed.
++librewolf-xorigin-ref-warning1 = This causes breakage. Additionally, even when sent referrers will still be trimmed.
 +
 +librewolf-webgl-description = WebGL is a strong fingerprinting vector.
 +librewolf-webgl-warning1 = If you need to enable it, consider using an extension like Canvas Blocker.
