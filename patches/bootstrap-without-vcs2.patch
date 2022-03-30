@@ -1,7 +1,9 @@
+diff --git a/python/mozboot/mozboot/bootstrap.py b/python/mozboot/mozboot/bootstrap.py
+index b0d6965..8ea2e15 100644
 --- a/python/mozboot/mozboot/bootstrap.py
 +++ b/python/mozboot/mozboot/bootstrap.py
-@@ -542,10 +542,7 @@ def current_firefox_checkout(env, hg=None):
-         if child == "":
+@@ -549,10 +549,8 @@ def current_firefox_checkout(env, hg: Optional[Path] = None):
+         if not len(path.parents):
              break
  
 -    raise UserError(
@@ -9,12 +11,15 @@
 -        "Are you running `mach bootstrap` in an hg or git clone?"
 -    )
 +    return ("local", os.getcwd())
++
  
  
- def update_git_tools(git, root_state_dir):
+ def update_git_tools(git: Optional[Path], root_state_dir: Path):
+diff --git a/python/mozversioncontrol/mozversioncontrol/__init__.py b/python/mozversioncontrol/mozversioncontrol/__init__.py
+index dd31f53..6f0087a 100644
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
-@@ -672,6 +672,27 @@ class GitRepository(Repository):
+@@ -684,6 +684,29 @@ class GitRepository(Repository):
          self._run("config", name, value)
  
  
@@ -39,22 +44,24 @@
 +        return FileListFinder(files)
 +
 +
- def get_repository_object(path, hg="hg", git="git"):
++        
++
+ def get_repository_object(path: Optional[Union[str, Path]], hg="hg", git="git"):
      """Get a repository object for the repository at `path`.
      If `path` is not a known VCS repository, raise an exception.
-@@ -681,7 +696,7 @@ def get_repository_object(path, hg="hg", git="git"):
-     elif os.path.exists(os.path.join(path, ".git")):
+@@ -697,7 +720,7 @@ def get_repository_object(path: Optional[Union[str, Path]], hg="hg", git="git"):
+     elif (path / ".git").exists():
          return GitRepository(path, git=git)
      else:
--        raise InvalidRepoPath("Unknown VCS, or not a source checkout: %s" % path)
+-        raise InvalidRepoPath(f"Unknown VCS, or not a source checkout: {path}")
 +        return LocalRepository(path)
  
  
  def get_repository_from_build_config(config):
-@@ -705,6 +720,8 @@ def get_repository_from_build_config(config):
-         return HgRepository(config.topsrcdir, hg=config.substs["HG"])
+@@ -721,6 +744,8 @@ def get_repository_from_build_config(config):
+         return HgRepository(Path(config.topsrcdir), hg=config.substs["HG"])
      elif flavor == "git":
-         return GitRepository(config.topsrcdir, git=config.substs["GIT"])
+         return GitRepository(Path(config.topsrcdir), git=config.substs["GIT"])
 +    elif flavor == "local":
 +        return LocalRepository(config.topsrcdir)
      else:
