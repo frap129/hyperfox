@@ -31,10 +31,10 @@ index 4f3babe..97c7ec2 100644
     content/browser/preferences/experimental.js
 diff --git a/browser/components/preferences/librewolf.inc.xhtml b/browser/components/preferences/librewolf.inc.xhtml
 new file mode 100644
-index 0000000..9d905e1
+index 0000000..7a582fb
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.inc.xhtml
-@@ -0,0 +1,236 @@
+@@ -0,0 +1,254 @@
 +# This Source Code Form is subject to the terms of the Mozilla Public
 +# License, v. 2.0. If a copy of the MPL was not distributed with this
 +# file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -133,6 +133,24 @@ index 0000000..9d905e1
 +      <label data-l10n-id="librewolf-ipv6-description" />
 +      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="librewolf-ipv6-warning1" class="librewolf-warning" /> </html:div>
 +      <checkbox preference="network.dns.disableIPv6" label="network.dns.disableIPv6" />
++    </vbox>
++  </vbox>
++
++</groupbox>
++
++<groupbox hidden="true" data-category="paneLibrewolf">
++  <html:h2 data-l10n-id="librewolf-privacy-heading" />
++
++  <hbox>
++    <checkbox id="librewolf-xorigin-ref-checbox" data-l10n-id="librewolf-xorigin-ref-checbox" preference="network.http.referer.XOriginPolicy" flex="1" />
++    <html:label for="librewolf-xorigin-ref-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
++  </hbox>
++  <vbox class="librewolf-collapse indent">
++    <html:input type="checkbox" id="librewolf-xorigin-ref-collapse" />
++    <vbox class="librewolf-collapsed tracking-protection-ui content-blocking-category">
++      <label data-l10n-id="librewolf-xorigin-ref-description" />
++      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="librewolf-xorigin-ref-warning1" class="librewolf-warning" /> </html:div>
++      <checkbox preference="network.http.referer.XOriginPolicy" label="network.http.referer.XOriginPolicy" />
 +    </vbox>
 +  </vbox>
 +
@@ -273,10 +291,10 @@ index 0000000..9d905e1
 +</html:template>
 diff --git a/browser/components/preferences/librewolf.js b/browser/components/preferences/librewolf.js
 new file mode 100644
-index 0000000..e97a726
+index 0000000..dd6eaf2
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.js
-@@ -0,0 +1,248 @@
+@@ -0,0 +1,260 @@
 +/* This Source Code Form is subject to the terms of the Mozilla Public
 + * License, v. 2.0. If a copy of the MPL was not distributed with this file,
 + * You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -309,6 +327,8 @@ index 0000000..e97a726
 +  // Clipboard autocopy/paste
 +  { id: "clipboard.autocopy", type: "bool" },
 +  { id: "middlemouse.paste", type: "bool" },
++  // XOrigin referrers
++  { id: "network.http.referer.XOriginPolicy", type: "int"},
 +  // Harden
 +  { id: "privacy.resistFingerprinting.letterboxing", type: "bool" },
 +  // Google Safe Browsing
@@ -419,6 +439,8 @@ index 0000000..e97a726
 +      ]
 +    );
 +
++    Preferences.get("network.http.referer.XOriginPolicy").on("change", syncXOriginPolicy(Preferences.get("network.http.referer.XOriginPolicy")));
++
 +    // Set event listener on open profile directory button
 +    setEventListener("librewolf-open-profile", "command", openProfileDirectory);
 +    // Set event listener on open about:config button
@@ -428,6 +450,14 @@ index 0000000..e97a726
 +    Services.obs.notifyObservers(window, "librewolf-pane-loaded");
 +  },
 +};
++
++function syncXOriginPolicy(prefValue) {
++  if (prefValue == "0") {
++    Services.prefs.setIntPref("network.http.referer.XOriginPolicy", 2);
++  } else {
++    Services.prefs.setIntPref("network.http.referer.XOriginPolicy", 0);
++  }
++}
 +
 +function openProfileDirectory() {
 +  // Get the profile directory.
@@ -584,10 +614,10 @@ index aab4a9e..907a631 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index d276f7a..06787cd 100644
+index d276f7a..12ac60b 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1347,3 +1347,86 @@ choose-download-folder-title = Choose Download Folder:
+@@ -1347,3 +1347,93 @@ choose-download-folder-title = Choose Download Folder:
  #   $service-name (String) - Name of a cloud storage provider like Dropbox, Google Drive, etc...
  save-files-to-cloud-storage =
      .label = Save files to { $service-name }
@@ -608,6 +638,8 @@ index d276f7a..06787cd 100644
 +librewolf-general-heading = Browser Behavior
 +librewolf-extension-update-checkbox =
 +    .label = Update add-ons automatically
++librewolf-sync-checkbox =
++    .label = Enable Firefox Sync
 +librewolf-autocopy-checkbox =
 +    .label = Enable middle click paste
 +librewolf-styling-checkbox = 
@@ -617,13 +649,13 @@ index d276f7a..06787cd 100644
 +librewolf-ipv6-checkbox =
 +    .label = Enable IPv6
 +
++librewolf-privacy-heading = Privacy
++librewolf-xorigin-ref-checbox =
++    .label = Limit cross-origin referrers
++
 +librewolf-broken-heading = Fingerprinting
 +librewolf-webgl-checkbox =
 +    .label = Enable WebGL
-+librewolf-ocsp-checkbox =
-+    .label = Enforce OCSP hard-fail
-+librewolf-sync-checkbox =
-+    .label = Enable Firefox Sync
 +librewolf-rfp-checkbox =
 +    .label = Enable ResistFingerprinting
 +librewolf-auto-decline-canvas-checkbox =
@@ -632,6 +664,8 @@ index d276f7a..06787cd 100644
 +    .label = Enable letterboxing
 +
 +librewolf-security-heading = Security
++librewolf-ocsp-checkbox =
++    .label = Enforce OCSP hard-fail
 +librewolf-goog-safe-checkbox =
 +    .label = Enable Google Safe Browsing
 +librewolf-goog-safe-download-checkbox =
@@ -644,14 +678,17 @@ index d276f7a..06787cd 100644
 +librewolf-ipv6-description = Allow { -brand-short-name } to connect using IPv6.
 +librewolf-ipv6-warning1 = Before you change this, make sure your OS uses the IPv6 privacy extension.
 +librewolf-ocsp-description = Prevent connecting to a website if the OCSP check cannot be performed.
-+librewolf-ocsp-warning1 = This increases security, but it will cause breakage when a OCSP server is down.
-+librewolf-sync-description = Enable Firefox Sync.
-+librewolf-sync-warning1 = If you enable this, Mozilla knows more about you then when disabled.
++librewolf-ocsp-warning1 = This increases security, but it will cause breakage when an OCSP server is down.
++librewolf-sync-description = Sync your data with other browsers.
++librewolf-sync-warning1 = Firefox Sync encrypts data locally before transmitting it to the server.
 +
 +librewolf-autocopy-description = Select some text to copy it, then paste it with a middle-mouse click.
 +
 +librewolf-styling-description = Enable this if you want to customize the UI with a manually loaded theme.
 +librewolf-styling-warning1 = Make sure you trust the provider of the theme.
++
++librewolf-xorigin-ref-description = Send a referrer only on same-origin.
++librewolf-xorigin-ref-warning1 = This causes breakage, and when sent refferers will still be trimmed.
 +
 +librewolf-webgl-description = WebGL is a strong fingerprinting vector.
 +librewolf-webgl-warning1 = If you need to enable it, consider using an extension like Canvas Blocker.
