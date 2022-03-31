@@ -9,15 +9,6 @@
  always-check-default =
      .label = Always check if { -brand-short-name } is your default browser
      .accesskey = y
-@@ -140,7 +140,7 @@
-     .accesskey = D
- 
- startup-restore-windows-and-tabs =
--    .label = Open previous windows and tabs
-+    .label = Open previous windows and tabs. <a data-l10n-name="learn-more">What if it does not work?</a>
-     .accesskey = s
- 
- startup-restore-warn-on-quit =
 @@ -409,13 +409,13 @@
      .label = Play DRM-controlled content
      .accesskey = P
