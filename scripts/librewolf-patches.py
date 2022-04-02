@@ -89,7 +89,7 @@ def librewolf_patches():
     enter_srcdir()
     
     # create the right mozconfig file..
-    exec('cp -v ../assets/mozconfig .')
+    exec('cp -v ../assets/mozconfig.new mozconfig')
 
     # copy branding files..
     exec("cp -r ../themes/browser .")
@@ -110,7 +110,7 @@ def librewolf_patches():
     # Create the 'lw' folder, it contains the librewolf.cfg and policies.json files.
     #
     
-    exec('mkdir -p lw')
+    #exec('mkdir -p lw')
     
     # getting the librewolf settings repository
     exec("cp -v ../submodules/settings/defaults/pref/local-settings.js lw/")
