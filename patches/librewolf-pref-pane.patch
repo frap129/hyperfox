@@ -291,7 +291,7 @@ index 0000000..7a582fb
 +</html:template>
 diff --git a/browser/components/preferences/librewolf.js b/browser/components/preferences/librewolf.js
 new file mode 100644
-index 0000000..72f431c
+index 0000000..bd20104
 --- /dev/null
 +++ b/browser/components/preferences/librewolf.js
 @@ -0,0 +1,260 @@
@@ -373,7 +373,7 @@ index 0000000..72f431c
 +    setBoolSyncListeners(
 +      "librewolf-sync-checkbox",
 +      ["identity.fxaccounts.enabled"],
-+      [false,                   ],
++      [true,                   ],
 +    );
 +    setBoolSyncListeners(
 +      "librewolf-autocopy-checkbox",
@@ -614,7 +614,7 @@ index aab4a9e..907a631 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index d276f7a..a7f70ef 100644
+index d276f7a..dce5032 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
 @@ -1347,3 +1347,93 @@ choose-download-folder-title = Choose Download Folder:
@@ -639,7 +639,7 @@ index d276f7a..a7f70ef 100644
 +librewolf-extension-update-checkbox =
 +    .label = Update add-ons automatically
 +librewolf-sync-checkbox =
-+    .label = Disable Firefox Sync
++    .label = Enable Firefox Sync (requires restart)
 +librewolf-autocopy-checkbox =
 +    .label = Enable middle click paste
 +librewolf-styling-checkbox = 
