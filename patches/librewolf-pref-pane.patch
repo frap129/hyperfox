@@ -614,7 +614,7 @@ index aab4a9e..907a631 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index d276f7a..dce5032 100644
+index d276f7a..36fffcb 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
 @@ -1347,3 +1347,93 @@ choose-download-folder-title = Choose Download Folder:
@@ -630,7 +630,7 @@ index d276f7a..dce5032 100644
 +    .tooltiptext = about:config changes, logically grouped and easily accessible
 +
 +# Main content
-+librewolf-header = Librewolf Preferences
++librewolf-header = LibreWolf Preferences
 +librewolf-warning-title = Heads up!
 +librewolf-warning-description = We carefully choose default settings to focus on privacy and security. When changing these settings, read the descriptions to understand the implications of those changes.
 +

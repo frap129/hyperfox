@@ -4,7 +4,6 @@ patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/librewolf-pref-pane.patch
-patches/mozilla-vpn-ad2.patch
 patches/mozilla_dirs.patch
 patches/remove_addons.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
