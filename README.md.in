@@ -71,6 +71,8 @@ Well, first of all:
 * The essential: [Firefox Source Tree Documentation](https://firefox-source-docs.mozilla.org/).
 
 Now that you have a patch in LibreWolf, that's not enough to upload to Mozilla. See, Mozilla only accepts patches against Nightly. So here is how to do that:
+
+If you have not done already, create the `mozilla-unified` folder and build Firefox with it:
 ```
 hg clone https://hg.mozilla.org/mozilla-unified
 cd mozilla-unified
@@ -78,6 +80,12 @@ hg update
 MOZBUILD_STATE_PATH=$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser
 ./mach build
 ./mach run
+```
+If you skipped the previous step, you could ensure that you're up to date with:
+```
+cd mozilla-unified
+hg pull
+hg update
 ```
 Now you can apply your patch to Nightly:
 ```

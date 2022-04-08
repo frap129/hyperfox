@@ -45,7 +45,6 @@ check :
 
 
 update : README.md
-	./scripts/fetch-pref-pane-patch.sh
 	git submodule update --recursive --remote
 
 README.md : README.md.in ./version ./release
