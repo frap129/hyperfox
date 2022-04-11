@@ -12,31 +12,31 @@ if [ ! -f "$firefox" ]; then
     exit 1
 fi
 
-echo "[debug] firefox file = '$firefox'"
-echo "[debug] tmpdir = '$tmpdir'"
-echo ""
 
 
 
 
-
-
-
+echo "Removing '$tmpdir'..."
 rm -rf $tmpdir
 mkdir $tmpdir
 cd $tmpdir
+echo "Extracting '$firefox'..."
 tar xf ../$firefox
 cd firefox-$(cat ../version)
 
-for i in $(cat assets/patches.txt); do
+echo ""
+echo "Testing patches..."
+echo ""
+for i in $(cat ../../assets/patches.txt); do
     echo $i:
     patch -p1 -i ../../$i
     patch -R -p1 -i ../../$i
 done
 
 cd ../..
+echo "Removing '$tmpdir'..."
 rm -rf $tmpdir
 
 echo ""
-echo "check-patchfail.sh: All patches succeeded."
+echo "All patches succeeded."
 exit 0
