@@ -66,14 +66,12 @@
  
 --- a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
 +++ b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
-@@ -168,6 +168,27 @@ class GitRepository(Repository):
+@@ -168,6 +168,43 @@ class GitRepository(Repository):
          self.run("checkout", ref)
  
  
 +class LocalRepository(Repository):
-+
-+    def __init__(self, path):
-+        super(LocalRepository, self).__init__(path, tool="true")
++    tool = "true"
 +
 +    @property
 +    def head_ref(self):
@@ -85,6 +83,24 @@
 +    def get_changed_files(self):
 +        return []
 +
++    def base_ref(self):
++        raise Exception("Unimplemented")
++
++    def branch(self):
++        raise Exception("Unimplemented")
++
++    def get_commit_message(self):
++        raise Exception("Unimplemented")
++
++    def get_url(self):
++        return ""
++
++    def update(self):
++        raise Exception("Unimplemented")
++
++    def working_directory_clean(self):
++        raise Exception("Unimplemented")
++
 +    def get_tracked_files_finder(self):
 +        files = [os.path.relpath(os.path.join(dp, f), self.path).replace("\\","/") for dp, dn, fn in os.walk(self.path) for f in fn]
 +        files.sort()
@@ -94,7 +110,7 @@
  def get_repository(path):
      """Get a repository object for the repository at `path`.
      If `path` is not a known VCS repository, raise an exception.
-@@ -178,7 +199,7 @@ def get_repository(path):
+@@ -178,7 +215,7 @@ def get_repository(path):
          elif os.path.exists(os.path.join(path, ".git")):
              return GitRepository(path)
  
