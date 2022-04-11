@@ -1,5 +1,3 @@
-set -e
-
 tmpdir="tmpdir92"
 
 if [ ! -f version ]; then
@@ -26,17 +24,33 @@ cd firefox-$(cat ../version)
 
 echo ""
 echo "Testing patches..."
-echo ""
+
 for i in $(cat ../../assets/patches.txt); do
-    echo $i:
-    patch -p1 -i ../../$i
-    patch -R -p1 -i ../../$i
+    echo ""
+    echo "==> $i:"
+    echo ""
+    patch $* -p1 -i ../../$i > ../patch.tmp
+    cat ../patch.tmp
+
+    s=""
+    for j in $(grep -n rej$ ../patch.tmp | awk '{ print $(NF); }'); do
+	s="$s $j"
+    done
+    s=$s
+    if [ ! -z "$s" ]; then
+	echo ""
+	for k in $s; do
+	    echo "--> $s:"
+	    cat $s
+	done
+    fi
+    
+    rm -f ../patch.tmp
+    #patch -R -p1 -i ../../$i
 done
 
 cd ../..
+echo ""
 echo "Removing '$tmpdir'..."
 rm -rf $tmpdir
-
-echo ""
-echo "All patches succeeded."
 exit 0
