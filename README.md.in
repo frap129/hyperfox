@@ -1,3 +1,7 @@
+# LibreWolf Source Repository
+
+This repository contains all the patches and theming that make up LibreWolf, as well as scripts and a Makefile to build LibreWolf. There also is the [Settings repo](https://gitlab.com/librewolf-community/settings), which contains the LibreWolf prefs.
+
 ## Active repositories and projects
 
 List of browser build sub projects. These are the locations where people have their repositories and build artifacts.
@@ -20,15 +24,66 @@ Currently active forks:
 
 ## LibreWolf build instructions
 
+There currently are two ways to build LibreWolf. You can either use the source tarball or compile directly with this repository.
+
+### Building from the Tarball
+
 First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-__VERSION__-__RELEASE__.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
 
-So here is how build LibreWolf for Linux:
 ```
 tar xf <tarball>
 cd <folder>
-make setup-wasi bootstrap build package run
 ```
-#### How to make a patch:
+
+Then, you have to bootstrap your system to be able to build LibreWolf. You only have to do this one time. It is done by running the following commands:
+
+```
+./mach --no-interactive bootstrap --application-choice=browser
+./lw/setup-wasi-linux.sh
+```
+
+Finally you can build LibreWolf and then package or run it with the following commands:
+
+```
+./mach build
+./mach package
+# OR
+./mach run
+```
+
+### Building with this Repository
+
+First, clone this repository with Git:
+
+```
+git clone --recursive https://gitlab.com/librewolf-community/browser/source.git librewolf-source
+cd librewolf-source
+```
+
+Next, build the LibreWolf source code with the following command:
+
+```
+make dir
+```
+
+After that, you have to bootstrap your system to be able to build LibreWolf. You only have to do this one time. It is done by running the following command:
+
+```
+make bootstrap
+```
+
+Finally you can build LibreWolf and then package or run it with the following commands:
+
+```
+make build
+make package
+# OR
+make run
+```
+
+## Development Notes
+
+### How to make a patch
 
 The easiest way to make patches is to go to the LibreWolf source folder:
 ```
@@ -40,29 +95,7 @@ git diff > ../mypatch.patch
 ```
 We have Gitter / Matrix rooms, and on the website we have links to the various issue trackers.
 
-#### Building LibreWolf with git:
-
-1. Clone the git repository via https:
-```
-git clone --recursive https://gitlab.com/librewolf-community/browser/source.git
-```
-or ssh:
-```
-git clone --recursive git@gitlab.com:librewolf-community/browser/source.git
-```
-cd into it, build the LibreWolf tarball, bootstrap the build environment, and finally, perform the build:
-```
-cd source
-make all
-make bootstrap
-make build
-```
-After that, you can either build a tarball from it, or run it:
-```
-make package
-make run
-```
-#### How to create a patch for problems in Mozilla's [Bugzilla](https://bugzilla.mozilla.org/).
+### How to create a patch for problems in Mozilla's [Bugzilla](https://bugzilla.mozilla.org/).
 
 Well, first of all:
 
@@ -101,5 +134,5 @@ And it can be uploaded to Bugzilla.
 
 Time to start hacking! You should join us on [Matrix](https://chat.mozilla.org/), say hello in the [Introduction channel](https://chat.mozilla.org/#/room/#introduction:mozilla.org), and [find a bug to start working on](https://codetribute.mozilla.org/). See the [Firefox Contributors’ Quick Reference](https://firefox-source-docs.mozilla.org/contributing/contribution_quickref.html#firefox-contributors-quick-reference) to learn how to test your changes, send patches to Mozilla, update your source code locally, and more.
 
-#### Hey, I'm using a Mac or Windows :(
+## Hey, I'm using a Mac or Windows :(
 We understand, life isn't always fair 😺. The same steps as above do apply, you'll just have to walk through the beginning part of the guides for [MacOS](https://firefox-source-docs.mozilla.org/setup/macos_build.html), [Windows](https://firefox-source-docs.mozilla.org/setup/windows_build.html). To build on Windows is not very well tested. The cross-compiled Mac .dmg files are also relatively new. It should work, perhaps with the exception of the `make setup-wasi` step. Help testing with these targets is always welcome.
