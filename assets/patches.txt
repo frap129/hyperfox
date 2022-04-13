@@ -10,6 +10,7 @@ patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
 patches/sed-patches/remove-internal-plugin-certs.patch
 patches/sed-patches/stop-undesired-requests2.patch
+patches/ui-patches/handlers.patch
 patches/ui-patches/hide-default-browser.patch
 patches/ui-patches/pref-naming.patch
 patches/ui-patches/privacy-preferences.patch
