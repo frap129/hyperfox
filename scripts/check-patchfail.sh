@@ -12,7 +12,7 @@ fi
 
 
 
-
+failed_patches=
 
 echo "Removing '$tmpdir'..."
 rm -rf $tmpdir
@@ -38,6 +38,8 @@ for i in $(cat ../../assets/patches.txt); do
     done
     s=$s
     if [ ! -z "$s" ]; then
+	s=$(echo $i)
+	failed_patches="$failed_patches [$s]"
 	echo ""
 	for k in $s; do
 	    echo "--> $s:"
@@ -53,4 +55,14 @@ cd ../..
 echo ""
 echo "Removing '$tmpdir'..."
 rm -rf $tmpdir
-exit 0
+echo ""
+
+if [ ! -z "$failed_patches" ]; then
+    echo $failed_patches
+    echo ""
+    echo "error: Some patches failed!"
+    exit 1
+else
+    echo "success: All patches where applied successfully."
+    exit 0
+fi
