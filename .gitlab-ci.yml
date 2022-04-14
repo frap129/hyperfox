@@ -36,13 +36,11 @@ Release:
     - curl -L --output /usr/local/bin/release-cli "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
     - chmod +x /usr/local/bin/release-cli
   script:
-    - |
-      curl \
+    - curl \
         --header "JOB-TOKEN: $CI_JOB_TOKEN" \
         --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz \
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz"
-    - |
-      curl \
+    - curl \
         --header "JOB-TOKEN: $CI_JOB_TOKEN" \
         --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum \
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum"
