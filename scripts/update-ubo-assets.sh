@@ -40,6 +40,8 @@ add_filter_list "LegitimateURLShortener" '{
 echo "-> Writing to assets/uBOAssets.json"
 echo $assets | jq . >./assets/uBOAssets.json
 
+git diff assets/uBOAssets.json
+
 if [[ "$(
   read -e -p '-? Commit changes? [y/N] '
   echo $REPLY
