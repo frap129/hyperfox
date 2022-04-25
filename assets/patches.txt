@@ -3,6 +3,7 @@ patches/bootstrap-without-vcs.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/disable-data-reporting-at-compile-time.patch
+patches/hide-passwordmgr.patch
 patches/librewolf-pref-pane.patch
 patches/mozilla_dirs.patch
 patches/remove_addons.patch
@@ -12,6 +13,7 @@ patches/sed-patches/remove-internal-plugin-certs.patch
 patches/sed-patches/stop-undesired-requests2.patch
 patches/ui-patches/handlers.patch
 patches/ui-patches/hide-default-browser.patch
+patches/ui-patches/lw-logo-devtools.patch
 patches/ui-patches/pref-naming.patch
 patches/ui-patches/privacy-preferences.patch
 patches/ui-patches/remap-links.patch
