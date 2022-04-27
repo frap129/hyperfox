@@ -95,6 +95,21 @@ git diff > ../mypatch.patch
 ```
 We have Gitter / Matrix rooms, and on the website we have links to the various issue trackers.
 
+### How to work on an existing patch
+
+The easiest way to make patches is to go to the LibreWolf source folder:
+```
+make fetch # get the firefox tarball
+./scripts/git-patchtree.sh patches/sed-patches/disable-pocket.patch
+```
+Now change the source tree the way you want, keeping in mind to `git add` new files. When done, you can create the new patch with:
+```
+cd firefox-<version>
+git diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD > ../my-patch-name.patch
+```
+This ID is the standard ID of any empty git repository. You can now also delete the temporary firefox souce tree.
+
+
 ### How to create a patch for problems in Mozilla's [Bugzilla](https://bugzilla.mozilla.org/).
 
 Well, first of all:
