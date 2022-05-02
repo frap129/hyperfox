@@ -1,9 +1,10 @@
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -309,11 +309,19 @@ var gMainPane = {
+@@ -308,12 +308,19 @@
+       "performanceSettingsLearnMore"
      );
      let performanceSettingsUrl =
-       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      Services.urlFormatter.formatURLPref("app.support.baseURL") +
 -      "performance";
 +      "https://support.mozilla.org/en-US/kb/performance-settings";
      performanceSettingsLink.setAttribute("href", performanceSettingsUrl);
@@ -21,7 +22,17 @@
      let defaultPerformancePref = Preferences.get(
        "browser.preferences.defaultPerformanceSettings.enabled"
      );
-@@ -357,8 +365,7 @@ var gMainPane = {
+@@ -326,8 +333,7 @@
+       "connectionSettingsLearnMore"
+     );
+     let connectionSettingsUrl =
+-      Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "prefs-connection-settings";
++     "https://support.mozilla.org/en-US/kb/connection-settings-firefox"
+     connectionSettingsLink.setAttribute("href", connectionSettingsUrl);
+     this.updateProxySettingsUI();
+     initializeProxyUI(gMainPane);
+@@ -357,8 +363,7 @@
        document.getElementById("pictureInPictureBox").hidden = false;
  
        let pipLearnMoreUrl =
@@ -31,7 +42,7 @@
        let link = document.getElementById("pictureInPictureLearnMore");
        link.setAttribute("href", pipLearnMoreUrl);
      }
-@@ -509,8 +516,7 @@ var gMainPane = {
+@@ -509,8 +514,7 @@
      ) {
        document.getElementById("mediaControlBox").hidden = false;
        let mediaControlLearnMoreUrl =
@@ -41,7 +52,7 @@
        let link = document.getElementById("mediaControlLearnMore");
        link.setAttribute("href", mediaControlLearnMoreUrl);
      }
-@@ -543,7 +549,7 @@ var gMainPane = {
+@@ -543,7 +547,7 @@
  
      let drmInfoURL =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -50,7 +61,7 @@
      document
        .getElementById("playDRMContentLink")
        .setAttribute("href", drmInfoURL);
-@@ -870,7 +876,8 @@ var gMainPane = {
+@@ -870,7 +874,8 @@
  
      const link = document.getElementById("browserContainersLearnMore");
      link.href =
