@@ -7,6 +7,7 @@ patches/disable-data-reporting-at-compile-time.patch
 patches/hide-passwordmgr.patch
 patches/librewolf-pref-pane.patch
 patches/mozilla_dirs.patch
+patches/native-messaging-registry-path.patch
 patches/remove_addons.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
