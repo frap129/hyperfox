@@ -1,6 +1,6 @@
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -806,6 +806,32 @@ var gMainPane = {
+@@ -806,6 +806,29 @@ var gMainPane = {
        () => this.readBrowserContainersCheckbox()
      );
  
@@ -10,24 +10,21 @@
 +      const infoBox = document.createElement("div");
 +      infoBox.classList.add("info-box-container");
 +      infoBox.style.display = "flex";
-+      infoBox.style.marginBottom = "10px";
-+      const icon = document.createElement("div");
-+      icon.classList.add("info-icon-container");
-+      infoBox.appendChild(icon);
++      infoBox.style.alignItems = "center";
++      infoBox.style.marginTop = "10px";
++      infoBox.style.marginBottom = "5px";
 +      const text = document.createElement("div");
-+      text.innerText = "Since RPF is enabled, the website appearance chooser is disabled.";
++      text.innerText = "This feature is disabled because ResistFingerprinting is enabled. This means LibreWolf will force web content to display in a light theme.";
 +      infoBox.appendChild(text);
 +      const learnMore = document.createElement("a");
 +      learnMore.classList.add("text-link");
 +      learnMore.style.marginLeft = "5px";
++      learnMore.style.flexShrink = 0;
 +      learnMore.setAttribute("is", "learn-more");
 +      learnMore.href = "https://librewolf.net/docs/faq/#why-is-librewolf-forcing-light-theme";
 +      learnMore.innerText = "Learn more";
 +      infoBox.appendChild(learnMore);
-+      const manageThemes = document.getElementById("webAppearanceSettings").lastElementChild;
-+      manageThemes.remove();
-+      document.getElementById("webAppearanceSettings").append(infoBox);
-+      document.getElementById("webAppearanceSettings").appendChild(manageThemes);
++      document.getElementById("webAppearanceSettings").insertBefore(infoBox, document.getElementById("webAppearanceSettings").children[2]);
 +    }
 +
      this.setInitialized();
