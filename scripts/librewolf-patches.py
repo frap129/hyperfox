@@ -126,6 +126,9 @@ def librewolf_patches():
     for file in ["browser/config/version.txt", "browser/config/version_display.txt"]:
         with open(file, "w") as f:
             f.write("{}-{}".format(version,release))
+
+    # generate locales
+    exec("bash ../scripts/generate-locales.sh")
     
     leave_srcdir()
 
