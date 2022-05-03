@@ -99,6 +99,58 @@ async function init(aEvent) {
       })
   }
 
+  const logos = [
+    {
+      creator: "/u/NO8X71",
+      url: "https://old.reddit.com/r/LibreWolf/comments/u91scw/revised_alternate_icons_with_a_night_version/"
+    },
+    {
+      creator: "/u/Lythrox",
+      url: "https://old.reddit.com/r/LibreWolf/comments/ub65m6/librewolf_netscape_tribute/"
+    },
+    {
+      creator: "/u/rere_dnaw",
+      url: "https://old.reddit.com/r/LibreWolf/comments/rh28rq/new_logo_ideas/"
+    },
+    {
+      creator: "/u/chunkyhairball",
+      url: "https://old.reddit.com/r/LibreWolf/comments/qk5jiv/i_like_cute_icons_so_ima_leave_this_here/"
+    },
+    {
+      creator: "/u/diiscotheque",
+      url: "https://old.reddit.com/r/LibreWolf/comments/tb4i52/icon_update_2/"
+    },
+    {
+      creator: "/u/Huginstog",
+      url: "https://old.reddit.com/r/LibreWolf/comments/u5yi3d/fluffier_cuddlier_but_still_free_wild/"
+    },
+    {
+      creator: "/u/diiscotheque",
+      url: "https://old.reddit.com/r/LibreWolf/comments/t9c84n/icon_update/"
+    },
+  ]
+
+  let i = Math.floor(Math.random() * 6);
+
+  function newLogo() {
+    i += 1;
+    i = i % logos.length;
+    const a = i % 2 === 0 ? "A" : "B";
+    const b = i % 2 === 1 ? "A" : "B";
+    document.getElementById("logo" + a).style.backgroundImage = `url("chrome://browser/content/aboutLogos/${i}.png")`;
+    document.getElementById("logo" + a).style.opacity = 1;
+    document.getElementById("logo" + b).style.opacity = 0;
+    document.getElementById("logoCreator" + a).innerHTML = logos[i].creator
+    document.getElementById("logoCreator" + a).href = logos[i].url;
+    document.getElementById("logoCreator" + a).style.opacity = 1;
+    document.getElementById("logoCreator" + b).style.opacity = 0;
+    document.getElementById("logoCreator" + a).style.pointerEvents = "all";
+    document.getElementById("logoCreator" + b).style.pointerEvents = "none";
+  }
+
+  newLogo();
+  setInterval(newLogo, 7000);
+
   window.sizeToContent();
 
   if (AppConstants.platform == "macosx") {

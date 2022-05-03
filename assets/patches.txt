@@ -1,3 +1,4 @@
+patches/aboutLogos.patch
 patches/allow-ubo-private-mode.patch
 patches/bootstrap-without-vcs.patch
 patches/context-menu.patch

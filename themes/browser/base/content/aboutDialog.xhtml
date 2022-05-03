@@ -34,12 +34,18 @@
   <script src="chrome://browser/content/aboutDialog.js"/>
 
   <div id="grid">
-    <div id="left" />
+    <div id="left">
+      <div id="logoA" />
+      <div id="logoB" />
+      <div>Community logo by</div>
+      <label id="logoCreatorA" is="text-link" />
+      <label id="logoCreatorB" is="text-link" />
+    </div>
     <div id="right">
       <label id="wordmark">LibreWolf</label>
-      <div id="version">
-        <label id="versionNumber" />
-      </div >
+      <label id="version">
+        🎉 <label id="versionNumber" /> 🎉
+      </label >
       <label id="distribution" />
       <label id="distributionId" />
       <label id="aboutText">
