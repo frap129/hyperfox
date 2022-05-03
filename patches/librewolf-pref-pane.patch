@@ -1,4 +1,4 @@
-From 7da96b1ab28e2e0e9e61bb4b3d7645a2d31e36cb Mon Sep 17 00:00:00 2001
+From cf709e1a1c879fb6b88d7dc05d2ab3e7b759ffbe Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
 Date: Tue, 12 Apr 2022 11:57:53 +0200
 Subject: [PATCH 1/2] port pref-pane patch changes to gecko-dev
@@ -21,7 +21,7 @@ Subject: [PATCH 1/2] port pref-pane patch changes to gecko-dev
  create mode 100644 browser/themes/shared/preferences/librewolf.css
 
 diff --git a/browser/components/preferences/jar.mn b/browser/components/preferences/jar.mn
-index 752b0b2ae3d2..0aa6f606b851 100644
+index 912d9edf0855..30a83da4edca 100644
 --- a/browser/components/preferences/jar.mn
 +++ b/browser/components/preferences/jar.mn
 @@ -11,6 +11,7 @@ browser.jar:
@@ -617,10 +617,10 @@ index 81059f3d2e01..d815682d68bc 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index 8c3f3f575598..40fdfefd7e52 100644
+index f4d5eaea2193..61c05fb0560f 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1372,3 +1372,93 @@ choose-download-folder-title = Choose Download Folder:
+@@ -1409,3 +1409,93 @@ choose-download-folder-title = Choose Download Folder:
  #   $service-name (String) - Name of a cloud storage provider like Dropbox, Google Drive, etc...
  save-files-to-cloud-storage =
      .label = Save files to { $service-name }
@@ -715,10 +715,10 @@ index 8c3f3f575598..40fdfefd7e52 100644
 +librewolf-config-link = All advanced settings (about:config)
 +librewolf-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index 9e25fa92fd4c..f47605332b3f 100644
+index 26f209ad7047..a305db88cbbd 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
-@@ -86,6 +86,7 @@
+@@ -106,6 +106,7 @@
    skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
    skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
    skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
@@ -726,7 +726,7 @@ index 9e25fa92fd4c..f47605332b3f 100644
    skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
    skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
    skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -108,6 +109,7 @@
+@@ -128,6 +129,7 @@
    skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
@@ -866,7 +866,7 @@ index 000000000000..12f926ab7018
 +	fill: currentColor;
 +}
 diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
-index 8b110d3eed52..801b1835a7a4 100644
+index 406dc5603070..d6920777ec81 100644
 --- a/browser/themes/shared/preferences/preferences.css
 +++ b/browser/themes/shared/preferences/preferences.css
 @@ -222,6 +222,10 @@ checkbox {
@@ -881,10 +881,10 @@ index 8b110d3eed52..801b1835a7a4 100644
    list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
  }
 -- 
-2.35.1
+2.36.0
 
 
-From 05a4e5c148f53263b65577724ab857b16b516673 Mon Sep 17 00:00:00 2001
+From 0844e8bdf9c85bb4d74f923d0b97ae834c24e6c1 Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
 Date: Thu, 14 Apr 2022 10:28:41 +0200
 Subject: [PATCH 2/2] fix xorigin pref init and handling
@@ -1021,10 +1021,10 @@ index 23395f027a50..95c5dbb48291 100644
      return defaultValue;
    } */
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index 40fdfefd7e52..bfde1423dc1a 100644
+index 61c05fb0560f..46de6b40af65 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1401,7 +1401,7 @@ librewolf-ipv6-checkbox =
+@@ -1438,7 +1438,7 @@ librewolf-ipv6-checkbox =
      .label = Enable IPv6
  
  librewolf-privacy-heading = Privacy
@@ -1034,5 +1034,5 @@ index 40fdfefd7e52..bfde1423dc1a 100644
  
  librewolf-broken-heading = Fingerprinting
 -- 
-2.35.1
+2.36.0
 
