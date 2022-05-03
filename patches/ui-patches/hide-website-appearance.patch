@@ -1,0 +1,13 @@
+diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
+index 11e2418..14aed40 100644
+--- a/browser/components/preferences/main.inc.xhtml
++++ b/browser/components/preferences/main.inc.xhtml
+@@ -127,7 +127,7 @@
+ </hbox>
+ 
+ <!-- Website appearance -->
+-<groupbox id="webAppearanceGroup" data-category="paneGeneral" hidden="true">
++<groupbox id="webAppearanceGroup" data-category="paneGeneral" hidden="true" style="display: none">
+   <html:h2 data-l10n-id="preferences-web-appearance-header"/>
+   <html:div id="webAppearanceSettings">
+     <description data-l10n-id="preferences-web-appearance-description"/>
