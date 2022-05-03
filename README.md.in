@@ -107,7 +107,8 @@ Now change the source tree the way you want, keeping in mind to `git add` new fi
 cd firefox-<version>
 git diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD > ../my-patch-name.patch
 ```
-This ID is the standard ID of any empty git repository. You can now also delete the temporary firefox souce tree.
+This ID is the hash value of the first commit, which is called `initial`. dont forget to commit
+changes before doing this diff, or the patch will be incomplete.
 
 
 ### How to create a patch for problems in Mozilla's [Bugzilla](https://bugzilla.mozilla.org/).

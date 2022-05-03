@@ -58,7 +58,7 @@ all : $(lw_source_tarball)
 
 
 clean :
-	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum
+	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum firefox-$(version)
 
 veryclean : clean
 	rm -f $(ff_source_tarball) $(ff_source_tarball).asc

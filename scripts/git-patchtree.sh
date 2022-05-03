@@ -23,18 +23,20 @@ if [ ! -f "$1" ]; then
 fi
 
 
-
-echo "Extracting '$firefox'..."
+echo "Removing previous firefox folder.."
 rm -rf firefox-$(cat version)
+echo "Extracting '$firefox'..."
 tar xf $firefox
 echo ""
 
 cd firefox-$(cat version) && \
     git init && \
     git add $(grep '+++' "../$1" | awk '{print $2}' | sed s/^b/./) && \
-    git commit -am "original" && \
-    patch -p1 -i "../$1" && \
-    git add $(grep '+++' "../$1" | awk '{print $2}' | sed s/^b/./) && \
+    git commit -am "original"
+
+patch -p1 -i "../$1"
+
+git add $(grep '+++' "../$1" | awk '{print $2}' | sed s/^b/./) && \
     git commit -am "patch" && \
     echo "" && \
     echo "git-patchtree: Files under git control are: (git ls-tree -r HEAD --name-only)" && \

@@ -1,9 +1,9 @@
 diff --git a/browser/components/newtab/data/content/activity-stream.bundle.js b/browser/components/newtab/data/content/activity-stream.bundle.js
-index 6e7cc5e..8334a49 100644
+index d5a3f10..b5efa81 100644
 --- a/browser/components/newtab/data/content/activity-stream.bundle.js
 +++ b/browser/components/newtab/data/content/activity-stream.bundle.js
-@@ -1819,7 +1819,7 @@ class ASRouterAdminInner extends react__WEBPACK_IMPORTED_MODULE_3___default.a.Pu
-         label = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", null, "remote settings (", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("a", {
+@@ -1577,7 +1577,7 @@ class ASRouterAdminInner extends (external_React_default()).PureComponent {
+         label = /*#__PURE__*/external_React_default().createElement("span", null, "remote settings (", /*#__PURE__*/external_React_default().createElement("a", {
            className: "providerUrl",
            target: "_blank",
 -          href: "https://firefox.settings.services.mozilla.com/v1/buckets/main/collections/nimbus-desktop-experiments/records",
@@ -11,20 +11,21 @@ index 6e7cc5e..8334a49 100644
            rel: "noopener noreferrer"
          }, "nimbus-desktop-experiments"), ")");
        }
-@@ -15671,4 +15671,4 @@ TopSiteForm_TopSiteForm.defaultProps = {
- };
- 
- /***/ })
--/******/ ]);
+@@ -14758,5 +14758,4 @@ function renderCache(initialState) {
+   }), document.getElementById("root"));
+ }
+ NewtabRenderUtils = __webpack_exports__;
+-/******/ })()
+-;
 \ No newline at end of file
-+/******/ ]);
++/******/ });
 diff --git a/modules/libpref/init/all.js b/modules/libpref/init/all.js
-index 651d38c..4b99610 100644
+index 261e46f..22f8214 100644
 --- a/modules/libpref/init/all.js
 +++ b/modules/libpref/init/all.js
-@@ -2198,7 +2198,7 @@ pref("security.insecure_field_warning.ignore_local_ip_address", true);
+@@ -2181,7 +2181,7 @@ pref("security.insecure_field_warning.ignore_local_ip_address", true);
+ 
  // Remote settings preferences
- // Note: if you change this, make sure to also review security.onecrl.maximum_staleness_in_seconds
  pref("services.settings.poll_interval", 86400); // 24H
 -pref("services.settings.server", "https://firefox.settings.services.mozilla.com/v1");
 +pref("services.settings.server", "https://https://f.s.s.%.c.invalid/v1");
@@ -32,10 +33,10 @@ index 651d38c..4b99610 100644
  
  // The percentage of clients who will report uptake telemetry as
 diff --git a/services/settings/Utils.jsm b/services/settings/Utils.jsm
-index f91e5dc..910261c 100644
+index 2ce9e87..cd132a3 100644
 --- a/services/settings/Utils.jsm
 +++ b/services/settings/Utils.jsm
-@@ -90,7 +90,7 @@ var Utils = {
+@@ -89,7 +89,7 @@ var Utils = {
    get SERVER_URL() {
      return allowServerURLOverride
        ? gServerURL
@@ -45,7 +46,7 @@ index f91e5dc..910261c 100644
  
    CHANGES_PATH: "/buckets/monitor/collections/changes/changeset",
 diff --git a/toolkit/components/search/SearchUtils.jsm b/toolkit/components/search/SearchUtils.jsm
-index 41d2a23..448c92a 100644
+index 983d567..5fb6ae7 100644
 --- a/toolkit/components/search/SearchUtils.jsm
 +++ b/toolkit/components/search/SearchUtils.jsm
 @@ -159,9 +159,9 @@ var SearchUtils = {
