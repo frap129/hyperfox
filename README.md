@@ -28,7 +28,7 @@ There currently are two ways to build LibreWolf. You can either use the source t
 
 ### Building from the Tarball
 
-First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-99.0.1-4.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
+First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/jobs/artifacts/main/raw/librewolf-100.0-1.source.tar.gz?job=Build)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
 
 ```
 tar xf <tarball>
@@ -107,7 +107,8 @@ Now change the source tree the way you want, keeping in mind to `git add` new fi
 cd firefox-<version>
 git diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD > ../my-patch-name.patch
 ```
-This ID is the standard ID of any empty git repository. You can now also delete the temporary firefox souce tree.
+This ID is the hash value of the first commit, which is called `initial`. dont forget to commit
+changes before doing this diff, or the patch will be incomplete.
 
 
 ### How to create a patch for problems in Mozilla's [Bugzilla](https://bugzilla.mozilla.org/).
