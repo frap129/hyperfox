@@ -22,7 +22,7 @@ help :
 	@echo ""
 	@echo "  all         - Make LibreWolf source archive ${version}-${release}."
 	@echo "  check       - Check if there is a new version of Firefox."
-	@echo "  update      - Update the git submodules and README.md."
+	@echo "  update      - Update the git submodules."
 	@echo ""
 	@echo "  clean       - Clean everything except the upstream firefox tarball."
 	@echo "  veryclean   - Clean everything including the firefox tarball."
@@ -39,19 +39,13 @@ help :
 	@echo ""
 
 
-check : 
+check :
 	python3 scripts/update-version.py
 	@echo "Current release:" $$(cat ./release)
 
 
-update : README.md
+update :
 	git submodule update --recursive --remote
-
-README.md : README.md.in ./version ./release
-	@sed "s/__VERSION__/$(version)/g" < $< > tmp
-	@sed "s/__RELEASE__/$(release)/g" < tmp > $@
-	@rm -f tmp
-	@echo "Updated README.md from README.md.in"
 
 
 all : $(lw_source_tarball)
