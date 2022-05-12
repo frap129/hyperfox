@@ -1,12 +1,17 @@
 # LibreWolf Source Repository
 
-This repository contains all the patches and theming that make up LibreWolf, as well as scripts and a Makefile to build LibreWolf. There also is the [Settings repo](https://gitlab.com/librewolf-community/settings), which contains the LibreWolf prefs.
+This repository contains all the patches and theming that make up LibreWolf, as well as scripts and a Makefile to build LibreWolf. There also is the [Settings repository](https://gitlab.com/librewolf-community/settings), which contains the LibreWolf preferences.
+
+## LibreWolf overview
+
+![](https://gitlab.com/librewolf-community/browser/source/uploads/93977acd8a6165b04efb85205c5c83b1/lw.png)
 
 ## Active repositories and projects
 
 List of browser build sub projects. These are the locations where people have their repositories and build artifacts.
 
 Currently active build repositories:
+
 * [Arch](https://gitlab.com/librewolf-community/browser/arch): Arch Linux
 * [Bsys5](https://gitlab.com/librewolf-community/browser/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS.
 * [Debian](https://gitlab.com/librewolf-community/browser/debian): bgstack15 version
@@ -18,7 +23,8 @@ Currently active build repositories:
 * [OpenBSD](https://librewolf.net/installation/openbsd/): OpenBSD page
 * [Windows](https://gitlab.com/librewolf-community/browser/windows): LibreWolf builds for Windows.
 
-Currently active forks:
+Currently active (and known) forks:
+
 * Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
 * FireDragon: https://github.com/dr460nf1r3/firedragon-browser
 
