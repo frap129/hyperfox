@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - release
 
 Build:
@@ -17,6 +18,13 @@ Build:
       - librewolf-*.source.tar.gz.sha256sum
     reports:
       dotenv: variables.env
+
+Test:
+  stage: test
+  script:
+    - make bootstrap setup-wasi all build package
+  when: manual
+  allow_failure: true   
 
 Release:
   stage: release
