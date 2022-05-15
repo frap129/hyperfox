@@ -21,6 +21,8 @@ Build:
 
 Test:
   stage: test
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
   script:
     - make bootstrap setup-wasi dir build package
 
