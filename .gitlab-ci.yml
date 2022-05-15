@@ -23,8 +23,6 @@ Test:
   stage: test
   script:
     - make bootstrap setup-wasi all build package
-  when: manual
-  allow_failure: true   
 
 Release:
   stage: release
