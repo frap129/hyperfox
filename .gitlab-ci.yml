@@ -22,7 +22,7 @@ Build:
 Test:
   stage: test
   script:
-    - make bootstrap setup-wasi all build package
+    - make bootstrap setup-wasi dir build package
 
 Release:
   stage: release
