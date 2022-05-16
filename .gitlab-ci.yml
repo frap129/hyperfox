@@ -15,6 +15,7 @@ Build:
     paths:
       - librewolf-*.source.tar.gz
       - librewolf-*.source.tar.gz.sha256sum
+      - librewolf-*.source.tar.gz.sig
     reports:
       dotenv: variables.env
 
@@ -57,4 +58,7 @@ Release:
         - name: librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum
           link_type: other
           url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum
+        - name: librewolf-$VERSION-$RELEASE.source.tar.gz.sig
+          link_type: other
+          url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sig
 
