@@ -1,3 +1,28 @@
+From babb9dc13626b8d7096b3e9debd36a2404c34a80 Mon Sep 17 00:00:00 2001
+From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
+Date: Tue, 12 Apr 2022 11:57:53 +0200
+Subject: [PATCH] port pref-pane patch changes to gecko-dev
+
+fix xorigin pref init and handling
+
+[LW] Ask to Restart Browser if Sync Pref in LW Settings is changed
+---
+ browser/components/preferences/jar.mn         |   1 +
+ .../preferences/librewolf.inc.xhtml           | 254 ++++++++++++++++
+ browser/components/preferences/librewolf.js   | 287 ++++++++++++++++++
+ browser/components/preferences/preferences.js |   2 +
+ .../components/preferences/preferences.xhtml  |  13 +
+ .../en-US/browser/preferences/preferences.ftl |  95 ++++++
+ browser/themes/shared/jar.inc.mn              |   2 +
+ .../shared/preferences/category-librewolf.svg |  96 ++++++
+ .../themes/shared/preferences/librewolf.css   |  23 ++
+ .../themes/shared/preferences/preferences.css |   4 +
+ 10 files changed, 777 insertions(+)
+ create mode 100644 browser/components/preferences/librewolf.inc.xhtml
+ create mode 100644 browser/components/preferences/librewolf.js
+ create mode 100644 browser/themes/shared/preferences/category-librewolf.svg
+ create mode 100644 browser/themes/shared/preferences/librewolf.css
+
 diff --git a/browser/components/preferences/jar.mn b/browser/components/preferences/jar.mn
 index 912d9edf0855..30a83da4edca 100644
 --- a/browser/components/preferences/jar.mn
@@ -564,7 +589,7 @@ index 000000000000..c8cbb075d59b
 +  });
 +});
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index f6dc2b3781f8..7d401fc63219 100644
+index 0a2a7895ae44..430f70cf06a2 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
 @@ -8,6 +8,7 @@
@@ -622,13 +647,18 @@ index 81059f3d2e01..d815682d68bc 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index f4d5eaea2193..46de6b40af65 100644
+index b10403800c7a..7f9bc2760342 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1409,3 +1409,93 @@ choose-download-folder-title = Choose Download Folder:
- #   $service-name (String) - Name of a cloud storage provider like Dropbox, Google Drive, etc...
- save-files-to-cloud-storage =
-     .label = Save files to { $service-name }
+@@ -1413,3 +1413,98 @@ httpsonly-radio-disabled =
+ desktop-folder-name = Desktop
+ downloads-folder-name = Downloads
+ choose-download-folder-title = Choose Download Folder:
++
++# Variables:
++#   $service-name (String) - Name of a cloud storage provider like Dropbox, Google Drive, etc...
++save-files-to-cloud-storage =
++    .label = Save files to { $service-name }
 +
 +## LibreWolf preferences
 +
@@ -720,7 +750,7 @@ index f4d5eaea2193..46de6b40af65 100644
 +librewolf-config-link = All advanced settings (about:config)
 +librewolf-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index 26f209ad7047..a305db88cbbd 100644
+index 615644e2f1de..df8e3a849a4c 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
 @@ -106,6 +106,7 @@
@@ -736,9 +766,9 @@ index 26f209ad7047..a305db88cbbd 100644
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
 +  skin/classic/browser/preferences/librewolf.css               (../shared/preferences/librewolf.css)
-   skin/classic/browser/upgradeDialog.css                       (../shared/upgradeDialog.css)
    skin/classic/browser/spotlight.css                           (../shared/spotlight.css)
    skin/classic/browser/upgradeDialog/abstract.png              (../shared/upgradeDialog/abstract.png)
+   skin/classic/browser/upgradeDialog/cheers.png                (../shared/upgradeDialog/cheers.png)
 diff --git a/browser/themes/shared/preferences/category-librewolf.svg b/browser/themes/shared/preferences/category-librewolf.svg
 new file mode 100644
 index 000000000000..8ebf2ebe19a9
@@ -871,7 +901,7 @@ index 000000000000..12f926ab7018
 +	fill: currentColor;
 +}
 diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
-index 406dc5603070..d6920777ec81 100644
+index 74493f3c59c4..2f3623cf6631 100644
 --- a/browser/themes/shared/preferences/preferences.css
 +++ b/browser/themes/shared/preferences/preferences.css
 @@ -222,6 +222,10 @@ checkbox {
@@ -885,3 +915,6 @@ index 406dc5603070..d6920777ec81 100644
  #category-sync > .category-icon {
    list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
  }
+-- 
+2.36.1
+
