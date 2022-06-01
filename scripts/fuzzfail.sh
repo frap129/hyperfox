@@ -23,16 +23,17 @@ for curpatch in $(cat ../../assets/patches.txt); do
 
     s=""
     for j in $(grep -n rej$ ../patch.tmp | awk '{ print $(NF); }'); do
-	s="$s $j"
+        s="$s $j"
     done
     s=$s
     
     if [ ! -z "$s" ]; then
-	echo "$curpatch"
-	git config --global commit.gpgsign false
-	(ff=firefox-$(cat ../../version) && cd ../.. && scripts/git-patchtree.sh $curpatch && cd $ff && git diff > ../$curpatch && cd .. && rm -rf $ff)
-	git config --global commit.gpgsign true
+        echo "$curpatch"
+        git config --global commit.gpgsign false
+        (ff=firefox-$(cat ../../version) && cd ../.. && scripts/git-patchtree.sh $curpatch && cd $ff && git diff $(git rev-list --max-parents=0 HEAD) HEAD > ../$curpatch.nofuzz && cd .. && rm -rf $ff)
+        git config --global commit.gpgsign true
     fi
+    
     
     rm -f ../patch.tmp
 done
