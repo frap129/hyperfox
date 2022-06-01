@@ -8,6 +8,7 @@ Build:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
     - make all
+    - make check-patchfail check-fuzz
     - echo VERSION=$(cat version) >> variables.env
     - echo RELEASE=$(cat release) >> variables.env
     - echo BUILD_JOB_ID=$CI_JOB_ID >> variables.env
@@ -16,6 +17,8 @@ Build:
       - librewolf-*.source.tar.gz
       - librewolf-*.source.tar.gz.sha256sum
       - librewolf-*.source.tar.gz.sig
+      - patchfail.out
+      - patchfail-fuzz.out
     reports:
       dotenv: variables.env
 

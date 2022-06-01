@@ -25,27 +25,27 @@ cd firefox-$(cat ../version)
 echo ""
 echo "Testing patches..."
 
-for i in $(cat ../../assets/patches.txt); do
+for curpatch in $(cat ../../assets/patches.txt); do
     echo ""
-    echo "==> $i:"
+    echo "==> $curpatch:"
     echo ""
-    patch $* -p1 -i ../../$i > ../patch.tmp
+    patch $* -p1 -i ../../$curpatch > ../patch.tmp
     cat ../patch.tmp
 
+    ######################
     s=""
     for j in $(grep -n rej$ ../patch.tmp | awk '{ print $(NF); }'); do
 	s="$s $j"
+	echo "---[snip]---------- --> $j:"
+	cat $j
+	echo "---[snip]----------"
     done
     s=$s
+    
     if [ ! -z "$s" ]; then
-	s=$(echo $i)
-	failed_patches="$failed_patches [$s]"
-	echo ""
-	for k in $s; do
-	    echo "--> $s:"
-	    cat $s
-	done
+	failed_patches="$failed_patches [$curpatch]"
     fi
+    #######################
     
     rm -f ../patch.tmp
     #patch -R -p1 -i ../../$i

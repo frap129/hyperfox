@@ -1,4 +1,4 @@
-.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi
+.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -37,7 +37,10 @@ help :
 	@echo "  package     - Package LibreWolf (requires build)."
 	@echo "  run         - Run LibreWolf (requires build)."
 	@echo ""
-
+	@echo "  check-patchfail - check patches for errors."
+	@echo "  check-fuzz      - check patches for fuzz."
+	@echo "  fixfuz          - fix the fuzz."
+	@echo ""
 
 check :
 	python3 scripts/update-version.py
@@ -52,7 +55,7 @@ all : $(lw_source_tarball)
 
 
 clean :
-	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum firefox-$(version)
+	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum firefox-$(version) patchfail.out patchfail-fuzz.out
 
 veryclean : clean
 	rm -f $(ff_source_tarball) $(ff_source_tarball).asc
@@ -114,3 +117,10 @@ package :
 
 run :
 	(cd $(lw_source_dir) && ./mach run)
+
+check-patchfail:
+	sh -c "./scripts/check-patchfail.sh" > patchfail.out
+check-fuzz:
+	-sh -c "./scripts/check-patchfail.sh --fuzz=0" > patchfail-fuzz.out
+fixfuzz :
+	sh -c "./scripts/fuzzfail.sh"
