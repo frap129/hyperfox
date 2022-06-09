@@ -111,7 +111,6 @@ build : $(lw_source_dir)
 	(cd $(lw_source_dir) && ./mach build)
 
 package :
-	(cd $(lw_source_dir) && ./mach package)
 	(cd $(lw_source_dir) && cat browser/locales/shipped-locales | xargs ./mach package-multi-locale --locales)
 	cp -v $(lw_source_dir)/obj-*/dist/librewolf-$(version)-$(release).en-US.*.tar.bz2 .
 
