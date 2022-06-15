@@ -30,7 +30,7 @@ diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuil
 -        )
 -        locales.append("en-US")
 -    locales = list(sorted(locales))
-+    locales = list(filter(lambda locale: locale != "en-US", sorted(locales)))
++    locales = sorted(locale for locale in locales if locale != "en-US")
  
      append_env = {
          # We are only (re-)packaging, we don't want to (re-)build
@@ -73,8 +73,8 @@ diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuil
 +        "Processing chrome Gecko resources for locales {locales}",
 +    )
 +    command_context._run_make(
-+        directory=mozpath.join(command_context.topobjdir),
-+        target=list(map(lambda locale: "chrome-{}".format(locale), locales)),
++        directory=command_context.topobjdir,
++        target=["chrome-{}".format(locale) for locale in locales],
 +        append_env=append_env,
 +        pass_thru=False,
 +        print_directory=False,
