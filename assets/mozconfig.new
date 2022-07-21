@@ -25,9 +25,5 @@ mk_add_options MOZ_DATA_REPORTING=0
 mk_add_options MOZ_SERVICES_HEALTHREPORT=0
 mk_add_options MOZ_TELEMETRY_REPORTING=0
 
-# wasi: we ask maintainers to all use this as wasi sysroot..
-# There is a script 'scripts/setup-wasi-linux.sh' that attempts to download the wasi sdk and place it into the location pointed to below.
-ac_add_options --with-wasi-sysroot=$HOME/.mozbuild/wrlb/wasi-sysroot
-
 # Add your own stuff, libraries, architecture, etc..
 # ex: `cat mozconfig.orig mozconfig.my > mozconfig`
