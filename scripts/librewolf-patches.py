@@ -120,7 +120,7 @@ def librewolf_patches():
     
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw/')
-    exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-wasi ../scripts/setup-wasi-linux.sh lw/')
+    exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-bootstrap ../scripts/setup-wasi-linux.sh lw/')
 
     # override the firefox version
     for file in ["browser/config/version.txt", "browser/config/version_display.txt"]:
