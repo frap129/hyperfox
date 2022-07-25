@@ -1,6 +1,35 @@
+diff --git a/python/mozboot/mozboot/base.py b/python/mozboot/mozboot/base.py
+index 6921964..bc8dafd 100644
+--- a/python/mozboot/mozboot/base.py
++++ b/python/mozboot/mozboot/base.py
+@@ -50,6 +50,22 @@ If it continues to fail, consider installing Mercurial by following the
+ instructions at http://mercurial.selenic.com/.
+ """
+ 
++MERCURIAL_INSTALL_PROMPT = """
++Mercurial releases a new version every 3 months and your distro's package
++may become out of date. This may cause incompatibility with some
++Mercurial extensions that rely on new Mercurial features. As a result,
++you may not have an optimal version control experience.
++
++To have the best Mercurial experience possible, we recommend installing
++Mercurial via the "pip" Python packaging utility. This will likely result
++in files being placed in /usr/local/bin and /usr/local/lib.
++
++How would you like to continue?
++  1. Install a modern Mercurial via pip [default]
++  2. Install a legacy Mercurial via the distro package manager
++  3. Do not install Mercurial
++Your choice: """
++
+ PYTHON_UNABLE_UPGRADE = """
+ You are currently running Python %s. Running %s or newer (but
+ not 3.x) is required.
+diff --git a/python/mozboot/mozboot/opensuse.py b/python/mozboot/mozboot/opensuse.py
+index d5ab72e..4aa89b6 100644
 --- a/python/mozboot/mozboot/opensuse.py
 +++ b/python/mozboot/mozboot/opensuse.py
-@@ -4,18 +4,22 @@
+@@ -4,9 +4,11 @@
  
  from __future__ import absolute_import, print_function, unicode_literals
  
@@ -10,23 +39,18 @@
  
 +import distro
 +import subprocess
-+
  
  class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
      """openSUSE experimental bootstrapper."""
- 
-     SYSTEM_PACKAGES = [
--        "which",
--        "rpmconf",
-         "libcurl-devel",
-         "libpulse-devel",
-+        "rpmconf",
-+        "which",
+@@ -17,6 +19,7 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+         "rpmconf",
+         "watchman",
+         "which",
 +        "unzip",
      ]
  
      BROWSER_PACKAGES = [
-@@ -23,7 +27,6 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+@@ -24,7 +27,6 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
          "gcc-c++",
          "gtk3-devel",
          "dbus-1-glib-devel",
@@ -34,7 +58,7 @@
          "glibc-devel-static",
          "libstdc++-devel",
          "libXt-devel",
-@@ -33,6 +36,10 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+@@ -34,6 +36,10 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
          "patterns-gnome-devel_gnome",
      ]
  
@@ -45,7 +69,7 @@
      BROWSER_GROUP_PACKAGES = ["devel_C_C++", "devel_gnome"]
  
      MOBILE_ANDROID_COMMON_PACKAGES = ["java-1_8_0-openjdk"]
-@@ -46,7 +53,18 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+@@ -47,7 +53,18 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
  
      def install_browser_packages(self, mozconfig_builder, artifact_mode=False):
          # TODO: Figure out what not to install for artifact mode
@@ -65,7 +89,7 @@
  
      def install_browser_group_packages(self):
          self.ensure_browser_group_packages()
-@@ -54,10 +72,6 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+@@ -55,10 +72,6 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
      def install_browser_artifact_mode_packages(self, mozconfig_builder):
          self.install_browser_packages(mozconfig_builder, artifact_mode=True)
  
@@ -76,7 +100,7 @@
      def ensure_clang_static_analysis_package(self):
          from mozboot import static_analysis
  
-@@ -91,35 +105,51 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+@@ -92,35 +105,51 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
          )
  
      def _update_package_manager(self):
@@ -114,12 +138,12 @@
 +        if res == 3:
 +            print("Not installing Mercurial.")
 +            return False
-+
+ 
+-        command.extend(packages)
 +        # pip.
 +        assert res == 1
 +        self.run_as_root(["pip3", "install", "--upgrade", "Mercurial"])
- 
--        command.extend(packages)
++
 +    def zypper(self, *args):
 +        if self.no_interactive:
 +            command = ["zypper", "-n", *args]
@@ -148,28 +172,3 @@
 +
 +    def zypper_patterninstall(self, *packages):
 +        self.zypper("install", "-t", "pattern", *packages)
---- a/python/mozboot/mozboot/base.py
-+++ b/python/mozboot/mozboot/base.py
-@@ -49,6 +49,22 @@ If it continues to fail, consider installing Mercurial by following the
- instructions at http://mercurial.selenic.com/.
- """
- 
-+MERCURIAL_INSTALL_PROMPT = """
-+Mercurial releases a new version every 3 months and your distro's package
-+may become out of date. This may cause incompatibility with some
-+Mercurial extensions that rely on new Mercurial features. As a result,
-+you may not have an optimal version control experience.
-+
-+To have the best Mercurial experience possible, we recommend installing
-+Mercurial via the "pip" Python packaging utility. This will likely result
-+in files being placed in /usr/local/bin and /usr/local/lib.
-+
-+How would you like to continue?
-+  1. Install a modern Mercurial via pip [default]
-+  2. Install a legacy Mercurial via the distro package manager
-+  3. Do not install Mercurial
-+Your choice: """
-+
- PYTHON_UNABLE_UPGRADE = """
- You are currently running Python %s. Running %s or newer (but
- not 3.x) is required.
