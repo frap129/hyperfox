@@ -714,7 +714,7 @@ index b10403800c7a..7f9bc2760342 100644
 +librewolf-extension-update-warning1 = If you don't review the code of your extensions before every update, you should enable this option.
 +
 +librewolf-ipv6-description = Allow { -brand-short-name } to connect using IPv6.
-+librewolf-ipv6-warning1 = Before you change this, make sure your OS uses the IPv6 privacy extension.
++librewolf-ipv6-warning1 = Instead of blocking IPv6 in the browser, we suggest enabling the IPv6 privacy extension in your OS.
 +librewolf-ocsp-description = Prevent connecting to a website if the OCSP check cannot be performed.
 +librewolf-ocsp-warning1 = This increases security, but it will cause breakage when an OCSP server is down.
 +librewolf-sync-description = Sync your data with other browsers. Requires restart.
