@@ -90,8 +90,7 @@ $(lw_source_tarball) : $(lw_source_dir)
 	sha256sum $(lw_source_tarball) > $(lw_source_tarball).sha256sum
 	cat $(lw_source_tarball).sha256sum
 	[ "$(SIGNING_KEY)" != "" ] && cp -v $(SIGNING_KEY) pk.asc ; true
-	if [ -f pk.asc ]; then gpg --import pk.asc; gpg --detach-sign $(lw_source_tarball); fi
-	ls -lh $(lw_source_tarball).sig
+	if [ -f pk.asc ]; then gpg --import pk.asc; gpg --detach-sign $(lw_source_tarball) && ls -lh $(lw_source_tarball).sig; fi
 
 
 debs=python3 python3-dev python3-pip
