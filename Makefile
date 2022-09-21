@@ -44,7 +44,11 @@ help :
 
 check :
 	python3 scripts/update-version.py
-	@echo "Current release:" $$(cat ./release)
+	cut -f1 version > version.tmp
+	mv -vf version.tmp version
+	@echo "Firefox version   : " $$(cat version)
+	@echo "LibreWolf release : " $$(cat release)
+	@echo ""
 
 
 update :
