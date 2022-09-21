@@ -1,4 +1,4 @@
-From e582ddcb9f82d23c4a1d5e0da0d0fa29f3c425cf Mon Sep 17 00:00:00 2001
+From 058054ef4648971a4cf72fa5f42553786df7336a Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
 Date: Tue, 12 Apr 2022 11:57:53 +0200
 Subject: [PATCH] port pref-pane patch changes to gecko-dev
@@ -589,7 +589,7 @@ index 000000000000..c8cbb075d59b
 +  });
 +});
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index d3a1fce03d4f..435c219a15a4 100644
+index 19dda7cf39eb..f5e67b637b49 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
 @@ -8,6 +8,7 @@
@@ -600,7 +600,7 @@ index d3a1fce03d4f..435c219a15a4 100644
  /* import-globals-from sync.js */
  /* import-globals-from experimental.js */
  /* import-globals-from moreFromMozilla.js */
-@@ -193,6 +194,7 @@ function init_all() {
+@@ -196,6 +197,7 @@ function init_all() {
    register_module("paneHome", gHomePane);
    register_module("paneSearch", gSearchPane);
    register_module("panePrivacy", gPrivacyPane);
@@ -647,10 +647,10 @@ index 6ee14eec9b2e..a0d768dce307 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index fa57b8f6ee1b..39c95396f78c 100644
+index a1e414697e71..8eeb594ca17d 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1415,3 +1415,98 @@ httpsonly-radio-disabled =
+@@ -1420,3 +1420,98 @@ httpsonly-radio-disabled =
  desktop-folder-name = Desktop
  downloads-folder-name = Downloads
  choose-download-folder-title = Choose Download Folder:
@@ -750,10 +750,10 @@ index fa57b8f6ee1b..39c95396f78c 100644
 +librewolf-config-link = All advanced settings (about:config)
 +librewolf-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index c7fab5f54f80..dda1f1d27a58 100644
+index 146764d56081..52326c00bdfe 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
-@@ -106,6 +106,7 @@
+@@ -108,6 +108,7 @@
    skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
    skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
    skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
@@ -761,7 +761,7 @@ index c7fab5f54f80..dda1f1d27a58 100644
    skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
    skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
    skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -125,6 +126,7 @@
+@@ -127,6 +128,7 @@
    skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
@@ -901,10 +901,10 @@ index 000000000000..12f926ab7018
 +	fill: currentColor;
 +}
 diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
-index 97d49620f182..6fe0c6f4d9c6 100644
+index 1968b68a1245..d0da141868e2 100644
 --- a/browser/themes/shared/preferences/preferences.css
 +++ b/browser/themes/shared/preferences/preferences.css
-@@ -222,6 +222,10 @@ checkbox {
+@@ -206,6 +206,10 @@ checkbox {
    list-style-image: url("chrome://browser/skin/preferences/category-privacy-security.svg");
  }
  
@@ -916,5 +916,5 @@ index 97d49620f182..6fe0c6f4d9c6 100644
    list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
  }
 -- 
-2.37.1
+2.37.3
 
