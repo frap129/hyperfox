@@ -57,7 +57,7 @@ diff --git a/browser/components/firefoxview/firefoxview.html b/browser/component
          </div>
        </details>
  
--      <aside id="colorway-landmark" class="content-container" is="colorways-card">
+-      <aside class="content-container" is="colorways-card">
 +      <aside id="colorway-landmark" class="content-container" is="colorways-card" hidden="true">
          <template id="colorways-no-collection-template">
            <div class="content-container">
