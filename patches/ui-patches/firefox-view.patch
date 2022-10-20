@@ -1,0 +1,94 @@
+diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
+--- a/browser/app/profile/firefox.js
++++ b/browser/app/profile/firefox.js
+@@ -777,6 +777,9 @@ pref("browser.tabs.tooltipsShowPidAndAct
+ pref("browser.tabs.firefox-view", true);
+ pref("browser.tabs.firefox-view.logLevel", "Warn");
+ 
++pref("librewolf.firefoxViewHideTabPickup", false);
++pref("librewolf.firefoxViewHideColorways", true);
++
+ // allow_eval_* is enabled on Firefox Desktop only at this
+ // point in time
+ pref("security.allow_eval_with_system_principal", false);
+diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
+--- a/browser/components/customizableui/CustomizableUI.jsm
++++ b/browser/components/customizableui/CustomizableUI.jsm
+@@ -277,7 +277,6 @@ var CustomizableUIInternal = {
+       {
+         type: CustomizableUI.TYPE_TOOLBAR,
+         defaultPlacements: [
+-          "firefox-view-button",
+           "tabbrowser-tabs",
+           "new-tab-button",
+           "alltabs-button",
+@@ -605,18 +604,6 @@ var CustomizableUIInternal = {
+         navbarPlacements.splice(newPosition, 0, "save-to-pocket-button");
+       }
+     }
+-
+-    // Add firefox-view if not present
+-    if (currentVersion < 18) {
+-      let tabstripPlacements =
+-        gSavedState.placements[CustomizableUI.AREA_TABSTRIP];
+-      if (
+-        tabstripPlacements &&
+-        !tabstripPlacements.includes("firefox-view-button")
+-      ) {
+-        tabstripPlacements.unshift("firefox-view-button");
+-      }
+-    }
+   },
+ 
+   _updateForNewProtonVersion() {
+diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
+--- a/browser/components/firefoxview/firefoxview.html
++++ b/browser/components/firefoxview/firefoxview.html
+@@ -113,7 +113,7 @@
+         </div>
+       </template>
+ 
+-      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open>
++      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open hidden="true">
+         <summary class="page-section-header">
+           <h1 id="collapsible-synced-tabs-header" data-l10n-id="firefoxview-tabpickup-header"></h1>
+           <span class="twisty icon" data-l10n-id="firefoxview-collapse-button-hide" aria-role="presentation"></span>
+@@ -141,7 +141,7 @@
+         </div>
+       </details>
+ 
+-      <aside id="colorway-landmark" class="content-container" is="colorways-card">
++      <aside id="colorway-landmark" class="content-container" is="colorways-card" hidden="true">
+         <template id="colorways-no-collection-template">
+           <div class="content-container">
+             <div id="no-current-colorway-collection-notice" data-l10n-id="firefoxview-no-current-colorway-collection"></div>
+diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
+--- a/browser/components/firefoxview/firefoxview.mjs
++++ b/browser/components/firefoxview/firefoxview.mjs
+@@ -28,7 +28,26 @@ const MediaQueryDOMSorting = {
+   },
+ };
+ 
++function onPrefChange() {
++  document.getElementById("tab-pickup-container").hidden =
++    Services.prefs.getBoolPref("identity.fxaccounts.enabled") &&
++    !Services.prefs.getBoolPref("librewolf.firefoxViewHideTabPickup", false)
++      ? false
++      : true;
++  document.getElementById("colorway-landmark").hidden =
++    !Services.prefs.getBoolPref("librewolf.firefoxViewHideColorways", true)
++      ? false
++      : true;
++}
++
++[
++  "librewolf.firefoxViewHideTabPickup",
++  "librewolf.firefoxViewHideColorways",
++  "identity.fxaccounts.enabled",
++].forEach((pref) => Services.prefs.addObserver(pref, onPrefChange));
++
+ window.addEventListener("DOMContentLoaded", () => {
++  onPrefChange();
+   Services.telemetry.setEventRecordingEnabled("firefoxview", true);
+   Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
+   document.getElementById("recently-closed-tabs-container").onLoad();
