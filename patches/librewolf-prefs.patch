@@ -1,0 +1,9 @@
+--- a/browser/app/profile/firefox.js
++++ b/browser/app/profile/firefox.js
+@@ -21,0 +21,4 @@
++
++pref("librewolf.firefoxView.hideTabPickup", false);
++pref("librewolf.firefoxView.hideColorways", true);
++pref("librewolf.uBO.assetsBootstrapLocation, "");
++pref("librewolf.aboutMenu.checkVersion", false);
++

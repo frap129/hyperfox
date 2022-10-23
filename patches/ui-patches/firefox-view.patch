@@ -1,16 +1,3 @@
-diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
---- a/browser/app/profile/firefox.js
-+++ b/browser/app/profile/firefox.js
-@@ -777,6 +777,9 @@ pref("browser.tabs.tooltipsShowPidAndAct
- pref("browser.tabs.firefox-view", true);
- pref("browser.tabs.firefox-view.logLevel", "Warn");
- 
-+pref("librewolf.firefoxViewHideTabPickup", false);
-+pref("librewolf.firefoxViewHideColorways", true);
-+
- // allow_eval_* is enabled on Firefox Desktop only at this
- // point in time
- pref("security.allow_eval_with_system_principal", false);
 diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
 --- a/browser/components/customizableui/CustomizableUI.jsm
 +++ b/browser/components/customizableui/CustomizableUI.jsm
@@ -72,18 +59,18 @@ diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components
 +function onPrefChange() {
 +  document.getElementById("tab-pickup-container").hidden =
 +    Services.prefs.getBoolPref("identity.fxaccounts.enabled") &&
-+    !Services.prefs.getBoolPref("librewolf.firefoxViewHideTabPickup", false)
++    !Services.prefs.getBoolPref("librewolf.firefoxView.hideTabPickup", false)
 +      ? false
 +      : true;
 +  document.getElementById("colorway-landmark").hidden =
-+    !Services.prefs.getBoolPref("librewolf.firefoxViewHideColorways", true)
++    !Services.prefs.getBoolPref("librewolf.firefoxView.hideColorways", true)
 +      ? false
 +      : true;
 +}
 +
 +[
-+  "librewolf.firefoxViewHideTabPickup",
-+  "librewolf.firefoxViewHideColorways",
++  "librewolf.firefoxView.hideTabPickup",
++  "librewolf.firefoxView.hideColorways",
 +  "identity.fxaccounts.enabled",
 +].forEach((pref) => Services.prefs.addObserver(pref, onPrefChange));
 +
