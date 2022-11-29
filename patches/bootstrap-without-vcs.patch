@@ -123,3 +123,14 @@ index 016578b..7525139 100644
  
  
  def find_hg_revision_push_info(repository, revision):
+--- a/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
++++ b/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
+@@ -9,7 +9,7 @@ for i, platform in enumerate(ADDITIONAL_PLATFORMS):
+     giturlparse.platforms.PLATFORMS.insert(i, platform)
+ 
+ 
+-_SUPPORTED_PLAFORMS = ("hgmo", "github")
++_SUPPORTED_PLAFORMS = ("hgmo", "github", "gitlab")
+ 
+ 
+ def parse(url_string):
