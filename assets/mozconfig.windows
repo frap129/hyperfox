@@ -5,6 +5,8 @@ ac_add_options --disable-tests
 ac_add_options --enable-release
 ac_add_options --enable-hardening
 
+ac_add_options --enable-jxl
+
 ac_add_options --disable-debug
 #ac_add_options --enable-debug
 
