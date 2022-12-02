@@ -1,4 +1,5 @@
 patches/allow-ubo-private-mode.patch
+patches/allow-JXL-in-non-nightly-browser.patch
 patches/bootstrap-without-vcs.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
