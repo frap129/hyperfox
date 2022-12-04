@@ -25,8 +25,7 @@ Build:
 
 Release:
   stage: release
-  only:
-    - main
+  when: manual
   allow_failure: false
   image: ubuntu
   needs:
