@@ -5,8 +5,6 @@ stages:
 Build:
   stage: build
   when: manual
-  only:
-    - main
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
