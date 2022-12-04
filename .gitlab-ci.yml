@@ -23,7 +23,6 @@ Build:
 
 Release:
   stage: release
-  when: manual
   allow_failure: false
   image: ubuntu
   needs:
