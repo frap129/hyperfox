@@ -4,6 +4,8 @@ stages:
 
 Build:
   stage: build
+  only:
+    - main
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
@@ -23,6 +25,8 @@ Build:
 
 Release:
   stage: release
+  only:
+    - main
   allow_failure: false
   image: ubuntu
   needs:
