@@ -4,6 +4,7 @@ stages:
 
 Build:
   stage: build
+  when: manual
   only:
     - main
   variables:
