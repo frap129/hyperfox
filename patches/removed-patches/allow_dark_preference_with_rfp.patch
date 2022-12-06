@@ -1,20 +1,22 @@
 diff --git a/dom/base/Document.cpp b/dom/base/Document.cpp
-index ce2cbca..60fda48 100644
+index f49f4ac..45c0e95 100644
 --- a/dom/base/Document.cpp
 +++ b/dom/base/Document.cpp
-@@ -17084,6 +17084,7 @@ void Document::RemoveToplevelLoadingDocument(Document* aDoc) {
- StylePrefersColorScheme Document::PrefersColorScheme(
-     IgnoreRFP aIgnoreRFP) const {
-   if (aIgnoreRFP == IgnoreRFP::No &&
-+      !StaticPrefs::privacy_override_rfp_for_color_scheme() &&
-       nsContentUtils::ShouldResistFingerprinting(this)) {
-     return StylePrefersColorScheme::Light;
+@@ -17828,7 +17828,8 @@ ColorScheme Document::DefaultColorScheme() const {
+ }
+ 
+ ColorScheme Document::PreferredColorScheme(IgnoreRFP aIgnoreRFP) const {
+-  if (ShouldResistFingerprinting() && aIgnoreRFP == IgnoreRFP::No) {
++  if (ShouldResistFingerprinting() && aIgnoreRFP == IgnoreRFP::No &&
++      !StaticPrefs::privacy_override_rfp_for_color_scheme()) {
+     return ColorScheme::Light;
    }
-diff --git a/modules/libref/init/StaticPrefList.yaml b/modules/libref/init/StaticPrefList.yaml
-index b4b2dc7..e65d43f 100644
+ 
+diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
+index 7ec0341..c70b3af 100644
 --- a/modules/libpref/init/StaticPrefList.yaml
 +++ b/modules/libpref/init/StaticPrefList.yaml
-@@ -9863,6 +9863,12 @@
+@@ -12156,6 +12156,12 @@
    value: false
    mirror: always
  
