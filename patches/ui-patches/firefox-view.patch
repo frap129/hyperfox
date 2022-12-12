@@ -135,16 +135,39 @@
      id: "FX_MR_106_UPGRADE",
      template: "spotlight",
      targeting: "true",
---- a/toolkit/components/nimbus/FeatureManifest.yaml
-+++ b/toolkit/components/nimbus/FeatureManifest.yaml
-@@ -663,10 +663,6 @@ majorRelease2022:
-       type: boolean
-       fallbackPref: "browser.theme.colorway-closet"
-       description: "Whether or not to show the colorway closet modal"
--    firefoxView:
--      type: boolean
--      fallbackPref: "browser.tabs.firefox-view"
--      description: "Whether or not to show the firefox view tab"
-     onboarding:
-       type: boolean
-       fallbackPref: "browser.majorrelease.onboarding"
+--- a/browser/base/content/navigator-toolbox.inc.xhtml
++++ b/browser/base/content/navigator-toolbox.inc.xhtml
+@@ -41,16 +41,6 @@
+       <hbox flex="1" align="end" class="toolbar-items">
+         <toolbartabstop/>
+         <hbox id="TabsToolbar-customization-target" flex="1">
+-          <toolbarbutton id="firefox-view-button"
+-                         class="toolbarbutton-1 chromeclass-toolbar-additional"
+-                         data-l10n-id="toolbar-button-firefox-view"
+-                         role="button"
+-                         aria-pressed="false"
+-                         oncommand="FirefoxViewHandler.openTab(event);"
+-                         onmousedown="FirefoxViewHandler.openTab(event);"
+-                         cui-areatype="toolbar"
+-                         removable="true"/>
+-
+           <tabs id="tabbrowser-tabs"
+                 is="tabbrowser-tabs"
+                 flex="1"
+@@ -689,6 +679,16 @@
+                    closemenu="none"
+                    cui-areatype="toolbar"
+                    data-l10n-id="navbar-library"/>
++
++    <toolbarbutton id="firefox-view-button"
++                   class="toolbarbutton-1 chromeclass-toolbar-additional"
++                   data-l10n-id="toolbar-button-firefox-view"
++                   role="button"
++                   aria-pressed="false"
++                   oncommand="FirefoxViewHandler.openTab(event);"
++                   onmousedown="FirefoxViewHandler.openTab(event);"
++                   cui-areatype="toolbar"
++                   removable="true"/>
+   </html:template>
+ </toolbox>
+ </box>
