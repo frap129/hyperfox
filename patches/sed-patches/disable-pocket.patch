@@ -1,21 +1,20 @@
 diff --git a/browser/base/content/browser.js b/browser/base/content/browser.js
-index b63e0cd..4e3e53b 100644
+index 43c84c3..4b4aad2 100644
 --- a/browser/base/content/browser.js
 +++ b/browser/base/content/browser.js
-@@ -5504,8 +5504,6 @@ var XULBrowserWindow = {
+@@ -5478,7 +5478,6 @@ var XULBrowserWindow = {
  
      SafeBrowsingNotificationBox.onLocationChange(aLocationURI);
  
 -    SaveToPocket.onLocationChange(window);
--
-     UrlbarProviderSearchTips.onLocationChange(
-       window,
-       aLocationURI,
+ 
+     let originalURI;
+     if (
 diff --git a/browser/components/BrowserGlue.jsm b/browser/components/BrowserGlue.jsm
-index 43fbae6..5db0911 100644
+index b2479db..7670f08 100644
 --- a/browser/components/BrowserGlue.jsm
 +++ b/browser/components/BrowserGlue.jsm
-@@ -1270,7 +1270,6 @@ BrowserGlue.prototype = {
+@@ -1274,7 +1274,6 @@ BrowserGlue.prototype = {
        lazy.Normandy.init();
      }
  
