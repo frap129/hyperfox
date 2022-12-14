@@ -1,4 +1,6 @@
-.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz
+docker_targets=docker-build-image docker-run-build-job docker-remove-image
+
+.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets)
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -41,6 +43,7 @@ help :
 	@echo "  check-fuzz      - check patches for fuzz."
 	@echo "  fixfuz          - fix the fuzz."
 	@echo ""
+	@echo "docker:" $(docker_targets)
 
 check :
 	python3 scripts/update-version.py
@@ -127,3 +130,31 @@ check-fuzz:
 	-sh -c "./scripts/check-patchfail.sh --fuzz=0" > patchfail-fuzz.out
 fixfuzz :
 	sh -c "./scripts/fuzzfail.sh"
+
+
+
+
+
+
+#
+# docker
+#
+
+
+build_image=librewolf-build-image
+
+docker-build-image :
+	docker build -t $(build_image) - < assets/Dockerfile
+
+docker-run-build-job :
+	docker run --rm $(build_image) sh -c "git pull && make check && make fetch && make all"
+
+docker-remove-image :
+	docker rmi $(build_image)
+
+setup-debian :
+	apt-get -y install mercurial python3 python3-dev python3-pip curl wget dpkg-sig  libssl-dev zstd libxml2-dev
+
+setup-fedora :
+	dnf -y install python3 curl wget zstd python3-devel python3-pip mercurial openssl-devel libxml2-devel
+
