@@ -1,8 +1,8 @@
 FROM ubuntu:jammy
 #FROM fedora:36
 
-RUN apt-get update && apt-get -y upgrade && apt-get -y install make wget git patch
-#RUN dnf -y update && dnf -y install make wget git patch
+RUN apt-get update && apt-get -y upgrade && apt-get -y install make wget git patch unzip
+#RUN dnf -y update && dnf -y install make wget git patch unzip
 
 
 # dependencies needed to run ./mach bootstrap
@@ -13,7 +13,7 @@ RUN ( dnf -y upgrade && dnf -y install python3 python3-devel wget rpm-build rpm-
 
 WORKDIR /
 RUN rm -rf /source
-RUN git clone https://gitlab.com/librewolf-community/browser/source.git
+RUN git clone --recursive https://gitlab.com/librewolf-community/browser/source.git
 WORKDIR /source
 
 RUN make check && make setup-debian && make fetch && make bootstrap && make veryclean
