@@ -144,7 +144,7 @@ fixfuzz :
 build_image=librewolf-build-image
 
 docker-build-image :
-	docker build -t $(build_image) - < assets/Dockerfile
+	docker build --no-cache -t $(build_image) - < assets/Dockerfile
 
 docker-run-build-job :
 	docker run --rm $(build_image) sh -c "git pull && make check && make fetch && make all"
