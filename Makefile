@@ -147,7 +147,7 @@ docker-build-image :
 	docker build --no-cache -t $(build_image) - < assets/Dockerfile
 
 docker-run-build-job :
-	docker run --rm $(build_image) sh -c "git pull && make fetch && make build package"
+	docker run -v $$(pwd):/output --rm $(build_image) sh -c "git pull && make fetch && make build package && cp -v ./*.bz2 /output"
 
 docker-remove-image :
 	docker rmi $(build_image)
