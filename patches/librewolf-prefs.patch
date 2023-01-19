@@ -13,7 +13,7 @@
 +
 +pref("librewolf.firefoxView.hideTabPickup", false);
 +pref("librewolf.firefoxView.hideColorways", true);
-+pref("librewolf.uBO.assetsBootstrapLocation, "");
++pref("librewolf.uBO.assetsBootstrapLocation", "");
 +pref("librewolf.aboutMenu.checkVersion", false);
 +pref("librewolf.hidePasswdmgr", false);
 +
