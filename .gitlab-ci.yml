@@ -36,7 +36,7 @@ Release:
     - merge_requests
   before_script:
     - apt-get update
-    - apt-get install -y curl
+    - apt-get install -y curl jq
     - curl -L --output /usr/local/bin/release-cli "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
     - chmod +x /usr/local/bin/release-cli
   script:
@@ -50,6 +50,17 @@ Release:
         --header "JOB-TOKEN: $CI_JOB_TOKEN" \
         --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum \
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum"
+    - |
+      curl -X 'POST' \
+        "https://codeberg.org/api/v1/repos/librewolf/source/releases?token=$CODEBERG_TOKEN" \
+        -H 'accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -d "{
+        \"name\": \"$VERSION-$RELEASE\",
+        \"tag_name\": \"$VERSION-$RELEASE\",
+        \"body\": \"[librewolf-$VERSION-$RELEASE.source.tar.gz]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz)\n[librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum)\n[librewolf-$VERSION-$RELEASE.source.tar.gz.sig]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sig)\"
+      }"
+
   release:
     tag_name: "$VERSION-$RELEASE"
     description: "## LibreWolf Source Release v$VERSION-$RELEASE\n\n- \n\n(Built on GitLab by job [$BUILD_JOB_ID](https://gitlab.com/librewolf-community/browser/source/-/jobs/$BUILD_JOB_ID))"
@@ -64,4 +75,3 @@ Release:
         - name: librewolf-$VERSION-$RELEASE.source.tar.gz.sig
           link_type: other
           url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sig
-
