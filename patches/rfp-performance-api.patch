@@ -1,4 +1,5 @@
 # Backport of https://phabricator.services.mozilla.com/D167444
+# and https://phabricator.services.mozilla.com/D167563
 # Should land in 111.0
 --- a/dom/performance/Performance.cpp
 +++ b/dom/performance/Performance.cpp
@@ -228,4 +229,219 @@
  
    if (!mTimingAllowed || mRedirectCount == 0) {
      return false;
+
+--- a/dom/performance/Performance.h
++++ b/dom/performance/Performance.h
+@@ -120,10 +120,15 @@
+ 
+   virtual TimeStamp CreationTimeStamp() const = 0;
+ 
+   RTPCallerType GetRTPCallerType() const { return mRTPCallerType; }
+ 
++  bool CrossOriginIsolated() const { return mCrossOriginIsolated; }
++  bool ShouldResistFingerprinting() const {
++    return mShouldResistFingerprinting;
++  }
++
+   DOMHighResTimeStamp TimeStampToDOMHighResForRendering(TimeStamp) const;
+ 
+   virtual uint64_t GetRandomTimelineSeed() = 0;
+ 
+   void MemoryPressure();
+@@ -145,12 +150,10 @@
+ 
+   virtual void QueueNavigationTimingEntry() = 0;
+ 
+   virtual void UpdateNavigationTimingEntry() = 0;
+ 
+-  virtual bool CrossOriginIsolated() const = 0;
+-
+   virtual void DispatchPendingEventTimingEntries() = 0;
+ 
+   void QueueNotificationObserversTask();
+ 
+   bool IsPerformanceTimingAttribute(const nsAString& aName) const;
+@@ -203,11 +206,13 @@
+ 
+   bool mPendingResourceTimingBufferFullEvent;
+ 
+   RefPtr<PerformanceService> mPerformanceService;
+ 
+-  enum RTPCallerType mRTPCallerType;
++  const RTPCallerType mRTPCallerType;
++  const bool mCrossOriginIsolated;
++  const bool mShouldResistFingerprinting;
+ 
+  private:
+   MOZ_ALWAYS_INLINE bool CanAddResourceTimingEntry();
+   void BufferEvent();
+ 
+--- a/dom/performance/Performance.cpp
++++ b/dom/performance/Performance.cpp
+@@ -96,24 +96,13 @@
+ Performance::Performance(nsIGlobalObject* aGlobal)
+     : DOMEventTargetHelper(aGlobal),
+       mResourceTimingBufferSize(kDefaultResourceTimingBufferSize),
+       mPendingNotificationObserversTask(false),
+       mPendingResourceTimingBufferFullEvent(false),
+-      mRTPCallerType(
+-          RTPCallerType::Normal /* to be updated in CreateForFoo */) {
+-  MOZ_ASSERT(!NS_IsMainThread());
+-}
+-
+-Performance::Performance(nsPIDOMWindowInner* aWindow)
+-    : DOMEventTargetHelper(aWindow),
+-      mResourceTimingBufferSize(kDefaultResourceTimingBufferSize),
+-      mPendingNotificationObserversTask(false),
+-      mPendingResourceTimingBufferFullEvent(false),
+-      mRTPCallerType(
+-          RTPCallerType::Normal /* to be updated in CreateForFoo */) {
+-  MOZ_ASSERT(NS_IsMainThread());
+-}
++      mRTPCallerType(aGlobal->GetRTPCallerType()),
++      mCrossOriginIsolated(aGlobal->CrossOriginIsolated()),
++      mShouldResistFingerprinting(aGlobal->ShouldResistFingerprinting()) {}
+ 
+ Performance::~Performance() = default;
+ 
+ DOMHighResTimeStamp Performance::TimeStampToDOMHighResForRendering(
+     TimeStamp aTimeStamp) const {
+--- a/dom/performance/PerformanceMainThread.h
++++ b/dom/performance/PerformanceMainThread.h
+@@ -86,12 +86,10 @@
+       nsTArray<RefPtr<PerformanceEntry>>& aRetval) override;
+ 
+   void UpdateNavigationTimingEntry() override;
+   void QueueNavigationTimingEntry() override;
+ 
+-  bool CrossOriginIsolated() const override;
+-
+   size_t SizeOfEventEntries(mozilla::MallocSizeOf aMallocSizeOf) const override;
+ 
+   static constexpr uint32_t kDefaultEventTimingBufferSize = 150;
+   static constexpr uint32_t kDefaultEventTimingDurationThreshold = 104;
+   static constexpr double kDefaultEventTimingMinDuration = 16.0;
+@@ -118,12 +116,10 @@
+   RefPtr<PerformanceTiming> mTiming;
+   RefPtr<PerformanceNavigation> mNavigation;
+   RefPtr<PerformancePaintTiming> mFCPTiming;
+   JS::Heap<JSObject*> mMozMemory;
+ 
+-  const bool mCrossOriginIsolated;
+-
+   nsTArray<RefPtr<PerformanceEventTiming>> mEventTimingEntries;
+ 
+   AutoCleanLinkedList<RefPtr<PerformanceEventTiming>>
+       mPendingEventTimingEntries;
+   bool mHasDispatchedInputEvent = false;
+--- a/dom/performance/PerformanceMainThread.cpp
++++ b/dom/performance/PerformanceMainThread.cpp
+@@ -89,16 +89,14 @@
+ NS_INTERFACE_MAP_END_INHERITING(Performance)
+ 
+ PerformanceMainThread::PerformanceMainThread(nsPIDOMWindowInner* aWindow,
+                                              nsDOMNavigationTiming* aDOMTiming,
+                                              nsITimedChannel* aChannel)
+-    : Performance(aWindow),
++    : Performance(aWindow->AsGlobal()),
+       mDOMTiming(aDOMTiming),
+-      mChannel(aChannel),
+-      mCrossOriginIsolated(aWindow->AsGlobal()->CrossOriginIsolated()) {
++      mChannel(aChannel) {
+   MOZ_ASSERT(aWindow, "Parent window object should be provided");
+-  mRTPCallerType = aWindow->AsGlobal()->GetRTPCallerType();
+   if (StaticPrefs::dom_enable_event_timing()) {
+     mEventCounts = new class EventCounts(GetParentObject());
+   }
+   CreateNavigationTimingEntry();
+ }
+@@ -449,14 +447,10 @@
+   UpdateNavigationTimingEntry();
+ 
+   QueueEntry(mDocEntry);
+ }
+ 
+-bool PerformanceMainThread::CrossOriginIsolated() const {
+-  return mCrossOriginIsolated;
+-}
+-
+ EventCounts* PerformanceMainThread::EventCounts() {
+   MOZ_ASSERT(StaticPrefs::dom_enable_event_timing());
+   return mEventCounts;
+ }
+ 
+--- a/dom/performance/PerformanceTiming.cpp
++++ b/dom/performance/PerformanceTiming.cpp
+@@ -466,11 +466,11 @@
+ 
+   if (!StaticPrefs::dom_enable_performance() || !IsInitialized()) {
+     return mZeroTime;
+   }
+   // Bug 1637985 - DomainLookup information may be useful for fingerprinting.
+-  if (nsContentUtils::ShouldResistFingerprinting()) {
++  if (aPerformance->ShouldResistFingerprinting()) {
+     return FetchStartHighRes(aPerformance);
+   }
+   return TimeStampToReducedDOMHighResOrFetchStart(aPerformance,
+                                                   mDomainLookupStart);
+ }
+@@ -486,11 +486,11 @@
+ 
+   if (!StaticPrefs::dom_enable_performance() || !IsInitialized()) {
+     return mZeroTime;
+   }
+   // Bug 1637985 - DomainLookup information may be useful for fingerprinting.
+-  if (nsContentUtils::ShouldResistFingerprinting()) {
++  if (aPerformance->ShouldResistFingerprinting()) {
+     return FetchStartHighRes(aPerformance);
+   }
+   // Bug 1155008 - nsHttpTransaction is racy. Return DomainLookupStart when null
+   if (mDomainLookupEnd.IsNull()) {
+     return DomainLookupStartHighRes(aPerformance);
+--- a/dom/performance/PerformanceWorker.h
++++ b/dom/performance/PerformanceWorker.h
+@@ -78,12 +78,10 @@
+ 
+   class EventCounts* EventCounts() override {
+     MOZ_CRASH("This should not be called on workers");
+   }
+ 
+-  bool CrossOriginIsolated() const override;
+-
+   void NoteShuttingDown();
+ 
+  protected:
+   ~PerformanceWorker();
+ 
+--- a/dom/performance/PerformanceWorker.cpp
++++ b/dom/performance/PerformanceWorker.cpp
+@@ -12,11 +12,10 @@
+ 
+ PerformanceWorker::PerformanceWorker(WorkerPrivate* aWorkerPrivate)
+     : Performance(aWorkerPrivate->GlobalScope()),
+       mWorkerPrivate(aWorkerPrivate) {
+   mWorkerPrivate->AssertIsOnWorkerThread();
+-  mRTPCallerType = aWorkerPrivate->GlobalScope()->GetRTPCallerType();
+ }
+ 
+ PerformanceWorker::~PerformanceWorker() {
+   if (mWorkerPrivate) {
+     mWorkerPrivate->AssertIsOnWorkerThread();
+@@ -58,16 +57,8 @@
+     return mWorkerPrivate->GetRandomTimelineSeed();
+   }
+   return 0;
+ }
+ 
+-bool PerformanceWorker::CrossOriginIsolated() const {
+-  MOZ_DIAGNOSTIC_ASSERT(mWorkerPrivate);
+-  if (mWorkerPrivate) {
+-    return mWorkerPrivate->CrossOriginIsolated();
+-  }
+-  return false;
+-}
+-
+ void PerformanceWorker::NoteShuttingDown() { mWorkerPrivate = nullptr; }
+ 
+ }  // namespace mozilla::dom
 
