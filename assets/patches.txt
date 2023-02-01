@@ -10,7 +10,6 @@ patches/librewolf-pref-pane.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
 patches/remove_addons.patch
-patches/rfp-performance-api.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
 patches/sed-patches/stop-undesired-requests.patch
