@@ -6,6 +6,8 @@ patches/custom-ubo-assets-bootstrap-location.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/faster-package-multi-locale.patch
 patches/hide-passwordmgr.patch
+patches/JXL_enable_by_default.patch
+patches/JXL_improved_support.patch
 patches/librewolf-pref-pane.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
