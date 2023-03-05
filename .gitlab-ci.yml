@@ -58,7 +58,7 @@ Release:
         -d "{
         \"name\": \"$VERSION-$RELEASE\",
         \"tag_name\": \"$VERSION-$RELEASE\",
-        \"body\": \"[librewolf-$VERSION-$RELEASE.source.tar.gz]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz)\n[librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum)\n[librewolf-$VERSION-$RELEASE.source.tar.gz.sig]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sig)\"
+        \"body\": \"[librewolf-$VERSION-$RELEASE.source.tar.gz]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz)\n[librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum)\n[librewolf-$VERSION-$RELEASE.source.tar.gz.sig]($CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sig)\n\n[View on GitLab](https://gitlab.com/librewolf-community/browser/source/-/releases/$VERSION-$RELEASE)\"
       }"
 
   release:
