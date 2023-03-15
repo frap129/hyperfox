@@ -76,15 +76,30 @@
  
 --- a/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
 +++ b/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
-@@ -9,7 +9,7 @@ for i, platform in enumerate(ADDITIONAL_PLATFORMS):
+@@ -9,22 +9,7 @@ for i, platform in enumerate(ADDITIONAL_PLATFORMS):
      giturlparse.platforms.PLATFORMS.insert(i, platform)
  
  
 -_SUPPORTED_PLATFORMS = ("hgmo", "github")
-+_SUPPORTED_PLATFORMS = ("hgmo", "github", "gitlab")
+-
+-
+-SUPPORTED_HOSTS = tuple(
+-    sorted(
+-        [
+-            host
+-            for domains in [
+-                platform[1].DOMAINS
+-                for platform in giturlparse.platforms.PLATFORMS
+-                if platform[0] in _SUPPORTED_PLATFORMS
+-            ]
+-            for host in domains
+-        ]
+-    )
+-)
++SUPPORTED_HOSTS = ("hg.mozilla.org", "github.com", "gitlab.com")
  
  
- SUPPORTED_HOSTS = tuple(
+ def parse(url_string):
 --- a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
 +++ b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
 @@ -495,6 +495,64 @@ class GitRepository(Repository):
