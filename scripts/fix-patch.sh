@@ -24,12 +24,23 @@ make "firefox-$version.source.tar.xz"
 tar xf "firefox-$version.source.tar.xz"
 cd "firefox-$version"
 
-echo "-> Settings up git"
+echo "-> Setting up git"
 git init
 files="$(cat ../$1 | grep '+++ b/' | sed 's/\+\+\+ b\///')"
 echo "$files" | xargs touch
 echo "$files" | xargs git add
 
-echo "-> Done"
-echo "You can now apply the patch with:"
-echo "  cd 'firefox-$version' && patch -p1 -i '$(readlink -f ../$1)'"
+echo "-> Trying to apply patch"
+patch -p1 -i "../$1"
+
+echo "-> Done. You can now fix the patch. If you are done,"
+echo "   press enter to update the patch with your changes"
+echo "   or Ctrl+C to abort."
+read
+
+echo "-> Updating patch"
+git diff >"../$1"
+
+echo "-> Cleaning up"
+cd ..
+rm -rf "firefox-$version"
