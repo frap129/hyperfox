@@ -1,5 +1,5 @@
---- browser/locales/en-US/browser/preferences/preferences.ftl
-+++ browser/locales/en-US/browser/preferences/preferences.ftl
+--- a/browser/locales/en-US/browser/preferences/preferences.ftl
++++ b/browser/locales/en-US/browser/preferences/preferences.ftl
 @@ -128,6 +128,8 @@ search-results-help-link = Need help? Visit <a data-l10n-name="url">{ -brand-sho
  
  startup-header = Startup

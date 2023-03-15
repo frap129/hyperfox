@@ -1,5 +1,5 @@
---- browser/components/preferences/main.inc.xhtml
-+++ browser/components/preferences/main.inc.xhtml
+--- a/browser/components/preferences/main.inc.xhtml
++++ b/browser/components/preferences/main.inc.xhtml
 @@ -742,7 +742,7 @@
            support-page="media-keyboard-control"
      />

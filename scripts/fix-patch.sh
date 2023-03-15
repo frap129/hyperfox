@@ -40,7 +40,7 @@ read
 
 echo "-> Updating patch"
 sed -i '/^[^#]/d' "../$1"
-git diff --no-prefix | sed '/^diff --git /,+1 d' >>"../$1"
+git diff | sed '/^diff --git /,+1 d' >>"../$1"
 sed -i '1{/^$/d}' "../$1"
 
 echo "-> Cleaning up"

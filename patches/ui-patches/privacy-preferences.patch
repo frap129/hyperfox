@@ -1,5 +1,5 @@
---- browser/components/preferences/privacy.inc.xhtml
-+++ browser/components/preferences/privacy.inc.xhtml
+--- a/browser/components/preferences/privacy.inc.xhtml
++++ b/browser/components/preferences/privacy.inc.xhtml
 @@ -53,7 +53,7 @@
          </description>
        </vbox>
@@ -50,8 +50,8 @@
      <checkbox id="blockDownloads"
                data-l10n-id="security-block-downloads"/>
      <checkbox id="blockUncommonUnwanted"
---- browser/locales/en-US/browser/preferences/preferences.ftl
-+++ browser/locales/en-US/browser/preferences/preferences.ftl
+--- a/browser/locales/en-US/browser/preferences/preferences.ftl
++++ b/browser/locales/en-US/browser/preferences/preferences.ftl
 @@ -1190,7 +1190,7 @@ addressbar-quickactions-learn-more = Learn more
  
  content-blocking-enhanced-tracking-protection = Enhanced Tracking Protection
