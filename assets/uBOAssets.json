@@ -9,7 +9,6 @@
     "updateAfter": 19,
     "contentURL": [
       "https://publicsuffix.org/list/public_suffix_list.dat",
-      "https://gitcdn.link/cdn/publicsuffix/list/master/public_suffix_list.dat",
       "assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat"
     ]
   },
@@ -453,7 +452,7 @@
     "group": "regions",
     "off": true,
     "title": "IRN: PersianBlocker",
-    "lang": "fa",
+    "lang": "fa ps tg",
     "contentURL": [
       "https://raw.githubusercontent.com/MasterKia/PersianBlocker/main/PersianBlocker.txt",
       "https://cdn.statically.io/gh/MasterKia/PersianBlocker/main/PersianBlocker.txt"
@@ -503,11 +502,7 @@
     "off": true,
     "title": "KOR: List-KR",
     "lang": "ko",
-    "contentURL": "https://raw.githubusercontent.com/List-KR/List-KR/master/filter-uBO.txt",
-    "cdnURLs": [
-      "https://cdn.jsdelivr.net/gh/List-KR/List-KR@master/filter-uBO.txt",
-      "https://cdn.statically.io/gh/List-KR/List-KR/master/filter-uBO.txt"
-    ],
+    "contentURL": "https://cdn.jsdelivr.net/gh/List-KR/List-KR@master/filter-uBlockOrigin.txt",
     "supportURL": "https://github.com/List-KR/List-KR#readme"
   },
   "LTU-0": {
@@ -531,6 +526,15 @@
     "lang": "lv",
     "contentURL": "https://raw.githubusercontent.com/Latvian-List/adblock-latvian/master/lists/latvian-list.txt",
     "supportURL": "https://github.com/Latvian-List/adblock-latvian"
+  },
+  "MKD-0": {
+    "content": "filters",
+    "group": "regions",
+    "off": true,
+    "title": "MKD: Macedonian adBlock Filters",
+    "lang": "mk",
+    "contentURL": "https://raw.githubusercontent.com/DeepSpaceHarbor/Macedonian-adBlock-Filters/master/Filters",
+    "supportURL": "https://github.com/DeepSpaceHarbor/Macedonian-adBlock-Filters"
   },
   "NLD-0": {
     "content": "filters",
