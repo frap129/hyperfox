@@ -35,7 +35,6 @@ rejects="$(patch -p1 -i "../$1" | tee /dev/stderr | sed -r --quiet 's/^.*saving 
 
 echo "-> Done. You can now fix the patch. If you are done, press enter to"
 echo "   update the patch with your changes or Ctrl+C to abort."
-code . &
 echo "$rejects" | xargs code &
 read
 
