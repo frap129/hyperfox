@@ -31,15 +31,18 @@ echo "$files" | xargs touch
 echo "$files" | xargs git add
 
 echo "-> Trying to apply patch"
-patch -p1 -i "../$1"
+rejects="$(patch -p1 -i "../$1" | tee /dev/stderr | sed -r --quiet 's/^.*saving rejects to file (.*\.rej)$/\1/p')"
 
-echo "-> Done. You can now fix the patch. If you are done,"
-echo "   press enter to update the patch with your changes"
-echo "   or Ctrl+C to abort."
+echo "-> Done. You can now fix the patch. If you are done, press enter to"
+echo "   update the patch with your changes or Ctrl+C to abort."
+code . &
+echo "$rejects" | xargs code &
 read
 
 echo "-> Updating patch"
-git diff >"../$1"
+sed -i '/^[^#]/d' "../$1"
+git diff --no-prefix | sed '/^diff --git /,+1 d' >>"../$1"
+sed -i '1{/^$/d}' "../$1"
 
 echo "-> Cleaning up"
 cd ..
