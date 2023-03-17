@@ -27,3 +27,4 @@ patches/ui-patches/remove-snippets-from-home.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/unified-extensions-dont-show-recommendations.patch
 patches/urlbarprovider-interventions.patch
+patches/windows-theming-bug.patch
