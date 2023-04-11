@@ -1,5 +1,5 @@
-patches/allow-ubo-private-mode.patch
 patches/allow-JXL-in-non-nightly-browser.patch
+patches/allow-ubo-private-mode.patch
 patches/bootstrap-without-vcs.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
@@ -25,6 +25,5 @@ patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/remove-snippets-from-home.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
-patches/unified-extensions-dont-show-recommendations.patch
 patches/urlbarprovider-interventions.patch
 patches/windows-theming-bug.patch
