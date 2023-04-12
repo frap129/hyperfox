@@ -5,6 +5,7 @@ patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/faster-package-multi-locale.patch
+patches/flatpak-autoconf.patch
 patches/hide-passwordmgr.patch
 patches/librewolf-pref-pane.patch
 patches/librewolf-prefs.patch
