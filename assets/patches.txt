@@ -3,6 +3,7 @@ patches/allow-ubo-private-mode.patch
 patches/bootstrap-without-vcs.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
+patches/dbus_name.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/faster-package-multi-locale.patch
 patches/flatpak-autoconf.patch
