@@ -270,16 +270,16 @@
     "group": "social",
     "off": true,
     "title": "Fanboy’s Annoyance",
-    "contentURL": "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
-    "supportURL": "https://easylist.to/"
+    "contentURL": "https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt",
+    "supportURL": "https://github.com/easylist/easylist#fanboy-lists"
   },
   "fanboy-cookiemonster": {
     "content": "filters",
     "group": "social",
     "off": true,
     "title": "EasyList Cookie",
-    "contentURL": "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
-    "supportURL": "https://github.com/easylist/easylist/issues"
+    "contentURL": "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt",
+    "supportURL": "https://github.com/easylist/easylist#fanboy-lists"
   },
   "fanboy-social": {
     "content": "filters",
@@ -399,7 +399,7 @@
     "off": true,
     "title": "FIN: Adblock List for Finland",
     "lang": "fi",
-    "contentURL": "https://raw.githubusercontent.com/finnish-easylist-addition/finnish-easylist-addition/master/Finland_adb.txt",
+    "contentURL": "https://raw.githubusercontent.com/finnish-easylist-addition/finnish-easylist-addition/gh-pages/Finland_adb.txt",
     "supportURL": "https://github.com/finnish-easylist-addition/finnish-easylist-addition"
   },
   "FRA-0": {
@@ -419,6 +419,15 @@
     "lang": "el",
     "contentURL": "https://www.void.gr/kargig/void-gr-filters.txt",
     "supportURL": "https://github.com/kargig/greek-adblockplus-filter"
+  },
+  "HRV-0": {
+    "content": "filters",
+    "group": "regions",
+    "off": true,
+    "title": "HRV, SRB: Dandelion Sprout's Serbo-Croatian filters",
+    "lang": "hr sr",
+    "contentURL": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/SerboCroatianList.txt",
+    "supportURL": "https://github.com/DandelionSprout/adfilt#readme"
   },
   "HUN-0": {
     "content": "filters",
