@@ -29,10 +29,11 @@
   "ublock-filters": {
     "content": "filters",
     "group": "default",
-    "title": "uBlock filters",
+    "parent": "uBlock filters",
+    "title": "uBlock filters – Ads",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/filters/filters.txt",
-      "assets/ublock/filters.txt"
+      "assets/ublock/filters.min.txt"
     ],
     "cdnURLs": [
       "https://ublockorigin.github.io/uAssetsCDN/filters/filters.min.txt",
@@ -45,6 +46,7 @@
   "ublock-badware": {
     "content": "filters",
     "group": "default",
+    "parent": "uBlock filters",
     "title": "uBlock filters – Badware risks",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/filters/badware.txt",
@@ -63,10 +65,11 @@
     "content": "filters",
     "updateAfter": 13,
     "group": "default",
+    "parent": "uBlock filters",
     "title": "uBlock filters – Privacy",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/filters/privacy.txt",
-      "assets/ublock/privacy.txt"
+      "assets/ublock/privacy.min.txt"
     ],
     "cdnURLs": [
       "https://ublockorigin.github.io/uAssetsCDN/filters/privacy.min.txt",
@@ -80,6 +83,7 @@
     "content": "filters",
     "updateAfter": 13,
     "group": "default",
+    "parent": "uBlock filters",
     "title": "uBlock filters – Resource abuse",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/filters/resource-abuse.txt",
@@ -96,6 +100,7 @@
   "ublock-unbreak": {
     "content": "filters",
     "group": "default",
+    "parent": "uBlock filters",
     "title": "uBlock filters – Unbreak",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/filters/unbreak.txt",
@@ -113,6 +118,7 @@
     "content": "filters",
     "updateAfter": 1,
     "group": "default",
+    "parent": "uBlock filters",
     "title": "uBlock filters – Quick fixes",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/filters/quick-fixes.txt",
@@ -130,7 +136,7 @@
     "content": "filters",
     "group": "ads",
     "off": true,
-    "title": "AdGuard Base",
+    "title": "AdGuard – Ads",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/2_without_easylist.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
     "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
@@ -139,7 +145,7 @@
     "content": "filters",
     "group": "ads",
     "off": true,
-    "title": "AdGuard Mobile Ads",
+    "title": "AdGuard – Mobile Ads",
     "ua": "mobile",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/11.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
@@ -243,43 +249,47 @@
   },
   "adguard-annoyance": {
     "content": "filters",
-    "group": "social",
+    "group": "annoyances",
+    "parent": "AdGuard – Annoyances",
     "off": true,
-    "title": "AdGuard Annoyances",
+    "title": "AdGuard – Annoyances",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/14.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
     "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
   },
   "adguard-social": {
     "content": "filters",
-    "group": "social",
+    "group": "annoyances",
+    "parent": "AdGuard – Annoyances",
     "off": true,
-    "title": "AdGuard Social Media",
+    "title": "AdGuard – Social Media",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/4.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
     "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
   },
   "fanboy-thirdparty_social": {
     "content": "filters",
-    "group": "social",
+    "group": "annoyances",
     "off": true,
-    "title": "Anti-Facebook",
+    "title": "Fanboy – Anti-Facebook",
     "contentURL": "https://secure.fanboy.co.nz/fanboy-antifacebook.txt",
     "supportURL": "https://github.com/ryanbr/fanboy-adblock/issues"
   },
   "fanboy-annoyance": {
     "content": "filters",
-    "group": "social",
+    "group": "annoyances",
+    "parent": "EasyList – Annoyances",
     "off": true,
-    "title": "Fanboy’s Annoyance",
+    "title": "Fanboy – Annoyances",
     "contentURL": "https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt",
     "supportURL": "https://github.com/easylist/easylist#fanboy-lists"
   },
   "fanboy-cookiemonster": {
     "content": "filters",
-    "group": "social",
+    "group": "annoyances",
+    "parent": "EasyList – Annoyances",
     "off": true,
-    "title": "EasyList Cookie",
+    "title": "EasyList – Cookie Notices",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/thirdparties/easylist-cookies.txt",
       "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt"
@@ -294,9 +304,10 @@
   },
   "fanboy-social": {
     "content": "filters",
-    "group": "social",
+    "group": "annoyances",
+    "parent": "EasyList – Annoyances",
     "off": true,
-    "title": "EasyList Social",
+    "title": "EasyList – Social Widgets",
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/thirdparties/easylist-social.txt",
       "https://secure.fanboy.co.nz/fanboy-social.txt"
@@ -311,7 +322,7 @@
   },
   "ublock-annoyances": {
     "content": "filters",
-    "group": "social",
+    "group": "annoyances",
     "title": "uBlock filters – Annoyances",
     "off": true,
     "contentURL": "https://ublockorigin.github.io/uAssets/filters/annoyances.txt",
@@ -568,11 +579,11 @@
     "off": true,
     "title": "NLD: EasyDutch",
     "lang": "af fy nl",
-    "contentURL": "https://easydutch-ubo.github.io/EasyDutchCDN/EasyDutch.txt",
+    "contentURL": "https://raw.githubusercontent.com/EasyDutch-uBO/EasyDutch/main/EasyDutch.txt",
     "cdnURLs": [
-      "https://cdn.statically.io/gh/EasyDutch-uBO/EasyDutch/gh-pages/EasyDutch.txt",
-      "https://cdn.jsdelivr.net/gh/EasyDutch-uBO/EasyDutch@gh-pages/EasyDutch.txt",
-      "https://easydutch-ubo.github.io/EasyDutchCDN/EasyDutch.txt"
+      "https://cdn.statically.io/gh/EasyDutch-uBO/EasyDutch/gh-pages/EasyDutch.all.txt",
+      "https://cdn.jsdelivr.net/gh/EasyDutch-uBO/EasyDutchCDN@main/EasyDutch.all.txt",
+      "https://easydutch-ubo.github.io/EasyDutchCDN/EasyDutch.all.txt"
     ],
     "supportURL": "https://github.com/EasyDutch-uBO/EasyDutch/"
   },
@@ -594,8 +605,9 @@
   "POL-0": {
     "content": "filters",
     "group": "regions",
+    "parent": "POL: Oficjalne Polskie Filtry",
     "off": true,
-    "title": "POL: Oficjalne Polskie Filtry do AdBlocka, uBlocka Origin i AdGuarda",
+    "title": "POL: Oficjalne Polskie Filtry do uBlocka Origin",
     "lang": "szl pl",
     "contentURL": "https://raw.githubusercontent.com/MajkiIT/polish-ads-filter/master/polish-adblock-filters/adblock.txt",
     "supportURL": "https://github.com/MajkiIT/polish-ads-filter/issues",
@@ -604,6 +616,7 @@
   "POL-2": {
     "content": "filters",
     "group": "regions",
+    "parent": "POL: Oficjalne Polskie Filtry",
     "off": true,
     "title": "POL: Oficjalne polskie filtry przeciwko alertom o Adblocku",
     "lang": "szl pl",
