@@ -11,7 +11,7 @@ patches/hide-passwordmgr.patch
 patches/librewolf-pref-pane.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
-patches/msix.patch
+patches/msix-fixed-113.patch
 patches/remove_addons.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
