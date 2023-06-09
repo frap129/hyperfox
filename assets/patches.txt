@@ -5,7 +5,6 @@ patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/disable-data-reporting-at-compile-time.patch
-patches/faster-package-multi-locale.patch
 patches/flatpak-autoconf.patch
 patches/hide-passwordmgr.patch
 patches/librewolf-pref-pane.patch
@@ -13,7 +12,6 @@ patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
 patches/remove_addons.patch
-patches/rust-unaligned-access-backport.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
 patches/sed-patches/stop-undesired-requests.patch

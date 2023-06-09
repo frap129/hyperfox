@@ -13,8 +13,8 @@ index cb7c26e..b1a56e9 100644
        }
 diff --git a/services/settings/Utils.jsm b/services/settings/Utils.jsm
 index 23d6bf1..4affc89 100644
---- a/services/settings/Utils.jsm
-+++ b/services/settings/Utils.jsm
+--- a/services/settings/Utils.sys.mjs
++++ b/services/settings/Utils.sys.mjs
 @@ -62,6 +62,9 @@ XPCOMUtils.defineLazyGetter(lazy, "isRunningTests", () => {
  // Overriding the server URL is normally disabled on Beta and Release channels,
  // except under some conditions.
