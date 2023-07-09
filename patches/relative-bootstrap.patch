@@ -1,0 +1,22 @@
+--- a/python/mozversioncontrol/mozversioncontrol/__init__.py
++++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
+@@ -828,7 +828,7 @@ class SrcRepository(Repository):
+         """
+         res = []
+         # move away the .git or .hg folder from path to more easily test in a hg/git repo
+-        for root, dirs, files in os.walk("."):
++        for root, dirs, files in os.walk(path):
+             for name in files:
+                 res.append(os.path.join(root, name))
+         return res
+@@ -841,7 +841,9 @@ class SrcRepository(Repository):
+         import fnmatch
+ 
+         files = list(
+-            p.replace("\\", "/").replace("./", "") for p in self.get_files(path) if p
++            (os.path.relpath(p, path)).replace("\\", "/")
++            for p in self.get_files(path)
++            if p
+         )
+         files.sort()
+         ig = self.git_ignore(path)
