@@ -1,5 +1,6 @@
 patches/allow-JXL-in-non-nightly-browser.patch
 patches/allow-ubo-private-mode.patch
+patches/bootstrap.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
@@ -10,7 +11,6 @@ patches/librewolf-pref-pane.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
-patches/relative-bootstrap.patch
 patches/remove_addons.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
