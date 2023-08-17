@@ -1,0 +1,57 @@
+steps:
+
+  fetch:
+    image: alpine
+    commands:
+      - apk update -U
+      - apk add make gnupg
+
+      - make fetch-upstream-woodpecker
+
+  test:
+    image: alpine
+    commands:
+      - apk update -U
+      - apk add make patch
+
+      - make check-patchfail-woodpecker
+
+  build:
+    image: alpine
+    commands:
+      - apk update -U
+      - apk add make gnupg patch python3 bash xz
+
+      - make all
+
+#
+#  release:
+#    image: alpine
+#    commands:
+#      - apk update -U
+#      - apk add nodejs npm
+#      
+#      - ( cd .woodpecker.release && npm install && npm run build )
+#      - ( cd .woodpecker.release && npm run start $(cat ../version)-$(cat ../release) )
+#      
+#    secrets: [ cb_api_key ]
+#
+
+
+  upload:
+    image: woodpeckerci/plugin-s3
+
+    settings:
+      bucket: artifacts
+      source: "*.{tar.gz,sha256sum}"
+      target: /${CI_BUILD_NUMBER}
+      path_style: true
+      endpoint: https://storage.ci.librewolf.net
+
+    secrets: [aws_access_key_id, aws_secret_access_key]
+
+  display-links:
+    image: alpine
+    commands:
+      - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz"
+      - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz.sha256sum"

@@ -1,6 +1,6 @@
 docker_targets=docker-build-image docker-run-build-job docker-remove-image
-
-.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets)
+woodpecker_targets=fetch-upstream-woodpecker check-patchfail-woodpecker
+.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets)
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -93,12 +93,15 @@ $(lw_source_dir) : $(ff_source_tarball) ./version ./release scripts/librewolf-pa
 
 $(lw_source_tarball) : $(lw_source_dir)
 	rm -f $(lw_source_tarball)
-	$(archive_create) $(lw_source_tarball) $(lw_source_dir)
+	tar cf librewolf-$(version)-$(release).source.tar $(lw_source_dir)
+	time gzip --fast librewolf-$(version)-$(release).source.tar
 	touch $(lw_source_dir)
 	sha256sum $(lw_source_tarball) > $(lw_source_tarball).sha256sum
 	cat $(lw_source_tarball).sha256sum
+	sha256sum -c $(lw_source_tarball).sha256sum
 	[ "$(SIGNING_KEY)" != "" ] && cp -v $(SIGNING_KEY) pk.asc ; true
 	if [ -f pk.asc ]; then gpg --import pk.asc; gpg --detach-sign $(lw_source_tarball) && ls -lh $(lw_source_tarball).sig; fi
+	ls -lh $(lw_source_tarball)*
 
 
 debs=python3 python3-dev python3-pip
@@ -124,8 +127,12 @@ package :
 run :
 	(cd $(lw_source_dir) && ./mach run)
 
+
 check-patchfail:
 	sh -c "./scripts/check-patchfail.sh" > patchfail.out
+
+
+
 check-fuzz:
 	-sh -c "./scripts/check-patchfail.sh --fuzz=0" > patchfail-fuzz.out
 fixfuzz :
@@ -158,3 +165,18 @@ setup-debian :
 setup-fedora :
 	dnf -y install python3 curl wget zstd python3-devel python3-pip mercurial openssl-devel libxml2-devel
 
+
+
+
+
+
+#
+# for .woodpecker.yml
+#
+
+check-patchfail-woodpecker :
+
+	( sh -c "./scripts/check-patchfail.sh" > patchfail.out ; exit_code=$$? ; \
+		cat patchfail.out ; rm -f patchfail.out ; exit $$exit_code )
+
+fetch-upstream-woodpecker : fetch
