@@ -27,6 +27,8 @@ steps:
 #
 #  release:
 #    image: alpine
+#    when:
+#      - branch: main
 #    commands:
 #      - apk update -U
 #      - apk add nodejs npm
@@ -40,7 +42,8 @@ steps:
 
   upload:
     image: woodpeckerci/plugin-s3
-
+    when:
+      - branch: main
     settings:
       bucket: artifacts
       source: "*.{tar.gz,sha256sum}"
@@ -52,6 +55,8 @@ steps:
 
   display-links:
     image: alpine
+    when:
+      - branch: main
     commands:
       - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz"
       - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz.sha256sum"
