@@ -106,18 +106,20 @@ def librewolf_patches():
     # we don't want to disturbe those workflows.
     patch('../patches/xmas.patch')
 
-    #
-    # Create the 'lw' folder, it contains the librewolf.cfg and policies.json files.
-    #
-    
-    #exec('mkdir -p lw')
-    
-    # getting the librewolf settings repository
-    exec("cp -v ../submodules/settings/defaults/pref/local-settings.js lw/")
-    exec("cp -v ../submodules/settings/distribution/policies.json lw/")
-    exec("cp -v ../submodules/settings/librewolf.cfg lw/")
 
-    
+    #
+    # Apply most recent `settings` repository files.
+    #
+
+    exec('mkdir -p lw')
+    enter_srcdir('lw')
+    exec('wget -q https://codeberg.org/librewolf/settings/raw/branch/master/librewolf.cfg')
+    exec('wget -q https://codeberg.org/librewolf/settings/raw/branch/master/distribution/policies.json')
+    exec('wget -q https://codeberg.org/librewolf/settings/raw/branch/master/defaults/pref/local-settings.js')
+    leave_srcdir();
+
+
+
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw/')
     exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-bootstrap ../scripts/setup-wasi-linux.sh lw/')
