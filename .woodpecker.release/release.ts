@@ -13,10 +13,17 @@ const repoUrl = 'https://codeberg.org/api/v1/repos/threadpanic/cb-src-woodpecker
 
 
 
-// Extract the command-line argument and assign to 'version'
+// Extract the first command-line argument and assign to 'version'
 const version = process.argv[2];
 if (!version) {
-    console.error('Please provide the version as a command-line argument.');
+    console.error('Please provide the version as the first command-line argument.');
+    process.exit(1);
+}
+
+// Extract the second command-line argument and assign to 'ci_build_number'
+const ci_build_number = process.argv[3];
+if (!ci_build_number) {
+    console.error('Please provide the ci_build_number as the second command-line argument.');
     process.exit(1);
 }
 
@@ -66,7 +73,15 @@ async function addReleaseArtifact(fileName: string, releaseId: number) {
 async function createNewRelease() {
     const releaseUrl = `${repoUrl}/releases`;
     const requestBody = {
-        body: `Release v${version} of the LibreWolf source tarball. Please see the README.md file for compilation instructions and dependency details.`,
+        body: `Release v${version} of the LibreWolf source tarball. 
+
+        Please see the README.md file for compilation instructions and dependency details.
+
+        * [${tarball_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz)
+        * [${sha256sum_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz.sha256sum)
+        
+        Note that these artifacts don't have a long shelf life in this particular s3 server, but it demonstrates the use of exernal storage to store big artifacts.
+        `,
         draft: false,
         name: `Release ${version}`,
         prerelease: false,
@@ -77,7 +92,7 @@ async function createNewRelease() {
         const response = await axios.post(releaseUrl, requestBody, { headers: headers });
 
         if (response.status === 201) {
-            await addReleaseArtifact(tarball_artifact, response.data.id);
+            // await addReleaseArtifact(tarball_artifact, response.data.id);
             await addReleaseArtifact(sha256sum_artifact, response.data.id);
         } else {
             throw new Error(`Failed to create release. Unexpected response status: ${response.status}`);
