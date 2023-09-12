@@ -71,6 +71,7 @@ async function addReleaseArtifact(fileName: string, releaseId: number) {
 }
 
 async function createNewRelease() {
+    console.log(`Creating new release v${version}...`);
     const releaseUrl = `${repoUrl}/releases`;
     const requestBody = {
         body: `Release v${version} of the LibreWolf source tarball. 
@@ -94,6 +95,7 @@ async function createNewRelease() {
         if (response.status === 201) {
             // await addReleaseArtifact(tarball_artifact, response.data.id);
             await addReleaseArtifact(sha256sum_artifact, response.data.id);
+            console.log(`Successfully done building the release.`);
         } else {
             throw new Error(`Failed to create release. Unexpected response status: ${response.status}`);
         }
