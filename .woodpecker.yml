@@ -39,13 +39,13 @@ steps:
 
     secrets: [aws_access_key_id, aws_secret_access_key]
 
-  display-links:
-    image: alpine
-    when:
-      - branch: main
-    commands:
-      - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz"
-      - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz.sha256sum"
+#  display-links:
+#    image: alpine
+#    when:
+#      - branch: main
+#    commands:
+#      - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz"
+#      - echo "https://storage.ci.librewolf.net/artifacts/${CI_BUILD_NUMBER}/librewolf-$(cat version)-$(cat release).source.tar.gz.sha256sum"
 
 # my ts+axios api stuff to make the codeberg release
 
