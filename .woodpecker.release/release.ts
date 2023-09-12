@@ -74,13 +74,11 @@ async function createNewRelease() {
     console.log(`Creating new release v${version}...`);
     const releaseUrl = `${repoUrl}/releases`;
     const requestBody = {
-        body: `Release v${version} of the LibreWolf source tarball. 
-
-Please see the README.md file for compilation instructions and dependency details.
+        body: `Please see the README.md file for compilation instructions and dependency details.
 
 * [${tarball_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz)
 * [${sha256sum_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz.sha256sum)
-        
+
 Note: these artifacts don't have a long shelflife on our current s3 server, but it demonstrates the use of exernal storage to store big artifacts.
 `,
         draft: false,
@@ -95,7 +93,7 @@ Note: these artifacts don't have a long shelflife on our current s3 server, but 
         if (response.status === 201) {
             // await addReleaseArtifact(tarball_artifact, response.data.id);
             await addReleaseArtifact(sha256sum_artifact, response.data.id);
-            console.log(`Successfully done building the release.`);
+            console.log(`Successfully built release: ${releaseUrl}`);
         } else {
             throw new Error(`Failed to create release. Unexpected response status: ${response.status}`);
         }
