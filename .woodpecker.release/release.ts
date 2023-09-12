@@ -76,13 +76,13 @@ async function createNewRelease() {
     const requestBody = {
         body: `Release v${version} of the LibreWolf source tarball. 
 
-        Please see the README.md file for compilation instructions and dependency details.
+Please see the README.md file for compilation instructions and dependency details.
 
-        * [${tarball_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz)
-        * [${sha256sum_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz.sha256sum)
+* [${tarball_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz)
+* [${sha256sum_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz.sha256sum)
         
-        Note that these artifacts don't have a long shelf life in this particular s3 server, but it demonstrates the use of exernal storage to store big artifacts.
-        `,
+Note: these artifacts don't have a long shelflife on our current s3 server, but it demonstrates the use of exernal storage to store big artifacts.
+`,
         draft: false,
         name: `Release ${version}`,
         prerelease: false,
