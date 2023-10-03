@@ -1,0 +1,44 @@
+diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
+index fdd5468..b012c07 100644
+--- a/browser/app/profile/firefox.js
++++ b/browser/app/profile/firefox.js
+@@ -2772,6 +2772,11 @@ pref("devtools.debugger.features.async-captured-stacks", true);
+ pref("devtools.debugger.features.async-live-stacks", false);
+ pref("devtools.debugger.hide-ignored-sources", false);
+ 
++// Force detach the debugger to prevent detecting that the debugger is initialized.
++pref("devtools.debugger.force_detach", false);
++// Stops all logging to prevent detection of devtools by evaluating strings.
++pref("devtools.console.logging_disabled", false);
++
+ // Disable autohide for DevTools popups and tooltips.
+ // This is currently not exposed by any UI to avoid making
+ // about:devtools-toolbox tabs unusable by mistake.
+
+diff --git a/devtools/server/actors/thread.js b/devtools/server/actors/thread.js
+index d91f463..3c1ba5a 100644
+--- a/devtools/server/actors/thread.js
++++ b/devtools/server/actors/thread.js
+@@ -386,7 +386,8 @@ class ThreadActor extends Actor {
+   attach(options) {
+     // Note that the client avoids trying to call attach if already attached.
+     // But just in case, avoid any possible duplicate call to attach.
+-    if (this.alreadyAttached) {
++    let forceDetach = Services.prefs.getBoolPref("devtools.debugger.force_detach", false);
++    if (this.alreadyAttached || forceDetach) {
+       return;
+     }
+ 
+diff --git a/devtools/server/actors/webconsole/listeners/console-api.js b/devtools/server/actors/webconsole/listeners/console-api.js
+index 3e5d0bc..8260e2b 100644
+--- a/devtools/server/actors/webconsole/listeners/console-api.js
++++ b/devtools/server/actors/webconsole/listeners/console-api.js
+@@ -97,7 +97,8 @@ class ConsoleAPIListener {
+    *        The message object receives from the ConsoleAPIStorage service.
+    */
+   onConsoleAPILogEvent(message) {
+-    if (!this.handler) {
++    let disableConsole = Services.prefs.getBoolPref("devtools.console.logging_disabled", false);
++    if (!this.handler || disableConsole) {
+       return;
+     }
