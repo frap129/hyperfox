@@ -1,0 +1,13 @@
+name: Push
+on: [push]
+
+jobs:
+  push:
+    runs-on: alpine
+    steps:
+      - run: apk update -U && apk add make gnupg patch python3 bash xz nodejs git
+        shell: sh
+      - uses: actions/checkout@v3
+      - run: make fetch-upstream-woodpecker
+      - run: make check-patchfail-woodpecker
+      - run: make all
