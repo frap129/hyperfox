@@ -28,3 +28,4 @@ patches/ui-patches/remove-snippets-from-home.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
 patches/windows-theming-bug.patch
+patches/devtools-bypass.patch
