@@ -67,21 +67,21 @@ There are two ways to build LibreWolf. You can either use the source tarball or 
 
 First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/releases)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
 
-```
+```bash
 tar xf <tarball>
 cd <folder>
 ```
 
 Then, you have to bootstrap your system to be able to build LibreWolf. You only have to do this one time. It is done by running the following commands:
 
-```
+```bash
 ./mach --no-interactive bootstrap --application-choice=browser
 ./lw/setup-wasi-linux.sh
 ```
 
 Finally you can build LibreWolf and then package or run it with the following commands:
 
-```
+```bash
 ./mach build
 ./mach package
 # OR
@@ -92,26 +92,26 @@ Finally you can build LibreWolf and then package or run it with the following co
 
 First, clone this repository with Git:
 
-```
+```bash
 git clone --recursive https://gitlab.com/librewolf-community/browser/source.git librewolf-source
 cd librewolf-source
 ```
 
 Next, build the LibreWolf source code with the following command:
 
-```
+```bash
 make dir
 ```
 
 After that, you have to bootstrap your system to be able to build LibreWolf. You only have to do this one time. It is done by running the following command:
 
-```
+```bash
 make bootstrap
 ```
 
 Finally you can build LibreWolf and then package or run it with the following commands:
 
-```
+```bash
 make build
 make package
 # OR
@@ -123,7 +123,7 @@ make run
 ### How to make a patch
 
 The easiest way to make patches is to go to the LibreWolf source folder:
-```
+```bash
 cd librewolf-$(cat version)
 git init
 git add <path_to_file_you_changed>
@@ -135,12 +135,12 @@ We have Gitter / Matrix rooms, and on the website we have links to the various i
 ### How to work on an existing patch
 
 The easiest way to make patches is to go to the LibreWolf source folder:
-```
+```bash
 make fetch # get the firefox tarball
 ./scripts/git-patchtree.sh patches/sed-patches/disable-pocket.patch
 ```
 Now change the source tree the way you want, keeping in mind to `git add` new files. When done, you can create the new patch with:
-```
+```bash
 cd firefox-<version>
 git diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD > ../my-patch-name.patch
 ```
@@ -158,7 +158,7 @@ Well, first of all:
 Now that you have a patch in LibreWolf, that's not enough to upload to Mozilla. See, Mozilla only accepts patches against Nightly. So here is how to do that:
 
 If you have not done already, create the `mozilla-unified` folder and build Firefox with it:
-```
+```bash
 hg clone https://hg.mozilla.org/mozilla-unified
 cd mozilla-unified
 hg update
@@ -167,17 +167,17 @@ MOZBUILD_STATE_PATH=$HOME/.mozbuild ./mach --no-interactive bootstrap --applicat
 ./mach run
 ```
 If you skipped the previous step, you could ensure that you're up to date with:
-```
+```bash
 cd mozilla-unified
 hg pull
 hg update
 ```
 Now you can apply your patch to Nightly:
-```
+```bash
 patch -p1 -i ../mypatch.patch
 ```
 Now you let Mercurial create the patch:
-```
+```bash
 hg diff > ../my-nightly-patch.patch
 ```
 And it can be uploaded to Bugzilla.
