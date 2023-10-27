@@ -8,6 +8,7 @@ patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/flatpak-autoconf.patch
 patches/fullpage-translations.patch
+patches/fullpage-translations-customization.patch
 patches/hide-passwordmgr.patch
 patches/librewolf-pref-pane.patch
 patches/librewolf-prefs.patch
