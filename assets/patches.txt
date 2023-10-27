@@ -1,8 +1,10 @@
 patches/allow-JXL-in-non-nightly-browser.patch
 patches/allow-ubo-private-mode.patch
+patches/bootstrap.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
+patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/flatpak-autoconf.patch
 patches/fullpage-translations.patch
@@ -28,4 +30,3 @@ patches/ui-patches/remove-snippets-from-home.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
 patches/windows-theming-bug.patch
-patches/devtools-bypass.patch
