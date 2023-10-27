@@ -39,15 +39,91 @@
          # put the kinds into a graph and sort topologically so that kinds are loaded
 --- a/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
 +++ b/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
-@@ -83,9 +83,36 @@ def _get_defaults(repo_root=None):
-     try:
-         repo = get_repository(repo_path)
-     except RuntimeError:
--        # Use fake values if no repo is detected.
--        repo = Mock(branch="", head_rev="", tool="git")
--        repo.get_url.return_value = ""
-+        # patches/bootstrap.patch - return our object from here, but
-+        # it's possible the mock object would have sufficed.
+@@ -87,46 +87,77 @@ def _get_defaults(repo_root=None):
+         repo = Mock(branch="", head_rev="", tool="git")
+         repo.get_url.return_value = ""
+ 
+-    try:
+-        repo_url = repo.get_url()
+-        parsed_url = mozilla_repo_urls.parse(repo_url)
+-        project = parsed_url.repo_name
+-    except (
+-        CalledProcessError,
+-        mozilla_repo_urls.errors.InvalidRepoUrlError,
+-        mozilla_repo_urls.errors.UnsupportedPlatformError,
+-    ):
+-        repo_url = ""
+-        project = ""
++    if repo:
++        try:
++            repo_url = repo.get_url()
++            parsed_url = mozilla_repo_urls.parse(repo_url)
++            project = parsed_url.repo_name
++        except (
++            CalledProcessError,
++            mozilla_repo_urls.errors.InvalidRepoUrlError,
++            mozilla_repo_urls.errors.UnsupportedPlatformError,
++        ):
++            repo_url = ""
++            project = ""
+ 
+-    return {
+-        "base_repository": repo_url,
+-        "base_ref": "",
+-        "base_rev": "",
+-        "build_date": int(time.time()),
+-        "build_number": 1,
+-        "do_not_optimize": [],
+-        "enable_always_target": True,
+-        "existing_tasks": {},
+-        "filters": ["target_tasks_method"],
+-        "head_ref": repo.branch or repo.head_rev,
+-        "head_repository": repo_url,
+-        "head_rev": repo.head_rev,
+-        "head_tag": "",
+-        "level": "3",
+-        "moz_build_date": datetime.now().strftime("%Y%m%d%H%M%S"),
+-        "next_version": None,
+-        "optimize_strategies": None,
+-        "optimize_target_tasks": True,
+-        "owner": "nobody@mozilla.com",
+-        "project": project,
+-        "pushdate": int(time.time()),
+-        "pushlog_id": "0",
+-        "repository_type": repo.tool,
+-        "target_tasks_method": "default",
+-        "tasks_for": "",
+-        "version": get_version(repo_path),
+-    }
++        return {
++            "base_repository": repo_url,
++            "base_ref": "",
++            "base_rev": "",
++            "build_date": int(time.time()),
++            "build_number": 1,
++            "do_not_optimize": [],
++            "enable_always_target": True,
++            "existing_tasks": {},
++            "filters": ["target_tasks_method"],
++            "head_ref": repo.branch or repo.head_rev,
++            "head_repository": repo_url,
++            "head_rev": repo.head_rev,
++            "head_tag": "",
++            "level": "3",
++            "moz_build_date": datetime.now().strftime("%Y%m%d%H%M%S"),
++            "next_version": None,
++            "optimize_strategies": None,
++            "optimize_target_tasks": True,
++            "owner": "nobody@mozilla.com",
++            "project": project,
++            "pushdate": int(time.time()),
++            "pushlog_id": "0",
++            "repository_type": repo.tool,
++            "target_tasks_method": "default",
++            "tasks_for": "",
++            "version": get_version(repo_path),
++        }
++    else:
 +        return {
 +            "base_repository": "SOURCE",
 +            "base_ref": "",
@@ -77,8 +153,10 @@
 +            "version": "",
 +        }
  
-     try:
-         repo_url = repo.get_url()
+ 
+ defaults_functions = [_get_defaults]
+ 
+ 
 @@ -193,17 +223,18 @@
          return os.path.splitext(os.path.basename(spec))[0]
  
