@@ -39,7 +39,8 @@
          # put the kinds into a graph and sort topologically so that kinds are loaded
 --- a/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
 +++ b/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
-@@ -87,46 +87,77 @@ def _get_defaults(repo_root=None):
+@@ -78,49 +78,79 @@
+         # Use fake values if no repo is detected.
          repo = Mock(branch="", head_rev="", tool="git")
          repo.get_url.return_value = ""
  
