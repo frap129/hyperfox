@@ -1,4 +1,4 @@
-# LibreWolf firefox-view.patch
+x# LibreWolf firefox-view.patch
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Hide "Firefox View" by default and make it work with LibreWolf
@@ -23,7 +23,7 @@
          <hbox id="TabsToolbar-customization-target" flex="1">
 -          <toolbarbutton id="firefox-view-button"
 -                         class="toolbarbutton-1 chromeclass-toolbar-additional"
--                         data-l10n-id="toolbar-button-firefox-view"
+-                         data-l10n-id="toolbar-button-firefox-view-2"
 -                         role="button"
 -                         aria-pressed="false"
 -                         oncommand="FirefoxViewHandler.openTab(event);"
@@ -41,7 +41,7 @@
 +
 +    <toolbarbutton id="firefox-view-button"
 +                   class="toolbarbutton-1 chromeclass-toolbar-additional"
-+                   data-l10n-id="toolbar-button-firefox-view"
++                   data-l10n-id="toolbar-button-firefox-view-2"
 +                   role="button"
 +                   aria-pressed="false"
 +                   oncommand="FirefoxViewHandler.openTab(event);"
@@ -90,12 +90,15 @@
        >
          <summary class="page-section-header">
            <span
+diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
+index e30e6c4..d3bd77a 100644
 --- a/browser/components/firefoxview/firefoxview.mjs
 +++ b/browser/components/firefoxview/firefoxview.mjs
-@@ -41,7 +41,26 @@ const launchFeatureTour = () => {
-   callout.showFeatureCallout();
- };
+@@ -2,7 +2,28 @@
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
++
 +function onPrefChange() {
 +  document.getElementById("tab-pickup-container").hidden =
 +    Services.prefs.getBoolPref("identity.fxaccounts.enabled") &&
@@ -114,11 +117,12 @@
 +  "identity.fxaccounts.enabled",
 +].forEach((pref) => Services.prefs.addObserver(pref, onPrefChange));
 +
++
  window.addEventListener("DOMContentLoaded", async () => {
 +  onPrefChange();
-   Services.telemetry.setEventRecordingEnabled("firefoxview", true);
    Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
-   document.getElementById("recently-closed-tabs-container").onLoad();
+   if (Cu.isInAutomation) {
+     Services.obs.notifyObservers(null, "firefoxview-entered");
 --- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 +++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 @@ -92,57 +92,6 @@ const BASE_MESSAGES = () => [
