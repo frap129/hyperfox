@@ -1,0 +1,14 @@
+name: Test
+on: [push]
+
+jobs:
+  push:
+    runs-on: debian
+    steps:
+      - run: apt-get update && apt-get -y upgrade
+      - run: apt-get -y install git make
+      - run: #git clone <source>
+      - run: #git clone <bsys6>
+      - run: #cd source && make all
+      - run: #cd bsyz6 && ./bsys6 bootstrap && ./bssys6 pacakge # x86_64-linux
+      - run: #copy the .bz2 to somewhere to test..
