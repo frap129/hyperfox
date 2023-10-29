@@ -1,14 +1,14 @@
-category-librewolf.svg
--> browser/themes/shared/preferences/category-librewolf.svg
+### overview:
+* This folder replaces the original big pref-pane.patch, the original patch is moved into the `patches/removed-patches` folder.
+* This new solution should make it much easier for everyone to edit the librewolf preferences.
 
-librewolf.css
--> browser/themes/shared/preferences/librewolf.css
+### new files, these contain all the logic for the pref-pane:
 
-librewolf.inc.xhtml
--> browser/components/preferences/librewolf.inc.xhtml
+* category-librewolf.svg -> browser/themes/shared/preferences/category-librewolf.svg
+* librewolf.css -> browser/themes/shared/preferences/librewolf.css
+* librewolf.inc.xhtml -> browser/components/preferences/librewolf.inc.xhtml
+* librewolf.js -> browser/components/preferences/librewolf.js
 
-librewolf.js
--> browser/components/preferences/librewolf.js
+### appending these string values to the original preferences.ftl:
 
-preferences.ftl
--- append to --> browser/locales/en-US/browser/preferences.ftl
+* preferences.ftl -- append to --> browser/locales/en-US/browser/preferences/preferences.ftl
