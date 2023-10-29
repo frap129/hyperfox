@@ -136,8 +136,8 @@ def librewolf_patches():
     exec('cp ../patches/pref-pane/librewolf.inc.xhtml browser/components/preferences/librewolf.inc.xhtml')
     exec('cp ../patches/pref-pane/librewolf.js browser/components/preferences/librewolf.js')
     # 3) append our locale string values to preferences.ftl
-    exec('cat browser/locales/en-US/browser/preferences.ftl ../patches/pref-pane/preferences.ftl > preferences.ftl')
-    exec('mv preferences.ftl browser/locales/en-US/browser/preferences.ftl')
+    exec('cat browser/locales/en-US/browser/preferences/preferences.ftl ../patches/pref-pane/preferences.ftl > preferences.ftl')
+    exec('mv preferences.ftl browser/locales/en-US/browser/preferences/preferences.ftl')
 
 
     
