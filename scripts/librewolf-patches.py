@@ -122,6 +122,16 @@ def librewolf_patches():
     exec('wget -q https://codeberg.org/librewolf/settings/raw/branch/master/defaults/pref/local-settings.js')
     leave_srcdir();
 
+    #
+    # pref-pane patches
+    #
+    
+    patch('../patches/pref-pane/pref-pane-small.patch')
+    
+    exec('cp -v ../patches/pref-pane/category-librewolf.svg browser/themes/shared/preferences/category-librewolf.svg')
+    exec('cp -v ../patches/pref-pane/librewolf.css browser/themes/shared/preferences/librewolf.css')
+    exec('cp -v ../patches/pref-pane/librewolf.inc.xhtml browser/components/preferences/librewolf.inc.xhtml')
+    exec('cp -v ../patches/pref-pane/librewolf.js browser/components/preferences/librewolf.js')
 
 
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
