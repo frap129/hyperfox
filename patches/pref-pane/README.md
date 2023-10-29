@@ -9,3 +9,6 @@ librewolf.inc.xhtml
 
 librewolf.js
 -> browser/components/preferences/librewolf.js
+
+preferences.ftl
+-- append to --> browser/locales/en-US/browser/preferences.ftl
