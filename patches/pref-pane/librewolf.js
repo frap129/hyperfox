@@ -22,8 +22,6 @@ Preferences.addAll([
   { id: "identity.fxaccounts.enabled", type: "bool" },
   // WebGL
   { id: "webgl.disabled", type: "bool" },
-  // RFP
-  { id: "privacy.resistFingerprinting", type: "bool" },
   // Automatically Update Extensions
   { id: "extensions.update.enabled", type: "bool" },
   { id: "extensions.update.autoUpdateDefault", type: "bool" },
