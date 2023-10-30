@@ -123,7 +123,24 @@ def librewolf_patches():
     leave_srcdir();
 
 
+    
+    #
+    # pref-pane patches
+    #
 
+    # 1) patch it in
+    patch('../patches/pref-pane/pref-pane-small.patch')
+    # 2) new files
+    exec('cp ../patches/pref-pane/category-librewolf.svg browser/themes/shared/preferences/category-librewolf.svg')
+    exec('cp ../patches/pref-pane/librewolf.css browser/themes/shared/preferences/librewolf.css')
+    exec('cp ../patches/pref-pane/librewolf.inc.xhtml browser/components/preferences/librewolf.inc.xhtml')
+    exec('cp ../patches/pref-pane/librewolf.js browser/components/preferences/librewolf.js')
+    # 3) append our locale string values to preferences.ftl
+    exec('cat browser/locales/en-US/browser/preferences/preferences.ftl ../patches/pref-pane/preferences.ftl > preferences.ftl')
+    exec('mv preferences.ftl browser/locales/en-US/browser/preferences/preferences.ftl')
+
+
+    
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw/')
     exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-bootstrap ../scripts/setup-wasi-linux.sh lw/')

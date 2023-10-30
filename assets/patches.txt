@@ -9,7 +9,6 @@ patches/disable-data-reporting-at-compile-time.patch
 patches/flatpak-autoconf.patch
 patches/fullpage-translations.patch
 patches/hide-passwordmgr.patch
-patches/librewolf-pref-pane.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
