@@ -63,7 +63,7 @@ all : $(lw_source_tarball)
 
 
 clean :
-	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum firefox-$(version) patchfail.out patchfail-fuzz.out
+	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum $(lw_source_tarball).sha512sum firefox-$(version) patchfail.out patchfail-fuzz.out
 
 veryclean : clean
 	rm -f $(ff_source_tarball) $(ff_source_tarball).asc
@@ -99,6 +99,9 @@ $(lw_source_tarball) : $(lw_source_dir)
 	sha256sum $(lw_source_tarball) > $(lw_source_tarball).sha256sum
 	cat $(lw_source_tarball).sha256sum
 	sha256sum -c $(lw_source_tarball).sha256sum
+	sha512sum $(lw_source_tarball) > $(lw_source_tarball).sha512sum
+	cat $(lw_source_tarball).sha512sum
+	sha512sum -c $(lw_source_tarball).sha512sum
 	[ "$(SIGNING_KEY)" != "" ] && cp -v $(SIGNING_KEY) pk.asc ; true
 	if [ -f pk.asc ]; then gpg --import pk.asc; gpg --detach-sign $(lw_source_tarball) && ls -lh $(lw_source_tarball).sig; fi
 	ls -lh $(lw_source_tarball)*
