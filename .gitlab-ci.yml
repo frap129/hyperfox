@@ -17,6 +17,7 @@ Build:
     paths:
       - librewolf-*.source.tar.gz
       - librewolf-*.source.tar.gz.sha256sum
+      - librewolf-*.source.tar.gz.sha512sum
       - librewolf-*.source.tar.gz.sig
       - patchfail-fuzz.out
     reports:
@@ -51,6 +52,11 @@ Release:
         --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum \
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum"
     - |
+      curl \
+        --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+        --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum \
+        "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha512sum"
+    - |
       curl -X 'POST' \
         "https://codeberg.org/api/v1/repos/librewolf/source/releases?token=$CODEBERG_TOKEN" \
         -H 'accept: application/json' \
@@ -72,6 +78,9 @@ Release:
         - name: librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum
           link_type: other
           url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha256sum
+        - name: librewolf-$VERSION-$RELEASE.source.tar.gz.sha512sum
+          link_type: other
+          url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha512sum
         - name: librewolf-$VERSION-$RELEASE.source.tar.gz.sig
           link_type: other
           url: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sig
