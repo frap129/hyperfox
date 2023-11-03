@@ -29,11 +29,13 @@ if (!ci_build_number) {
 
 const tarball_artifact = `librewolf-${version}.source.tar.gz`;
 const sha256sum_artifact = `${tarball_artifact}.sha256sum`;
+const sha512sum_artifact = `${tarball_artifact}.sha512sum`;
 const tarballExists = fs.existsSync(path.join('..', tarball_artifact));
 const sha256sumExists = fs.existsSync(path.join('..', sha256sum_artifact));
+const sha512sumExists = fs.existsSync(path.join('..', sha512sum_artifact));
 
 if (!tarballExists || !sha256sumExists) {
-    console.error(`Missing artifacts. Ensure both ${tarball_artifact} and ${sha256sum_artifact} are present in the parent directory.`);
+    console.error(`Missing artifacts. Ensure both ${tarball_artifact}, ${sha256sum_artifact} and ${sha512sum_artifact} are present in the parent directory.`);
     process.exit(1);
 }
 
@@ -78,6 +80,7 @@ async function createNewRelease() {
 
 * [${tarball_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz)
 * [${sha256sum_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz.sha256sum)
+* [${sha512sum_artifact}](https://storage.ci.librewolf.net/artifacts/${ci_build_number}/librewolf-${version}.source.tar.gz.sha512sum)
 
 Note: these artifacts don't have a long shelflife on our current s3 server, but it demonstrates the use of exernal storage to store big artifacts.
 `,
@@ -93,6 +96,7 @@ Note: these artifacts don't have a long shelflife on our current s3 server, but 
         if (response.status === 201) {
             // await addReleaseArtifact(tarball_artifact, response.data.id);
             await addReleaseArtifact(sha256sum_artifact, response.data.id);
+            await addReleaseArtifact(sha512sum_artifact, response.data.id);
             console.log(`Successfully built release: ${releaseUrl}`);
         } else {
             throw new Error(`Failed to create release. Unexpected response status: ${response.status}`);
