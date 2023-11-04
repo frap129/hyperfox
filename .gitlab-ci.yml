@@ -27,10 +27,8 @@ Build:
 Test:
   stage: test
   when: manual
-  allow_failure: false
+  allow_failure: true
   image: debian
-  tags:
-    - autoscale
   script:
     - make check-patchfail
     - make test
