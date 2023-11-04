@@ -6,7 +6,6 @@ stages:
 
 Test:
   stage: test
-  when: manual
   allow_failure: true
   tags:
     - autoscale
