@@ -9,7 +9,7 @@ Test:
   when: manual
   allow_failure: true
   tags:
-    - delta
+    - autoscale
   image: debian
   script:
     - apt-get update && apt-get -y upgrade
