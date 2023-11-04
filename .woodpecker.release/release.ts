@@ -34,7 +34,7 @@ const tarballExists = fs.existsSync(path.join('..', tarball_artifact));
 const sha256sumExists = fs.existsSync(path.join('..', sha256sum_artifact));
 const sha512sumExists = fs.existsSync(path.join('..', sha512sum_artifact));
 
-if (!tarballExists || !sha256sumExists) {
+if (!tarballExists || !sha256sumExists || !sha512sumExists) {
     console.error(`Missing artifacts. Ensure both ${tarball_artifact}, ${sha256sum_artifact} and ${sha512sum_artifact} are present in the parent directory.`);
     process.exit(1);
 }
