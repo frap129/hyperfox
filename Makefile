@@ -1,6 +1,7 @@
 docker_targets=docker-build-image docker-run-build-job docker-remove-image
 woodpecker_targets=fetch-upstream-woodpecker check-patchfail-woodpecker
-.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets)
+testing_targets=full-test test
+.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets) $(testing_targets)
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -63,7 +64,7 @@ all : $(lw_source_tarball)
 
 
 clean :
-	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum $(lw_source_tarball).sha512sum firefox-$(version) patchfail.out patchfail-fuzz.out
+	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum $(lw_source_tarball).sha512sum firefox-$(version) patchfail.out patchfail-fuzz.out bsys6
 
 veryclean : clean
 	rm -f $(ff_source_tarball) $(ff_source_tarball).asc
@@ -183,3 +184,14 @@ check-patchfail-woodpecker :
 		cat patchfail.out ; rm -f patchfail.out ; exit $$exit_code )
 
 fetch-upstream-woodpecker : fetch
+
+
+#
+# testing_targets=full-test test
+#
+
+test : full-test
+
+# full-test: produce the bz2 artifact using bsys6 from scratch
+full-test : $(lw_source_tarball)
+	${MAKE} -f assets/testing.mk bsys6_x86_64_linux_bz2_artifact

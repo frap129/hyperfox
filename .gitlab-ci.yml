@@ -1,4 +1,5 @@
 stages:
+  - test
   - build
   - release
 
@@ -22,6 +23,20 @@ Build:
       - patchfail-fuzz.out
     reports:
       dotenv: variables.env
+
+Test:
+  stage: test
+  when: manual
+  allow_failure: false
+  image: debian
+  tags:
+    - autoscale
+  script:
+    - make check-patchfail
+    - make test
+  artifacts:
+    paths:
+      - librewolf-*.tar.bz2
 
 Release:
   stage: release
