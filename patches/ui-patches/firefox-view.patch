@@ -2,12 +2,31 @@
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Hide "Firefox View" by default
-# Last Updated:  2023-10-30
+# Last Updated:  2023-11-04
 # License:       MPL 2.0
 #
 # This patch removes the Firefox View from the toolbar by default. Users can
 # enable it again by using the "Customize Toolbar" mode and dragging it back to
 # the titlebar.
+diff --git a/browser/base/content/browser.js b/browser/base/content/browser.js
+--- a/browser/base/content/browser.js
++++ b/browser/base/content/browser.js
+@@ -9929,10 +9929,11 @@ var FirefoxViewHandler = {
+       !this._enabled
+     );
+     document.getElementById("menu_openFirefoxView").hidden = !this._enabled;
+-    document.getElementById("firefox-view-button").style.listStyleImage =
+-      NimbusFeatures.firefoxViewNext.getVariable("newIcon")
+-        ? ""
+-        : 'url("chrome://branding/content/about-logo.png")';
++    if (this.button)
++      this.button.style.listStyleImage =
++        NimbusFeatures.firefoxViewNext.getVariable("newIcon")
++          ? ""
++          : 'url("chrome://branding/content/about-logo.png")';
+   },
+   onWidgetRemoved(aWidgetId) {
+     if (aWidgetId == this.BUTTON_ID && this.tab) {
 diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
 --- a/browser/base/content/navigator-toolbox.inc.xhtml
 +++ b/browser/base/content/navigator-toolbox.inc.xhtml
