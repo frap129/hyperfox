@@ -8,6 +8,8 @@ Test:
   stage: test
   when: manual
   allow_failure: true
+  tags:
+    - delta
   image: debian
   script:
     - apt-get update && apt-get -y upgrade
