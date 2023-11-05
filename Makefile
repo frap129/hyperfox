@@ -1,6 +1,6 @@
 docker_targets=docker-build-image docker-run-build-job docker-remove-image
 woodpecker_targets=fetch-upstream-woodpecker check-patchfail-woodpecker
-testing_targets=full-test test
+testing_targets=full-test test test-linux test-macos test-windows
 .PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets) $(testing_targets)
 
 version:=$(shell cat ./version)
@@ -195,3 +195,11 @@ test : full-test
 # full-test: produce the bz2 artifact using bsys6 from scratch
 full-test : $(lw_source_tarball)
 	${MAKE} -f assets/testing.mk bsys6_x86_64_linux_bz2_artifact
+
+test-linux : full-test
+
+test-macos : $(lw_source_tarball)
+	${MAKE} -f assets/testing.mk bsys6_x86_64_macos_dmg_artifact
+
+test-windows : $(lw_source_tarball)
+	${MAKE} -f assets/testing.mk bsys6_x86_64_windows_zip_artifact
