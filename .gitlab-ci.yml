@@ -20,7 +20,7 @@ Linux:
   artifacts:
     paths:
       - librewolf-*.tar.bz2
-      - mozconfig
+      - mozconfig.txt
 
 macOS:
   stage: test
@@ -38,6 +38,7 @@ macOS:
   artifacts:
     paths:
       - librewolf-*.dmg
+      - mozconfig.txt
 
 Windows:
   stage: test
@@ -55,6 +56,7 @@ Windows:
   artifacts:
     paths:
       - librewolf-*.zip
+      - mozconfig.txt
 
 
 

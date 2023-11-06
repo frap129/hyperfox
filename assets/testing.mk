@@ -17,7 +17,7 @@ bsys6_x86_64_linux_bz2_artifact :
 	git clone "https://codeberg.org/librewolf/bsys6.git"
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_linux)
 	cp -v bsys6/*.bz2 .
-	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" .
+	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
 	rm -rf bsys6
 
 
@@ -57,6 +57,7 @@ bsys6_x86_64_macos_dmg_artifact :
 	git clone "https://codeberg.org/librewolf/bsys6.git"
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_macos)
 	cp -v bsys6/*.dmg .
+	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
 	rm -rf bsys6
 
 
@@ -91,6 +92,7 @@ bsys6_x86_64_windows_zip_artifact :
 	git clone "https://codeberg.org/librewolf/bsys6.git"
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_windows)
 	cp -v bsys6/*.zip .
+	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
 	rm -rf bsys6
 
 
