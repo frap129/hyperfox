@@ -117,9 +117,9 @@ def librewolf_patches():
 
     exec('mkdir -p lw')
     enter_srcdir('lw')
-    exec('wget -q https://codeberg.org/librewolf/settings/raw/branch/master/librewolf.cfg')
-    exec('wget -q https://codeberg.org/librewolf/settings/raw/branch/master/distribution/policies.json')
-    exec('wget -q https://codeberg.org/librewolf/settings/raw/branch/master/defaults/pref/local-settings.js')
+    exec('cp -v ../../settings/librewolf.cfg .')
+    exec('cp -v ../../settings/distribution/policies.json .')
+    exec('cp -v ../../settings/defaults/pref/local-settings.js .')
     leave_srcdir();
 
 
