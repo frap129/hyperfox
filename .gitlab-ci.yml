@@ -117,6 +117,11 @@ Release:
         --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz.sha512sum \
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sha512sum"
     - |
+      curl \
+        --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+        --upload-file librewolf-$VERSION-$RELEASE.source.tar.gz.sig \
+        "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/librewolf-source/$VERSION-$RELEASE/librewolf-$VERSION-$RELEASE.source.tar.gz.sig"
+    - |
       curl -X 'POST' \
         "https://codeberg.org/api/v1/repos/librewolf/source/releases?token=$CODEBERG_TOKEN" \
         -H 'accept: application/json' \
