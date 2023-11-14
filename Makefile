@@ -47,6 +47,7 @@ help :
 	@echo "docker:" $(docker_targets)
 
 check :
+	-bash -c ./scripts/update-settings-module.sh
 	python3 scripts/update-version.py
 	cut -f1 version > version.tmp
 	mv -vf version.tmp version
@@ -55,9 +56,9 @@ check :
 	@echo "LibreWolf release : " $$(cat release)
 	@echo ""
 
-
 update :
-	git submodule update --recursive --remote
+	-bash -c ./scripts/update-settings-module.sh
+#	git submodule update --recursive --remote
 
 
 all : $(lw_source_tarball)
