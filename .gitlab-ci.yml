@@ -4,10 +4,11 @@ stages:
   - release
 
 
-
 Linux:
   stage: test
   allow_failure: true
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
   tags:
     - autoscale
   image: debian
@@ -25,6 +26,8 @@ Linux:
 macOS:
   stage: test
   allow_failure: true
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
   when: manual
   tags:
     - autoscale
@@ -43,6 +46,8 @@ macOS:
 Windows:
   stage: test
   allow_failure: true
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
   when: manual
   tags:
     - autoscale
