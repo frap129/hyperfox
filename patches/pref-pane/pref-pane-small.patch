@@ -31,17 +31,17 @@ index 19dda7cf39eb..f5e67b637b49 100644
    if (Services.prefs.getBoolPref("browser.preferences.experimental")) {
      // Set hidden based on previous load's hidden value.
 diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
-index 6ee14eec9b2e..a0d768dce307 100644
+index 378be0a..26caf49 100644
 --- a/browser/components/preferences/preferences.xhtml
 +++ b/browser/components/preferences/preferences.xhtml
-@@ -13,6 +13,7 @@
- <?xml-stylesheet href="chrome://browser/skin/preferences/search.css"?>
- <?xml-stylesheet href="chrome://browser/skin/preferences/containers.css"?>
- <?xml-stylesheet href="chrome://browser/skin/preferences/privacy.css"?>
-+<?xml-stylesheet href="chrome://browser/skin/preferences/librewolf.css"?>
+@@ -38,6 +38,7 @@
+     href="chrome://browser/skin/preferences/containers.css"
+   />
+   <link rel="stylesheet" href="chrome://browser/skin/preferences/privacy.css" />
++  <link rel="stylesheet" href="chrome://browser/skin/preferences/librewolf.css" />
  
- <!DOCTYPE html>
- 
+   <link rel="localization" href="branding/brand.ftl"/>
+   <link rel="localization" href="browser/browser.ftl"/>
 @@ -129,6 +130,17 @@
            <label class="category-name" flex="1" data-l10n-id="pane-privacy-title"></label>
          </richlistitem>
