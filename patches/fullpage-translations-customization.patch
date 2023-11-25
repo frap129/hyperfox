@@ -1,4 +1,5 @@
 diff --git a/browser/base/content/main-popupset.inc.xhtml b/browser/base/content/main-popupset.inc.xhtml
+index 2633ccd..d2156e6 100644
 --- a/browser/base/content/main-popupset.inc.xhtml
 +++ b/browser/base/content/main-popupset.inc.xhtml
 @@ -654,6 +654,8 @@
@@ -11,9 +12,10 @@ diff --git a/browser/base/content/main-popupset.inc.xhtml b/browser/base/content
      <menuitem class="manage-languages-menuitem"
                data-l10n-id="translations-panel-settings-manage-languages"
 diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
+index 30b9076..c338c45 100644
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
-@@ -382,27 +382,36 @@
+@@ -384,27 +384,36 @@
            preference="layout.spellcheckDefault"/>
  
    <!-- Translations -->
@@ -71,6 +73,7 @@ diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/
    </vbox>
  </groupbox>
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index 08c91c4..ef459f9 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
 @@ -141,6 +141,10 @@ Preferences.addAll([
@@ -84,36 +87,41 @@ diff --git a/browser/components/preferences/main.js b/browser/components/prefere
    // Files and Applications
    { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
  
-@@ -323,6 +327,17 @@ var gMainPane = {
+@@ -323,6 +327,22 @@ var gMainPane = {
  
      gMainPane.initTranslations();
  
++    let inPrompt = false;
 +    Preferences.get("browser.translations.enable").on("change", () => {
 +      if(!Preferences.get("browser.translations.enable").value)
++      if(!inPrompt) {
++        inPrompt = true;
 +        confirmRestartPrompt(false, 1, true, false).then(buttonIndex => {
++          inPrompt = false;
 +          if (buttonIndex == CONFIRM_RESTART_PROMPT_RESTART_NOW) {
 +            Services.startup.quit(
 +              Ci.nsIAppStartup.eAttemptQuit | Ci.nsIAppStartup.eRestart
 +            );
 +          }
 +        });
++      }
 +    });
 +
      if (
        Services.prefs.getBoolPref(
          "media.videocontrols.picture-in-picture.enabled"
-@@ -784,6 +799,10 @@ var gMainPane = {
+@@ -783,6 +803,10 @@ var gMainPane = {
+       document.getElementById("checkSpelling"),
        () => this.writeCheckSpelling()
      );
-     Preferences.addSyncFromPrefListener(
++    Preferences.addSyncFromPrefListener(
 +      document.getElementById("translations-manage-enable"),
 +      () => this.readEnableTranslations()
 +    );
-+    Preferences.addSyncFromPrefListener(
+     Preferences.addSyncFromPrefListener(
        document.getElementById("alwaysAsk"),
        () => this.readUseDownloadDir()
-     );
-@@ -1010,24 +1029,33 @@ var gMainPane = {
+@@ -1010,24 +1034,33 @@ var gMainPane = {
      document.getElementById("zoomBox").hidden = false;
    },
  
@@ -152,9 +160,10 @@ diff --git a/browser/components/preferences/main.js b/browser/components/prefere
        /**
         * The fully initialized state.
 diff --git a/browser/components/translations/content/translationsPanel.js b/browser/components/translations/content/translationsPanel.js
+index b9916dc..1ff8d64 100644
 --- a/browser/components/translations/content/translationsPanel.js
 +++ b/browser/components/translations/content/translationsPanel.js
-@@ -1322,6 +1322,12 @@ var TranslationsPanel = new (class {
+@@ -1318,6 +1318,12 @@ var TranslationsPanel = new (class {
      );
    }
  
@@ -168,9 +177,10 @@ diff --git a/browser/components/translations/content/translationsPanel.js b/brow
     * Redirect the user to about:preferences
     */
 diff --git a/browser/locales/en-US/browser/translations.ftl b/browser/locales/en-US/browser/translations.ftl
+index 8483a45..14478f4 100644
 --- a/browser/locales/en-US/browser/translations.ftl
 +++ b/browser/locales/en-US/browser/translations.ftl
-@@ -58,6 +58,9 @@ translations-panel-settings-never-transl
+@@ -58,6 +58,9 @@ translations-panel-settings-never-translate-unknown-language =
  translations-panel-settings-never-translate-site =
    .label = Never translate this site
  
@@ -180,7 +190,7 @@ diff --git a/browser/locales/en-US/browser/translations.ftl b/browser/locales/en
  ## The translation panel appears from the url bar, and this view is the default
  ## translation view.
  
-@@ -123,6 +126,10 @@ translations-manage-header = Translation
+@@ -123,6 +126,10 @@ translations-manage-header = Translations
  translations-manage-settings-button =
      .label = Settings…
      .accesskey = t
