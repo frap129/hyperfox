@@ -62,7 +62,7 @@ index 0dbdc78eda..3ced42d39f 100644
  identity-clear-site-data =
      .label = Clear cookies and site data…
 +identity-allow-site-data =
-+    .label = Allow cookies etc. (Save login info)
++    .label = LibreWolf: Store cookies/data for this site.
  identity-connection-not-secure-security-view = You are not securely connected to this site.
  identity-connection-verified = You are securely connected to this site.
  identity-ev-owner-label = Certificate issued to:
