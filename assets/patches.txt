@@ -7,8 +7,8 @@ patches/dbus_name.patch
 patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/flatpak-autoconf.patch
-patches/fullpage-translations.patch
 patches/fullpage-translations-customization.patch
+patches/fullpage-translations.patch
 patches/hide-passwordmgr.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
@@ -18,6 +18,7 @@ patches/rust-gentoo-musl.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
 patches/sed-patches/stop-undesired-requests.patch
+patches/ui-patches/allow_cookies_for_site.patch
 patches/ui-patches/firefox-view.patch
 patches/ui-patches/handlers.patch
 patches/ui-patches/hide-default-browser.patch

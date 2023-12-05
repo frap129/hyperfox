@@ -1,0 +1,68 @@
+diff --git a/browser/base/content/browser-siteIdentity.js b/browser/base/content/browser-siteIdentity.js
+index 4efbba2324..a35021b0c6 100644
+--- a/browser/base/content/browser-siteIdentity.js
++++ b/browser/base/content/browser-siteIdentity.js
+@@ -414,6 +414,35 @@ var gIdentityHandler = {
+     event.stopPropagation();
+   },
+ 
++  /**
++   * Handles clicks on the "ALLOW Cookies and Site Data" button.
++   */
++  async allowSiteData(event) {
++    // Hide the popup before showing the removal prompt, to
++    // avoid a pretty ugly transition. Also hide it even
++    // if the update resulted in no site data, to keep the
++    // illusion that clicking the button had an effect.
++    let hidden = new Promise(c => {
++      this._identityPopup.addEventListener("popuphidden", c, { once: true });
++    });
++    PanelMultiView.hidePopup(this._identityPopup);
++    await hidden;
++
++    // Get base domain
++    if (!this._uriHasHost) { return }
++    let baseDomain = SiteDataManager.getBaseDomainFromHost(this._uri.host);
++
++    // Set variables and call addFromPrincipal()
++    const type = 'cookie';
++    const capability = Ci.nsIPermissionManager.ALLOW_ACTION;
++    let uri = Services.io.newURI('https://' + baseDomain);
++    let principal = Services.scriptSecurityManager.createContentPrincipal(uri,{});
++    Services.perms.addFromPrincipal(principal, type, capability);
++
++    // Stop propagating the event and exit.
++    event.stopPropagation();
++  },
++
+   /**
+    * Handler for mouseclicks on the "More Information" button in the
+    * "identity-popup" panel.
+diff --git a/browser/components/controlcenter/content/identityPanel.inc.xhtml b/browser/components/controlcenter/content/identityPanel.inc.xhtml
+index 8bc64faa1e..0768ff1520 100644
+--- a/browser/components/controlcenter/content/identityPanel.inc.xhtml
++++ b/browser/components/controlcenter/content/identityPanel.inc.xhtml
+@@ -96,6 +96,10 @@
+                 data-l10n-id="identity-clear-site-data"
+                 class="subviewbutton"
+                 oncommand="gIdentityHandler.clearSiteData(event);"/>
++        <toolbarbutton id="identity-popup-allow-sitedata-button"
++                data-l10n-id="identity-allow-site-data"
++                class="subviewbutton"
++                oncommand="gIdentityHandler.allowSiteData(event);"/>
+       </vbox>
+     </panelview>
+ 
+diff --git a/browser/locales/en-US/browser/browser.ftl b/browser/locales/en-US/browser/browser.ftl
+index 0dbdc78eda..3ced42d39f 100644
+--- a/browser/locales/en-US/browser/browser.ftl
++++ b/browser/locales/en-US/browser/browser.ftl
+@@ -402,6 +402,8 @@ identity-permissions-storage-access-learn-more = Learn more
+ identity-permissions-reload-hint = You may need to reload the page for changes to apply.
+ identity-clear-site-data =
+     .label = Clear cookies and site data…
++identity-allow-site-data =
++    .label = LibreWolf: Always store cookies/data for this site
+ identity-connection-not-secure-security-view = You are not securely connected to this site.
+ identity-connection-verified = You are securely connected to this site.
+ identity-ev-owner-label = Certificate issued to:
