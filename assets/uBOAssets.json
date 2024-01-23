@@ -493,7 +493,7 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "🇦🇱al: Adblock List for Albania",
+    "title": "🇦🇱al 🇽🇰xk: Adblock List for Albania",
     "tags": "ads albania shqipja",
     "lang": "sq",
     "contentURL": "https://raw.githubusercontent.com/AnXh3L0/blocklist/master/albanian-easylist-addition/Albania.txt",
@@ -586,7 +586,7 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "🇬🇷gr: Greek AdBlock Filter",
+    "title": "🇬🇷gr 🇨🇾cy: Greek AdBlock Filter",
     "tags": "ads greek",
     "lang": "el",
     "contentURL": "https://www.void.gr/kargig/void-gr-filters.txt",
@@ -637,7 +637,7 @@
     "group": "regions",
     "off": true,
     "title": "🇮🇷ir: PersianBlocker",
-    "tags": "ads persian pashto tajik",
+    "tags": "ads af ir persian pashto tajik tj",
     "lang": "fa ps tg",
     "contentURL": [
       "https://raw.githubusercontent.com/MasterKia/PersianBlocker/main/PersianBlocker.txt",
@@ -698,7 +698,7 @@
     "title": "🇰🇷kr: List-KR",
     "tags": "ads korean 한국어",
     "lang": "ko",
-    "contentURL": "https://cdn.jsdelivr.net/gh/List-KR/List-KR@master/filter-uBlockOrigin.txt",
+    "contentURL": "https://cdn.jsdelivr.net/gh/List-KR/List-KR@latest/filter-uBlockOrigin.txt",
     "supportURL": "https://github.com/List-KR/List-KR#readme"
   },
   "LTU-0": {
@@ -739,14 +739,14 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "🇳🇱nl: EasyDutch",
-    "tags": "ads afrikaans frisian dutch flemish",
+    "title": "🇳🇱nl 🇧🇪be: EasyDutch",
+    "tags": "ads afrikaans be belgië frisian dutch flemish nederlands netherlands nl sr suriname za",
     "lang": "af fy nl",
     "contentURL": "https://easydutch-ubo.github.io/EasyDutch/EasyDutch.txt",
     "cdnURLs": [
-      "https://cdn.statically.io/gh/EasyDutch-uBO/EasyDutch/gh-pages/EasyDutch.txt",
-      "https://cdn.jsdelivr.net/gh/EasyDutch-uBO/EasyDutch@gh-pages/EasyDutch.txt",
-      "https://easydutch-ubo.github.io/EasyDutchCDN/EasyDutch.txt"
+      "https://easydutch-ubo.github.io/EasyDutch/EasyDutch.all.txt",
+      "https://cdn.jsdelivr.net/gh/EasyDutch-uBO/EasyDutch@gh-pages/EasyDutch.all.txt",
+      "https://cdn.statically.io/gh/EasyDutch-uBO/EasyDutch/gh-pages/EasyDutch.all.txt"
     ],
     "supportURL": "https://github.com/EasyDutch-uBO/EasyDutch/"
   },
@@ -793,7 +793,7 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "🇷🇴ro: Romanian Ad (ROad) Block List Light",
+    "title": "🇷🇴ro 🇲🇩md: Romanian Ad (ROad) Block List Light",
     "tags": "ads romanian română moldavian moldovenească молдовеняскэ",
     "lang": "ro",
     "contentURL": [
@@ -810,8 +810,9 @@
     "lang": "be kk tt ru uk uz",
     "contentURL": "https://raw.githubusercontent.com/easylist/ruadlist/master/RuAdList-uBO.txt",
     "cdnURLs": [
-      "https://cdn.jsdelivr.net/gh/easylist/ruadlist@master/RuAdList-uBO.txt",
-      "https://cdn.statically.io/gh/easylist/ruadlist/master/RuAdList-uBO.txt"
+      "https://cdn.jsdelivr.net/gh/dimisa-RUAdList/RUAdListCDN@main/lists/ruadlist.ubo.min.txt",
+      "https://cdn.statically.io/gh/dimisa-RUAdList/RUAdListCDN/main/lists/ruadlist.ubo.min.txt",
+      "https://raw.githubusercontent.com/dimisa-RUAdList/RUAdListCDN/main/lists/ruadlist.ubo.min.txt"
     ],
     "supportURL": "https://forums.lanik.us/viewforum.php?f=102",
     "instructionURL": "https://forums.lanik.us/viewtopic.php?f=102&t=22512"
@@ -855,6 +856,10 @@
     "tags": "ads swedish svenska",
     "lang": "sv",
     "contentURL": "https://raw.githubusercontent.com/lassekongo83/Frellwits-filter-lists/master/Frellwits-Swedish-Filter.txt",
+    "cdnURLs": [
+      "https://raw.githubusercontent.com/lassekongo83/Frellwits-filter-lists/swefilter/swefilter.min.txt",
+      "https://cdn.jsdelivr.net/gh/lassekongo83/Frellwits-filter-lists@swefilter/swefilter.min.txt"
+    ],
     "supportURL": "https://github.com/lassekongo83/Frellwits-filter-lists"
   },
   "THA-0": {
@@ -894,5 +899,19 @@
     "title": "➗ Actually Legitimate URL Shortener Tool",
     "contentURL": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt",
     "supportURL": "https://github.com/DandelionSprout/adfilt/discussions/163"
+  },
+  "bpc-paywall-filter": {
+    "content": "filters",
+    "group": "annoyances",
+    "title": "Bypass Paywalls Clean filter",
+    "contentURL": "https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/bpc-paywall-filter.txt",
+    "supportURL": "https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters"
+  },
+  "AntiPaywall": {
+    "content": "filters",
+    "group": "annoyances",
+    "title": "Anti-paywall filters",
+    "contentURL": "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt",
+    "supportURL": "https://github.com/liamengland1/miscfilters"
   }
 }
