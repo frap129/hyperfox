@@ -28,7 +28,6 @@ patches/ui-patches/privacy-preferences.patch
 patches/ui-patches/remove-branding-urlbar.patch
 patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
-patches/ui-patches/remove-snippets-from-home.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
 patches/windows-theming-bug.patch
