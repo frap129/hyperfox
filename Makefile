@@ -112,7 +112,7 @@ $(lw_source_tarball) : $(lw_source_dir)
 debs=python3 python3-dev python3-pip
 rpms=python3 python3-devel
 bootstrap : $(lw_source_dir)
-	(sudo apt -y install $(debs); true)
+	(sudo apt-get -y install $(debs); true)
 	(sudo rpm -y install $(rpms); true)
 	(cd $(lw_source_dir) && MOZBUILD_STATE_PATH=$$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser)
 
