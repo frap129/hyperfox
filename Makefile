@@ -1,7 +1,7 @@
 docker_targets=docker-build-image docker-run-build-job docker-remove-image
 woodpecker_targets=fetch-upstream-woodpecker check-patchfail-woodpecker
 testing_targets=full-test test test-linux test-macos test-windows
-.PHONY : help check all clean veryclean dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets) $(testing_targets)
+.PHONY : help moztree check all clean veryclean distclean patches dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets) $(testing_targets)
 
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
@@ -24,6 +24,7 @@ help :
 	@echo "use: $(MAKE) [all] [check] [clean] [veryclean] [bootstrap] [build] [package] [run]"
 	@echo ""
 	@echo "  all         - Make LibreWolf source archive ${version}-${release}."
+	@echo ""
 	@echo "  check       - Check if there is a new version of Firefox."
 	@echo "  update      - Update the git submodules."
 	@echo ""
@@ -44,7 +45,54 @@ help :
 	@echo "  check-fuzz      - check patches for fuzz."
 	@echo "  fixfuz          - fix the fuzz."
 	@echo ""
+	@echo ""
 	@echo "docker:" $(docker_targets)
+	@echo ""
+	@echo ""
+	@echo "Maintainer commands:"
+	@echo ""
+	@echo "  patches   - Just make the LibreWolf source directory (download, extract, patch)"
+	@echo "  all       - build LW tarball"
+	@echo ""
+	@echo "  clean     - remove all cruft except LW source tree"
+	@echo "  veryclean - remove all except download FF tarball"
+	@echo "  distclean - remove all including downloads"
+	@echo ""
+	@echo "  moztree   - show LW source tree"
+	@echo "  check     - checking for new versions of FF"
+	@echo "  update    - update settings submodule"
+	@echo ""
+
+
+moztree :
+
+	(cd $(lw_source_dir) && ../scripts/moztree )
+
+patches :
+
+	make veryclean
+	make dir
+
+
+# building...
+
+all : $(lw_source_tarball)
+
+
+# cleaning up..
+
+clean :
+	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum $(lw_source_tarball).sha512sum firefox-$(version) patchfail.out patchfail-fuzz.out 
+
+veryclean : clean
+	rm -rf $(lw_source_dir) 
+
+distclean : veryclean
+	rm -f $(ff_source_tarball) $(ff_source_tarball).asc
+
+
+# checking for new versions...
+
 
 check :
 	-bash -c ./scripts/update-settings-module.sh
@@ -56,19 +104,12 @@ check :
 	@echo "LibreWolf release : " $$(cat release)
 	@echo ""
 
+
+# update settings submodule...
+
 update :
 	-bash -c ./scripts/update-settings-module.sh
-#	git submodule update --recursive --remote
 
-
-all : $(lw_source_tarball)
-
-
-clean :
-	rm -rf *~ public_key.asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum $(lw_source_tarball).sha512sum firefox-$(version) patchfail.out patchfail-fuzz.out bsys6
-
-veryclean : clean
-	rm -f $(ff_source_tarball) $(ff_source_tarball).asc
 
 
 
