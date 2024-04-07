@@ -1,5 +1,0 @@
-2024-02-27  Bert van der Weerd  <bert@teamspicy.net>
-
-	* ChangeLog: now using Emacs to add ChangeLog entries,
-	[Ctrl-C, 4, a] is the key sequence to add an entry.
-
