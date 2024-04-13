@@ -115,7 +115,8 @@
     "cdnURLs": [
       "https://ublockorigin.github.io/uAssetsCDN/filters/quick-fixes.min.txt",
       "https://ublockorigin.pages.dev/filters/quick-fixes.min.txt",
-      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/filters/quick-fixes.min.txt"
+      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/filters/quick-fixes.min.txt",
+      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/filters/quick-fixes.min.txt"
     ],
     "supportURL": "https://github.com/uBlockOrigin/uAssets"
   },
@@ -145,16 +146,15 @@
     "group": "ads",
     "title": "EasyList",
     "tags": "ads",
+    "preferred": true,
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/thirdparties/easylist.txt",
-      "assets/thirdparties/easylist/easylist.txt",
-      "assets/thirdparties/easylist-downloads.adblockplus.org/easylist.txt"
+      "assets/thirdparties/easylist/easylist.txt"
     ],
     "cdnURLs": [
       "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/thirdparties/easylist.txt",
       "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/thirdparties/easylist.txt",
-      "https://ublockorigin.pages.dev/thirdparties/easylist.txt",
-      "https://easylist.to/easylist/easylist.txt"
+      "https://ublockorigin.pages.dev/thirdparties/easylist.txt"
     ],
     "supportURL": "https://easylist.to/"
   },
@@ -196,16 +196,15 @@
     "group": "privacy",
     "title": "EasyPrivacy",
     "tags": "privacy",
+    "preferred": true,
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/thirdparties/easyprivacy.txt",
-      "assets/thirdparties/easylist/easyprivacy.txt",
-      "assets/thirdparties/easylist-downloads.adblockplus.org/easyprivacy.txt"
+      "assets/thirdparties/easylist/easyprivacy.txt"
     ],
     "cdnURLs": [
       "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/thirdparties/easyprivacy.txt",
       "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/thirdparties/easyprivacy.txt",
-      "https://ublockorigin.pages.dev/thirdparties/easyprivacy.txt",
-      "https://easylist.to/easylist/easyprivacy.txt"
+      "https://ublockorigin.pages.dev/thirdparties/easyprivacy.txt"
     ],
     "supportURL": "https://easylist.to/"
   },
@@ -236,21 +235,11 @@
     ],
     "supportURL": "https://gitlab.com/malware-filter/phishing-filter#phishing-url-blocklist"
   },
-  "adguard-social": {
-    "content": "filters",
-    "group": "annoyances",
-    "parent": "AdGuard – Annoyances",
-    "off": true,
-    "title": "AdGuard – Social Media",
-    "tags": "annoyances social",
-    "contentURL": "https://filters.adtidy.org/extension/ublock/filters/4.txt",
-    "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
-    "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
-  },
   "adguard-cookies": {
     "content": "filters",
     "group": "annoyances",
-    "parent": "AdGuard – Annoyances|AdGuard/uBO – Cookie Notices",
+    "group2": "cookies",
+    "parent": "AdGuard/uBO – Cookie Notices",
     "off": true,
     "title": "AdGuard – Cookie Notices",
     "tags": "annoyances cookies",
@@ -261,7 +250,8 @@
   "ublock-cookies-adguard": {
     "content": "filters",
     "group": "annoyances",
-    "parent": "AdGuard – Annoyances|AdGuard/uBO – Cookie Notices",
+    "group2": "cookies",
+    "parent": "AdGuard/uBO – Cookie Notices",
     "off": true,
     "title": "uBlock filters – Cookie Notices",
     "tags": "annoyances cookies",
@@ -273,6 +263,90 @@
       "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/filters/annoyances-cookies.txt"
     ],
     "supportURL": "https://github.com/uBlockOrigin/uAssets"
+  },
+  "fanboy-cookiemonster": {
+    "content": "filters",
+    "group": "annoyances",
+    "group2": "cookies",
+    "parent": "EasyList/uBO – Cookie Notices",
+    "off": true,
+    "title": "EasyList – Cookie Notices",
+    "tags": "annoyances cookies",
+    "preferred": true,
+    "contentURL": [
+      "https://ublockorigin.github.io/uAssets/thirdparties/easylist-cookies.txt",
+      "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt"
+    ],
+    "cdnURLs": [
+      "https://ublockorigin.github.io/uAssetsCDN/thirdparties/easylist-cookies.txt",
+      "https://ublockorigin.pages.dev/thirdparties/easylist-cookies.txt",
+      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/thirdparties/easylist-cookies.txt",
+      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/thirdparties/easylist-cookies.txt",
+      "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt"
+    ],
+    "supportURL": "https://github.com/easylist/easylist#fanboy-lists"
+  },
+  "ublock-cookies-easylist": {
+    "content": "filters",
+    "group": "annoyances",
+    "group2": "cookies",
+    "parent": "EasyList/uBO – Cookie Notices",
+    "off": true,
+    "title": "uBlock filters – Cookie Notices",
+    "tags": "annoyances cookies",
+    "preferred": true,
+    "contentURL": "https://ublockorigin.github.io/uAssets/filters/annoyances-cookies.txt",
+    "cdnURLs": [
+      "https://ublockorigin.github.io/uAssetsCDN/filters/annoyances-cookies.txt",
+      "https://ublockorigin.pages.dev/filters/annoyances-cookies.txt",
+      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/filters/annoyances-cookies.txt",
+      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/filters/annoyances-cookies.txt"
+    ],
+    "supportURL": "https://github.com/uBlockOrigin/uAssets"
+  },
+  "adguard-social": {
+    "content": "filters",
+    "group": "annoyances",
+    "group2": "social",
+    "parent": null,
+    "off": true,
+    "title": "AdGuard – Social Widgets",
+    "tags": "annoyances social",
+    "contentURL": "https://filters.adtidy.org/extension/ublock/filters/4.txt",
+    "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
+    "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
+  },
+  "fanboy-social": {
+    "content": "filters",
+    "group": "annoyances",
+    "group2": "social",
+    "parent": null,
+    "off": true,
+    "title": "EasyList – Social Widgets",
+    "tags": "annoyances social",
+    "preferred": true,
+    "contentURL": [
+      "https://ublockorigin.github.io/uAssets/thirdparties/easylist-social.txt",
+      "https://secure.fanboy.co.nz/fanboy-social_ubo.txt"
+    ],
+    "cdnURLs": [
+      "https://ublockorigin.github.io/uAssetsCDN/thirdparties/easylist-social.txt",
+      "https://ublockorigin.pages.dev/thirdparties/easylist-social.txt",
+      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/thirdparties/easylist-social.txt",
+      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/thirdparties/easylist-social.txt",
+      "https://secure.fanboy.co.nz/fanboy-social_ubo.txt"
+    ],
+    "supportURL": "https://easylist.to/"
+  },
+  "fanboy-thirdparty_social": {
+    "content": "filters",
+    "group": "annoyances",
+    "group2": "social",
+    "off": true,
+    "title": "Fanboy – Anti-Facebook",
+    "tags": "privacy",
+    "contentURL": "https://secure.fanboy.co.nz/fanboy-antifacebook.txt",
+    "supportURL": "https://github.com/ryanbr/fanboy-adblock/issues"
   },
   "adguard-popup-overlays": {
     "content": "filters",
@@ -318,15 +392,6 @@
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
     "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
   },
-  "fanboy-thirdparty_social": {
-    "content": "filters",
-    "group": "annoyances",
-    "off": true,
-    "title": "Fanboy – Anti-Facebook",
-    "tags": "privacy",
-    "contentURL": "https://secure.fanboy.co.nz/fanboy-antifacebook.txt",
-    "supportURL": "https://github.com/ryanbr/fanboy-adblock/issues"
-  },
   "easylist-annoyances": {
     "content": "filters",
     "group": "annoyances",
@@ -334,6 +399,7 @@
     "off": true,
     "title": "EasyList – Other Annoyances",
     "tags": "annoyances",
+    "preferred": true,
     "contentURL": "https://ublockorigin.github.io/uAssets/thirdparties/easylist-annoyances.txt",
     "cdnURLs": [
       "https://ublockorigin.github.io/uAssetsCDN/thirdparties/easylist-annoyances.txt",
@@ -350,6 +416,7 @@
     "off": true,
     "title": "EasyList – Chat Widgets",
     "tags": "annoyances",
+    "preferred": true,
     "contentURL": "https://ublockorigin.github.io/uAssets/thirdparties/easylist-chat.txt",
     "cdnURLs": [
       "https://ublockorigin.github.io/uAssetsCDN/thirdparties/easylist-chat.txt",
@@ -359,42 +426,6 @@
     ],
     "supportURL": "https://github.com/easylist/easylist#fanboy-lists"
   },
-  "fanboy-cookiemonster": {
-    "content": "filters",
-    "group": "annoyances",
-    "parent": "EasyList – Annoyances|EasyList/uBO – Cookie Notices",
-    "off": true,
-    "title": "EasyList – Cookie Notices",
-    "tags": "annoyances cookies",
-    "contentURL": [
-      "https://ublockorigin.github.io/uAssets/thirdparties/easylist-cookies.txt",
-      "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt"
-    ],
-    "cdnURLs": [
-      "https://ublockorigin.github.io/uAssetsCDN/thirdparties/easylist-cookies.txt",
-      "https://ublockorigin.pages.dev/thirdparties/easylist-cookies.txt",
-      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/thirdparties/easylist-cookies.txt",
-      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/thirdparties/easylist-cookies.txt",
-      "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt"
-    ],
-    "supportURL": "https://github.com/easylist/easylist#fanboy-lists"
-  },
-  "ublock-cookies-easylist": {
-    "content": "filters",
-    "group": "annoyances",
-    "parent": "EasyList – Annoyances|EasyList/uBO – Cookie Notices",
-    "off": true,
-    "title": "uBlock filters – Cookie Notices",
-    "tags": "annoyances cookies",
-    "contentURL": "https://ublockorigin.github.io/uAssets/filters/annoyances-cookies.txt",
-    "cdnURLs": [
-      "https://ublockorigin.github.io/uAssetsCDN/filters/annoyances-cookies.txt",
-      "https://ublockorigin.pages.dev/filters/annoyances-cookies.txt",
-      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/filters/annoyances-cookies.txt",
-      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/filters/annoyances-cookies.txt"
-    ],
-    "supportURL": "https://github.com/uBlockOrigin/uAssets"
-  },
   "easylist-newsletters": {
     "content": "filters",
     "group": "annoyances",
@@ -402,6 +433,7 @@
     "off": true,
     "title": "EasyList – Newsletter Notices",
     "tags": "annoyances",
+    "preferred": true,
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/thirdparties/easylist-newsletters.txt"
     ],
@@ -420,6 +452,7 @@
     "off": true,
     "title": "EasyList – Notifications",
     "tags": "annoyances",
+    "preferred": true,
     "contentURL": [
       "https://ublockorigin.github.io/uAssets/thirdparties/easylist-notifications.txt"
     ],
@@ -428,26 +461,6 @@
       "https://ublockorigin.pages.dev/thirdparties/easylist-notifications.txt",
       "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/thirdparties/easylist-notifications.txt",
       "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/thirdparties/easylist-notifications.txt"
-    ],
-    "supportURL": "https://easylist.to/"
-  },
-  "fanboy-social": {
-    "content": "filters",
-    "group": "annoyances",
-    "parent": "EasyList – Annoyances",
-    "off": true,
-    "title": "EasyList – Social Widgets",
-    "tags": "annoyances social",
-    "contentURL": [
-      "https://ublockorigin.github.io/uAssets/thirdparties/easylist-social.txt",
-      "https://secure.fanboy.co.nz/fanboy-social_ubo.txt"
-    ],
-    "cdnURLs": [
-      "https://ublockorigin.github.io/uAssetsCDN/thirdparties/easylist-social.txt",
-      "https://ublockorigin.pages.dev/thirdparties/easylist-social.txt",
-      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/thirdparties/easylist-social.txt",
-      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/thirdparties/easylist-social.txt",
-      "https://secure.fanboy.co.nz/fanboy-social_ubo.txt"
     ],
     "supportURL": "https://easylist.to/"
   },
@@ -482,6 +495,7 @@
     "updateAfter": 13,
     "title": "Peter Lowe’s Ad and tracking server list",
     "tags": "ads privacy security",
+    "preferred": true,
     "contentURL": [
       "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext",
       "assets/thirdparties/pgl.yoyo.org/as/serverlist.txt",
@@ -641,8 +655,7 @@
     "lang": "fa ps tg",
     "contentURL": [
       "https://raw.githubusercontent.com/MasterKia/PersianBlocker/main/PersianBlocker.txt",
-      "https://cdn.statically.io/gh/MasterKia/PersianBlocker/main/PersianBlocker.txt",
-      "https://raw.githubusercontent.com/MasterKia/PersianBlocker/main/PersianBlocker.txt"
+      "https://cdn.statically.io/gh/MasterKia/PersianBlocker/main/PersianBlocker.txt"
     ],
     "cdnURLs": [
       "https://cdn.jsdelivr.net/gh/MasterKia/PersianBlocker@main/PersianBlocker.txt",
