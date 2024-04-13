@@ -912,19 +912,5 @@
     "title": "➗ Actually Legitimate URL Shortener Tool",
     "contentURL": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt",
     "supportURL": "https://github.com/DandelionSprout/adfilt/discussions/163"
-  },
-  "bpc-paywall-filter": {
-    "content": "filters",
-    "group": "annoyances",
-    "title": "Bypass Paywalls Clean filter",
-    "contentURL": "https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/bpc-paywall-filter.txt",
-    "supportURL": "https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters"
-  },
-  "AntiPaywall": {
-    "content": "filters",
-    "group": "annoyances",
-    "title": "Anti-paywall filters",
-    "contentURL": "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt",
-    "supportURL": "https://github.com/liamengland1/miscfilters"
   }
 }
