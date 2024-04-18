@@ -11,7 +11,6 @@ patches/fullpage-translations-customization.patch
 patches/fullpage-translations.patch
 patches/hide-passwordmgr.patch
 patches/librewolf-prefs.patch
-patches/macos-14.4-sdk.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
 patches/remove_addons.patch
