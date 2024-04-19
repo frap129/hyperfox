@@ -31,6 +31,3 @@ mk_add_options MOZ_TELEMETRY_REPORTING=0
 
 # Add your own stuff, libraries, architecture, etc..
 # ex: `cat mozconfig.orig mozconfig.my > mozconfig`
-
-# temporary options for fixing build issues
-ac_add_options --disable-ccache --disable-sccache
