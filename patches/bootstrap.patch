@@ -14,9 +14,12 @@ diff --git a/python/mozversioncontrol/mozversioncontrol/__init__.py b/python/moz
  
      def add_remove_files(self, *paths: Union[str, Path]):
          pass
-@@ -995,7 +995,9 @@ class SrcRepository(Repository):
+@@ -993,9 +993,11 @@ class SrcRepository(Repository):
+         """
+         res = []
          # move away the .git or .hg folder from path to more easily test in a hg/git repo
-         for root, dirs, files in os.walk("."):
+-        for root, dirs, files in os.walk("."):
++        for root, dirs, files in os.walk(path):
              for name in files:
 -                res.append(os.path.join(root, name))
 +                res.append(
