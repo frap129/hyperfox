@@ -6,6 +6,7 @@ patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
+patches/encoding_rs.patch
 patches/flatpak-autoconf.patch
 patches/fullpage-translations-customization.patch
 patches/fullpage-translations.patch
