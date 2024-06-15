@@ -11,7 +11,7 @@
                data-l10n-id="translations-panel-settings-manage-languages"
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
-@@ -389,8 +389,13 @@
+@@ -389,8 +389,16 @@
            preference="layout.spellcheckDefault"/>
  
    <!-- Translations -->
@@ -23,10 +23,13 @@
 +          preference="browser.translations.enable"
 +          data-subcategory="translations-enable" />
 +    <vbox id="innerTranslationsGroup" hidden="true">
++    <checkbox id="translations-manage-autopopup" 
++              data-l10n-id="translations-manage-autopopup" 
++              preference="browser.translations.automaticallyPopup" />
      <hbox id="translations-manage-description" align="center">
        <description flex="1" data-l10n-id="translations-manage-intro-2"/>
        <button id="translations-manage-settings-button"
-@@ -412,6 +417,7 @@
+@@ -412,6 +420,7 @@
        <description id="translations-manage-error" hidden="true"></description>
      </vbox>
    </vbox>
