@@ -118,6 +118,7 @@ def librewolf_patches():
     exec('mkdir -p lw')
     enter_srcdir('lw')
     exec('cp -v ../../settings/librewolf.cfg .')
+    exec('bash -c "/usr/bin/env cat ../../settings/betterfox-customized.js | sed s/user_pref/pref/g >> librewolf.cfg"')
     exec('cp -v ../../settings/distribution/policies.json .')
     exec('cp -v ../../settings/defaults/pref/local-settings.js .')
     leave_srcdir();
