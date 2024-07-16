@@ -8,7 +8,7 @@ index 2f32b11588..db3202d9b8 100644
              # https://github.com/llvm/llvm-project/blob/e7694f34ab6a12b8bb480cbfcb396d0a64fe965f/llvm/lib/Target/X86/X86.td#L1165-L1187
              if target.cpu == "x86_64_v3:
 -                ldflags.append("-mllvm:-mcpu=x86-64")
-+                ldflags.append("-mllvm:-mcpu=x86-64-v4")
++                ldflags.append("-mllvm:-mcpu=x86-64-v3")
              # We do not need special flags for arm64.  Hooray for fixed-length
              # instruction sets.
          else:
