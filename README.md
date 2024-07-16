@@ -1,3 +1,21 @@
+# Hyperfox
+Hyperfox was the name of an old fork of Firefox for Android that I used
+to maintain. This repo was archived for years, but the recent addition
+of [Privacy-Preserving Attribution](https://support.mozilla.org/en-US/kb/privacy-preserving-attribution)
+to Firefox by Mozilla was the final push I needed to switch to
+LibreWolf on desktop. I am reviving this project as an optimized fork
+of LibreWolf for Linux (x86_64-v3 specifically, arm64 in the future
+maybe). Long live privacy!
+
+## Differences from LibreWolf
+- Customized [Betterfox](https://github.com/yokoffing/Betterfox)
+settings included
+- Patches to update some dependencies with patches from [Cachy](https://github.com/CachyOS/CachyOS-Browser-Common)
+- Some optimizations from [Mercury](https://github.com/Alex313031/Mercury)
+- Widevine and many extra codecs included
+- Extra hardening compiler flags based on recommendations by [OpenSSF](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
+
+
 # LibreWolf Source Repository
 
 This repository contains all the patches and theming that make up LibreWolf, as well as scripts and a Makefile to build LibreWolf. There also is the [Settings repository](https://gitlab.com/librewolf-community/settings), which contains the LibreWolf preferences.
