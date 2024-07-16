@@ -36,6 +36,7 @@ ac_add_options --enable-install-strip
 ac_add_options --enable-clang-plugin
 ac_add_options --disable-elf-hack
 ac_add_options --enable-wasm-avx
+ac_add_options --enable-wasm-simd
 ac_add_options --enable-optimize="-O3 -march=x86-64-v4 -maes"
 ac_add_options --enable-jemalloc
 ac_add_options --enable-default-toolkit=cairo-gtk3-wayland
