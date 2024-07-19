@@ -18,7 +18,7 @@ settings included
 
 # LibreWolf Source Repository
 
-This repository contains all the patches and theming that make up LibreWolf, as well as scripts and a Makefile to build LibreWolf. There also is the [Settings repository](https://gitlab.com/librewolf-community/settings), which contains the LibreWolf preferences.
+This repository contains all the patches and theming that make up LibreWolf, as well as scripts and a Makefile to build LibreWolf. There also is the [Settings repository](https://codeberg.org/librewolf/settings), which contains the LibreWolf preferences.
 
 ## LibreWolf overview
 
@@ -61,16 +61,9 @@ List of browser build sub projects. These are the locations where people have th
 
 Currently active build repositories:
 
-* [Arch](https://gitlab.com/librewolf-community/browser/arch): Arch Linux
-* [Bsys5](https://gitlab.com/librewolf-community/browser/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS.
-* [Debian](https://gitlab.com/librewolf-community/browser/debian): bgstack15 version
-* [Fedora](https://gitlab.com/librewolf-community/browser/fedora): bgstack15 version
-* [Flatpak](https://gitlab.com/librewolf-community/browser/flatpak): Flatpak
-* [Gentoo](https://gitlab.com/librewolf-community/browser/gentoo): Gentoo
-* [Linux](https://gitlab.com/librewolf-community/browser/linux): Flatpak, AppImage, Arch and other Linux builds of the LibreWolf browser.
-* [MacOS](https://gitlab.com/librewolf-community/browser/macos): The macOS build of LibreWolf.
-* [OpenBSD](https://librewolf.net/installation/openbsd/): OpenBSD page
-* [Windows](https://gitlab.com/librewolf-community/browser/windows): LibreWolf builds for Windows.
+* [Arch](https://codeberg.org/librewolf/arch): Arch Linux package
+* [Bsys5](https://codeberg.org/librewolf/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
+* [Gentoo](https://codeberg.org/librewolf/gentoo): Gentoo package
 
 Currently active (and known) forks:
 
@@ -86,7 +79,7 @@ There are two ways to build LibreWolf. You can either use the source tarball or 
 
 ### Building from the Tarball
 
-First, let's **[download the latest tarball](https://gitlab.com/librewolf-community/browser/source/-/releases)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
+First, let's **[download the latest tarball](https://codeberg.org/librewolf/source/releases)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
 
 ```bash
 tar xf <tarball>
