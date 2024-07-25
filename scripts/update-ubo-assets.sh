@@ -35,20 +35,6 @@ add_filter_list "LegitimateURLShortener" '{
   "contentURL": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt",
   "supportURL": "https://github.com/DandelionSprout/adfilt/discussions/163"
 }'
-add_filter_list "bpc-paywall-filter" '{
-  "content": "filters",
-  "group": "annoyances",
-  "title": "Bypass Paywalls Clean filter",
-  "contentURL": "https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/bpc-paywall-filter.txt",
-  "supportURL": "https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters"
-}'
-add_filter_list "AntiPaywall" '{
-  "content": "filters",
-  "group": "annoyances",
-  "title": "Anti-paywall filters",
-  "contentURL": "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt",
-  "supportURL": "https://github.com/liamengland1/miscfilters"
-}'
 
 # Write the resulting json into line 4 of the patchfile
 echo "-> Writing to assets/uBOAssets.json"

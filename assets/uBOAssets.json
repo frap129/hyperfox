@@ -623,7 +623,7 @@
     "title": "🇭🇺hu: hufilter",
     "tags": "ads hungarian",
     "lang": "hu",
-    "contentURL": "https://raw.githubusercontent.com/hufilter/hufilter/master/hufilter-ublock.txt",
+    "contentURL": "https://cdn.jsdelivr.net/gh/hufilter/hufilter@gh-pages/hufilter-ublock.txt",
     "supportURL": "https://github.com/hufilter/hufilter"
   },
   "IDN-0": {
@@ -670,8 +670,8 @@
     "title": "🇮🇸is: Icelandic ABP List",
     "tags": "ads icelandic",
     "lang": "is",
-    "contentURL": "https://adblock.gardar.net/is.abp.txt",
-    "supportURL": "https://adblock.gardar.net/"
+    "contentURL": "https://raw.githubusercontent.com/brave/adblock-lists/master/custom/is.txt",
+    "supportURL": "https://github.com/brave/adblock-lists/issues"
   },
   "ISR-0": {
     "content": "filters",
@@ -752,16 +752,12 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "🇳🇱nl 🇧🇪be: EasyDutch",
+    "title": "🇳🇱nl 🇧🇪be: AdGuard Dutch",
     "tags": "ads afrikaans be belgië frisian dutch flemish nederlands netherlands nl sr suriname za",
     "lang": "af fy nl",
-    "contentURL": "https://easydutch-ubo.github.io/EasyDutch/EasyDutch.txt",
-    "cdnURLs": [
-      "https://easydutch-ubo.github.io/EasyDutch/EasyDutch.all.txt",
-      "https://cdn.jsdelivr.net/gh/EasyDutch-uBO/EasyDutch@gh-pages/EasyDutch.all.txt",
-      "https://cdn.statically.io/gh/EasyDutch-uBO/EasyDutch/gh-pages/EasyDutch.all.txt"
-    ],
-    "supportURL": "https://github.com/EasyDutch-uBO/EasyDutch/"
+    "contentURL": "https://filters.adtidy.org/extension/ublock/filters/8.txt",
+    "cdnURLs": null,
+    "supportURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
   },
   "NOR-0": {
     "content": "filters",
