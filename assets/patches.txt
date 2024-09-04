@@ -13,7 +13,6 @@ patches/hide-passwordmgr.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
-patches/privacy-security-settings-hotfix.patch
 patches/remove_addons.patch
 patches/rust-gentoo-musl.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
