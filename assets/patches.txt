@@ -13,9 +13,6 @@ patches/hide-passwordmgr.patch
 patches/librewolf-prefs.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
-patches/nvidia-wayland-backported-fixes-0001-Bug-1898476-Wayland-Move-MozContainerSurfaceLock-fro.patch
-patches/nvidia-wayland-backported-fixes-0002-Bug-1898476-Wayland-Provide-surface-lock-by-GtkCompo.patch
-patches/nvidia-wayland-backported-fixes-0003-Bug-1898476-Wayland-Lock-Wayland-surface-before-Swap.patch
 patches/privacy-security-settings-hotfix.patch
 patches/remove_addons.patch
 patches/rust-gentoo-musl.patch
