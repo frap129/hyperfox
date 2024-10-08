@@ -168,7 +168,7 @@ build : $(lw_source_dir)
 
 package :
 	(cd $(lw_source_dir) && cat browser/locales/shipped-locales | xargs ./mach package-multi-locale --locales)
-	cp -v $(lw_source_dir)/obj-*/dist/librewolf-$(version)-$(release).en-US.*.tar.bz2 .
+	cp -v $(lw_source_dir)/obj-*/dist/hyperfox-$(version)-$(release).en-US.*.tar.bz2 .
 
 run :
 	(cd $(lw_source_dir) && ./mach run)
