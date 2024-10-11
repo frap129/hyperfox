@@ -25,10 +25,8 @@ patches/ui-patches/hide-default-browser.patch
 patches/ui-patches/lw-logo-devtools.patch
 patches/ui-patches/pref-naming.patch
 patches/ui-patches/privacy-preferences.patch
-patches/ui-patches/remove-branding-urlbar.patch
 patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
-patches/ui-patches/rename-firefox-labs.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
 patches/windows-theming-bug.patch
