@@ -16,3 +16,5 @@ librewolf-extension-update-checkbox =
     .label = Add-ons automatisch aktualisieren
 librewolf-autocopy-checkbox =
     .label = Aktiviere einfügen mit mittlerer Maustaste
+librewolf-goog-safe-download-checkbox =
+    .label = Downloads scannen
