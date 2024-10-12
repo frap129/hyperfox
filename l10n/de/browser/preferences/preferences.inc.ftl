@@ -13,6 +13,6 @@ librewolf-webgl-checkbox =
     .label = WebGL aktivieren
 librewolf-general-heading = Browserverhalten
 librewolf-extension-update-checkbox =
-    .label = Add-Ons automatisch aktualisieren
+    .label = Add-ons automatisch aktualisieren
 librewolf-autocopy-checkbox =
     .label = Aktiviere einfügen mit mittlerer Maustaste
