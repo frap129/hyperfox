@@ -7,3 +7,7 @@ librewolf-sync-checkbox =
     .label = Firefox Sync aktivieren
 librewolf-privacy-heading = Privatsphäre
 librewolf-extension-update-description = Browsererweiterungen auf dem neusten Stand halten. Für Ihre Sicherheit empfohlen.
+librewolf-warning-title = Vorsicht!
+librewolf-warning-description = Wir wählen unsere Voreinstellungen mit dem Fokus Privatspähre und Sicherheit. Wenn sie diese Einstellungen ändern, lesen sie die Beschreibungen, um die Auswirkungen dieser Änderungen zu verstehen.
+librewolf-webgl-checkbox =
+    .label = WebGL aktivieren
