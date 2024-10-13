@@ -9,6 +9,8 @@ import os
 import sys
 import optparse
 import time
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 
 #
@@ -136,11 +138,6 @@ def librewolf_patches():
     exec('cp ../patches/pref-pane/librewolf.css browser/themes/shared/preferences/librewolf.css')
     exec('cp ../patches/pref-pane/librewolf.inc.xhtml browser/components/preferences/librewolf.inc.xhtml')
     exec('cp ../patches/pref-pane/librewolf.js browser/components/preferences/librewolf.js')
-    # 3) append our locale string values to preferences.ftl
-    exec('cat browser/locales/en-US/browser/preferences/preferences.ftl ../patches/pref-pane/preferences.ftl > preferences.ftl')
-    exec('mv preferences.ftl browser/locales/en-US/browser/preferences/preferences.ftl')
-
-
     
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw/')
@@ -151,9 +148,48 @@ def librewolf_patches():
         with open(file, "w") as f:
             f.write("{}-{}".format(version,release))
 
-    # generate locales
-    exec("bash ../scripts/generate-locales.sh")
-    
+    print("-> Downloading locales from https://github.com/mozilla-l10n/firefox-l10n")
+    with TemporaryDirectory() as tmpdir:
+        exec(f"wget -qO {tmpdir}/l10n.zip 'https://codeload.github.com/mozilla-l10n/firefox-l10n/zip/refs/heads/main'")
+        exec(f"unzip -qo {tmpdir}/l10n.zip -d {tmpdir}/l10n")
+        exec(f"mv {tmpdir}/l10n/firefox-l10n-main lw/l10n")
+
+    print("-> Patching appstrings.properties")
+    # Why is "Firefox" hardcoded there???
+    exec("find . -path '*/appstrings.properties' -exec sed -i s/Firefox/LibreWolf/ {} \;")
+
+    print("-> Applying LibreWolf locales")
+    l10n_dir = Path("..", "l10n")
+    for source_path in l10n_dir.rglob("*"):
+        if source_path.is_dir() or source_path.name.endswith(".md"):
+            continue
+
+        rel_path = source_path.relative_to(l10n_dir)
+        if rel_path.parts[0] == "en-US":
+            target_path = Path(
+                rel_path.parts[1],
+                "locales", "en-US",
+                *rel_path.parts[1:]
+            )
+        else:
+            target_path = Path(
+                "lw", "l10n",
+                *rel_path.parts[0:2],
+                *rel_path.parts[1:]
+            )
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+
+        write_mode = "w"
+        if ".inc" in target_path.name:
+            target_path = target_path.with_name(target_path.name.replace(".inc", ""))
+            write_mode = "a"
+
+        print(f"{source_path} {'>' if write_mode == 'w' else '>>'} {target_path}")
+
+        with open(target_path, write_mode) as target_file:
+            with open(source_path, "r") as source_file:
+                target_file.write(("\n\n" if write_mode == "a" else "") + source_file.read())
+
     leave_srcdir()
 
 
@@ -167,7 +203,8 @@ if len(args) != 2:
     sys.exit(1)
 version = args[0]
 release = args[1]
-if not os.path.exists('librewolf-{}-{}'.format(version, release) + '/configure.py'):
+srcdir = "librewolf-{}-{}".format(version, release)
+if not os.path.exists(srcdir + '/configure.py'):
     sys.stderr.write('error: folder doesn\'t look like a Firefox folder.')
     sys.exit(1)
 
