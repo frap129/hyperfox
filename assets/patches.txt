@@ -30,3 +30,4 @@ patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
 patches/windows-theming-bug.patch
+patches/instrument-addon-workaround.patch

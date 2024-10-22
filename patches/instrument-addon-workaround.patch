@@ -1,0 +1,29 @@
+diff --git a/toolkit/mozapps/extensions/internal/XPIProvider.sys.mjs b/toolkit/mozapps/extensions/internal/XPIProvider.sys.mjs
+index 259ed22..0155605 100644
+--- a/toolkit/mozapps/extensions/internal/XPIProvider.sys.mjs
++++ b/toolkit/mozapps/extensions/internal/XPIProvider.sys.mjs
+@@ -2650,13 +2650,17 @@ export var XPIProvider = {
+ 
+             let scope = BootstrapScope.get(addon);
+             let promise = scope.shutdown(reason);
+-            lazy.AsyncShutdown.profileChangeTeardown.addBlocker(
+-              `Extension shutdown: ${addon.id}`,
+-              promise,
+-              {
+-                fetchState: scope.fetchState.bind(scope),
+-              }
+-            );
++            try {
++              lazy.AsyncShutdown.profileChangeTeardown.addBlocker(
++                `Extension shutdown: ${addon.id}`,
++                promise,
++                {
++                  fetchState: scope.fetchState.bind(scope),
++                }
++              );
++            } catch (exception) {
++              // This only happens during PGO instrumentation, ignore
++            }
+           }
+         }
+       );
