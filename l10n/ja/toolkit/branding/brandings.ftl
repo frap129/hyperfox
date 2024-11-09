@@ -1,0 +1,7 @@
+-screenshots-brand-name = スクリーンショット
+-translations-brand-name = 翻訳
+-firefox-suggest-brand-name = 提案
+-firefox-home-brand-name = ホームページ
+-firefoxview-brand-name = タブビュー
+-firefoxlabs-brand-name = 実験的な機能
+-profiler-brand-name = プロファイラ
