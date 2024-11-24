@@ -1,0 +1,31 @@
+FROM debian:latest
+
+# Add packages
+RUN apt update && apt upgrade
+RUN apt install -y \
+  xvfb \
+  dbus \
+  dbus-x11\
+  clang \
+  lld \
+  mold \
+  build-essential \
+  python3 \
+  python3-dev \
+  python3-pip \
+  wget \
+  unzip \
+  git \
+  sudo \
+  firefox-esr
+  
+# Add builder user with sudo privilege
+RUN useradd -m builder
+RUN echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/builder
+
+COPY build-hyperfox.sh /home/builder/build-hyperfox.sh
+RUN chmod +x /home/builder/build-hyperfox.sh
+
+CMD su builder -c /usr/bin/env bash
+ENTRYPOINT ["/home/builder/build-hyperfox.sh"]
+
