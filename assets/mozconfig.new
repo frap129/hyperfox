@@ -87,30 +87,4 @@ ac_add_options RUSTC_OPT_LEVEL="3"
 export STRIP_FLAGS="--strip-debug --strip-unneeded"
 ac_add_options --enable-strip
 ac_add_options --enable-install-strip
-export VERBOSE=1
-
-# Enable PGO builds with automatic profiling
-export MOZ_PGO=1
-ac_add_options MOZ_PGO=1
-if test "$MOZ_PROFILE_GENERATE"; then
-    ac_add_options --enable-profile-generate=cross
-
-    # Use mold to make the first build faster
-    ac_add_options --enable-linker=mold
-
-    # Elf hack does not work with mold
-    ac_add_options --disable-elf-hack
-elif test "$MOZ_PROFILE_USE"; then
-    ac_add_options --enable-profile-use=cross
-
-    # Only enable LTO for final build
-    export MOZ_LTO=cross
-    ac_add_options --enable-lto=cross
-    ac_add_options MOZ_LTO=cross
-
-    # Use lld and elf-hack in final build
-    ac_add_options --enable-elf-hack=relr
-    ac_add_options --enable-linker=lld
-fi
-
 

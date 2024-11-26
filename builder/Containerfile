@@ -1,13 +1,11 @@
 FROM debian:latest
 
 # Add packages
-RUN apt update && apt upgrade
+RUN apt update -y && apt upgrade -y
 RUN apt install -y \
   xvfb \
   dbus \
   dbus-x11\
-  clang \
-  lld \
   mold \
   build-essential \
   python3 \
