@@ -5,6 +5,7 @@ export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=pip
 export MOZBUILD_STATE_PATH="$srcdir/mozbuild"
 export MOZ_BUILD_DATE="$(date -u${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH} +%Y%m%d%H%M%S)"
 export MOZ_NOSPAM=1
+export MOZ_RUST_VERSION="1.81.0"
 
 cd /src || exit
 make dir || exit
