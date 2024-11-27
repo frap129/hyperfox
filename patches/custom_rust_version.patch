@@ -1,0 +1,21 @@
+diff --git a/python/mozboot/mozboot/base.py b/python/mozboot/mozboot/base.py
+index 598f4f8..05e45bf 100644
+--- a/python/mozboot/mozboot/base.py
++++ b/python/mozboot/mozboot/base.py
+@@ -689,6 +689,7 @@ class BaseBootstrapper(object):
+         platform = rust.platform()
+         url = rust.rustup_url(platform)
+         checksum = rust.rustup_hash(platform)
++        version = os.environ.get("MOZ_RUST_VERSION", "stable")
+         if not url or not checksum:
+             print("ERROR: Could not download installer.")
+             sys.exit(1)
+@@ -707,7 +708,7 @@ class BaseBootstrapper(object):
+                     str(rustup_init),
+                     "-y",
+                     "--default-toolchain",
+-                    "stable",
++                    version,
+                     "--default-host",
+                     platform,
+                     "--component",
