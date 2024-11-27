@@ -30,5 +30,4 @@ patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
 patches/windows-theming-bug.patch
-patches/instrument-addon-workaround.patch
 patches/0011-LTO-Only-enable-LTO-for-Rust-when-complete-build-use.patch
