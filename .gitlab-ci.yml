@@ -73,6 +73,8 @@ Build:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
+    - apt-get update && apt-get -y upgrade
+    - apt-get -y install pigz
     - make all
     - make check-fuzz
     - echo VERSION=$(cat version) >> variables.env
