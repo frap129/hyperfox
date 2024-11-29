@@ -135,8 +135,6 @@ $(lw_source_dir) : $(ff_source_tarball) ./version ./release scripts/librewolf-pa
 	python3 scripts/librewolf-patches.py $(version) $(release)
 
 $(lw_source_tarball) : $(lw_source_dir)
-	(sudo apt-get -y install pigz; true)
-	(sudo rpm -y install pigz; true)
 	rm -f $(lw_source_tarball)
 	tar cf librewolf-$(version)-$(release).source.tar $(lw_source_dir)
 	pigz -6 librewolf-$(version)-$(release).source.tar
