@@ -137,7 +137,7 @@ $(lw_source_dir) : $(ff_source_tarball) ./version ./release scripts/librewolf-pa
 $(lw_source_tarball) : $(lw_source_dir)
 	rm -f $(lw_source_tarball)
 	tar cf librewolf-$(version)-$(release).source.tar $(lw_source_dir)
-	gzip --fast librewolf-$(version)-$(release).source.tar
+	pigz -6 librewolf-$(version)-$(release).source.tar
 	touch $(lw_source_dir)
 	sha256sum $(lw_source_tarball) > $(lw_source_tarball).sha256sum
 	cat $(lw_source_tarball).sha256sum
