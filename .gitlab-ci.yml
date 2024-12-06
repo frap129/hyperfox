@@ -105,7 +105,7 @@ Release:
   before_script:
     - apt-get update
     - apt-get install -y curl jq
-    - curl -L --output /usr/local/bin/release-cli "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
+    - curl -L --output /usr/local/bin/release-cli "https://gitlab.com/gitlab-org/release-cli/-/package_files/163559016/download"
     - chmod +x /usr/local/bin/release-cli
   script:
     - |
