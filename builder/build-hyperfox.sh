@@ -16,6 +16,7 @@ cat >$srcdir/mozconfig assets/mozconfig.new - <<END
 ac_add_options --enable-profile-generate=cross
 ac_add_options --disable-elf-hack
 ac_add_options --enable-linker=mold
+ac_add_options --disable-lto
 END
 make build || exit
 
