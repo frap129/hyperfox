@@ -16,6 +16,16 @@ settings included
 - Extra hardening compiler flags based on recommendations by [OpenSSF](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
 - Allow replacing malloc [commit](https://github.com/frap129/hyperfox/commit/db96977733c5e06d608ded2e9cfcaf90021b8907)
 
+## Building Hyperfox
+Hyperfox releases are built differently from librewolf to handle the two-stage build needed for PGO. 
+Dependencies:
+- podman
+- bash
+
+Build:
+1. Clone this repository using the `--recursive` flag to ensure the settings submodule also gets cloned
+2. `cd` into the cloned repo
+3. Run `./build-hyperfox.sh` to build
 
 # LibreWolf Source Repository
 
