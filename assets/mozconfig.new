@@ -91,4 +91,5 @@ ac_add_options RUSTC_OPT_LEVEL="3"
 export STRIP_FLAGS="--strip-debug --strip-unneeded"
 ac_add_options --enable-strip
 ac_add_options --enable-install-strip
+ac_add_options --with-ccache=sccache
 
