@@ -69,3 +69,7 @@ librewolf-goog-safe-download-warning1 = All the checks happen locally.
 librewolf-footer = Useful links
 librewolf-config-link = All advanced settings (about:config)
 librewolf-open-profile = Open user profile directory
+
+## Privacy & Security preferences
+
+content-blocking-section-top-level-description = LibreWolf supports - and it enables by default - Enhanced Tracking Protection in Strict mode. This is one of the most important settings in the browser, as it provides state partitioning, strict blocking lists and other neat privacy features. We do not recommend changing to other modes.

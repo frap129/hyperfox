@@ -45,13 +45,12 @@ graph LR
     subgraph browser/
         Source(Source<br><br>- Patches<br>- Theming<br>- Build scripts)
         bsys6(bsys6<br><br>New Docker building<br>repository)
-        bsys5(bsys5<br><br>Old Docker building<br>repository)
         AppImage
         Arch
     end
     end
     Website-->librewolf.net
-    Source--"Source tarball"-->bsys6 & bsys5
+    Source--"Source tarball"-->bsys6
     AppImage--".appimage"-->librewolf.net
     bsys6--"Windows setup.exe"--->librewolf.net
     bsys6--"Windows portable.zip"--->librewolf.net
@@ -59,11 +58,11 @@ graph LR
     bsys6--"Windows .nupkg"--->Chocolatey
     bsys6--"Linux binary tarball"--->Flathub
     bsys6--"Linux binary tarball"--> AppImage
+    bsys6--"Linux .deb"--->repo.librewolf.net
+    bsys6--"Linux .rpm"--->repo.librewolf.net
     bsys6--"Linux binary tarball for `librewolf-bin`"--> Arch
     Source--"Source tarball for `librewolf`"-->Arch
     Arch-->AUR
-    bsys5--"Linux .deb"--->deb.librewolf.net
-    bsys5--"Linux .rpm"--->rpm.librewolf.net
 ```
 
 ## Active repositories and projects
