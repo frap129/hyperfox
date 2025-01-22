@@ -62,3 +62,4 @@ librewolf-auto-decline-canvas-checkbox =
 librewolf-xorigin-ref-warning1 = Ez törést okozhat. Ezenkívül még akkor is, ha elküldte a referenseket, akkor is meg lesz nyírva.
 librewolf-letterboxing-description = A Letterboxing margókat alkalmaz az ablakok körül, hogy egy korlátozott számú lekerekített felbontást adjon vissza.
 librewolf-extension-update-description = Kézi beavatkozások nélkül naprakészen tarthatja a bővítményeket. Jó választás az ön biztonsága érdekében.
+content-blocking-section-top-level-description = A LibreWolf támogatja - és alapértelmezés szerint engedélyezi is - a Fokozott követés elleni védelmet Szigorú módban. Ez az egyik legfontosabb beállítás a böngészőben, mivel állapotfelosztást, szigorú tiltólistákat és egyéb menő adatvédelmi funkciókat biztosít. Nem javasoljuk, hogy más módra váltson.
