@@ -23,3 +23,6 @@ librewolf-ipv6-checkbox =
 librewolf-autocopy-checkbox =
     .label = Aktivera inklistring med mitten-klick
 librewolf-network-heading = Nätverkande
+librewolf-general-heading = Webbläsarens beteende
+librewolf-styling-checkbox =
+    .label = Tillåt anpassning av userChrome.css
