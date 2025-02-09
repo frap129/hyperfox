@@ -1,0 +1,126 @@
+diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/RemoteSettingsClient.sys.mjs
+index 32dcdd45d8..fc1e8b0de1 100644
+--- a/services/settings/RemoteSettingsClient.sys.mjs
++++ b/services/settings/RemoteSettingsClient.sys.mjs
+@@ -228,6 +228,11 @@
+    * @see Downloader.download
+    */
+   async download(record, options) {
++    if (!lazy.Utils.isCollectionAllowed(this.bucketName, this.collectionName)) {
++      throw Error(
++        `Download attempt to RS collection "${this.identifier}" was blocked.`
++      );
++    }
+     try {
+       // Explicitly await here to ensure we catch a network error.
+       return await super.download(record, options);
+@@ -620,6 +625,10 @@
+       return;
+     }
+ 
++    if (!lazy.Utils.isCollectionAllowed(this.bucketName, this.collectionName)) {
++      return;
++    }
++
+     // We want to know which timestamp we are expected to obtain in order to leverage
+     // cache busting. We don't provide ETag because we don't want a 304.
+     const { changes } = await lazy.Utils.fetchLatestChanges(
+@@ -981,6 +990,14 @@
+    * Import the JSON files from services/settings/dump into the local DB.
+    */
+   async _importJSONDump() {
++    if (
++      !lazy.Utils.isCollectionAllowedFromDump(
++        this.bucketName,
++        this.collectionName
++      )
++    ) {
++      return 0;
++    }
+     lazy.console.info(`${this.identifier} try to restore dump`);
+     const result = await lazy.RemoteSettingsWorker.importJSONDump(
+       this.bucketName,
+diff --git a/services/settings/Utils.sys.mjs b/services/settings/Utils.sys.mjs
+index d3643aedf2..9f8cee926b 100644
+--- a/services/settings/Utils.sys.mjs
++++ b/services/settings/Utils.sys.mjs
+@@ -75,6 +75,18 @@
+   return false;
+ });
+ 
++ChromeUtils.defineLazyGetter(lazy, "allowedCollections", () =>
++  Services.prefs
++    .getStringPref("librewolf.services.settings.allowedCollections", "")
++    .split(",")
++);
++
++ChromeUtils.defineLazyGetter(lazy, "allowedCollectionsFromDump", () =>
++  Services.prefs
++    .getStringPref("librewolf.services.settings.allowedCollectionsFromDump", "")
++    .split(",")
++);
++
+ XPCOMUtils.defineLazyPreferenceGetter(
+   lazy,
+   "gServerURL",
+@@ -206,6 +218,49 @@
+   },
+ 
+   /**
++   * Determines whether the bucket and collection are allowed to be loaded by the
++   * remote settings client.
++   * @param {string} bucket
++   * @param {string} collection
++   * @param {Array<string>} allowedCollections
++   * @returns {boolean} whether the bucket and collection are allowed to load
++   */
++  isCollectionAllowed(
++    bucket,
++    collection,
++    allowedCollections = lazy.allowedCollections
++  ) {
++    if (
++      allowedCollections.includes(`${bucket}/${collection}`) ||
++      allowedCollections.includes(`${bucket}/*`) ||
++      allowedCollections.includes("*")
++    ) {
++      return true;
++    }
++    console.warn(
++      `Connection attempt to RS collection "${bucket}/${collection}" was blocked/filtered.`
++    );
++    return false;
++  },
++
++  /**
++   * Determines whether the bucket and collection are allowed to be loaded from
++   * an in-tree remote settings dump.
++   * @param {string} bucket
++   * @param {string} collection
++   * @returns {boolean} whether the bucket and collection are allowed to load
++   */
++  isCollectionAllowedFromDump(bucket, collection) {
++    return (
++      this.isCollectionAllowed(
++        bucket,
++        collection,
++        lazy.allowedCollectionsFromDump
++      ) || this.isCollectionAllowed(bucket, collection)
++    );
++  },
++
++  /**
+    * A wrapper around `ServiceRequest` that behaves like `fetch()`.
+    *
+    * Use this in order to leverage the `beConservative` flag, for
+@@ -483,7 +538,9 @@
+     }
+ 
+     return {
+-      changes,
++      changes: changes.filter(change =>
++        isCollectionAllowed(change.bucket, change.collection)
++      ),
+       currentEtag: `"${timestamp}"`,
+       serverTimeMillis,
+       backoffSeconds,
