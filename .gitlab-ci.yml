@@ -20,7 +20,7 @@ Linux:
     - make test-linux
   artifacts:
     paths:
-      - librewolf-*.tar.bz2
+      - librewolf-*.tar.xz
       - mozconfig.txt
 
 macOS:

@@ -168,7 +168,7 @@ build : $(lw_source_dir)
 
 package :
 	(cd $(lw_source_dir) && cat browser/locales/shipped-locales | xargs ./mach package-multi-locale --locales)
-	cp -v $(lw_source_dir)/obj-*/dist/hyperfox-$(version)-$(release).en-US.*.tar.bz2 .
+	cp -v $(lw_source_dir)/obj-*/dist/hyperfox-$(version)-$(release).en-US.*.tar.xz .
 
 run :
 	(cd $(lw_source_dir) && ./mach run)
@@ -200,7 +200,7 @@ docker-build-image :
 	docker build --no-cache -t $(build_image) - < assets/Dockerfile
 
 docker-run-build-job :
-	docker run -v $$(pwd):/output --rm $(build_image) sh -c "git pull && make fetch && make build package && cp -v ./*.bz2 /output"
+	docker run -v $$(pwd):/output --rm $(build_image) sh -c "git pull && make fetch && make build package && cp -v ./*.xz /output"
 
 docker-remove-image :
 	docker rmi $(build_image)
@@ -234,9 +234,9 @@ fetch-upstream-woodpecker : fetch
 
 test : full-test
 
-# full-test: produce the bz2 artifact using bsys6 from scratch
+# full-test: produce the xz artifact using bsys6 from scratch
 full-test : $(lw_source_tarball)
-	${MAKE} -f assets/testing.mk bsys6_x86_64_linux_bz2_artifact
+	${MAKE} -f assets/testing.mk bsys6_x86_64_linux_xz_artifact
 
 test-linux : full-test
 
