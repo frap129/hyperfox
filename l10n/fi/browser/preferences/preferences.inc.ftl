@@ -62,3 +62,4 @@ librewolf-letterboxing-description = Letterboxing lisää marginaalit ikkunoides
 librewolf-goog-safe-description = Jos olet huolissasi haittaohjelmista ja tietojenkalastuksesta, harkitse sen käyttöön ottamista.
 librewolf-goog-safe-download-warning1 = Kaikki tarkistukset tapahtuvat paikallisesti.
 librewolf-config-link = Kaikki kehittyneet asetukset (tietoa:konfigurointi)
+content-blocking-section-top-level-description = LibreWolf tukee - ja se mahdollistaa oletuksena - parannetun seurantasuojauksen tiukassa tilassa. Tämä on yksi selaimen tärkeimmistä asetuksista, koska se tarjoaa tilaosion, tiukat estoluettelot ja muita siistejä tietosuojaominaisuuksia. Emme suosittele vaihtamista muihin tiloihin.
