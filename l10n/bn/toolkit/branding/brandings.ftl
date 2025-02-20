@@ -1,0 +1,7 @@
+-screenshots-brand-name = স্ক্রিনশটসমূহ
+-profiler-brand-name = প্রোফাইলার
+-translations-brand-name = অনুবাদ
+-firefox-suggest-brand-name = পরামর্শ
+-firefox-home-brand-name = মূলপাতা
+-firefoxview-brand-name = ট্যাব দর্শন
+-firefoxlabs-brand-name = পরীক্ষামূলক বৈশিষ্ট্য
