@@ -1,0 +1,7 @@
+-screenshots-brand-name = Ekraanitõmmised
+-profiler-brand-name = Profileerija
+-translations-brand-name = Tõlked
+-firefox-suggest-brand-name = Soovitused
+-firefox-home-brand-name = Koduleht
+-firefoxview-brand-name = Vahekaartide vaade
+-firefoxlabs-brand-name = Katselised funktsionaalsused
