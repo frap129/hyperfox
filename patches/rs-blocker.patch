@@ -41,7 +41,7 @@ index 32dcdd45d8..fc1e8b0de1 100644
      const result = await lazy.RemoteSettingsWorker.importJSONDump(
        this.bucketName,
 diff --git a/services/settings/Utils.sys.mjs b/services/settings/Utils.sys.mjs
-index d3643aedf2..9f8cee926b 100644
+index d3643aedf2..b9f9956361 100644
 --- a/services/settings/Utils.sys.mjs
 +++ b/services/settings/Utils.sys.mjs
 @@ -75,6 +75,18 @@
@@ -63,7 +63,7 @@ index d3643aedf2..9f8cee926b 100644
  XPCOMUtils.defineLazyPreferenceGetter(
    lazy,
    "gServerURL",
-@@ -206,6 +218,49 @@
+@@ -206,11 +218,53 @@
    },
  
    /**
@@ -113,13 +113,18 @@ index d3643aedf2..9f8cee926b 100644
     * A wrapper around `ServiceRequest` that behaves like `fetch()`.
     *
     * Use this in order to leverage the `beConservative` flag, for
-@@ -483,7 +538,9 @@
+    * example to avoid using HTTP3 to fetch critical data.
+-   *
+    * @param input a resource
+    * @param init request options
+    * @returns a Response object
+@@ -483,7 +537,9 @@
      }
  
      return {
 -      changes,
 +      changes: changes.filter(change =>
-+        isCollectionAllowed(change.bucket, change.collection)
++        this.isCollectionAllowed(change.bucket, change.collection)
 +      ),
        currentEtag: `"${timestamp}"`,
        serverTimeMillis,
