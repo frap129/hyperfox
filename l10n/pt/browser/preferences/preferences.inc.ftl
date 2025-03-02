@@ -44,3 +44,4 @@ librewolf-extension-update-description = Manter as extensões atualizadas sem in
 librewolf-autocopy-description = Selecione um texto para copiar, e cole com o botão do meio do mouse.
 librewolf-ocsp-description = Impedir conexão a um site se a verificação OCSP falhar.
 librewolf-sync-warning1 = O Firefox Sync criptografa os dados localmente antes de transmiti-los ao servidor.
+librewolf-styling-description = Habilite isto se quiser personalizar a interface do usuário com um tema carregado manualmente.
