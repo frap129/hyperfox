@@ -1,6 +1,6 @@
 -screenshots-brand-name = Snímky obrazovky
 -profiler-brand-name = Profiler
--translations-brand-name = Překlady
+-translations-brand-name = Překladání
 -firefox-suggest-brand-name = Návrhy vyhledávání
 -firefox-home-brand-name = Domovská stránka
 -firefoxview-brand-name = Přehled panelů
