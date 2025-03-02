@@ -18,3 +18,4 @@ librewolf-autocopy-checkbox =
     .label = Aktiviere einfügen mit mittlerer Maustaste
 librewolf-goog-safe-download-checkbox =
     .label = Downloads scannen
+librewolf-network-heading = Netzwerk
