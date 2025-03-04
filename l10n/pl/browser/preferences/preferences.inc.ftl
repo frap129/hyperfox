@@ -25,3 +25,5 @@ librewolf-goog-safe-description = Jeśli obawiasz się złośliwego oprogramowan
 content-blocking-section-top-level-description = LibreWolf wspiera (jest domyślnie włączony) Enhanced Tracking Protection w trybie Strict. Jest to jedno z najważniejszych ustawień w przeglądarce, ponieważ dostarcza rozdzielenie stanu, rygorystyczne blokowanie list i inne przydatne funkcje prywatności. Nie zalecamy zmiany trybu na inny.
 librewolf-goog-safe-download-warning1 = Wszystkie sprawdzenia odbywają się lokalnie.
 librewolf-goog-safe-warning1 = Wyłączone ze względu na obawy o cenzurę ale rekomendowane dla mniej zaawansowanych użytkowników. Wszystkie sprawdzenia odbywają się lokalnie.
+librewolf-styling-checkbox =
+    .label = Zezwól na modyfikacje userChrome.css
