@@ -1,0 +1,7 @@
+-screenshots-brand-name = Snímky obrazovky
+-profiler-brand-name = Profiler
+-translations-brand-name = Překlady
+-firefox-suggest-brand-name = Návrhy
+-firefox-home-brand-name = Domovská stránka
+-firefoxview-brand-name = Přehled panelů
+-firefoxlabs-brand-name = Experimentální funkce

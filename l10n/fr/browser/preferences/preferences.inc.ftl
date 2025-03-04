@@ -69,3 +69,4 @@ librewolf-goog-safe-download-warning1 = Toutes les vérifications se font locale
 librewolf-footer = Liens utiles
 librewolf-config-link = Tous les paramètres avancés (about:config)
 librewolf-open-profile = Ouvrir le répertoire du profil utilisateur
+content-blocking-section-top-level-description = LibreWolf supporta, e abilita automaticamente, la Protezione dal Tracciamento Potenziata (Enhanced Tracking Protection) nella modalità restrittiva (Strict mode). Questa è una delle più importanti impostazioni nel browser, perché permette la partizione degli stati, liste di blocco restrittive e altre funzionalità di privacy curate. Non raccomandiamo di cambiare altre modalità.

@@ -142,6 +142,17 @@ make package
 make run
 ```
 
+## Translations
+
+We use Weblate to localize all LibreWolf-specific strings. You can help us by
+translating LibreWolf into your language at
+https://translate.codeberg.org/engage/librewolf. Here is the current translation
+status:
+
+<a href="https://translate.codeberg.org/engage/librewolf/">
+<img src="https://translate.codeberg.org/widget/librewolf/multi-auto.svg" alt="Translation status" />
+</a>
+
 ## Development Notes
 
 ### How to make a patch
