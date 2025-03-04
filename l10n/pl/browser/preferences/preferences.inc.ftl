@@ -37,4 +37,4 @@ librewolf-ipv6-warning1 = Zamiast blokady użycia IPv6 w przeglądarce zalecamy 
 librewolf-webgl-description = WebGL pozwala na łatwą identyfikację użytkowników.
 librewolf-webgl-warning1 = Jeśli musisz je włączyć, rozważ użycie rozszerzenia takiego jak Canvas Blocker.
 librewolf-rfp-warning1 = Jeśli musisz je wyłączyć, rozważ użycie rozszerzenia takiego jak Canvas Blocker.
-librewolf-auto-decline-canvas-description = Automatycznie (bez pytania użytkownika) zablokuj dostęp obszaru canvas do strony internetowej.
+librewolf-auto-decline-canvas-description = Automatycznie (bez pytania użytkownika) zablokuj stronie internetowej dostęp do obszaru canvas.
