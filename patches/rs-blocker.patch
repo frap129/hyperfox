@@ -41,7 +41,7 @@ index 32dcdd45d8..fc1e8b0de1 100644
      const result = await lazy.RemoteSettingsWorker.importJSONDump(
        this.bucketName,
 diff --git a/services/settings/Utils.sys.mjs b/services/settings/Utils.sys.mjs
-index d3643aedf2..b9f9956361 100644
+index d3643aedf2..d3d7127dbf 100644
 --- a/services/settings/Utils.sys.mjs
 +++ b/services/settings/Utils.sys.mjs
 @@ -75,6 +75,18 @@
@@ -63,26 +63,41 @@ index d3643aedf2..b9f9956361 100644
  XPCOMUtils.defineLazyPreferenceGetter(
    lazy,
    "gServerURL",
-@@ -206,11 +218,53 @@
+@@ -206,11 +218,79 @@
    },
  
    /**
-+   * Determines whether the bucket and collection are allowed to be loaded by the
-+   * remote settings client.
++   * Internal code to determine whether the bucket and collection are allowed to
++   * be loaded by the remote settings client for a given list of allowed
++   * bucket/collection combinations.
 +   * @param {string} bucket
 +   * @param {string} collection
 +   * @param {Array<string>} allowedCollections
 +   * @returns {boolean} whether the bucket and collection are allowed to load
 +   */
-+  isCollectionAllowed(
-+    bucket,
-+    collection,
-+    allowedCollections = lazy.allowedCollections
-+  ) {
-+    if (
++  _isCollectionAllowedInternal(bucket, collection, allowedCollections) {
++    bucket = this.actualBucketName(bucket);
++    return (
 +      allowedCollections.includes(`${bucket}/${collection}`) ||
 +      allowedCollections.includes(`${bucket}/*`) ||
 +      allowedCollections.includes("*")
++    );
++  },
++
++  /**
++   * Determines whether the bucket and collection are allowed to be loaded by the
++   * remote settings client.
++   * @param {string} bucket
++   * @param {string} collection
++   * @returns {boolean} whether the bucket and collection are allowed to load
++   */
++  isCollectionAllowed(bucket, collection) {
++    if (
++      this._isCollectionAllowedInternal(
++        bucket,
++        collection,
++        lazy.allowedCollections
++      )
 +    ) {
 +      return true;
 +    }
@@ -100,13 +115,24 @@ index d3643aedf2..b9f9956361 100644
 +   * @returns {boolean} whether the bucket and collection are allowed to load
 +   */
 +  isCollectionAllowedFromDump(bucket, collection) {
-+    return (
-+      this.isCollectionAllowed(
++    if (
++      this._isCollectionAllowedInternal(
 +        bucket,
 +        collection,
 +        lazy.allowedCollectionsFromDump
-+      ) || this.isCollectionAllowed(bucket, collection)
++      ) ||
++      this._isCollectionAllowedInternal(
++        bucket,
++        collection,
++        lazy.allowedCollections
++      )
++    ) {
++      return true;
++    }
++    console.warn(
++      `Access attempt to RS collection "${bucket}/${collection}" from local dump was blocked/filtered.`
 +    );
++    return false;
 +  },
 +
 +  /**
@@ -118,7 +144,7 @@ index d3643aedf2..b9f9956361 100644
     * @param input a resource
     * @param init request options
     * @returns a Response object
-@@ -483,7 +537,9 @@
+@@ -483,7 +563,9 @@
      }
  
      return {
