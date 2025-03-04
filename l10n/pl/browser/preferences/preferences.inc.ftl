@@ -49,3 +49,7 @@ librewolf-broken-heading = Cyfrowy odcisk palca przeglądarki
 librewolf-styling-warning1 = Upewnij się, że ufasz dostawcy motywu.
 librewolf-xorigin-ref-description = Wyślij informacje o źródle żądania (referrer) tylko w obrębie tego samego serwera (same-origin).
 librewolf-xorigin-ref-warning1 = Może spowodować błąd. Nawet jeśli żądanie zostanie wysłane, adres źródła żądania (referrer) zostanie obcięty.
+librewolf-goog-safe-checkbox =
+    .label = Włącz Google Safe Browsing
+librewolf-sync-description = Synchronizuj dane z innymi przeglądarkami. Wymaga restartu.
+librewolf-sync-warning1 = Firefox Sync szyfruje dane lokalnie przed przesłaniem do serwera.
