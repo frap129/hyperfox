@@ -46,6 +46,10 @@ Currently active build repositories:
 * [Bsys5](https://codeberg.org/librewolf/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
 * [Gentoo](https://codeberg.org/librewolf/gentoo): Gentoo package
 
+Downstream distribution packages:
+
+* [Alpine Linux aport](https://pkgs.alpinelinux.org/packages?name=librewolf&arch=)
+
 Currently active (and known) forks:
 
 * Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
