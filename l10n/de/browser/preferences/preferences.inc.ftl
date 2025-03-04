@@ -26,3 +26,5 @@ librewolf-xorigin-ref-checkbox =
 librewolf-broken-heading = Fingerprinting
 librewolf-rfp-checkbox =
     .label = ResistFingerprinting aktivieren
+librewolf-styling-checkbox =
+    .label = Änderungen an userChrome.css zulassen
