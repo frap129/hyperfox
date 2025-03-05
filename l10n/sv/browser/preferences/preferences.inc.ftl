@@ -33,3 +33,5 @@ librewolf-extension-update-warning1 = Om du inte granskar koden för dina tillä
 librewolf-ipv6-description = Tillåt { -brand-short-name } att ansluta med IPv6.
 librewolf-extension-update-description = Håll tillägg uppdaterade utan manuellt ingripande. Ett bra val för din säkerhet.
 librewolf-ipv6-warning1 = Istället för att blockera IPv6 i webbläsaren föreslår vi att aktivera IPv6 integritets tillägget i ditt OS.
+librewolf-rfp-checkbox =
+    .label = Aktivera ResistFingerprinting
