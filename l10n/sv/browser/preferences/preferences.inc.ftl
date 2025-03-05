@@ -26,3 +26,12 @@ librewolf-network-heading = Nätverkande
 librewolf-general-heading = Webbläsarens beteende
 librewolf-styling-checkbox =
     .label = Tillåt anpassning av userChrome.css
+librewolf-warning-description = Vi väljer noggrant standardinställningar som fokuserar på integritet och säkerhet. När dessa inställningar ändras, läs noga vilka följder dessa ändringar kan ha.
+librewolf-xorigin-ref-checkbox =
+    .label = Begränsa hänvisningsadresser med flera ursprung.label =
+librewolf-extension-update-warning1 = Om du inte granskar koden för dina tillägg innan varje uppdatering borde du aktivera denna inställning.
+librewolf-ipv6-description = Tillåt { -brand-short-name } att ansluta med IPv6.
+librewolf-extension-update-description = Håll tillägg uppdaterade utan manuellt ingripande. Ett bra val för din säkerhet.
+librewolf-ipv6-warning1 = Istället för att blockera IPv6 i webbläsaren föreslår vi att aktivera IPv6 integritets tillägget i ditt OS.
+librewolf-rfp-checkbox =
+    .label = Aktivera ResistFingerprinting

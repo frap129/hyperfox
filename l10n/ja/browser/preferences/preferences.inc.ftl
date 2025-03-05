@@ -62,3 +62,4 @@ librewolf-goog-safe-download-warning1 = チェックはすべてローカルで�
 librewolf-footer = 関連リンク
 librewolf-config-link = 詳細な設定 (about:config)
 librewolf-open-profile = ユーザープロファイルのディレクトリを開く
+content-blocking-section-top-level-description = LibreWolfは、厳格モードでの強化されたトラッキング保護（Enhanced Tracking Protection）をサポートし、デフォルトで有効にしています。これはブラウザの最も重要な設定の一つであり、状態の分離、厳格なブロックリスト、およびその他の優れたプライバシー機能を提供します。他のモードへの変更は推奨しません。
