@@ -1,0 +1,7 @@
+-screenshots-brand-name = Foto ekrani
+-translations-brand-name = Përkthime
+-profiler-brand-name = Profilizues
+-firefox-suggest-brand-name = Sugjerime
+-firefox-home-brand-name = Faqe hyrëse
+-firefoxview-brand-name = Pamje Skedash
+-firefoxlabs-brand-name = Veçori Eksperimentale
