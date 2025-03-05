@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:trixie-slim
 
 # Add packages
 RUN apt update -y && apt upgrade -y
