@@ -5,8 +5,7 @@
 /* import-globals-from extensionControlled.js */
 /* import-globals-from preferences.js */
 
-var { AppConstants } = ChromeUtils.import( "resource://gre/modules/AppConstants.jsm");
-XPCOMUtils.defineLazyGetter(this, "L10n", () => {
+ChromeUtils.defineLazyGetter(this, "L10n", () => {
   return new Localization([
     "branding/brand.ftl",
     "browser/preferences/preferences.ftl",
