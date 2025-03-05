@@ -28,7 +28,7 @@ make build || exit
   ./mach package
   LLVM_PROFDATA="$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" JARLOG_FILE="$srcdir/jarlog" \
     dbus-run-session \
-    xvfb-run -s "-screen 0 1920x1080x24 -nolisten local" \
+    wlheadless-run -c weston --width=1920 --height=1080 -- \
     ./mach python build/pgo/profileserver.py
   ./mach clobber objdir
 )

@@ -3,9 +3,8 @@ FROM debian:latest
 # Add packages
 RUN apt update -y && apt upgrade -y
 RUN apt install -y \
-  xvfb \
+  xwayland-run \
   dbus \
-  dbus-x11\
   mold \
   build-essential \
   python3 \
@@ -16,7 +15,7 @@ RUN apt install -y \
   git \
   sudo \
   firefox-esr
-  
+
 # Add builder user with sudo privilege
 RUN useradd -m builder
 RUN echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/builder
