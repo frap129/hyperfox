@@ -45,3 +45,4 @@ librewolf-rfp-description = ResistFingerprinting ist das beste Anti-FFingerprint
 librewolf-webgl-description = WebGL ist ein Stark Fingerprinting Indikator.
 librewolf-footer = Nützliche Links
 librewolf-config-link = Alle erweiterten Einstellungen (about:config)
+librewolf-sync-warning1 = Firefox Sync verschlüsselt Daten lokal, bevor sie zum Server übertragen werden.
