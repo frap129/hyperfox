@@ -1,6 +1,6 @@
 -screenshots-brand-name = Демонстрация
 -profiler-brand-name = Профайлер
--translations-brand-name = Локализация
+-translations-brand-name = Переводчик
 -firefox-suggest-brand-name = Предложения
 -firefox-home-brand-name = Домашняя страница
 -firefoxview-brand-name = Просмотр вкладок
