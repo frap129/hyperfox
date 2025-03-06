@@ -35,3 +35,5 @@ librewolf-extension-update-description = Håll tillägg uppdaterade utan manuell
 librewolf-ipv6-warning1 = Istället för att blockera IPv6 i webbläsaren föreslår vi att aktivera IPv6 integritets tillägget i ditt OS.
 librewolf-rfp-checkbox =
     .label = Aktivera ResistFingerprinting
+librewolf-letterboxing-checkbox =
+    .label = Aktivera brevlådeinkastning
