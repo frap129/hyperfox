@@ -37,3 +37,5 @@ librewolf-rfp-checkbox =
     .label = Aktivera ResistFingerprinting
 librewolf-letterboxing-checkbox =
     .label = Aktivera brevlådeinkastning
+librewolf-auto-decline-canvas-checkbox =
+    .label = Blockera förfrågningar om kanvasåtkomst i bakgrunden
