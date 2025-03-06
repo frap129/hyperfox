@@ -60,3 +60,6 @@ librewolf-styling-description = Aktivera detta om du vill anpassa användargrän
 librewolf-sync-description = Synkronisera dina data med andra webbläsare. Kräver omstart.
 librewolf-letterboxing-description = Letterboxing tillämpar marginaler runt dina fönster, för att returnera en begränsad uppsättning avrundade upplösningar.
 content-blocking-section-top-level-description = LibreWolf stöder - och det aktiverar som standard - Förbättrat spårningsskydd i strikt läge. Detta är en av de viktigaste inställningarna i webbläsaren, eftersom den ger tillståndspartitionering, strikta blockeringslistor och andra snygga sekretessfunktioner. Vi rekommenderar inte att du byter till andra lägen.
+librewolf-webgl-description = WebGL är en stark fingeravtrycksvektor.
+librewolf-goog-safe-checkbox =
+    .label = Aktivera Google säker surfning
