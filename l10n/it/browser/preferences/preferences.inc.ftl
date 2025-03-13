@@ -1,4 +1,4 @@
-librewolf-warning-description = Abbiamo selezionato con attenzione i seguenti valori di default focalizzandoci sulla privacy e sulla sicurezza. Quando si modificano questi parametri è necessario prestare molta attenzione e leggere accuratamente le descrizioni per capire le implicazioni dei cambiamenti fatti.
+librewolf-warning-description = Abbiamo selezionato con attenzione i valori di default focalizzandoci sulla privacy e sulla sicurezza. Se modifichi questi parametri, leggi accuratamente le descrizioni per capire le implicazioni di ciò che stai cambiando.
 librewolf-auto-decline-canvas-checkbox =
     .label = Blocca automaticamente l'utilizzo del canvas
 librewolf-webgl-checkbox =
