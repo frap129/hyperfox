@@ -1,0 +1,32 @@
+diff --git a/toolkit/moz.configure b/toolkit/moz.configure
+index e5e517635d63..cc7aaf16ffcc 100644
+--- a/toolkit/moz.configure
++++ b/toolkit/moz.configure
+@@ -3662,8 +3662,8 @@ with only_when(compile_environment):
+     @depends(target)
+     def default_user_appdir(target):
+         if target.kernel in ("WINNT", "Darwin"):
+-            return "Mozilla"
+-        return ".mozilla"
++            return "Librewolf"
++        return ".librewolf"
+ 
+     option(
+         "--with-user-appdir",
+diff --git a/xpcom/io/nsAppFileLocationProvider.cpp b/xpcom/io/nsAppFileLocationProvider.cpp
+index 09806d39d2d8..90512bb812ea 100644
+--- a/xpcom/io/nsAppFileLocationProvider.cpp
++++ b/xpcom/io/nsAppFileLocationProvider.cpp
+@@ -41,7 +41,11 @@
+ #endif
+ 
+ // define default product directory
+-#define DEFAULT_PRODUCT_DIR nsLiteralCString(MOZ_USER_DIR)
++#if defined(MOZ_WIDGET_COCOA) || defined(XP_WIN)
++#  define DEFAULT_PRODUCT_DIR nsLiteralCString("Librewolf")
++#else
++#  define DEFAULT_PRODUCT_DIR nsLiteralCString(".librewolf")
++#endif
+ 
+ #define DEFAULTS_DIR_NAME "defaults"_ns
+ #define DEFAULTS_PREF_DIR_NAME "pref"_ns
