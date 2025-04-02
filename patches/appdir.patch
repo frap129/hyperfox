@@ -13,3 +13,20 @@ index e5e517635d63..cc7aaf16ffcc 100644
  
      option(
          "--with-user-appdir",
+diff --git a/xpcom/io/nsAppFileLocationProvider.cpp b/xpcom/io/nsAppFileLocationProvider.cpp
+index 09806d39d2d8..9b2a5af7ca5d 100644
+--- a/xpcom/io/nsAppFileLocationProvider.cpp
++++ b/xpcom/io/nsAppFileLocationProvider.cpp
+@@ -41,7 +41,11 @@
+ #endif
+ 
+ // define default product directory
+-#define DEFAULT_PRODUCT_DIR nsLiteralCString(MOZ_USER_DIR)
++#if defined(MOZ_WIDGET_COCOA) || defined(XP_WIN)
++#  define DEFAULT_PRODUCT_DIR "Librewolf"
++#else
++#  define DEFAULT_PRODUCT_DIR ".librewolf"
++#endif
+ 
+ #define DEFAULTS_DIR_NAME "defaults"_ns
+ #define DEFAULTS_PREF_DIR_NAME "pref"_ns
