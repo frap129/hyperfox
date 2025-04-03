@@ -1,4 +1,4 @@
-FROM debian:trixie-slim
+FROM debian:trixie-slim as base
 
 # Add packages
 RUN apt update -y && apt upgrade -y
@@ -21,9 +21,16 @@ RUN apt install -y \
 RUN useradd -m builder
 RUN echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/builder
 
-COPY build-hyperfox.sh /home/builder/build-hyperfox.sh
-RUN chmod +x /home/builder/build-hyperfox.sh
-
 CMD su builder -c /usr/bin/env bash
+
+FROM base as builder
+COPY build-hyperfox.sh /home/builder/
+RUN chmod +x /home/builder/build-hyperfox.sh
 ENTRYPOINT ["/home/builder/build-hyperfox.sh"]
+
+FROM base as package-deb
+COPY build-deb.sh /home/builder/
+COPY linux.hyperfox.desktop.in /home/builder/
+RUN chmod +x /home/builder/build-deb.sh
+ENTRYPOINT ["/home/builder/build-deb.sh"]
 
