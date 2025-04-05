@@ -1,0 +1,34 @@
+diff --git a/netwerk/protocol/http/nsHttpHandler.cpp b/netwerk/protocol/http/nsHttpHandler.cpp
+index bf1ad95..bd38f28 100644
+--- a/netwerk/protocol/http/nsHttpHandler.cpp
++++ b/netwerk/protocol/http/nsHttpHandler.cpp
+@@ -427,18 +427,8 @@ nsresult nsHttpHandler::Init() {
+   nsCOMPtr<nsIXULAppInfo> appInfo;
+   appInfo = mozilla::components::XULRuntime::Service();
+ 
+-  mAppName.AssignLiteral(MOZ_APP_UA_NAME);
+-  if (mAppName.Length() == 0 && appInfo) {
+-    // Try to get the UA name from appInfo, falling back to the name
+-    appInfo->GetUAName(mAppName);
+-    if (mAppName.Length() == 0) {
+-      appInfo->GetName(mAppName);
+-    }
+-    appInfo->GetVersion(mAppVersion);
+-    mAppName.StripChars(R"( ()<>@,;:\"/[]?={})");
+-  } else {
+-    mAppVersion.AssignLiteral(MOZ_APP_UA_VERSION);
+-  }
++  mAppName.AssignLiteral("Firefox");
++  mAppVersion.AssignLiteral(MOZ_APP_UA_VERSION);
+ 
+   mMisc.AssignLiteral("rv:" MOZILLA_UAVERSION);
+ 
+@@ -2846,7 +2836,7 @@ void nsHttpHandler::SetHttpHandlerInitArgs(const HttpHandlerInitArgs& aArgs) {
+   mMisc = aArgs.mMisc();
+   mProduct = aArgs.mProduct();
+   mProductSub = aArgs.mProductSub();
+-  mAppName = aArgs.mAppName();
++  mAppName = "Firefox";
+   mAppVersion = aArgs.mAppVersion();
+   mCompatFirefox = aArgs.mCompatFirefox();
+   mCompatDevice = aArgs.mCompatDevice();
