@@ -1,6 +1,5 @@
 patches/allow-JXL-in-non-nightly-browser.patch
 patches/allow-ubo-private-mode.patch
-patches/appdir.patch
 patches/bootstrap.patch
 patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
