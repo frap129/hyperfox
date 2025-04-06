@@ -34,3 +34,27 @@ COPY linux.hyperfox.desktop.in /home/builder/
 RUN chmod +x /home/builder/build-deb.sh
 ENTRYPOINT ["/home/builder/build-deb.sh"]
 
+FROM archlinux:base-devel as package-arch
+
+# Add packages
+RUN pacman -Syu --noconfirm \
+  git \
+  gtk3 \
+  libxt \
+  startup-notification \
+  mime-types \
+  dbus \
+  nss \
+  ttf-font \
+  libpulse \
+  ffmpeg \
+  zlib
+
+# Add builder user with sudo privilege
+RUN useradd -m builder
+RUN echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/builder
+
+COPY build-pkg.sh /home/builder
+RUN chmod +x /home/builder/build-pkg.sh
+CMD su builder -c /usr/bin/env bash
+ENTRYPOINT ["/home/builder/build-pkg.sh"]

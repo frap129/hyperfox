@@ -1,3 +1,6 @@
 [submodule "settings"]
 	path = settings
 	url = https://github.com/frap129/hyperfox-settings.git
+[submodule "builder/pkgbuild"]
+	path = builder/pkgbuild
+	url = ssh://git@github.com/frap129/hyperfox-pkgbuild.git
