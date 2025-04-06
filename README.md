@@ -20,12 +20,12 @@ settings included
 Hyperfox releases are built differently from librewolf to handle the two-stage build needed for PGO. 
 Dependencies:
 - podman
-- bash
+- just
 
 Build:
 1. Clone this repository using the `--recursive` flag to ensure the settings submodule also gets cloned
 2. `cd` into the cloned repo
-3. Run `./build-hyperfox.sh` to build
+3. Run `just -l` to see build options
 
 # LibreWolf Source Repository
 
