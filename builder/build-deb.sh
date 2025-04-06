@@ -57,12 +57,12 @@ EOF
     # Make .deb package
     cd ..
     mv hyperfox hyperfox-$VERSION-x86_64
-    dpkg-deb --build --root-owner-group hyperfox-$VERSION
+    dpkg-deb --build --root-owner-group hyperfox-$VERSION-x86_64
 
     # Sign the deb file if private key is provided and we have dpkg-sig available
     if [ -n "${SIGNING_KEY_FPR:-}" ] && command -v dpkg-sig &>/dev/null; then
         echo "-> Signing the DEB" >&2
-        dpkg-sig --sign builder hyperfox-${VERSION}.deb
+        dpkg-sig --sign builder hyperfox-${VERSION}-x86_64.deb
     fi
 }
 
