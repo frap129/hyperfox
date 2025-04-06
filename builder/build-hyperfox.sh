@@ -44,3 +44,6 @@ ac_add_options --with-pgo-jarlog=$srcdir/jarlog
 END
 make build || exit
 make package || exit
+
+mkdir /src/out
+mv /src/hyperfox-$(cat /src/version)-$(cat /src/release).en-US.linux-x86_64.tar.xz /src/out
