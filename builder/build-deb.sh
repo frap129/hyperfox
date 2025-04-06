@@ -5,7 +5,7 @@
 set -eu
 
 VERSION="$(cat /src/version)-$(cat /src/release)"
-DIST_TAR=/src/hyperfox-${VERSION}.en-US.linux-x86_64.tar.xz
+DIST_TAR=/src/out/hyperfox-${VERSION}.en-US.linux-x86_64.tar.xz
 
 deb_arch() {
     case "$1" in
@@ -45,7 +45,7 @@ Architecture: $(deb_arch "x86_64")
 Depends: libasound2 (>= 1.0.16), libatk1.0-0 (>= 1.12.4), libc6 (>= 2.18), libcairo-gobject2 (>= 1.10.0), libcairo2 (>= 1.10.0), libdbus-1-3 (>= 1.5.12), libfontconfig1 (>= 2.11), libfreetype6 (>= 2.3.5), libgcc1 (>= 1:4.1.1), libgdk-pixbuf2.0-0 (>= 2.22.0) | libgdk-pixbuf-2.0-0 (>= 2.22.0), libglib2.0-0 (>= 2.37.0), libgtk-3-0 (>= 3.13.7), libpango-1.0-0 (>= 1.14.0), libpangocairo-1.0-0 (>= 1.14.0), libstdc++6 (>= 4.8), libx11-6, libx11-xcb1, libxcb-shm0, libxcb1, libxcomposite1 (>= 1:0.3-1), libxcursor1 (>> 1.1.2), libxdamage1 (>= 1:1.1), libxext6, libxfixes3, libxi6, libxrandr2 (>= 2:1.4.0), libxrender1, zstd
 Description: The Hyperfox Browser
 Essential: no
-Installed-Size: $(du -B 1MB -ks usr|cut -f 1) MB
+Installed-Size: $(du -B 1MB -ks usr | cut -f 1) MB
 Maintainer: Joe Maples <joe@maples.dev>
 Package: hyperfox
 Priority: optional
@@ -56,8 +56,8 @@ EOF
 
     # Make .deb package
     cd ..
-    mv hyperfox hyperfox-$VERSION
-    dpkg-deb --build  --root-owner-group hyperfox-$VERSION
+    mv hyperfox hyperfox-$VERSION-x86_64
+    dpkg-deb --build --root-owner-group hyperfox-$VERSION
 
     # Sign the deb file if private key is provided and we have dpkg-sig available
     if [ -n "${SIGNING_KEY_FPR:-}" ] && command -v dpkg-sig &>/dev/null; then
@@ -66,7 +66,7 @@ EOF
     fi
 }
 
-echo "-> Fetching Hyperfox v$VERSION dist bundle" >&2
+echo "-> Creating build directory" >&2
 tmpdir=$(mktemp -d)
 (
     cd $tmpdir
@@ -75,10 +75,9 @@ tmpdir=$(mktemp -d)
 )
 
 echo "-> Building Debian package" >&2
-sed "s/MYDIR/\/usr\/share\/hyperfox/g" <linux.hyperfox.desktop.in >$tmpdir/hyperfox.desktop
+sed "s/MYDIR/\/usr\/share\/hyperfox/g" </src/builder/linux.hyperfox.desktop.in >$tmpdir/hyperfox.desktop
 (cd $tmpdir && build_deb $VERSION)
 
 echo "-> Cleaning up" >&2
-mv $tmpdir/hyperfox-$VERSION.deb .
+mv $tmpdir/hyperfox-$VERSION-x86_64.deb /src/out/
 rm -rf $tmpdir
-
