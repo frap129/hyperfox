@@ -1,0 +1,31 @@
+From 825751713074a4ff25ce80181cb6aa919da7d032 Mon Sep 17 00:00:00 2001
+From: Pier Angelo Vendrame <pierov@torproject.org>
+Date: Wed, 8 Jan 2025 10:54:13 +0100
+Subject: [PATCH] BB 43386: Use Firefox in the UA in RFP-exempt request.
+
+XHR requests initiated by extensions are exempt from RFP.
+Therefore, they report the actual app name, instead of Firefox, and the
+actual Firefox minor version.
+
+This happens whenever the app name has been customized and does not
+match a hardcoded "Firefox".
+---
+ netwerk/protocol/http/nsHttpHandler.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/netwerk/protocol/http/nsHttpHandler.cpp b/netwerk/protocol/http/nsHttpHandler.cpp
+index bf1ad9501f..4c71b3a5c9 100644
+--- a/netwerk/protocol/http/nsHttpHandler.cpp
++++ b/netwerk/protocol/http/nsHttpHandler.cpp
+@@ -956,7 +956,7 @@ void nsHttpHandler::BuildUserAgent() {
+   mUserAgent += '/';
+   mUserAgent += mProductSub;
+ 
+-  bool isFirefox = mAppName.EqualsLiteral("Firefox");
++  bool isFirefox = true;
+   if (isFirefox || mCompatFirefoxEnabled) {
+     // "Firefox/x.y" (compatibility) app token
+     mUserAgent += ' ';
+-- 
+2.49.0
+

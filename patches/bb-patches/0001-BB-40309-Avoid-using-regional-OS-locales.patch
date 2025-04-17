@@ -1,0 +1,43 @@
+From b08959b89d1df90fb74098363d5d6a0f32e13059 Mon Sep 17 00:00:00 2001
+From: Pier Angelo Vendrame <pierov@torproject.org>
+Date: Wed, 18 May 2022 19:22:37 +0200
+Subject: [PATCH] BB 40309: Avoid using regional OS locales
+
+Avoid regional OS locales if the pref
+`intl.regional_prefs.use_os_locales` is false but RFP is enabled.
+---
+ intl/locale/LocaleService.cpp | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/intl/locale/LocaleService.cpp b/intl/locale/LocaleService.cpp
+index a56a1575da..e87502b5e5 100644
+--- a/intl/locale/LocaleService.cpp
++++ b/intl/locale/LocaleService.cpp
+@@ -14,6 +14,7 @@
+ #include "mozilla/intl/AppDateTimeFormat.h"
+ #include "mozilla/intl/Locale.h"
+ #include "mozilla/intl/OSPreferences.h"
++#include "nsContentUtils.h"
+ #include "nsDirectoryService.h"
+ #include "nsDirectoryServiceDefs.h"
+ #include "nsIObserverService.h"
+@@ -484,6 +485,16 @@ LocaleService::GetAppLocaleAsBCP47(nsACString& aRetVal) {
+ 
+ NS_IMETHODIMP
+ LocaleService::GetRegionalPrefsLocales(nsTArray<nsCString>& aRetVal) {
++  // tor-browser#42349, #42771: We cannot use JSLocale because it is spoof
++  // English. So, we use another target for now.
++  if (nsContentUtils::ShouldResistFingerprinting(
++          "This is probably a patch that should be refined. But to get the "
++          "build going, we just keep applying this generic check.",
++          RFPTarget::JSDateTimeUTC)) {
++    GetAppLocalesAsBCP47(aRetVal);
++    return NS_OK;
++  }
++
+   bool useOSLocales =
+       Preferences::GetBool("intl.regional_prefs.use_os_locales", false);
+ 
+-- 
+2.49.0
+

@@ -1,0 +1,29 @@
+From f175f44e224a7f6b3c8dd9a55ed9d8eea44b7ed1 Mon Sep 17 00:00:00 2001
+From: Arthur Edelstein <arthuredelstein@gmail.com>
+Date: Sat, 14 Jul 2018 08:50:55 -0700
+Subject: [PATCH] BB 26353: Prevent speculative connect that violated FPI.
+
+Connections were observed in the catch-all circuit when
+the user entered an https or http URL in the URL bar, or
+typed a search term.
+---
+ .../components/remotebrowserutils/RemoteWebNavigation.sys.mjs  | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/toolkit/components/remotebrowserutils/RemoteWebNavigation.sys.mjs b/toolkit/components/remotebrowserutils/RemoteWebNavigation.sys.mjs
+index 0745607f54..c09f257c3c 100644
+--- a/toolkit/components/remotebrowserutils/RemoteWebNavigation.sys.mjs
++++ b/toolkit/components/remotebrowserutils/RemoteWebNavigation.sys.mjs
+@@ -86,6 +86,9 @@ export class RemoteWebNavigation {
+   }
+ 
+   _speculativeConnect(uri, loadURIOptions) {
++    return;
++
++    /* eslint-disable-next-line no-unreachable */
+     try {
+       // Let's start a network connection before the content process asks.
+       // Note that we might have already set up the speculative connection in
+-- 
+2.49.0
+
