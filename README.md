@@ -31,8 +31,8 @@ graph LR
     bsys6--"Linux binary tarball"--> AppImage
     bsys6--"Linux .deb"--->repo.librewolf.net
     bsys6--"Linux .rpm"--->repo.librewolf.net
-    bsys6--"Linux binary tarball for `librewolf-bin`"--> Arch
-    Source--"Source tarball for `librewolf`"-->Arch
+    bsys6--"Linux binary tarball for 'librewolf-bin'"--> Arch
+    Source--"Source tarball for 'librewolf'"-->Arch
     Arch-->AUR
 ```
 
