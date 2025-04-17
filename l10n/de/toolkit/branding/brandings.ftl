@@ -3,5 +3,5 @@
 -screenshots-brand-name = Screenshots
 -profiler-brand-name = Profiler
 -translations-brand-name = Übersetzungen
--firefoxview-brand-name = Tab View
+-firefoxview-brand-name = Tabübersicht
 -firefoxlabs-brand-name = Experimentelle Features
