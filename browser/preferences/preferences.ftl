@@ -36,8 +36,6 @@ librewolf-webgl-checkbox =
     .label = Enable WebGL
 librewolf-rfp-checkbox =
     .label = Enable ResistFingerprinting
-librewolf-auto-decline-canvas-checkbox =
-    .label = Silently block canvas access requests
 librewolf-letterboxing-checkbox =
     .label = Enable letterboxing
 
@@ -73,9 +71,6 @@ librewolf-webgl-warning1 = If you need to enable it, consider using an extension
 
 librewolf-rfp-description = ResistFingerprinting is the best in class anti-fingerprinting tool.
 librewolf-rfp-warning1 = If you need to disable it, consider using an extension like Canvas Blocker.
-
-librewolf-auto-decline-canvas-description = Automatically deny canvas access to websites, without prompting the user.
-librewolf-auto-decline-canvas-warning1 = It is still possible to allow canvas access from the urlbar.
 
 librewolf-letterboxing-description = Letterboxing applies margins around your windows, in order to return a limited set of rounded resolutions.
 

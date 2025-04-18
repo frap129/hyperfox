@@ -60,8 +60,8 @@ graph LR
     bsys6--"Linux binary tarball"--> AppImage
     bsys6--"Linux .deb"--->repo.librewolf.net
     bsys6--"Linux .rpm"--->repo.librewolf.net
-    bsys6--"Linux binary tarball for `librewolf-bin`"--> Arch
-    Source--"Source tarball for `librewolf`"-->Arch
+    bsys6--"Linux binary tarball for 'librewolf-bin'"--> Arch
+    Source--"Source tarball for 'librewolf'"-->Arch
     Arch-->AUR
 ```
 
@@ -74,6 +74,10 @@ Currently active build repositories:
 * [Arch](https://codeberg.org/librewolf/arch): Arch Linux package
 * [Bsys5](https://codeberg.org/librewolf/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
 * [Gentoo](https://codeberg.org/librewolf/gentoo): Gentoo package
+
+Downstream distribution packages:
+
+* [Alpine Linux aport](https://pkgs.alpinelinux.org/packages?name=librewolf&arch=)
 
 Currently active (and known) forks:
 

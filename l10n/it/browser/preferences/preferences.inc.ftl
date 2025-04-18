@@ -1,6 +1,4 @@
 librewolf-warning-description = Abbiamo selezionato con attenzione i valori di default focalizzandoci sulla privacy e sulla sicurezza. Se modifichi questi parametri, leggi accuratamente le descrizioni per capire le implicazioni di ciò che stai cambiando.
-librewolf-auto-decline-canvas-checkbox =
-    .label = Blocca automaticamente l'utilizzo del canvas
 librewolf-webgl-checkbox =
     .label = Abilita WebGL
 librewolf-header = Preferenze di LibreWolf
@@ -52,8 +50,6 @@ librewolf-webgl-description = WebGL è un grosso vettore di informazioni per l'i
 librewolf-webgl-warning1 = Se lo abiliti considera di utilizzare una estensione come "Canvas Blocker".
 librewolf-rfp-description = ResistFingerprinting è il miglior metodo per evitare l'identificazione tramite fingerprint.
 librewolf-rfp-warning1 = Se lo disabiliti, considera di utilizzare una estensione come "Canvas Blocker".
-librewolf-auto-decline-canvas-description = Impedisci automaticamente ai siti l'accesso ai canvas, senza chiedere all'utente.
-librewolf-auto-decline-canvas-warning1 = È possibile abilitare l'accesso al canvas dalla barra degli indirizzi.
 librewolf-letterboxing-description = Il Letterboxing applica dei margini attorno alle tue finestre in modo che siano disponibili solo poche risoluzioni predefinite.
 librewolf-goog-safe-description = Se sei preoccupato riguardo i malware e il phishing, considera di abilitarlo.
 librewolf-goog-safe-download-description = Abilita "Safe Browsing" a scansionare i tuoi download per identificare file sospetti.

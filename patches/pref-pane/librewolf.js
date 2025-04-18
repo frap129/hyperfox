@@ -43,11 +43,6 @@ Preferences.addAll([
   // Google safe browsing check downloads
   //{ id: "browser.safebrowsing.downloads.enabled", type: "bool" }, //Also already added
   { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
-  // Canvas UI when blocked
-  {
-    id: "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts",
-    type: "bool",
-  },
 ]);
 
 var gLibrewolfPane = {
@@ -98,11 +93,6 @@ var gLibrewolfPane = {
       "librewolf-rfp-checkbox",
       ["privacy.resistFingerprinting"],
       [true                          ],
-    );
-    setBoolSyncListeners(
-      "librewolf-auto-decline-canvas-checkbox",
-      ["privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts"],
-      [true                                      ],
     );
 
     setBoolSyncListeners(
