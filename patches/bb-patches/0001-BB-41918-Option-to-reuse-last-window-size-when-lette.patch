@@ -1,0 +1,208 @@
+From 055de9ce2a1d934157ac3f01c6c58d9f976b4d8d Mon Sep 17 00:00:00 2001
+From: hackademix <giorgio@maone.net>
+Date: Wed, 6 Mar 2024 14:15:53 +0100
+Subject: [PATCH] BB 41918: Option to reuse last window size when letterboxing
+ is enabled.
+
+---
+ browser/app/profile/firefox.js                      |  2 ++
+ browser/components/BrowserGlue.sys.mjs              |  6 +++++-
+ dom/base/nsContentUtils.cpp                         | 12 ++++++++++++
+ dom/base/nsContentUtils.h                           |  4 ++++
+ .../resistfingerprinting/RFPHelper.sys.mjs          | 12 +++++++++++-
+ .../components/windowwatcher/nsWindowWatcher.cpp    |  3 ++-
+ toolkit/xre/nsAppRunner.cpp                         |  2 ++
+ xpfe/appshell/AppWindow.cpp                         | 13 ++++++++++---
+ 8 files changed, 48 insertions(+), 6 deletions(-)
+
+diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
+index 17a5d47066..c716935917 100644
+--- a/browser/app/profile/firefox.js
++++ b/browser/app/profile/firefox.js
+@@ -3368,3 +3368,5 @@ pref("toolkit.contentRelevancy.log", false);
+ pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
+ // tor-browser#41917: Letterboxing gradient background
+ pref("privacy.resistFingerprinting.letterboxing.gradient", true);
++// tor-browser#41918: Should we reuse last window sizes if letterboxing is enabled
++pref("privacy.resistFingerprinting.letterboxing.rememberSize", false);
+diff --git a/browser/components/BrowserGlue.sys.mjs b/browser/components/BrowserGlue.sys.mjs
+index 99423fc83f..461f3111ec 100644
+--- a/browser/components/BrowserGlue.sys.mjs
++++ b/browser/components/BrowserGlue.sys.mjs
+@@ -1511,7 +1511,6 @@ BrowserGlue.prototype = {
+       lazy.Normandy.init();
+     }
+ 
+-
+     lazy.ResetPBMPanel.init();
+ 
+     AboutHomeStartupCache.init();
+@@ -1742,6 +1741,11 @@ BrowserGlue.prototype = {
+         return false;
+       }
+ 
++      // We don't want to mess up with RFP new window / letterboxing machinery.
++      if (Services.prefs.getBoolPref("privacy.resistFingerprinting", false)) {
++        return false;
++      }
++
+       // Bug 1448423: Skip the blank window if the user is resisting fingerprinting
+       if (
+         Services.prefs.getBoolPref(
+diff --git a/dom/base/nsContentUtils.cpp b/dom/base/nsContentUtils.cpp
+index f362a444a0..adfd4b9337 100644
+--- a/dom/base/nsContentUtils.cpp
++++ b/dom/base/nsContentUtils.cpp
+@@ -2894,6 +2894,18 @@ void nsContentUtils::CalcRoundedWindowSizeForResistingFingerprinting(
+   *aOutputHeight = resultHeight;
+ }
+ 
++bool nsContentUtils::ShouldRoundWindowSizeForResistingFingerprinting() {
++  return !(
++      Preferences::GetBool("privacy.resistFingerprinting.letterboxing",
++                           false) &&
++      // We want to round window size at least once in the browser's life time:
++      // AppWindow::ForceRoundedDimensions() will set this preference to true.
++      Preferences::GetBool(
++          "privacy.resistFingerprinting.letterboxing.didForceSize", false) &&
++      Preferences::GetBool(
++          "privacy.resistFingerprinting.letterboxing.rememberSize", false));
++}
++
+ bool nsContentUtils::ThreadsafeIsCallerChrome() {
+   return NS_IsMainThread() ? IsCallerChrome()
+                            : IsCurrentThreadRunningChromeWorker();
+diff --git a/dom/base/nsContentUtils.h b/dom/base/nsContentUtils.h
+index 779cd9e544..6e6755ade9 100644
+--- a/dom/base/nsContentUtils.h
++++ b/dom/base/nsContentUtils.h
+@@ -413,6 +413,10 @@ class nsContentUtils {
+       bool aSetOuterWidth, bool aSetOuterHeight, int32_t* aOutputWidth,
+       int32_t* aOutputHeight);
+ 
++  // Tell if we actually want to round size of new windows for RFP,
++  // depending on letterboxing status and user's preference.
++  static bool ShouldRoundWindowSizeForResistingFingerprinting();
++
+   /**
+    * Returns the parent node of aChild crossing document boundaries, but skips
+    * any cross-process parent frames and continues with the nearest in-process
+diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+index 16716b27b6..dd778fba8a 100644
+--- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
++++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+@@ -20,6 +20,10 @@ const kPrefLetterboxingVcenter =
+   "privacy.resistFingerprinting.letterboxing.vcenter";
+ const kPrefLetterboxingGradient =
+   "privacy.resistFingerprinting.letterboxing.gradient";
++const kPrefLetterboxingDidForceSize =
++  "privacy.resistFingerprinting.letterboxing.didForceSize";
++const kPrefLetterboxingRememberSize =
++  "privacy.resistFingerprinting.letterboxing.rememberSize";
+ 
+ const kTopicDOMWindowOpened = "domwindowopened";
+ const kTopicDOMWindowClosed = "domwindowclosed";
+@@ -150,6 +154,7 @@ class _RFPHelper {
+   _handlePrefChanged(data) {
+     switch (data) {
+       case kPrefResistFingerprinting:
++        Services.prefs.clearUserPref(kPrefLetterboxingDidForceSize);
+         this._handleResistFingerprintingChanged();
+         break;
+       case kPrefSpoofEnglish:
+@@ -157,6 +162,8 @@ class _RFPHelper {
+         this._handleSpoofEnglishChanged();
+         break;
+       case kPrefLetterboxing:
++        Services.prefs.clearUserPref(kPrefLetterboxingDidForceSize);
++      // fall-through
+       case kPrefLetterboxingVcenter:
+       case kPrefLetterboxingGradient:
+         this._handleLetterboxingPrefChanged();
+@@ -786,7 +793,10 @@ class _RFPHelper {
+   }
+ 
+   _fixRounding(aWindow) {
+-    if (!this.rfpEnabled) {
++    if (
++      !this.rfpEnabled ||
++      Services.prefs.getBoolPref(kPrefLetterboxingRememberSize, false)
++    ) {
+       return;
+     }
+ 
+diff --git a/toolkit/components/windowwatcher/nsWindowWatcher.cpp b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
+index 811fb16410..712f10a9ce 100644
+--- a/toolkit/components/windowwatcher/nsWindowWatcher.cpp
++++ b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
+@@ -2376,7 +2376,8 @@ static void SizeOpenedWindow(nsIDocShellTreeOwner* aTreeOwner,
+                 "complicated, and this is a conservative behavior to avoid "
+                 "exempting something that shouldn't be. It also presents a "
+                 "uniform behavior for something that's very browser-related.",
+-                RFPTarget::RoundWindowSize)) {
++                RFPTarget::RoundWindowSize) &&
++            nsContentUtils::ShouldRoundWindowSizeForResistingFingerprinting()) {
+           /* Unlike position, force size out-of-bounds check only if
+              size actually was specified. Otherwise, intrinsically sized
+              windows are broken. */
+diff --git a/toolkit/xre/nsAppRunner.cpp b/toolkit/xre/nsAppRunner.cpp
+index bdd95b8939..d76b4df73a 100644
+--- a/toolkit/xre/nsAppRunner.cpp
++++ b/toolkit/xre/nsAppRunner.cpp
+@@ -295,6 +295,7 @@ static const char kPrefThemeId[] = "extensions.activeThemeID";
+ static const char kPrefBrowserStartupBlankWindow[] =
+     "browser.startup.blankWindow";
+ static const char kPrefPreXulSkeletonUI[] = "browser.startup.preXulSkeletonUI";
++static const char kPrefResistFingerprinting[] = "privacy.resistFingerprinting";
+ #endif  // defined(XP_WIN)
+ 
+ #if defined(MOZ_WIDGET_GTK)
+@@ -2289,6 +2290,7 @@ static void ReflectSkeletonUIPrefToRegistry(const char* aPref, void* aData) {
+   bool shouldBeEnabled =
+       Preferences::GetBool(kPrefPreXulSkeletonUI, false) &&
+       Preferences::GetBool(kPrefBrowserStartupBlankWindow, false) &&
++      !Preferences::GetBool(kPrefResistFingerprinting, false) &&
+       LookAndFeel::DrawInTitlebar();
+   if (shouldBeEnabled && Preferences::HasUserValue(kPrefThemeId)) {
+     nsCString themeId;
+diff --git a/xpfe/appshell/AppWindow.cpp b/xpfe/appshell/AppWindow.cpp
+index a5e57d3086..e2641aa716 100644
+--- a/xpfe/appshell/AppWindow.cpp
++++ b/xpfe/appshell/AppWindow.cpp
+@@ -1036,8 +1036,9 @@ NS_IMETHODIMP AppWindow::GetAvailScreenSize(int32_t* aAvailWidth,
+   return NS_OK;
+ }
+ 
+-// Rounds window size to 1000x1000, or, if there isn't enough available
+-// screen space, to a multiple of 200x100.
++// Rounds window size to privacy.window.maxInnerWidth x
++// privacy.window.maxInnerWidth, or, if there isn't enough available screen
++// space, to a multiple of 200x100.
+ NS_IMETHODIMP AppWindow::ForceRoundedDimensions() {
+   if (mIsHiddenWindow) {
+     return NS_OK;
+@@ -1077,6 +1078,11 @@ NS_IMETHODIMP AppWindow::ForceRoundedDimensions() {
+ 
+   SetPrimaryContentSize(targetSizeDev.width, targetSizeDev.height);
+ 
++  // Ensure we force initial rounded size at least once, as checked by
++  // nsContentUtils::ShouldRoundWindowSizeForResistingFingerprinting().
++  Preferences::SetBool("privacy.resistFingerprinting.letterboxing.didForceSize",
++                       true);
++
+   return NS_OK;
+ }
+ 
+@@ -2487,7 +2493,8 @@ void AppWindow::SizeShell() {
+           "if RFP is enabled we want to round the dimensions of the new"
+           "new pop up window regardless of their origin",
+           RFPTarget::RoundWindowSize) &&
+-      windowType.EqualsLiteral("navigator:browser")) {
++      windowType.EqualsLiteral("navigator:browser") &&
++      nsContentUtils::ShouldRoundWindowSizeForResistingFingerprinting()) {
+     // Once we've got primary content, force dimensions.
+     if (mPrimaryContentShell || mPrimaryBrowserParent) {
+       ForceRoundedDimensions();
+-- 
+2.49.0
+
