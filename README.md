@@ -8,13 +8,16 @@ distribution of LibreWolf for Linux (x86-64-v3 specifically, arm64 in
 the future maybe).
 
 ## Differences from LibreWolf
-- Customized [Betterfox](https://github.com/yokoffing/Betterfox)
-settings included
-- Patches to update some dependencies with patches from [Cachy](https://github.com/CachyOS/CachyOS-Browser-Common)
+- Customized [Betterfox](https://github.com/yokoffing/Betterfox) settings included
+- Patches from Tor that include:
+  - Anti-fingerprinting improvements
+  - Letterboxing improvements
+  - Bugfixes
+- Patches to update some dependencies from [Cachy](https://github.com/CachyOS/CachyOS-Browser-Common)
 - Some optimizations from [Mercury](https://github.com/Alex313031/Mercury)
-- Widevine, av1, other features built by default included
+- Widevine DRM, av1, other features built in
 - Extra hardening compiler flags based on recommendations by [OpenSSF](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
-- Allow replacing malloc [commit](https://github.com/frap129/hyperfox/commit/db96977733c5e06d608ded2e9cfcaf90021b8907)
+- Allow replacing malloc at runtime [(commit)](https://github.com/frap129/hyperfox/commit/db96977733c5e06d608ded2e9cfcaf90021b8907)
 
 ## Building Hyperfox
 Hyperfox releases are built differently from librewolf to handle the two-stage build needed for PGO. 
