@@ -1,0 +1,52 @@
+From a2f0c099aa53bf6e239e7d851cf02b9f9d387acf Mon Sep 17 00:00:00 2001
+From: hackademix <giorgio@maone.net>
+Date: Mon, 11 Sep 2023 23:48:07 +0200
+Subject: [PATCH] BB 42084: Ensure English spoofing works even if preferences
+ are set out of order.
+
+---
+ toolkit/components/resistfingerprinting/RFPHelper.sys.mjs | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+index cf5f8daa6d..6b90dd7dd8 100644
+--- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
++++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+@@ -69,6 +69,9 @@ class _RFPHelper {
+     // Add RFP and Letterboxing observers if prefs are enabled
+     this._handleResistFingerprintingChanged();
+     this._handleLetterboxingPrefChanged();
++
++    // Synchronize language preferences if accidentally messed up (tor-browser#42084)
++    this._handleSpoofEnglishChanged();
+   }
+ 
+   uninit() {
+@@ -126,6 +129,7 @@ class _RFPHelper {
+         this._handleResistFingerprintingChanged();
+         break;
+       case kPrefSpoofEnglish:
++      case "intl.accept_languages":
+         this._handleSpoofEnglishChanged();
+         break;
+       case kPrefLetterboxing:
+@@ -170,6 +174,7 @@ class _RFPHelper {
+   }
+ 
+   _handleSpoofEnglishChanged() {
++    Services.prefs.removeObserver("intl.accept_languages", this);
+     switch (Services.prefs.getIntPref(kPrefSpoofEnglish)) {
+       case 0: // will prompt
+       // This should only happen when turning privacy.resistFingerprinting off.
+@@ -182,6 +187,8 @@ class _RFPHelper {
+         break;
+       case 2: // spoof
+         Services.prefs.setCharPref("intl.accept_languages", "en-US, en");
++        // Ensure spoofing works if preferences are set out of order
++        Services.prefs.addObserver("intl.accept_languages", this);
+         break;
+       default:
+         break;
+-- 
+2.49.0
+

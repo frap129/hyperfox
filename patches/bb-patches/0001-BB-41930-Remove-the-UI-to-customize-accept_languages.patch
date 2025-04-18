@@ -1,0 +1,86 @@
+From dca0d8ababdf1a26d74ed1efc767dff444d06d3b Mon Sep 17 00:00:00 2001
+From: Pier Angelo Vendrame <pierov@torproject.org>
+Date: Tue, 7 May 2024 17:50:20 +0200
+Subject: [PATCH] BB 41930: Remove the UI to customize accept_languages.
+
+---
+ browser/components/preferences/main.inc.xhtml  |  4 ++++
+ browser/components/preferences/main.js         | 18 +++++++++++++++++-
+ .../resistfingerprinting/RFPHelper.sys.mjs     | 10 +++++++---
+ 3 files changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
+index 54eb4aec9c..14927ecb62 100644
+--- a/browser/components/preferences/main.inc.xhtml
++++ b/browser/components/preferences/main.inc.xhtml
+@@ -398,6 +398,7 @@
+   </hbox>
+ 
+   <hbox id="languagesBox" align="center">
++    <!--
+     <description flex="1" control="chooseLanguage" data-l10n-id="choose-language-description"/>
+     <button id="chooseLanguage"
+             is="highlightable-button"
+@@ -412,6 +413,9 @@
+               languages-customize-select-language.placeholder,
+               languages-customize-add.label,
+             " />
++    -->
++    <checkbox id="spoofEnglish"
++              data-l10n-id="languages-customize-spoof-english"/>
+   </hbox>
+ 
+   <checkbox id="useSystemLocale" hidden="true"
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index 8d870b8b87..bbc8b64435 100644
+--- a/browser/components/preferences/main.js
++++ b/browser/components/preferences/main.js
+@@ -499,7 +499,23 @@ var gMainPane = {
+       "command",
+       makeDisableControllingExtension(PREF_SETTING_TYPE, CONTAINERS_KEY)
+     );
+-    setEventListener("chooseLanguage", "command", gMainPane.showLanguages);
++    // setEventListener("chooseLanguage", "command", gMainPane.showLanguages);
++    {
++      const spoofEnglish = document.getElementById("spoofEnglish");
++      const kPrefSpoofEnglish = "privacy.spoof_english";
++      const preference = Preferences.add({
++        id: kPrefSpoofEnglish,
++        type: "int",
++      });
++      const spoofEnglishChanged = () => {
++        spoofEnglish.checked = preference.value == 2;
++      };
++      spoofEnglishChanged();
++      preference.on("change", spoofEnglishChanged);
++      setEventListener("spoofEnglish", "command", () => {
++        preference.value = spoofEnglish.checked ? 2 : 1;
++      });
++    }
+     // TODO (Bug 1817084) Remove this code when we disable the extension
+     setEventListener(
+       "fxtranslateButton",
+diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+index 6b90dd7dd8..56ebb0f0ee 100644
+--- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
++++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+@@ -181,9 +181,13 @@ class _RFPHelper {
+       // Works like disabling accept-language spoofing.
+       // fall through
+       case 1: // don't spoof
+-        // We don't reset intl.accept_languages. Instead, setting
+-        // privacy.spoof_english to 1 allows user to change preferred language
+-        // settings through Preferences UI.
++        if (this.rfpEnabled) {
++          // When RFP is enabled, we force intl.accept_languages to be the
++          // default, or en-US, en when spoof English is enabled.
++          // See tor-browser#41930.
++          Services.prefs.clearUserPref("intl.accept_languages");
++          Services.prefs.addObserver("intl.accept_languages", this);
++        }
+         break;
+       case 2: // spoof
+         Services.prefs.setCharPref("intl.accept_languages", "en-US, en");
+-- 
+2.49.0
+

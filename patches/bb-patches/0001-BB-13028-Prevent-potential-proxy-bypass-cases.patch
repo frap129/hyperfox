@@ -1,0 +1,100 @@
+From 9da13b23fd408e0db55bf1a808f0fd6b65ea8743 Mon Sep 17 00:00:00 2001
+From: Mike Perry <mikeperry-git@torproject.org>
+Date: Mon, 29 Sep 2014 14:30:19 -0700
+Subject: [PATCH] BB 13028: Prevent potential proxy bypass cases.
+
+It looks like these cases should only be invoked in the NSS command line
+tools, and not the browser, but I decided to patch them anyway because there
+literally is a maze of network function pointers being passed around, and it's
+very hard to tell if some random code might not pass in the proper proxied
+versions of the networking code here by accident.
+
+Bugzilla: https://bugzilla.mozilla.org/show_bug.cgi?id=1433509
+---
+ security/nss/lib/certhigh/ocsp.c                     |  4 ++++
+ .../lib/libpkix/pkix_pl_nss/module/pkix_pl_socket.c  | 12 ++++++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/security/nss/lib/certhigh/ocsp.c b/security/nss/lib/certhigh/ocsp.c
+index ac47e5098c..b3103cf6d3 100644
+--- a/security/nss/lib/certhigh/ocsp.c
++++ b/security/nss/lib/certhigh/ocsp.c
+@@ -2926,6 +2926,9 @@ loser:
+ static PRFileDesc *
+ ocsp_ConnectToHost(const char *host, PRUint16 port)
+ {
++#ifdef MOZ_PROXY_BYPASS_PROTECTION
++    return NULL;
++#else
+     PRFileDesc *sock = NULL;
+     PRIntervalTime timeout;
+     PRNetAddr addr;
+@@ -2984,6 +2987,7 @@ loser:
+     if (netdbbuf != NULL)
+         PORT_Free(netdbbuf);
+     return NULL;
++#endif
+ }
+ 
+ /*
+diff --git a/security/nss/lib/libpkix/pkix_pl_nss/module/pkix_pl_socket.c b/security/nss/lib/libpkix/pkix_pl_nss/module/pkix_pl_socket.c
+index ac5e9d3796..ab49b54034 100644
+--- a/security/nss/lib/libpkix/pkix_pl_nss/module/pkix_pl_socket.c
++++ b/security/nss/lib/libpkix/pkix_pl_nss/module/pkix_pl_socket.c
+@@ -1322,6 +1322,9 @@ pkix_pl_Socket_Create(
+         PKIX_PL_Socket **pSocket,
+         void *plContext)
+ {
++#ifdef MOZ_PROXY_BYPASS_PROTECTION
++        PKIX_ERROR(PKIX_PRNEWTCPSOCKETFAILED);
++#else
+         PKIX_PL_Socket *socket = NULL;
+ 
+         PKIX_ENTER(SOCKET, "pkix_pl_Socket_Create");
+@@ -1369,6 +1372,7 @@ cleanup:
+         }
+ 
+         PKIX_RETURN(SOCKET);
++#endif
+ }
+ 
+ /*
+@@ -1418,6 +1422,9 @@ pkix_pl_Socket_CreateByName(
+         PKIX_PL_Socket **pSocket,
+         void *plContext)
+ {
++#ifdef MOZ_PROXY_BYPASS_PROTECTION
++        PKIX_ERROR(PKIX_PRNEWTCPSOCKETFAILED);
++#else
+         PRNetAddr netAddr;
+         PKIX_PL_Socket *socket = NULL;
+         char *sepPtr = NULL;
+@@ -1520,6 +1527,7 @@ cleanup:
+         }
+ 
+         PKIX_RETURN(SOCKET);
++#endif
+ }
+ 
+ /*
+@@ -1571,6 +1579,9 @@ pkix_pl_Socket_CreateByHostAndPort(
+         PKIX_PL_Socket **pSocket,
+         void *plContext)
+ {
++#ifdef MOZ_PROXY_BYPASS_PROTECTION
++        PKIX_ERROR(PKIX_PRNEWTCPSOCKETFAILED);
++#else
+         PRNetAddr netAddr;
+         PKIX_PL_Socket *socket = NULL;
+         char *sepPtr = NULL;
+@@ -1658,6 +1669,7 @@ cleanup:
+         }
+ 
+         PKIX_RETURN(SOCKET);
++#endif
+ }
+ 
+ /*
+-- 
+2.49.0
+

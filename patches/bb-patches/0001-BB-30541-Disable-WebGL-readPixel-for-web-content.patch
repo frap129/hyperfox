@@ -1,0 +1,32 @@
+From 23ee5ac24009957c2b2aa7c88e14805c8b53ca42 Mon Sep 17 00:00:00 2001
+From: Georg Koppen <gk@torproject.org>
+Date: Wed, 29 May 2019 12:29:19 +0000
+Subject: [PATCH] BB 30541: Disable WebGL readPixel() for web content
+
+Related Bugzilla: https://bugzilla.mozilla.org/show_bug.cgi?id=1428034
+---
+ dom/canvas/ClientWebGLContext.cpp | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/dom/canvas/ClientWebGLContext.cpp b/dom/canvas/ClientWebGLContext.cpp
+index ef97fc61e4..a20e760090 100644
+--- a/dom/canvas/ClientWebGLContext.cpp
++++ b/dom/canvas/ClientWebGLContext.cpp
+@@ -5257,6 +5257,14 @@ bool ClientWebGLContext::ReadPixels_SharedPrecheck(
+     return false;
+   }
+ 
++  // Security check passed, but don't let content readPixel calls through for
++  // now, if Resist Fingerprinting Mode is enabled.
++  if (ShouldResistFingerprinting(RFPTarget::CanvasRandomization)) {
++    JsWarning("readPixels: Not allowed in Resist Fingerprinting Mode");
++    out_error.Throw(NS_ERROR_DOM_NOT_SUPPORTED_ERR);
++    return false;
++  }
++
+   return true;
+ }
+ 
+-- 
+2.49.0
+
