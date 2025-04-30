@@ -1,5 +1,5 @@
 diff --git a/browser/components/preferences/jar.mn b/browser/components/preferences/jar.mn
-index 2131a15ceef7..0b97dc14b42e 100644
+index 118709048e..51aeb42a23 100644
 --- a/browser/components/preferences/jar.mn
 +++ b/browser/components/preferences/jar.mn
 @@ -11,6 +11,7 @@ browser.jar:
@@ -8,15 +8,15 @@ index 2131a15ceef7..0b97dc14b42e 100644
     content/browser/preferences/privacy.js
 +   content/browser/preferences/librewolf.js
     content/browser/preferences/containers.js
+    content/browser/preferences/translations.js
     content/browser/preferences/sync.js
-    content/browser/preferences/experimental.js
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index 19dda7cf39eb..f5e67b637b49 100644
+index e4746e3408..3755be8a78 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
-@@ -8,6 +8,7 @@
- /* import-globals-from search.js */
+@@ -9,6 +9,7 @@
  /* import-globals-from containers.js */
+ /* import-globals-from translations.js */
  /* import-globals-from privacy.js */
 +/* import-globals-from librewolf.js */
  /* import-globals-from sync.js */
@@ -28,21 +28,21 @@ index 19dda7cf39eb..f5e67b637b49 100644
    register_module("panePrivacy", gPrivacyPane);
 +  register_module("paneLibrewolf", gLibrewolfPane);
    register_module("paneContainers", gContainersPane);
-   if (Services.prefs.getBoolPref("browser.preferences.experimental")) {
-     // Set hidden based on previous load's hidden value.
+ 
+   if (Services.prefs.getBoolPref("browser.translations.newSettingsUI.enable")) {
 diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
-index 378be0a..26caf49 100644
+index 43be2b6ac8..78e9bfe676 100644
 --- a/browser/components/preferences/preferences.xhtml
 +++ b/browser/components/preferences/preferences.xhtml
-@@ -38,6 +38,7 @@
+@@ -42,6 +42,7 @@
      href="chrome://browser/skin/preferences/containers.css"
    />
    <link rel="stylesheet" href="chrome://browser/skin/preferences/privacy.css" />
 +  <link rel="stylesheet" href="chrome://browser/skin/preferences/librewolf.css" />
+   <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-group.css" />
  
    <link rel="localization" href="branding/brand.ftl"/>
-   <link rel="localization" href="browser/browser.ftl"/>
-@@ -129,6 +130,17 @@
+@@ -147,6 +148,17 @@
            <label class="category-name" flex="1" data-l10n-id="pane-privacy-title"></label>
          </richlistitem>
  
@@ -60,19 +60,19 @@ index 378be0a..26caf49 100644
          <richlistitem id="category-sync"
                        class="category"
                        hidden="true"
-@@ -207,6 +219,7 @@
+@@ -241,6 +253,7 @@
  #include home.inc.xhtml
  #include search.inc.xhtml
  #include privacy.inc.xhtml
 +#include librewolf.inc.xhtml
  #include containers.inc.xhtml
+ #include translations.inc.xhtml
  #include sync.inc.xhtml
- #include experimental.inc.xhtml
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index 146764d56081..52326c00bdfe 100644
+index c2bebf7e96..62ab632cec 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
-@@ -108,6 +108,7 @@
+@@ -114,6 +114,7 @@
    skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
    skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
    skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
@@ -80,7 +80,7 @@ index 146764d56081..52326c00bdfe 100644
    skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
    skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
    skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -127,6 +128,7 @@
+@@ -131,6 +132,7 @@
    skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
@@ -89,10 +89,10 @@ index 146764d56081..52326c00bdfe 100644
    skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
    skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
 diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
-index 1968b68a1245..d0da141868e2 100644
+index 641c936533..7ff76e622f 100644
 --- a/browser/themes/shared/preferences/preferences.css
 +++ b/browser/themes/shared/preferences/preferences.css
-@@ -206,6 +206,10 @@ checkbox {
+@@ -223,6 +223,10 @@ radio {
    list-style-image: url("chrome://browser/skin/preferences/category-privacy-security.svg");
  }
  
@@ -103,6 +103,3 @@ index 1968b68a1245..d0da141868e2 100644
  #category-sync > .category-icon {
    list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
  }
--- 
-2.37.3
-
