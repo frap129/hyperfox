@@ -12,7 +12,6 @@ patches/hide-passwordmgr.patch
 patches/moz-configure.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
-patches/remove_addons.patch
 patches/rs-blocker.patch
 patches/rust-gentoo-musl.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
