@@ -9,6 +9,7 @@ patches/flatpak-autoconf.patch
 patches/fullpage-translations-customization.patch
 patches/fullpage-translations.patch
 patches/hide-passwordmgr.patch
+patches/macos-import-vector.patch
 patches/moz-configure.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
