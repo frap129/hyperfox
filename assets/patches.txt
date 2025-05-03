@@ -5,6 +5,7 @@ patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/disable-data-reporting-at-compile-time.patch
+patches/firefox-in-ua.patch
 patches/flatpak-autoconf.patch
 patches/fullpage-translations-customization.patch
 patches/fullpage-translations.patch
