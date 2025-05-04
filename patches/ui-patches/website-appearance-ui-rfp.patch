@@ -1,25 +1,27 @@
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index aa339be9ba..1da6fb658b 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -4184,6 +4184,7 @@ const AppearanceChooser = {
+@@ -4382,6 +4382,7 @@ const AppearanceChooser = {
+     this.warning = document.getElementById("web-appearance-override-warning");
  
      FORCED_COLORS_QUERY.addEventListener("change", this);
-     Services.prefs.addObserver(PREF_USE_SYSTEM_COLORS, this);
 +    Services.prefs.addObserver("privacy.resistFingerprinting", this);
      Services.obs.addObserver(this, "look-and-feel-changed");
      this._update();
    },
-@@ -4203,6 +4204,7 @@ const AppearanceChooser = {
+@@ -4417,6 +4418,7 @@ const AppearanceChooser = {
+   },
  
    destroy() {
-     Services.prefs.removeObserver(PREF_USE_SYSTEM_COLORS, this);
 +    Services.prefs.removeObserver("privacy.resistFingerprinting", this);
      Services.obs.removeObserver(this, "look-and-feel-changed");
      FORCED_COLORS_QUERY.removeEventListener("change", this);
    },
-@@ -4242,5 +4244,33 @@ const AppearanceChooser = {
-       (AppConstants.platform == "win" ||
-         !Services.prefs.getBoolPref(PREF_USE_SYSTEM_COLORS));
-     this.warning.hidden = !forcingColorsAndNoColorSchemeSupport;
+@@ -4452,5 +4454,33 @@ const AppearanceChooser = {
+ 
+   _updateWarning() {
+     this.warning.hidden = !FORCED_COLORS_QUERY.matches;
 +
 +    document.getElementById("web-appearance-rfp-warning")?.remove();
 +    if (Services.prefs.getBoolPref("privacy.resistFingerprinting")) {

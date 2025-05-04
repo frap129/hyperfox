@@ -5,14 +5,15 @@ patches/context-menu.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/disable-data-reporting-at-compile-time.patch
+patches/firefox-in-ua.patch
 patches/flatpak-autoconf.patch
 patches/fullpage-translations-customization.patch
 patches/fullpage-translations.patch
 patches/hide-passwordmgr.patch
+patches/macos-import-vector.patch
 patches/moz-configure.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
-patches/remove_addons.patch
 patches/rs-blocker.patch
 patches/rust-gentoo-musl.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
