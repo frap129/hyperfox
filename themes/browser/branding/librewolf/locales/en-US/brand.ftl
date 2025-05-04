@@ -12,12 +12,12 @@
 ##
 ## Reference: https://www.mozilla.org/styleguide/communications/translation/
 
--brand-shorter-name = LibreWolf
--brand-short-name = LibreWolf
--brand-full-name = LibreWolf
--brand-shortcut-name = LibreWolf
+-brand-shorter-name = HyperFox
+-brand-short-name = HyperFox
+-brand-full-name = HyperFox
+-brand-shortcut-name = HyperFox
 # This brand name can be used in messages where the product name needs to
 # remain unchanged across different versions (Nightly, Beta, etc.).
--brand-product-name = LibreWolf
--vendor-short-name = LibreWolf
+-brand-product-name = HyperFox
+-vendor-short-name = HyperFox
 trademarkInfo = { " " }
