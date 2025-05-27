@@ -2,11 +2,13 @@
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Allows us to build a msix for the Microsoft Store
-# Last Updated:  2023-04-14
+# Last Updated:  2025-05-27
 # License:       MPL 2.0
+
+diff --git a/browser/installer/windows/msix/AppxManifest.xml.in b/browser/installer/windows/msix/AppxManifest.xml.in
 --- a/browser/installer/windows/msix/AppxManifest.xml.in
 +++ b/browser/installer/windows/msix/AppxManifest.xml.in
-@@ -29,13 +29,14 @@
+@@ -30,13 +30,14 @@
    </Resources>
    <Dependencies>
      <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.1555" />
@@ -22,7 +24,7 @@
          <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
            <uap:ShowNameOnTiles>
              <uap:ShowOn Tile="square150x150Logo"/>
-@@ -108,20 +108,4 @@
+@@ -119,20 +120,4 @@
        </Extensions>
      </Application>
    </Applications>
@@ -43,9 +45,10 @@
 -    </com:Extension>
 -  </Extensions>
  </Package>
+diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuild/mach_commands.py
 --- a/python/mozbuild/mozbuild/mach_commands.py
 +++ b/python/mozbuild/mozbuild/mach_commands.py
-@@ -2511,7 +2511,7 @@ def repackage_msi(
+@@ -2747,7 +2747,7 @@ def repackage_msi(
  @CommandArgument(
      "--vendor",
      type=str,
@@ -54,7 +57,7 @@
      required=False,
      help="The vendor to use in the Package/Identity/Name string to use in the App Manifest."
      + " Defaults to 'Mozilla'.",
-@@ -2648,7 +2648,7 @@ def repackage_msix(
+@@ -2906,7 +2906,7 @@ def repackage_msix(
          command_context.topsrcdir,
          channel=channel,
          arch=arch,
@@ -63,9 +66,10 @@
          vendor=vendor,
          publisher=publisher,
          publisher_display_name=publisher_display_name,
+diff --git a/python/mozbuild/mozbuild/repackaging/msix.py b/python/mozbuild/mozbuild/repackaging/msix.py
 --- a/python/mozbuild/mozbuild/repackaging/msix.py
 +++ b/python/mozbuild/mozbuild/repackaging/msix.py
-@@ -105,68 +105,19 @@ def get_embedded_version(version, buildid):
+@@ -106,68 +106,19 @@ def get_embedded_version(version, buildi
      the dotted quad to be identically 0, so we enforce that here.
      """
  
@@ -73,7 +77,8 @@
 -    # to contain exactly what we need at this time.
 -    version = version.rsplit("esr", 1)[0]
 -    alpha = "a" in version
--
++    [ver, rel] = version.split("-")
+ 
 -    tail = None
 -    if "a" in version:
 -        head, tail = version.rsplit("a", 1)
@@ -97,7 +102,9 @@
 -            )
 -    else:
 -        head = version
--
++    ver_parts = ver.split(".")
++    ver_parts += ["0"] * (3 - len(ver_parts))
+ 
 -    components = (head.split(".") + ["0", "0", "0"])[:3]
 -    if tail:
 -        components[2] = tail
@@ -124,13 +131,10 @@
 -            # Avoid leading zero, like `.0DHh`.
 -            day = day[1:]
 -        hour = buildid[8:10]
-+    [ver, rel] = version.split("-")
- 
+-
 -        components[1] = "".join((year, month))
 -        components[2] = "".join((day, hour))
-+    ver_parts = ver.split(".")
-+    ver_parts += ["0"] * (3 - len(ver_parts))
- 
+-
 -    version = "{}.{}.{}.0".format(*components)
 -
 -    return version
@@ -144,22 +148,23 @@
 +    )
  
  
- def get_appconstants_sys_mjs_values(finder, *args):
-@@ -404,12 +355,7 @@ def repackage_msix(
+ def remove_single_line_comments(text):
+@@ -409,13 +360,7 @@ def repackage_msix(
      )
  
      first = next(values)
 -    if not displayname:
--        displayname = "Mozilla {}".format(first)
+-        displayname = f"Mozilla {first}"
 -
 -        if channel == "beta":
 -            # Release (official) and Beta share branding.  Differentiate Beta a little bit.
 -            displayname += " Beta"
+-
 +    displayname = displayname or first
- 
      second = next(values)
      vendor = vendor or second
-@@ -563,16 +509,6 @@ def repackage_msix(
+ 
+@@ -536,16 +481,6 @@ def repackage_msix(
              # In local builds and unpacked MSIX directories, `p` is like "firefox.exe" already.
              pp = p
  
