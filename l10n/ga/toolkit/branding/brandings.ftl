@@ -1,0 +1,7 @@
+-screenshots-brand-name = Scáileáin
+-profiler-brand-name = Próifíleoir
+-translations-brand-name = Aistriúcháin
+-firefox-suggest-brand-name = Moltaí
+-firefox-home-brand-name = Leathanach baile
+-firefoxview-brand-name = Amharc Cluaisíní
+-firefoxlabs-brand-name = Gnéithe Turgnamhacha
