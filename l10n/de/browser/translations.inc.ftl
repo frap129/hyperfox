@@ -3,4 +3,4 @@ translations-panel-disable-translations =
 translations-manage-enable =
     .label = Übersetzungen für ganze Seiten aktivieren
 translations-manage-autopopup =
-    .label = Aufforderung zum Übersetzen von Seiten, die nicht in der konfigurierten Browser Sprache sind
+    .label = Aufforderung zum Übersetzen von Seiten, die nicht in der konfigurierten Browsersprache sind
