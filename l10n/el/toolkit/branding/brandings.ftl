@@ -4,3 +4,4 @@
 -firefox-suggest-brand-name = Προτάσεις
 -firefox-home-brand-name = Αρχική σελίδα
 -firefoxview-brand-name = Προβολή καρτελών
+-firefoxlabs-brand-name = Πειραματικές λειτουργίες
