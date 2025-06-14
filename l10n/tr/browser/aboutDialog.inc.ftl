@@ -1,1 +1,1 @@
-about-librewolf = LibreWolf, ana hedefleri gizlilik, güvenlik ve kullanıcı özgürlüğü olmak üzere, Firefox'un özelleştirilmiş bir versiyonudur.
+about-librewolf = LibreWolf, ana hedefi gizlilik, güvenlik ve kullanıcı özgürlüğü olan; Firefox'un özelleştirilmiş bir versiyonudur.

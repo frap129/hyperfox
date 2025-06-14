@@ -1,0 +1,7 @@
+-screenshots-brand-name = Ekran görüntüleri
+-translations-brand-name = Çeviriler
+-firefox-suggest-brand-name = Öneriler
+-firefox-home-brand-name = Ana sayfa
+-firefoxlabs-brand-name = Deneysel Özellikler
+-profiler-brand-name = İşleyiş Gözden Geçirici
+-firefoxview-brand-name = Sekme Görünümü
