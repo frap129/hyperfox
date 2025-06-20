@@ -1,4 +1,4 @@
--screenshots-brand-name = Capturas de Pantalla
+-screenshots-brand-name = Capturas de pantalla
 -profiler-brand-name = Perfiles
 -translations-brand-name = Traducciones
 -firefox-suggest-brand-name = Sugerencias
