@@ -1,0 +1,14 @@
+diff --git a/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs b/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs
+index fd7c0ce3dd..9abdf937d7 100644
+--- a/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs
++++ b/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs
+@@ -1430,8 +1430,7 @@
+     trigger: {
+       id: "defaultBrowserCheck",
+     },
+-    targeting:
+-      "source == 'startup' && ((currentDate|date - profileAgeCreated|date) / 86400000 <= 7) && localeLanguageCode == 'en'",
++    targeting: "false",
+   },
+   {
+     id: "FINISH_SETUP_CHECKLIST",
