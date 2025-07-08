@@ -42,4 +42,3 @@ patches/bb-patches/0001-BB-29745-Limit-remote-access-to-content-accessible-r.pat
 patches/bb-patches/0001-BB-30541-Disable-WebGL-readPixel-for-web-content.patch
 patches/bb-patches/0001-BB-41930-Remove-the-UI-to-customize-accept_languages.patch
 patches/bb-patches/0001-BB-42084-Ensure-English-spoofing-works-even-if-prefe.patch
-patches/bb-patches/0001-BB-42288-Allow-language-spoofing-in-status-messages.patch
