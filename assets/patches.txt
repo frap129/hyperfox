@@ -43,6 +43,3 @@ patches/bb-patches/0001-BB-30541-Disable-WebGL-readPixel-for-web-content.patch
 patches/bb-patches/0001-BB-41930-Remove-the-UI-to-customize-accept_languages.patch
 patches/bb-patches/0001-BB-42084-Ensure-English-spoofing-works-even-if-prefe.patch
 patches/bb-patches/0001-BB-42288-Allow-language-spoofing-in-status-messages.patch
-patches/bb-patches/0001-BB-32308-Use-direct-browser-sizing-for-letterboxing.patch
-patches/bb-patches/0001-BB-41631-Prevent-weird-initial-window-dimensions-cau.patch
-patches/bb-patches/0001-BB-41918-Option-to-reuse-last-window-size-when-lette.patch
