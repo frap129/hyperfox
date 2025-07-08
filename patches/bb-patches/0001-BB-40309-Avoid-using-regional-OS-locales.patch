@@ -1,4 +1,4 @@
-From b08959b89d1df90fb74098363d5d6a0f32e13059 Mon Sep 17 00:00:00 2001
+From a862639b1170167aea64c74a99e98f343ebef01c Mon Sep 17 00:00:00 2001
 From: Pier Angelo Vendrame <pierov@torproject.org>
 Date: Wed, 18 May 2022 19:22:37 +0200
 Subject: [PATCH] BB 40309: Avoid using regional OS locales
@@ -6,22 +6,14 @@ Subject: [PATCH] BB 40309: Avoid using regional OS locales
 Avoid regional OS locales if the pref
 `intl.regional_prefs.use_os_locales` is false but RFP is enabled.
 ---
- intl/locale/LocaleService.cpp | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ intl/locale/LocaleService.cpp | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/intl/locale/LocaleService.cpp b/intl/locale/LocaleService.cpp
-index a56a1575da..e87502b5e5 100644
+index da9e82cbee..4d69dfcca5 100644
 --- a/intl/locale/LocaleService.cpp
 +++ b/intl/locale/LocaleService.cpp
-@@ -14,6 +14,7 @@
- #include "mozilla/intl/AppDateTimeFormat.h"
- #include "mozilla/intl/Locale.h"
- #include "mozilla/intl/OSPreferences.h"
-+#include "nsContentUtils.h"
- #include "nsDirectoryService.h"
- #include "nsDirectoryServiceDefs.h"
- #include "nsIObserverService.h"
-@@ -484,6 +485,16 @@ LocaleService::GetAppLocaleAsBCP47(nsACString& aRetVal) {
+@@ -486,6 +486,16 @@ LocaleService::GetAppLocaleAsBCP47(nsACString& aRetVal) {
  
  NS_IMETHODIMP
  LocaleService::GetRegionalPrefsLocales(nsTArray<nsCString>& aRetVal) {
@@ -39,5 +31,5 @@ index a56a1575da..e87502b5e5 100644
        Preferences::GetBool("intl.regional_prefs.use_os_locales", false);
  
 -- 
-2.49.0
+2.50.0
 

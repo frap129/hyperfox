@@ -1,76 +1,36 @@
-From cbdad901ac3029bc8b7722c7e0dbaeb428a3002c Mon Sep 17 00:00:00 2001
+From 3fc7fead77c13c524e1805516af15a04f636d907 Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Sun, 11 Dec 2022 13:28:57 +0100
 Subject: [PATCH] BB 32308: Use direct browser sizing for letterboxing.
 
 Bug 30556: align letterboxing with 200x100 new win width stepping
 ---
- browser/actors/RFPHelperParent.sys.mjs        |  33 -----
- browser/app/profile/firefox.js                |   5 +
- .../tabbrowser/content/tabbrowser.js          |   4 +
- .../resistfingerprinting/RFPHelper.sys.mjs    |  19 +++
- .../content/letterboxing.css                  | 118 +++++++++++++++---
- toolkit/themes/shared/findbar.css             |   8 ++
- 6 files changed, 140 insertions(+), 47 deletions(-)
- delete mode 100644 browser/actors/RFPHelperParent.sys.mjs
+ browser/app/profile/001-base-profile.js       |  4 +
+ .../tabbrowser/content/tabbrowser.js          |  4 +
+ .../resistfingerprinting/RFPHelper.sys.mjs    | 19 ++++
+ .../content/letterboxing.css                  | 93 +++++++++++++++++++
+ 4 files changed, 120 insertions(+)
 
-diff --git a/browser/actors/RFPHelperParent.sys.mjs b/browser/actors/RFPHelperParent.sys.mjs
-deleted file mode 100644
-index 0e4e3e8be6..0000000000
---- a/browser/actors/RFPHelperParent.sys.mjs
-+++ /dev/null
-@@ -1,33 +0,0 @@
--1; /* -*- indent-tabs-mode: nil; js-indent-level: 2 -*- */
--/* This Source Code Form is subject to the terms of the Mozilla Public
-- * License, v. 2.0. If a copy of the MPL was not distributed with this
-- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
--
--import { XPCOMUtils } from "resource://gre/modules/XPCOMUtils.sys.mjs";
--
--const lazy = {};
--ChromeUtils.defineESModuleGetters(lazy, {
--  RFPHelper: "resource://gre/modules/RFPHelper.sys.mjs",
--});
--
--const kPrefLetterboxing = "privacy.resistFingerprinting.letterboxing";
--
--XPCOMUtils.defineLazyPreferenceGetter(
--  lazy,
--  "isLetterboxingEnabled",
--  kPrefLetterboxing,
--  false
--);
--
--export class RFPHelperParent extends JSWindowActorParent {
--  receiveMessage(aMessage) {
--    if (
--      lazy.isLetterboxingEnabled &&
--      aMessage.name == "Letterboxing:ContentSizeUpdated"
--    ) {
--      let browser = this.browsingContext.top.embedderElement;
--      let window = browser.ownerGlobal;
--      lazy.RFPHelper.contentSizeUpdated(window);
--    }
--  }
--}
-diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index 78572e5480..17a5d47066 100644
---- a/browser/app/profile/firefox.js
-+++ b/browser/app/profile/firefox.js
-@@ -3363,3 +3363,8 @@ pref("toolkit.contentRelevancy.enabled", false);
- pref("toolkit.contentRelevancy.ingestEnabled", false);
- // Pref to enable extra logging for the content relevancy feature
- pref("toolkit.contentRelevancy.log", false);
-+
+diff --git a/browser/app/profile/001-base-profile.js b/browser/app/profile/001-base-profile.js
+index ade265e4fd..36accb78a2 100644
+--- a/browser/app/profile/001-base-profile.js
++++ b/browser/app/profile/001-base-profile.js
+@@ -450,6 +450,10 @@ pref("security.remote_settings.intermediates.enabled", false);
+ pref("dom.use_components_shim", false);
+ // Enable letterboxing
+ pref("privacy.resistFingerprinting.letterboxing", true);
 +// tor-browser#41917: Center letterboxed area vertically
 +pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
 +// tor-browser#41917: Letterboxing gradient background
 +pref("privacy.resistFingerprinting.letterboxing.gradient", true);
+ // tor-browser#43402: Avoid a resize from the skeleton to the newwin size.
+ // Should be fixed in ESR-140 with Bug 1448423.
+ pref("browser.startup.blankWindow", false);
 diff --git a/browser/components/tabbrowser/content/tabbrowser.js b/browser/components/tabbrowser/content/tabbrowser.js
-index 5f406ea5d0..9785ab7799 100644
+index 37570c54b0..bcd077096f 100644
 --- a/browser/components/tabbrowser/content/tabbrowser.js
 +++ b/browser/components/tabbrowser/content/tabbrowser.js
-@@ -2204,6 +2204,10 @@
+@@ -2232,6 +2232,10 @@
        stack.className = "browserStack";
        stack.appendChild(b);
  
@@ -82,7 +42,7 @@ index 5f406ea5d0..9785ab7799 100644
        browserContainer.className = "browserContainer";
        browserContainer.appendChild(stack);
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 56ebb0f0ee..8380e07dfd 100644
+index 31706bcf3e..1cbaa8d001 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 @@ -15,6 +15,10 @@ const kPrefLetterboxingDimensions =
@@ -114,7 +74,7 @@ index 56ebb0f0ee..8380e07dfd 100644
 +    Services.prefs.removeObserver(kPrefLetterboxingVcenter, this);
      Services.prefs.removeObserver(kPrefLetterboxing, this);
      // Remove the RFP observers, swallowing exceptions if they weren't present
-     this._removeRFPObservers();
+     this._removeLanguagePrefObservers();
 @@ -133,6 +142,8 @@ class _RFPHelper {
          this._handleSpoofEnglishChanged();
          break;
@@ -124,7 +84,7 @@ index 56ebb0f0ee..8380e07dfd 100644
          this._handleLetterboxingPrefChanged();
          break;
        default:
-@@ -601,6 +612,14 @@ class _RFPHelper {
+@@ -600,6 +611,14 @@ class _RFPHelper {
      let tabBrowser = aWindow.gBrowser;
  
      tabBrowser.tabpanels?.classList.add("letterboxing");
@@ -140,23 +100,42 @@ index 56ebb0f0ee..8380e07dfd 100644
      for (let tab of tabBrowser.tabs) {
        let browser = tab.linkedBrowser;
 diff --git a/toolkit/components/resistfingerprinting/content/letterboxing.css b/toolkit/components/resistfingerprinting/content/letterboxing.css
-index 4943fa9686..646444b3fa 100644
+index 4943fa9686..644883337d 100644
 --- a/toolkit/components/resistfingerprinting/content/letterboxing.css
 +++ b/toolkit/components/resistfingerprinting/content/letterboxing.css
-@@ -8,26 +8,116 @@
-  * respectively), where --letterboxing-width & --letterboxing-height are
-  * actually set.
+@@ -10,6 +10,14 @@
   */
-+.letterboxing .browserContainer {
-+  /*
-+  From Firefox 115 on, .browserContainer layout is flex / column,
-+  and without this trick the .browserStack's resize observer
-+  doesn't get notified on horizontal shrinking.
-+  See also tor-browser#42405.
-+  */
-+  overflow: hidden;
-+  background: var(--letterboxing-bgcolor);
-+}
+ .letterboxing {
+   --letterboxing-bgcolor: var(--tabpanel-background-color);
++  --letterboxing-border-radius: 8px;
++  --letterboxing-border-top-radius: 0;
++  --letterboxing-vertical-alignment: start;
++  --letterboxing-shadow-color: rgba(12, 12, 13, 0.10);
++  --letterboxing-gradient-color1: var(--letterboxing-bgcolor);
++  --letterboxing-gradient-color2: color-mix(in srgb, var(--chrome-content-separator-color) 50%, var(--letterboxing-bgcolor));
++  --letterboxing-border-color: var(--letterboxing-bgcolor);
++  --letterboxing-decorator-visibility: visible;
+ 
+   .browserContainer {
+     /*
+@@ -22,8 +30,13 @@
+   }
+ 
+   .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) > browser {
++    box-shadow: 0 4px 8px 0 var(--letterboxing-shadow-color);
++    border-radius: var(--letterboxing-border-radius);
++    border-top-left-radius: var(--letterboxing-border-top-radius);
++    border-top-right-radius: var(--letterboxing-border-top-radius);
+     width: var(--letterboxing-width) !important;
+     height: var(--letterboxing-height) !important;
++    background: var(--letterboxing-gradient-color2);
+   }
+ }
+ 
+@@ -31,3 +44,83 @@
+   > .browserStack:not(.exclude-letterboxing) {
+   place-content: start center;
+ }
 +
 +.browserDecorator {
 +  display: none;
@@ -166,36 +145,11 @@ index 4943fa9686..646444b3fa 100644
 +  z-index: 1;
 +}
 +
- .letterboxing {
-+  --letterboxing-border-radius: 8px;
-+  --letterboxing-border-top-radius: 0;
-+  --letterboxing-vertical-alignment: start;
-+  --letterboxing-shadow-color: rgba(12, 12, 13, 0.10);
-   --letterboxing-bgcolor: var(--tabpanel-background-color);
-+  --letterboxing-gradient-color1: var(--letterboxing-bgcolor);
-+  --letterboxing-gradient-color2: color-mix(in srgb, var(--chrome-content-separator-color) 50%, var(--letterboxing-bgcolor));
-+  --letterboxing-border-color: var(--letterboxing-bgcolor);
-+  --letterboxing-decorator-visibility: visible;
-+}
- 
--  .browserContainer {
--    /*
--     * From Firefox 115 on, .browserContainer layout is flex / column,
--     * and without this trick the .browserStack's resize observer
--     * doesn't get notified on horizontal shrinking.
--     */
--    overflow: hidden;
--    background: var(--letterboxing-bgcolor);
--  }
 +.letterboxing.letterboxing-vcenter .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) {
 +  --letterboxing-border-top-radius: var(--letterboxing-border-radius);
 +  --letterboxing-vertical-alignment: center;
 +}
- 
--  .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) > browser {
--    width: var(--letterboxing-width) !important;
--    height: var(--letterboxing-height) !important;
--  }
++
 +.letterboxing.letterboxing-gradient .browserContainer {
 +  background: linear-gradient(283deg, var(--letterboxing-gradient-color1) 0%, var(--letterboxing-gradient-color2) 100%), var(--letterboxing-bgcolor);
 +}
@@ -208,7 +162,7 @@ index 4943fa9686..646444b3fa 100644
 +  border-radius: var(--letterboxing-border-radius);
 +  border-top-left-radius: var(--letterboxing-border-top-radius);
 +  border-top-right-radius: var(--letterboxing-border-top-radius);
-+  box-shadow: var(--letterboxing-border-color) 0px 0px .1px inset, var(--letterboxing-border-color) 0 0 .1px;
++  box-shadow: var(--letterboxing-border-color) 0 0 .1px inset, var(--letterboxing-border-color) 0 0 .1px;
 +  border: .1px solid var(--letterboxing-border-color);
 +  outline: .1px solid var(--letterboxing-bgcolor);
 +  height: calc(var(--letterboxing-height) + 1px);
@@ -253,46 +207,15 @@ index 4943fa9686..646444b3fa 100644
 +  max-width: calc(var(--letterboxing-width) * .5);
 +}
 +
-+.letterboxing .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) > browser {
-+  box-shadow: 0px 4px 8px 0px var(--letterboxing-shadow-color);
-+  border-radius: var(--letterboxing-border-radius);
-+  border-top-left-radius: var(--letterboxing-border-top-radius);
-+  border-top-right-radius: var(--letterboxing-border-top-radius);
-+  width: var(--letterboxing-width) !important;
-+  height: var(--letterboxing-height) !important;
-+  background: var(--letterboxing-gradient-color2);
-+}
-+
 +browser:fullscreen {
 +  --letterboxing-border-top-radius: 0;
 +  --letterboxing-border-radius: 0;
- }
- 
- :root:not([inDOMFullscreen]) .letterboxing.letterboxing-ready .browserContainer:not(.responsive-mode)
-   > .browserStack:not(.exclude-letterboxing) {
--  place-content: start center;
++}
++
++:root:not([inDOMFullscreen]) .letterboxing.letterboxing-ready .browserContainer:not(.responsive-mode)
++  > .browserStack:not(.exclude-letterboxing) {
 +  place-content: var(--letterboxing-vertical-alignment) center;
- }
-+
-diff --git a/toolkit/themes/shared/findbar.css b/toolkit/themes/shared/findbar.css
-index 97fa6e739f..206d3b9e3a 100644
---- a/toolkit/themes/shared/findbar.css
-+++ b/toolkit/themes/shared/findbar.css
-@@ -43,6 +43,14 @@ xul|findbar {
-     transition-duration: 0s;
-     transition-delay: 0s;
-   }
-+
-+  /* When letterboxing is in use, we do not transition to avoid layout jank.
-+   * This has an additional benefit that the find bar cannot be used to
-+   * fingerprint prefers-reduced-motion. See tor-browser#42764. */
-+  .letterboxing & {
-+    transition-duration: 0s;
-+    transition-delay: 0s;
-+  }
- }
- 
- .findbar-container {
++}
 -- 
-2.49.0
+2.50.0
 
