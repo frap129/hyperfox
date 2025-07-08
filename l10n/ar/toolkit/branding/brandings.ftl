@@ -1,0 +1,7 @@
+-screenshots-brand-name = لقطات الشاشة
+-profiler-brand-name = أداة تحليل الأداء
+-translations-brand-name = الترجمات
+-firefox-suggest-brand-name = الاقتراحات
+-firefox-home-brand-name = الصفحة الرئيسية
+-firefoxview-brand-name = عرض علامات التبويب
+-firefoxlabs-brand-name = الميزات التجريبية

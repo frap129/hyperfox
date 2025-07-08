@@ -1,1 +1,1 @@
-identity-allow-site-data = LibreWolf: Bu site için kurabiyeleri/verileri her zaman sakla
+identity-allow-site-data = LibreWolf: Bu site için çerezleri/verileri her zaman sakla
