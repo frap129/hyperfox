@@ -50,12 +50,9 @@ Downstream distribution packages:
 
 * [Alpine Linux aport](https://pkgs.alpinelinux.org/packages?name=librewolf&arch=)
 
-Currently active (and known) forks:
-
-* Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
-
 Previous forks:
 
+* Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
 * FireDragon: https://github.com/dr460nf1r3/firedragon-browser
 
 ## LibreWolf build instructions
