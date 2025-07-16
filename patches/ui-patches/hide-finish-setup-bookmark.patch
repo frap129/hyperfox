@@ -1,14 +1,22 @@
 diff --git a/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs b/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs
-index fd7c0ce3dd..9abdf937d7 100644
+index 3bf3e12062a2..8032c6d7c4b0 100644
 --- a/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs
 +++ b/browser/components/asrouter/modules/OnboardingMessageProvider.sys.mjs
-@@ -1430,8 +1430,7 @@
-     trigger: {
-       id: "defaultBrowserCheck",
+@@ -1591,7 +1591,7 @@ const BASE_MESSAGES = () => [
      },
--    targeting:
--      "source == 'startup' && ((currentDate|date - profileAgeCreated|date) / 86400000 <= 7) && localeLanguageCode == 'en'",
-+    targeting: "false",
-   },
-   {
-     id: "FINISH_SETUP_CHECKLIST",
+     priority: 3,
+     targeting:
+-      "'messaging-system-action.easyChecklist.open' | preferenceValue == true",
++      "false",
+     trigger: {
+       id: "preferenceObserver",
+       params: ["messaging-system-action.easyChecklist.open"],
+@@ -1795,7 +1795,7 @@ const BASE_MESSAGES = () => [
+     },
+     priority: 3,
+     targeting:
+-      "'messaging-system-action.easyChecklist.open' | preferenceValue == true",
++      "false",
+     trigger: {
+       id: "messagesLoaded",
+     },
