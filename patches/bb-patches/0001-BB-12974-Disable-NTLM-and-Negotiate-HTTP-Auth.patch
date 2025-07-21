@@ -1,0 +1,44 @@
+From 65927b97897600ef72dce9934df0dec41c1cbe1b Mon Sep 17 00:00:00 2001
+From: Mike Perry <mikeperry-git@torproject.org>
+Date: Wed, 27 Aug 2014 15:19:10 -0700
+Subject: [PATCH] BB 12974: Disable NTLM and Negotiate HTTP Auth
+
+The Mozilla bugs: https://bugzilla.mozilla.org/show_bug.cgi?id=1046421,
+https://bugzilla.mozilla.org/show_bug.cgi?id=1261591, tor-browser#27602
+---
+ extensions/auth/nsHttpNegotiateAuth.cpp  | 4 ++++
+ netwerk/protocol/http/nsHttpNTLMAuth.cpp | 3 +++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/extensions/auth/nsHttpNegotiateAuth.cpp b/extensions/auth/nsHttpNegotiateAuth.cpp
+index a3ec224b59..46da4d015f 100644
+--- a/extensions/auth/nsHttpNegotiateAuth.cpp
++++ b/extensions/auth/nsHttpNegotiateAuth.cpp
+@@ -145,6 +145,10 @@ nsHttpNegotiateAuth::ChallengeReceived(nsIHttpAuthenticableChannel* authChannel,
+   nsIAuthModule* rawModule = (nsIAuthModule*)*continuationState;
+ 
+   *identityInvalid = false;
++
++  /* Always fail Negotiate auth for Tor Browser. We don't need it. */
++  return NS_ERROR_ABORT;
++
+   if (rawModule) {
+     return NS_OK;
+   }
+diff --git a/netwerk/protocol/http/nsHttpNTLMAuth.cpp b/netwerk/protocol/http/nsHttpNTLMAuth.cpp
+index 0d8f5f083a..c02bd97d69 100644
+--- a/netwerk/protocol/http/nsHttpNTLMAuth.cpp
++++ b/netwerk/protocol/http/nsHttpNTLMAuth.cpp
+@@ -167,6 +167,9 @@ nsHttpNTLMAuth::ChallengeReceived(nsIHttpAuthenticableChannel* channel,
+ 
+   *identityInvalid = false;
+ 
++  /* Always fail Negotiate auth for Tor Browser. We don't need it. */
++  return NS_ERROR_ABORT;
++
+   // Start a new auth sequence if the challenge is exactly "NTLM".
+   // If native NTLM auth apis are available and enabled through prefs,
+   // try to use them.
+-- 
+2.50.1
+

@@ -36,6 +36,10 @@ patches/bb-patches/0001-BB-26353-Prevent-speculative-connect-that-violated-F.pat
 patches/bb-patches/0001-BB-40309-Avoid-using-regional-OS-locales.patch
 patches/bb-patches/0001-BB-40432-Prevent-probing-installed-applications.patch
 patches/bb-patches/0001-BB-42220-Allow-for-more-file-types-to-be-forced-inli.patch
+patches/bb-patches/0001-BB-42835-Create-an-actor-to-filter-file-data-transfe.patch
+patches/bb-patches/0001-BB-12974-Disable-NTLM-and-Negotiate-HTTP-Auth.patch
+patches/bb-patches/0001-BB-42773-Replace-with-the-original-home.patch
+patches/bb-patches/0001-BB-42019-Empty-browser-s-clipboard-on-browser-shutdo.patch
 patches/bb-patches/0001-BB-43386-Use-Firefox-in-the-UA-in-RFP-exempt-request.patch 
 patches/bb-patches/0001-BB-13028-Prevent-potential-proxy-bypass-cases.patch
 patches/bb-patches/0001-BB-29745-Limit-remote-access-to-content-accessible-r.patch
@@ -45,3 +49,4 @@ patches/bb-patches/0001-BB-42084-Ensure-English-spoofing-works-even-if-prefe.pat
 patches/bb-patches/0001-BB-32308-Use-direct-browser-sizing-for-letterboxing.patch
 patches/bb-patches/0001-BB-41631-Prevent-weird-initial-window-dimensions-cau.patch
 patches/bb-patches/0001-BB-41918-Option-to-reuse-last-window-size-when-lette.patch
+
