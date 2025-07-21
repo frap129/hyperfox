@@ -1,4 +1,4 @@
-From 69a062f5f3319ca1cc60cde8652e84f418c4329f Mon Sep 17 00:00:00 2001
+From 2a3346d475d7d16aac330e3e4858befdf6c0a3b2 Mon Sep 17 00:00:00 2001
 From: Pier Angelo Vendrame <pierov@torproject.org>
 Date: Tue, 10 Sep 2024 18:54:30 +0200
 Subject: [PATCH] BB 42220: Allow for more file types to be forced-inline.
@@ -11,32 +11,14 @@ A preference allows PDFs to be opened without being downloaded to disk.
 So, we introduce a similar one to do the same for all the files that are
 set to be opened automatically in the browser.
 ---
- modules/libpref/init/StaticPrefList.yaml |  6 ++++++
- uriloader/base/nsURILoader.cpp           | 11 +++++++----
- 2 files changed, 13 insertions(+), 4 deletions(-)
+ uriloader/base/nsURILoader.cpp | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
-index 782ecd4108..f910874a9c 100644
---- a/modules/libpref/init/StaticPrefList.yaml
-+++ b/modules/libpref/init/StaticPrefList.yaml
-@@ -1605,6 +1605,12 @@
-   value: false
-   mirror: always
- 
-+# tor-browser#42220
-+- name: browser.download.ignore_content_disposition
-+  type: bool
-+  value: true
-+  mirror: always
-+
- # See bug 1811830
- - name: browser.download.force_save_internally_handled_attachments
-   type: bool
 diff --git a/uriloader/base/nsURILoader.cpp b/uriloader/base/nsURILoader.cpp
-index 043c0cc25b..5fe518a1c0 100644
+index 7b77b667ad..fce2b291e2 100644
 --- a/uriloader/base/nsURILoader.cpp
 +++ b/uriloader/base/nsURILoader.cpp
-@@ -431,18 +431,21 @@ nsresult nsDocumentOpenInfo::DispatchContent(nsIRequest* request) {
+@@ -432,17 +432,21 @@ nsresult nsDocumentOpenInfo::DispatchContent(nsIRequest* request) {
  
    bool maybeForceInternalHandling =
        forceExternalHandling &&
@@ -46,9 +28,8 @@ index 043c0cc25b..5fe518a1c0 100644
  
    // Check if this is a PDF which should be opened internally. We also handle
    // octet-streams that look like they might be PDFs based on their extension.
--  if ((maybeForceInternalHandling || IsSandboxed(aChannel)) &&
--      IsContentPDF(aChannel, mContentType)) {
-+  if ((maybeForceInternalHandling || IsSandboxed(aChannel))) {
+-  if (maybeForceInternalHandling && IsContentPDF(aChannel, mContentType)) {
++  if (maybeForceInternalHandling) {
      // For a PDF, check if the preference is set that forces attachments to be
      // opened inline. If so, treat it as a non-attachment by clearing
      // 'forceExternalHandling' again. This allows it open a PDF directly
@@ -63,5 +44,5 @@ index 043c0cc25b..5fe518a1c0 100644
        return result.unwrapErr();
      }
 -- 
-2.50.0
+2.50.1
 

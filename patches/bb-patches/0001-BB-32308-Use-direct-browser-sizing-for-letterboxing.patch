@@ -1,36 +1,36 @@
-From 3fc7fead77c13c524e1805516af15a04f636d907 Mon Sep 17 00:00:00 2001
+From 10640b583842db1533a61f6b6087d82b0dd8f8cc Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Sun, 11 Dec 2022 13:28:57 +0100
 Subject: [PATCH] BB 32308: Use direct browser sizing for letterboxing.
 
 Bug 30556: align letterboxing with 200x100 new win width stepping
 ---
- browser/app/profile/001-base-profile.js       |  4 +
+ browser/app/profile/firefox.js                |  7 ++
  .../tabbrowser/content/tabbrowser.js          |  4 +
  .../resistfingerprinting/RFPHelper.sys.mjs    | 19 ++++
  .../content/letterboxing.css                  | 93 +++++++++++++++++++
- 4 files changed, 120 insertions(+)
+ 4 files changed, 123 insertions(+)
 
-diff --git a/browser/app/profile/001-base-profile.js b/browser/app/profile/001-base-profile.js
-index ade265e4fd..36accb78a2 100644
---- a/browser/app/profile/001-base-profile.js
-+++ b/browser/app/profile/001-base-profile.js
-@@ -450,6 +450,10 @@ pref("security.remote_settings.intermediates.enabled", false);
- pref("dom.use_components_shim", false);
- // Enable letterboxing
- pref("privacy.resistFingerprinting.letterboxing", true);
+diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
+index 5d16a404aa..a3ac9d5cb2 100644
+--- a/browser/app/profile/firefox.js
++++ b/browser/app/profile/firefox.js
+@@ -3400,3 +3400,10 @@ pref("browser.ipProtection.enabled", false);
+ 
+ // Empty clipboard content from private windows on exit (tor-browser#42154)
+ pref("browser.privatebrowsing.preserveClipboard", false);
++
++// Enable letterboxing
++pref("privacy.resistFingerprinting.letterboxing", false);
 +// tor-browser#41917: Center letterboxed area vertically
 +pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
 +// tor-browser#41917: Letterboxing gradient background
 +pref("privacy.resistFingerprinting.letterboxing.gradient", true);
- // tor-browser#43402: Avoid a resize from the skeleton to the newwin size.
- // Should be fixed in ESR-140 with Bug 1448423.
- pref("browser.startup.blankWindow", false);
 diff --git a/browser/components/tabbrowser/content/tabbrowser.js b/browser/components/tabbrowser/content/tabbrowser.js
-index 37570c54b0..bcd077096f 100644
+index 96fd8acdc0..b76ca030c6 100644
 --- a/browser/components/tabbrowser/content/tabbrowser.js
 +++ b/browser/components/tabbrowser/content/tabbrowser.js
-@@ -2232,6 +2232,10 @@
+@@ -2248,6 +2248,10 @@
        stack.className = "browserStack";
        stack.appendChild(b);
  
@@ -42,7 +42,7 @@ index 37570c54b0..bcd077096f 100644
        browserContainer.className = "browserContainer";
        browserContainer.appendChild(stack);
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 31706bcf3e..1cbaa8d001 100644
+index 9770219f6c..13808565d0 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 @@ -15,6 +15,10 @@ const kPrefLetterboxingDimensions =
@@ -66,7 +66,7 @@ index 31706bcf3e..1cbaa8d001 100644
      XPCOMUtils.defineLazyPreferenceGetter(
        this,
        "_letterboxingDimensions",
-@@ -82,6 +89,8 @@ class _RFPHelper {
+@@ -79,6 +86,8 @@ class _RFPHelper {
  
      // Remove unconditional observers
      Services.prefs.removeObserver(kPrefResistFingerprinting, this);
@@ -75,7 +75,7 @@ index 31706bcf3e..1cbaa8d001 100644
      Services.prefs.removeObserver(kPrefLetterboxing, this);
      // Remove the RFP observers, swallowing exceptions if they weren't present
      this._removeLanguagePrefObservers();
-@@ -133,6 +142,8 @@ class _RFPHelper {
+@@ -129,6 +138,8 @@ class _RFPHelper {
          this._handleSpoofEnglishChanged();
          break;
        case kPrefLetterboxing:
@@ -84,7 +84,7 @@ index 31706bcf3e..1cbaa8d001 100644
          this._handleLetterboxingPrefChanged();
          break;
        default:
-@@ -600,6 +611,14 @@ class _RFPHelper {
+@@ -593,6 +604,14 @@ class _RFPHelper {
      let tabBrowser = aWindow.gBrowser;
  
      tabBrowser.tabpanels?.classList.add("letterboxing");
@@ -100,7 +100,7 @@ index 31706bcf3e..1cbaa8d001 100644
      for (let tab of tabBrowser.tabs) {
        let browser = tab.linkedBrowser;
 diff --git a/toolkit/components/resistfingerprinting/content/letterboxing.css b/toolkit/components/resistfingerprinting/content/letterboxing.css
-index 4943fa9686..644883337d 100644
+index 491cda5094..69ff433601 100644
 --- a/toolkit/components/resistfingerprinting/content/letterboxing.css
 +++ b/toolkit/components/resistfingerprinting/content/letterboxing.css
 @@ -10,6 +10,14 @@
@@ -118,7 +118,7 @@ index 4943fa9686..644883337d 100644
  
    .browserContainer {
      /*
-@@ -22,8 +30,13 @@
+@@ -22,11 +30,96 @@
    }
  
    .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) > browser {
@@ -132,8 +132,7 @@ index 4943fa9686..644883337d 100644
    }
  }
  
-@@ -31,3 +44,83 @@
-   > .browserStack:not(.exclude-letterboxing) {
+ :root:not([inDOMFullscreen]) .letterboxing.letterboxing-ready .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) {
    place-content: start center;
  }
 +
@@ -217,5 +216,5 @@ index 4943fa9686..644883337d 100644
 +  place-content: var(--letterboxing-vertical-alignment) center;
 +}
 -- 
-2.50.0
+2.50.1
 

@@ -1,4 +1,4 @@
-From dca0d8ababdf1a26d74ed1efc767dff444d06d3b Mon Sep 17 00:00:00 2001
+From 7b43855d1bd6aeae069b73ac721c2723c64d239f Mon Sep 17 00:00:00 2001
 From: Pier Angelo Vendrame <pierov@torproject.org>
 Date: Tue, 7 May 2024 17:50:20 +0200
 Subject: [PATCH] BB 41930: Remove the UI to customize accept_languages.
@@ -10,10 +10,10 @@ Subject: [PATCH] BB 41930: Remove the UI to customize accept_languages.
  3 files changed, 28 insertions(+), 4 deletions(-)
 
 diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
-index 54eb4aec9c..14927ecb62 100644
+index 6e5532ced8..9d23d9e298 100644
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
-@@ -398,6 +398,7 @@
+@@ -406,6 +406,7 @@
    </hbox>
  
    <hbox id="languagesBox" align="center">
@@ -21,7 +21,7 @@ index 54eb4aec9c..14927ecb62 100644
      <description flex="1" control="chooseLanguage" data-l10n-id="choose-language-description"/>
      <button id="chooseLanguage"
              is="highlightable-button"
-@@ -412,6 +413,9 @@
+@@ -420,6 +421,9 @@
                languages-customize-select-language.placeholder,
                languages-customize-add.label,
              " />
@@ -32,10 +32,10 @@ index 54eb4aec9c..14927ecb62 100644
  
    <checkbox id="useSystemLocale" hidden="true"
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 8d870b8b87..bbc8b64435 100644
+index fe350be72f..a77df4b58f 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -499,7 +499,23 @@ var gMainPane = {
+@@ -690,7 +690,23 @@ var gMainPane = {
        "command",
        makeDisableControllingExtension(PREF_SETTING_TYPE, CONTAINERS_KEY)
      );
@@ -61,10 +61,10 @@ index 8d870b8b87..bbc8b64435 100644
      setEventListener(
        "fxtranslateButton",
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 6b90dd7dd8..56ebb0f0ee 100644
+index 1118328b5c..9770219f6c 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-@@ -181,9 +181,13 @@ class _RFPHelper {
+@@ -175,9 +175,13 @@ class _RFPHelper {
        // Works like disabling accept-language spoofing.
        // fall through
        case 1: // don't spoof
@@ -82,5 +82,5 @@ index 6b90dd7dd8..56ebb0f0ee 100644
        case 2: // spoof
          Services.prefs.setCharPref("intl.accept_languages", "en-US, en");
 -- 
-2.49.0
+2.50.1
 

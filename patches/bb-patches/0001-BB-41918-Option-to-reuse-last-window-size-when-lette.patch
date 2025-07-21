@@ -1,54 +1,36 @@
-From e4f4840f3884e073686440d3c2cba85aec46c916 Mon Sep 17 00:00:00 2001
+From 2a6da12a4d71d34e1b91a9147273629ae1d7d8db Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Wed, 6 Mar 2024 14:15:53 +0100
 Subject: [PATCH] BB 41918: Option to reuse last window size when letterboxing
  is enabled.
 
 ---
- browser/app/profile/001-base-profile.js             |  2 ++
- browser/components/BrowserGlue.sys.mjs              |  5 +++++
+ browser/app/profile/firefox.js                      |  4 ++++
  dom/base/nsContentUtils.cpp                         | 12 ++++++++++++
  dom/base/nsContentUtils.h                           |  4 ++++
  .../resistfingerprinting/RFPHelper.sys.mjs          | 12 +++++++++++-
  .../components/windowwatcher/nsWindowWatcher.cpp    |  3 ++-
  toolkit/xre/nsAppRunner.cpp                         |  2 ++
  xpfe/appshell/AppWindow.cpp                         | 13 ++++++++++---
- 8 files changed, 48 insertions(+), 5 deletions(-)
+ 7 files changed, 45 insertions(+), 5 deletions(-)
 
-diff --git a/browser/app/profile/001-base-profile.js b/browser/app/profile/001-base-profile.js
-index 36accb78a2..24a05212f4 100644
---- a/browser/app/profile/001-base-profile.js
-+++ b/browser/app/profile/001-base-profile.js
-@@ -454,6 +454,8 @@ pref("privacy.resistFingerprinting.letterboxing", true);
+diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
+index a3ac9d5cb2..df5c71ecce 100644
+--- a/browser/app/profile/firefox.js
++++ b/browser/app/profile/firefox.js
+@@ -3407,3 +3407,7 @@ pref("privacy.resistFingerprinting.letterboxing", false);
  pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
  // tor-browser#41917: Letterboxing gradient background
  pref("privacy.resistFingerprinting.letterboxing.gradient", true);
 +// tor-browser#41918: Should we reuse last window sizes if letterboxing is enabled
 +pref("privacy.resistFingerprinting.letterboxing.rememberSize", false);
- // tor-browser#43402: Avoid a resize from the skeleton to the newwin size.
- // Should be fixed in ESR-140 with Bug 1448423.
- pref("browser.startup.blankWindow", false);
-diff --git a/browser/components/BrowserGlue.sys.mjs b/browser/components/BrowserGlue.sys.mjs
-index 6cd9ad8d5a..81a5f9ec5a 100644
---- a/browser/components/BrowserGlue.sys.mjs
-+++ b/browser/components/BrowserGlue.sys.mjs
-@@ -859,6 +859,11 @@ BrowserGlue.prototype = {
-         return false;
-       }
- 
-+      // We don't want to mess up with RFP new window / letterboxing machinery.
-+      if (Services.prefs.getBoolPref("privacy.resistFingerprinting", false)) {
-+        return false;
-+      }
-+
-       let width = getValue("width");
-       let height = getValue("height");
- 
++// tor-browser#43904: Enable this so we skip the blank window if user is resisting fingerprinting.
++pref("privacy.resistFingerprinting.skipEarlyBlankFirstPaint", true);
 diff --git a/dom/base/nsContentUtils.cpp b/dom/base/nsContentUtils.cpp
-index 787d4c4e22..c1b161d710 100644
+index 67f8e934ce..bb26c63114 100644
 --- a/dom/base/nsContentUtils.cpp
 +++ b/dom/base/nsContentUtils.cpp
-@@ -2939,6 +2939,18 @@ void nsContentUtils::CalcRoundedWindowSizeForResistingFingerprinting(
+@@ -2940,6 +2940,18 @@ void nsContentUtils::CalcRoundedWindowSizeForResistingFingerprinting(
    *aOutputHeight = resultHeight;
  }
  
@@ -68,7 +50,7 @@ index 787d4c4e22..c1b161d710 100644
    return NS_IsMainThread() ? IsCallerChrome()
                             : IsCurrentThreadRunningChromeWorker();
 diff --git a/dom/base/nsContentUtils.h b/dom/base/nsContentUtils.h
-index 7d89626774..9b5e389df9 100644
+index 84890a39e6..db70882eba 100644
 --- a/dom/base/nsContentUtils.h
 +++ b/dom/base/nsContentUtils.h
 @@ -420,6 +420,10 @@ class nsContentUtils {
@@ -83,7 +65,7 @@ index 7d89626774..9b5e389df9 100644
     * Returns the parent node of aChild crossing document boundaries, but skips
     * any cross-process parent frames and continues with the nearest in-process
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 60150544d1..d47dbc041e 100644
+index be042241c9..994fb478d7 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 @@ -20,6 +20,10 @@ const kPrefLetterboxingVcenter =
@@ -97,7 +79,7 @@ index 60150544d1..d47dbc041e 100644
  
  const kTopicDOMWindowOpened = "domwindowopened";
  const kTopicDOMWindowClosed = "domwindowclosed";
-@@ -150,6 +154,7 @@ class _RFPHelper {
+@@ -147,12 +151,15 @@ class _RFPHelper {
    _handlePrefChanged(data) {
      switch (data) {
        case kPrefResistFingerprinting:
@@ -105,7 +87,6 @@ index 60150544d1..d47dbc041e 100644
          this._handleResistFingerprintingChanged();
          break;
        case kPrefSpoofEnglish:
-@@ -157,6 +162,8 @@ class _RFPHelper {
          this._handleSpoofEnglishChanged();
          break;
        case kPrefLetterboxing:
@@ -114,7 +95,7 @@ index 60150544d1..d47dbc041e 100644
        case kPrefLetterboxingVcenter:
        case kPrefLetterboxingGradient:
          this._handleLetterboxingPrefChanged();
-@@ -783,7 +790,10 @@ class _RFPHelper {
+@@ -776,7 +783,10 @@ class _RFPHelper {
    }
  
    _fixRounding(aWindow) {
@@ -127,10 +108,10 @@ index 60150544d1..d47dbc041e 100644
      }
  
 diff --git a/toolkit/components/windowwatcher/nsWindowWatcher.cpp b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
-index 811fb16410..712f10a9ce 100644
+index 314efebc43..76d876caf4 100644
 --- a/toolkit/components/windowwatcher/nsWindowWatcher.cpp
 +++ b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
-@@ -2376,7 +2376,8 @@ static void SizeOpenedWindow(nsIDocShellTreeOwner* aTreeOwner,
+@@ -2378,7 +2378,8 @@ static void SizeOpenedWindow(nsIDocShellTreeOwner* aTreeOwner,
                  "complicated, and this is a conservative behavior to avoid "
                  "exempting something that shouldn't be. It also presents a "
                  "uniform behavior for something that's very browser-related.",
@@ -141,7 +122,7 @@ index 811fb16410..712f10a9ce 100644
               size actually was specified. Otherwise, intrinsically sized
               windows are broken. */
 diff --git a/toolkit/xre/nsAppRunner.cpp b/toolkit/xre/nsAppRunner.cpp
-index 90d269a9b2..20272b1535 100644
+index 5156191ab3..e7d60fa658 100644
 --- a/toolkit/xre/nsAppRunner.cpp
 +++ b/toolkit/xre/nsAppRunner.cpp
 @@ -297,6 +297,7 @@ static const char kPrefThemeId[] = "extensions.activeThemeID";
@@ -152,7 +133,7 @@ index 90d269a9b2..20272b1535 100644
  #endif  // defined(XP_WIN)
  
  #if defined(MOZ_WIDGET_GTK)
-@@ -2332,6 +2333,7 @@ static void ReflectSkeletonUIPrefToRegistry(const char* aPref, void* aData) {
+@@ -2333,6 +2334,7 @@ static void ReflectSkeletonUIPrefToRegistry(const char* aPref, void* aData) {
    bool shouldBeEnabled =
        Preferences::GetBool(kPrefPreXulSkeletonUI, false) &&
        Preferences::GetBool(kPrefBrowserStartupBlankWindow, false) &&
@@ -161,10 +142,10 @@ index 90d269a9b2..20272b1535 100644
    if (shouldBeEnabled && Preferences::HasUserValue(kPrefThemeId)) {
      nsCString themeId;
 diff --git a/xpfe/appshell/AppWindow.cpp b/xpfe/appshell/AppWindow.cpp
-index 22dbf90281..4adab272b3 100644
+index 3efb674028..76969a9225 100644
 --- a/xpfe/appshell/AppWindow.cpp
 +++ b/xpfe/appshell/AppWindow.cpp
-@@ -1036,8 +1036,9 @@ NS_IMETHODIMP AppWindow::GetAvailScreenSize(int32_t* aAvailWidth,
+@@ -1037,8 +1037,9 @@ NS_IMETHODIMP AppWindow::GetAvailScreenSize(int32_t* aAvailWidth,
    return NS_OK;
  }
  
@@ -176,7 +157,7 @@ index 22dbf90281..4adab272b3 100644
  NS_IMETHODIMP AppWindow::ForceRoundedDimensions() {
    if (mIsHiddenWindow) {
      return NS_OK;
-@@ -1077,6 +1078,11 @@ NS_IMETHODIMP AppWindow::ForceRoundedDimensions() {
+@@ -1078,6 +1079,11 @@ NS_IMETHODIMP AppWindow::ForceRoundedDimensions() {
  
    SetPrimaryContentSize(targetSizeDev.width, targetSizeDev.height);
  
@@ -188,7 +169,7 @@ index 22dbf90281..4adab272b3 100644
    return NS_OK;
  }
  
-@@ -2488,7 +2494,8 @@ void AppWindow::SizeShell() {
+@@ -2495,7 +2501,8 @@ void AppWindow::SizeShell() {
            "if RFP is enabled we want to round the dimensions of the new"
            "new pop up window regardless of their origin",
            RFPTarget::RoundWindowSize) &&
@@ -199,5 +180,5 @@ index 22dbf90281..4adab272b3 100644
      if (mPrimaryContentShell || mPrimaryBrowserParent) {
        ForceRoundedDimensions();
 -- 
-2.50.0
+2.50.1
 
