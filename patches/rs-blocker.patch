@@ -1,8 +1,8 @@
 diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/RemoteSettingsClient.sys.mjs
-index 32dcdd45d8..fc1e8b0de1 100644
+index fc7f6705da46..a3fdd04f03bc 100644
 --- a/services/settings/RemoteSettingsClient.sys.mjs
 +++ b/services/settings/RemoteSettingsClient.sys.mjs
-@@ -228,6 +228,11 @@
+@@ -228,6 +228,11 @@ class AttachmentDownloader extends Downloader {
     * @see Downloader.download
     */
    async download(record, options) {
@@ -11,10 +11,10 @@ index 32dcdd45d8..fc1e8b0de1 100644
 +        `Download attempt to RS collection "${this.identifier}" was blocked.`
 +      );
 +    }
-     try {
-       // Explicitly await here to ensure we catch a network error.
-       return await super.download(record, options);
-@@ -620,6 +625,10 @@
+     await lazy.UptakeTelemetry.report(
+       TELEMETRY_COMPONENT,
+       lazy.UptakeTelemetry.STATUS.DOWNLOAD_START,
+@@ -652,6 +657,10 @@ export class RemoteSettingsClient extends EventEmitter {
        return;
      }
  
@@ -25,7 +25,7 @@ index 32dcdd45d8..fc1e8b0de1 100644
      // We want to know which timestamp we are expected to obtain in order to leverage
      // cache busting. We don't provide ETag because we don't want a 304.
      const { changes } = await lazy.Utils.fetchLatestChanges(
-@@ -981,6 +990,14 @@
+@@ -1031,6 +1040,14 @@ export class RemoteSettingsClient extends EventEmitter {
     * Import the JSON files from services/settings/dump into the local DB.
     */
    async _importJSONDump() {
@@ -41,10 +41,10 @@ index 32dcdd45d8..fc1e8b0de1 100644
      const result = await lazy.RemoteSettingsWorker.importJSONDump(
        this.bucketName,
 diff --git a/services/settings/Utils.sys.mjs b/services/settings/Utils.sys.mjs
-index d3643aedf2..d3d7127dbf 100644
+index cbdf07bcdae1..4e923ff44f33 100644
 --- a/services/settings/Utils.sys.mjs
 +++ b/services/settings/Utils.sys.mjs
-@@ -75,6 +75,18 @@
+@@ -75,6 +75,18 @@ ChromeUtils.defineLazyGetter(lazy, "allowServerURLOverride", () => {
    return false;
  });
  
@@ -63,10 +63,11 @@ index d3643aedf2..d3d7127dbf 100644
  XPCOMUtils.defineLazyPreferenceGetter(
    lazy,
    "gServerURL",
-@@ -206,11 +218,79 @@
+@@ -205,12 +217,80 @@ export var Utils = {
+     return false;
    },
  
-   /**
++  /**
 +   * Internal code to determine whether the bucket and collection are allowed to
 +   * be loaded by the remote settings client for a given list of allowed
 +   * bucket/collection combinations.
@@ -135,7 +136,7 @@ index d3643aedf2..d3d7127dbf 100644
 +    return false;
 +  },
 +
-+  /**
+   /**
     * A wrapper around `ServiceRequest` that behaves like `fetch()`.
     *
     * Use this in order to leverage the `beConservative` flag, for
@@ -144,7 +145,7 @@ index d3643aedf2..d3d7127dbf 100644
     * @param input a resource
     * @param init request options
     * @returns a Response object
-@@ -483,7 +563,9 @@
+@@ -483,7 +563,9 @@ export var Utils = {
      }
  
      return {
