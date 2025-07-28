@@ -48,4 +48,4 @@ patches/bb-patches/0001-BB-32308-Use-direct-browser-sizing-for-letterboxing.patc
 patches/bb-patches/0001-BB-41631-Prevent-weird-initial-window-dimensions-cau.patch
 patches/bb-patches/0001-BB-41918-Option-to-reuse-last-window-size-when-lette.patch
 patches/bb-patches/0001-BB-41916-Letterboxing-preferences-UI.patch
-
+patches/bb-patches/0001-BB-42443-Shrink-window-to-match-letterboxing-size-wh.patch

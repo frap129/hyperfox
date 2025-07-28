@@ -1,0 +1,43 @@
+From 2a8a8ddb1686b76e7c6938689cefeaae1d81eeba Mon Sep 17 00:00:00 2001
+From: hackademix <giorgio@maone.net>
+Date: Sun, 10 Mar 2024 15:01:07 +0100
+Subject: [PATCH] BB 42443: Shrink window to match letterboxing size when the
+ emtpy area is clicked.
+
+---
+ .../components/resistfingerprinting/RFPHelper.sys.mjs  | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+index 994fb478d7..ab99793db6 100644
+--- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
++++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
+@@ -708,8 +708,16 @@ class _RFPHelper {
+     return false;
+   }
+ 
++  _onWindowDoubleClick(e) {
++    if (e.target.classList.contains("browserStack")) {
++      e.currentTarget.shrinkToLetterbox();
++    }
++  }
++
+   _attachWindow(aWindow) {
+     this._fixRounding(aWindow);
++    aWindow.shrinkToLetterbox = this.shrinkToLetterbox;
++    aWindow.addEventListener("dblclick", this._onWindowDoubleClick);
+     aWindow.gBrowser.addTabsProgressListener(this);
+     aWindow.addEventListener("TabOpen", this);
+     let resizeObserver = new aWindow.ResizeObserver(entries => {
+@@ -749,6 +757,8 @@ class _RFPHelper {
+       let browser = tab.linkedBrowser;
+       this._resetContentSize(browser);
+     }
++    aWindow.removeEventListener("dblclick", this._onWindowDoubleClick);
++    delete aWindow.shrinkToLetterbox;
+   }
+ 
+   _handleDOMWindowOpened(win) {
+-- 
+2.50.1
+
