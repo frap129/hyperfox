@@ -1,0 +1,7 @@
+-screenshots-brand-name = Знімки екрану
+-profiler-brand-name = Профайлер
+-translations-brand-name = Перекладач
+-firefox-suggest-brand-name = Пропозиції
+-firefox-home-brand-name = Домашня сторінка
+-firefoxview-brand-name = Перегляд вкладок
+-firefoxlabs-brand-name = Експериментальні можливості

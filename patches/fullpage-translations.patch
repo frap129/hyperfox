@@ -1,8 +1,8 @@
 diff --git a/services/settings/Attachments.sys.mjs b/services/settings/Attachments.sys.mjs
-index d6d1182083c8..03fddd13b7ec 100644
+index fd0b6a60d15e..322c42544bb3 100644
 --- a/services/settings/Attachments.sys.mjs
 +++ b/services/settings/Attachments.sys.mjs
-@@ -158,6 +158,7 @@ export class Downloader {
+@@ -160,6 +160,7 @@ export class Downloader {
     * @param {Boolean} [options.fallbackToDump] Use the remote settings dump as a
     *                                         potential source of the attachment.
     *                                         (default: `false`)
@@ -10,23 +10,23 @@ index d6d1182083c8..03fddd13b7ec 100644
     * @throws {Downloader.DownloadError} if the file could not be fetched.
     * @throws {Downloader.BadContentError} if the downloaded content integrity is not valid.
     * @throws {Downloader.ServerInfoError} if the server response is not valid.
-@@ -318,6 +319,7 @@ export class Downloader {
-       fallbackToCache = false,
+@@ -341,6 +342,7 @@ export class Downloader {
        fallbackToDump = false,
        avoidDownload = false,
+       cacheResult = true,
 +      serverUrl,
      } = options || {};
      if (!attachmentId) {
        // Check for pre-condition. This should not happen, but it is explicitly
-@@ -378,6 +380,7 @@ export class Downloader {
+@@ -401,6 +403,7 @@ export class Downloader {
          const newBuffer = await this.downloadAsBytes(record, {
            retries,
            checkHash,
 +          serverUrl,
          });
-         const blob = new Blob([newBuffer]);
-         // Store in cache but don't wait for it before returning.
-@@ -548,6 +551,7 @@ export class Downloader {
+         if (cacheResult) {
+           const blob = new Blob([newBuffer]);
+@@ -512,6 +515,7 @@ export class Downloader {
     * @param {Object} options Some download options.
     * @param {Number} options.retries Number of times download should be retried (default: `3`)
     * @param {Boolean} options.checkHash Check content integrity (default: `true`)
@@ -34,7 +34,7 @@ index d6d1182083c8..03fddd13b7ec 100644
     * @throws {Downloader.DownloadError} if the file could not be fetched.
     * @throws {Downloader.BadContentError} if the downloaded content integrity is not valid.
     * @returns {ArrayBuffer} the file content.
-@@ -556,17 +560,17 @@ export class Downloader {
+@@ -520,17 +524,17 @@ export class Downloader {
      const {
        attachment: { location, hash, size },
      } = record;
@@ -55,10 +55,10 @@ index d6d1182083c8..03fddd13b7ec 100644
      while (true) {
        try {
 diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/RemoteSettingsClient.sys.mjs
-index 6b7c441c8d91..8ce70fe11dca 100644
+index fc7f6705da46..6cd60ddf18f3 100644
 --- a/services/settings/RemoteSettingsClient.sys.mjs
 +++ b/services/settings/RemoteSettingsClient.sys.mjs
-@@ -309,6 +309,7 @@ export class RemoteSettingsClient extends EventEmitter {
+@@ -319,6 +319,7 @@ export class RemoteSettingsClient extends EventEmitter {
        localFields = [],
        keepAttachmentsIds = [],
        lastCheckTimePref,
@@ -66,7 +66,7 @@ index 6b7c441c8d91..8ce70fe11dca 100644
      } = {}
    ) {
      // Remote Settings cannot be used in child processes (no access to disk,
-@@ -338,6 +339,7 @@ export class RemoteSettingsClient extends EventEmitter {
+@@ -348,6 +349,7 @@ export class RemoteSettingsClient extends EventEmitter {
      this._lastCheckTimePref = lastCheckTimePref;
      this._verifier = null;
      this._syncRunning = false;
@@ -74,7 +74,7 @@ index 6b7c441c8d91..8ce70fe11dca 100644
  
      // This attribute allows signature verification to be disabled, when running tests
      // or when pulling data from a dev server.
-@@ -379,9 +381,12 @@ export class RemoteSettingsClient extends EventEmitter {
+@@ -389,9 +391,12 @@ export class RemoteSettingsClient extends EventEmitter {
    }
  
    httpClient() {
@@ -90,7 +90,7 @@ index 6b7c441c8d91..8ce70fe11dca 100644
      return api.bucket(this.bucketName).collection(this.collectionName);
    }
  
-@@ -609,7 +614,7 @@ export class RemoteSettingsClient extends EventEmitter {
+@@ -655,7 +660,7 @@ export class RemoteSettingsClient extends EventEmitter {
      // We want to know which timestamp we are expected to obtain in order to leverage
      // cache busting. We don't provide ETag because we don't want a 304.
      const { changes } = await lazy.Utils.fetchLatestChanges(
@@ -100,7 +100,7 @@ index 6b7c441c8d91..8ce70fe11dca 100644
          filters: {
            collection: this.collectionName,
 diff --git a/services/settings/Utils.sys.mjs b/services/settings/Utils.sys.mjs
-index 12fef6cde815..3be4356a4060 100644
+index cbdf07bcdae1..cb4d801e5c97 100644
 --- a/services/settings/Utils.sys.mjs
 +++ b/services/settings/Utils.sys.mjs
 @@ -295,9 +295,9 @@ export var Utils = {
@@ -130,10 +130,10 @@ index 12fef6cde815..3be4356a4060 100644
  
    /**
 diff --git a/toolkit/components/translations/actors/TranslationsParent.sys.mjs b/toolkit/components/translations/actors/TranslationsParent.sys.mjs
-index de242af9add4..631faa77fa00 100644
+index 5a2be62a779f..5e49bdb1f43f 100644
 --- a/toolkit/components/translations/actors/TranslationsParent.sys.mjs
 +++ b/toolkit/components/translations/actors/TranslationsParent.sys.mjs
-@@ -1545,7 +1545,9 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -2130,7 +2130,9 @@ export class TranslationsParent extends JSWindowActorParent {
      }
  
      /** @type {RemoteSettingsClient} */
@@ -144,7 +144,7 @@ index de242af9add4..631faa77fa00 100644
      TranslationsParent.#translationModelsRemoteClient = client;
      client.on("sync", TranslationsParent.#handleTranslationsModelsSync);
  
-@@ -1911,7 +1913,10 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -2616,7 +2618,10 @@ export class TranslationsParent extends JSWindowActorParent {
  
        /** @type {{buffer: ArrayBuffer}} */
        const { buffer } = await client.attachments.download(
@@ -156,7 +156,7 @@ index de242af9add4..631faa77fa00 100644
        );
  
        const duration = Date.now() - start;
-@@ -1988,7 +1993,9 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -2691,7 +2696,9 @@ export class TranslationsParent extends JSWindowActorParent {
      )) {
        const download = () => {
          lazy.console.log("Downloading record", record.name, record.id);
@@ -167,7 +167,7 @@ index de242af9add4..631faa77fa00 100644
        };
        queue.push({ download });
      }
-@@ -2012,7 +2019,10 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -2715,7 +2722,10 @@ export class TranslationsParent extends JSWindowActorParent {
          onFailure: () => {
            console.error("Failed to download", record.name);
          },
@@ -179,7 +179,7 @@ index de242af9add4..631faa77fa00 100644
        });
      }
  
-@@ -2304,7 +2314,9 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -3028,7 +3038,9 @@ export class TranslationsParent extends JSWindowActorParent {
          await chaosMode(1 / 3);
  
          /** @type {{buffer: ArrayBuffer }} */
@@ -188,5 +188,5 @@ index de242af9add4..631faa77fa00 100644
 +          serverUrl: "https://firefox.settings.services.mozilla.com/v1",
 +        });
  
-         results[record.fileType] = {
+         languageModelFiles[record.fileType] = {
            buffer,
