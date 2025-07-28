@@ -1,4 +1,4 @@
-From 2a6da12a4d71d34e1b91a9147273629ae1d7d8db Mon Sep 17 00:00:00 2001
+From a8aa821e2a1a2d18bb9d5a56c5a2bbc04862db0b Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Wed, 6 Mar 2024 14:15:53 +0100
 Subject: [PATCH] BB 41918: Option to reuse last window size when letterboxing
@@ -15,17 +15,17 @@ Subject: [PATCH] BB 41918: Option to reuse last window size when letterboxing
  7 files changed, 45 insertions(+), 5 deletions(-)
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index a3ac9d5cb2..df5c71ecce 100644
+index a3ac9d5cb2..c0b24590aa 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
 @@ -3407,3 +3407,7 @@ pref("privacy.resistFingerprinting.letterboxing", false);
  pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
  // tor-browser#41917: Letterboxing gradient background
  pref("privacy.resistFingerprinting.letterboxing.gradient", true);
-+// tor-browser#41918: Should we reuse last window sizes if letterboxing is enabled
-+pref("privacy.resistFingerprinting.letterboxing.rememberSize", false);
 +// tor-browser#43904: Enable this so we skip the blank window if user is resisting fingerprinting.
 +pref("privacy.resistFingerprinting.skipEarlyBlankFirstPaint", true);
++// tor-browser#41918: Should we reuse last window sizes if letterboxing is enabled
++pref("privacy.resistFingerprinting.letterboxing.rememberSize", false);
 diff --git a/dom/base/nsContentUtils.cpp b/dom/base/nsContentUtils.cpp
 index 67f8e934ce..bb26c63114 100644
 --- a/dom/base/nsContentUtils.cpp
@@ -65,7 +65,7 @@ index 84890a39e6..db70882eba 100644
     * Returns the parent node of aChild crossing document boundaries, but skips
     * any cross-process parent frames and continues with the nearest in-process
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index be042241c9..994fb478d7 100644
+index 3dbab1a380..406e889a96 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 @@ -20,6 +20,10 @@ const kPrefLetterboxingVcenter =
@@ -79,7 +79,7 @@ index be042241c9..994fb478d7 100644
  
  const kTopicDOMWindowOpened = "domwindowopened";
  const kTopicDOMWindowClosed = "domwindowclosed";
-@@ -147,12 +151,15 @@ class _RFPHelper {
+@@ -150,6 +154,7 @@ class _RFPHelper {
    _handlePrefChanged(data) {
      switch (data) {
        case kPrefResistFingerprinting:
@@ -87,6 +87,7 @@ index be042241c9..994fb478d7 100644
          this._handleResistFingerprintingChanged();
          break;
        case kPrefSpoofEnglish:
+@@ -157,6 +162,8 @@ class _RFPHelper {
          this._handleSpoofEnglishChanged();
          break;
        case kPrefLetterboxing:
@@ -95,7 +96,7 @@ index be042241c9..994fb478d7 100644
        case kPrefLetterboxingVcenter:
        case kPrefLetterboxingGradient:
          this._handleLetterboxingPrefChanged();
-@@ -776,7 +783,10 @@ class _RFPHelper {
+@@ -783,7 +790,10 @@ class _RFPHelper {
    }
  
    _fixRounding(aWindow) {
