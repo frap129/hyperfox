@@ -33,7 +33,6 @@ patches/custom_rust_version.patch
 patches/bb-patches/0001-BB-26353-Prevent-speculative-connect-that-violated-F.patch
 patches/bb-patches/0001-BB-40309-Avoid-using-regional-OS-locales.patch
 patches/bb-patches/0001-BB-40432-Prevent-probing-installed-applications.patch
-patches/bb-patches/0001-BB-42220-Allow-for-more-file-types-to-be-forced-inli.patch
 patches/bb-patches/0001-BB-42835-Create-an-actor-to-filter-file-data-transfe.patch
 patches/bb-patches/0001-BB-12974-Disable-NTLM-and-Negotiate-HTTP-Auth.patch
 patches/bb-patches/0001-BB-42773-Replace-with-the-original-home.patch
