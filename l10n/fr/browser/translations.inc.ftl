@@ -3,4 +3,4 @@ translations-manage-enable =
 translations-manage-autopopup =
     .label = Inviter à traduire les pages qui ne sont pas dans la langue configurée du navigateur
 translations-panel-disable-translations =
-    .label = Disabilita completamente le traduzioni
+    .label = Désactiver complètement les traductions
