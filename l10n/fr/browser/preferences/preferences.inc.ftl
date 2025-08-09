@@ -6,7 +6,7 @@ category-librewolf =
     .tooltiptext = changements dans about:config, regroupés logiquement et facilement accessibles
 # Contenu principal
 librewolf-header = Préférences de LibreWolf
-librewolf-warning-title = Attention !
+librewolf-warning-title = Attention !
 librewolf-warning-description = Nous choisissons avec soin les paramètres par défaut pour privilégier la confidentialité et la sécurité. Lorsque vous modifiez ces paramètres, lisez les descriptions pour comprendre les implications de ces changements.
 # Mise en page
 librewolf-general-heading = Comportement du navigateur
