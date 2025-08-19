@@ -150,7 +150,7 @@ $(lw_source_tarball) : $(lw_source_dir)
 	ls -lh $(lw_source_tarball)*
 
 
-debs=python3 python3-dev python3-pip gnupg
+debs=python3 python3-dev python3-pip
 rpms=python3 python3-devel
 bootstrap : $(lw_source_dir)
 	(sudo apt-get -y install $(debs); true)
@@ -206,7 +206,7 @@ docker-remove-image :
 	docker rmi $(build_image)
 
 setup-debian :
-	apt-get -y install mercurial python3 python3-dev python3-pip curl wget dpkg-sig  libssl-dev zstd libxml2-dev gnupg
+	apt-get -y install mercurial python3 python3-dev python3-pip curl wget dpkg-sig  libssl-dev zstd libxml2-dev
 
 setup-fedora :
 	dnf -y install python3 curl wget zstd python3-devel python3-pip mercurial openssl-devel libxml2-devel
