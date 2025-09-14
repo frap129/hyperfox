@@ -2,5 +2,4 @@
 -firefox-suggest-brand-name = Gợi ý
 -translations-brand-name = Dịch
 -firefox-home-brand-name = Trang chủ
--firefoxview-brand-name = Tab View
 -firefoxlabs-brand-name = Tính năng thử nghiệm
