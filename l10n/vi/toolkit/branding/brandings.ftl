@@ -1,0 +1,4 @@
+-screenshots-brand-name = Ảnh chụp màn hình
+-firefox-suggest-brand-name = Gợi ý
+-translations-brand-name = Dịch
+-firefox-home-brand-name = Trang chủ
