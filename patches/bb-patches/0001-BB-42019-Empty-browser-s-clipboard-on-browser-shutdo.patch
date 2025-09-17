@@ -1,21 +1,21 @@
-From 593310dd649745392b71aa4eb5e07204b5ea3d10 Mon Sep 17 00:00:00 2001
+From 441437290932e8f2dc2a7541494324de31602c81 Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Mon, 21 Aug 2023 13:13:57 +0200
 Subject: [PATCH] BB 42019: Empty browser's clipboard on browser shutdown
 
 ---
  browser/app/profile/firefox.js         |   3 +
- browser/components/BrowserGlue.sys.mjs | 167 +++++++++++++++++++++++++
- 2 files changed, 170 insertions(+)
+ browser/components/BrowserGlue.sys.mjs | 167 -------------------------
+ 2 files changed, 3 insertions(+), 167 deletions(-)
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index 4050c0090e..5d16a404aa 100644
+index d4f0e75e9a..9fa0343d97 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -3397,3 +3397,6 @@ pref("browser.contextual-services.contextId.rust-component.enabled", true);
- 
- // Pref to enable the IP protection feature
- pref("browser.ipProtection.enabled", false);
+@@ -3456,3 +3456,6 @@ pref("browser.ipProtection.enabled", false);
+ pref("browser.ipProtection.variant", "");
+ pref("browser.ipProtection.log", false);
+ pref("browser.ipProtection.guardian.endpoint", "https://vpn.mozilla.org/");
 +
 +// Empty clipboard content from private windows on exit (tor-browser#42154)
 +pref("browser.privatebrowsing.preserveClipboard", false);
