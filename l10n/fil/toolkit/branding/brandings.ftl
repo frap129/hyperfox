@@ -1,0 +1,7 @@
+-screenshots-brand-name = Mga Screenshot
+-profiler-brand-name = Profiler
+-translations-brand-name = Mga Pagsasalin
+-firefox-suggest-brand-name = Mga Mungkahi
+-firefox-home-brand-name = Homepage
+-firefoxview-brand-name = Tab View
+-firefoxlabs-brand-name = Mga Pang-eksperimentong Feature
