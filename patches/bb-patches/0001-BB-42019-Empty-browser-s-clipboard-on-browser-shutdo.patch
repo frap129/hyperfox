@@ -1,4 +1,4 @@
-From 0054506bd5e0b516bb4c741dbdf4990e4b16d2b0 Mon Sep 17 00:00:00 2001
+From f25407edded9471a1c880fe6607ee23d15c37f53 Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Mon, 21 Aug 2023 13:13:57 +0200
 Subject: [PATCH] BB 42019: Empty browser's clipboard on browser shutdown
@@ -219,17 +219,17 @@ index 0000000000..656cec45a2
 +  },
 +};
 diff --git a/browser/modules/moz.build b/browser/modules/moz.build
-index a4224e117a..253cc6162d 100644
+index a4224e117a..b6632e13c5 100644
 --- a/browser/modules/moz.build
 +++ b/browser/modules/moz.build
-@@ -153,6 +153,7 @@ MOZ_SRC_FILES += [
-     "PrivateBrowsingUI.sys.mjs",
-     "UnexpectedScriptObserver.sys.mjs",
-     "WebAuthnPromptHelper.sys.mjs",
-+    "ClipboardPrivacy.sys.mjs",
- ]
+@@ -148,6 +148,7 @@ EXTRA_JS_MODULES += [
  
- if CONFIG["MOZ_WIDGET_TOOLKIT"] == "windows":
+ MOZ_SRC_FILES += [
+     "CanvasPermissionPromptHelper.sys.mjs",
++    "ClipboardPrivacy.sys.mjs",
+     "ContextId.sys.mjs",
+     "ObserverForwarder.sys.mjs",
+     "PrivateBrowsingUI.sys.mjs",
 -- 
 2.51.0
 
