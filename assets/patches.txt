@@ -40,7 +40,6 @@ patches/bb-patches/0001-BB-42019-Empty-browser-s-clipboard-on-browser-shutdo.pat
 patches/bb-patches/0001-BB-43386-Use-Firefox-in-the-UA-in-RFP-exempt-request.patch 
 patches/bb-patches/0001-BB-13028-Prevent-potential-proxy-bypass-cases.patch
 patches/bb-patches/0001-BB-29745-Limit-remote-access-to-content-accessible-r.patch
-patches/bb-patches/0001-BB-30541-Disable-WebGL-readPixel-for-web-content.patch
 patches/bb-patches/0001-BB-41930-Remove-the-UI-to-customize-accept_languages.patch
 patches/bb-patches/0001-BB-42084-Ensure-English-spoofing-works-even-if-prefe.patch
 patches/bb-patches/0001-BB-32308-Use-direct-browser-sizing-for-letterboxing.patch
