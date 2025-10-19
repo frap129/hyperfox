@@ -1,43 +1,63 @@
-From 441437290932e8f2dc2a7541494324de31602c81 Mon Sep 17 00:00:00 2001
+From 0054506bd5e0b516bb4c741dbdf4990e4b16d2b0 Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Mon, 21 Aug 2023 13:13:57 +0200
 Subject: [PATCH] BB 42019: Empty browser's clipboard on browser shutdown
 
 ---
- browser/app/profile/firefox.js         |   3 +
- browser/components/BrowserGlue.sys.mjs | 167 -------------------------
- 2 files changed, 3 insertions(+), 167 deletions(-)
+ browser/app/profile/firefox.js                |   3 +
+ browser/components/BrowserComponents.manifest |   1 +
+ browser/modules/ClipboardPrivacy.sys.mjs      | 178 ++++++++++++++++++
+ browser/modules/moz.build                     |   1 +
+ 4 files changed, 183 insertions(+)
+ create mode 100644 browser/modules/ClipboardPrivacy.sys.mjs
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index d4f0e75e9a..9fa0343d97 100644
+index 20e7d5a388..0c581b15fb 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -3456,3 +3456,6 @@ pref("browser.ipProtection.enabled", false);
- pref("browser.ipProtection.variant", "");
- pref("browser.ipProtection.log", false);
- pref("browser.ipProtection.guardian.endpoint", "https://vpn.mozilla.org/");
+@@ -3479,3 +3479,6 @@ pref("toolkit.rust-components.logging.crates", "");
+ 
+ // Log level for the internal logs in `AppServicesTracing.sys.mjs`
+ pref("toolkit.rust-components.logging.internal-level", "Warn");
 +
 +// Empty clipboard content from private windows on exit (tor-browser#42154)
 +pref("browser.privatebrowsing.preserveClipboard", false);
-diff --git a/browser/components/BrowserGlue.sys.mjs b/browser/components/BrowserGlue.sys.mjs
-index 05a5063427..fca3fd2d40 100644
---- a/browser/components/BrowserGlue.sys.mjs
-+++ b/browser/components/BrowserGlue.sys.mjs
-@@ -15,6 +15,7 @@ ChromeUtils.defineESModuleGetters(lazy, {
-     "resource:///modules/asrouter/ASRouterDefaultConfig.sys.mjs",
-   ASRouterNewTabHook: "resource:///modules/asrouter/ASRouterNewTabHook.sys.mjs",
-   AddonManager: "resource://gre/modules/AddonManager.sys.mjs",
+diff --git a/browser/components/BrowserComponents.manifest b/browser/components/BrowserComponents.manifest
+index c2f8389e13..df4ac49561 100644
+--- a/browser/components/BrowserComponents.manifest
++++ b/browser/components/BrowserComponents.manifest
+@@ -54,6 +54,7 @@ category browser-first-window-ready resource:///modules/ipprotection/IPProtectio
+ category browser-first-window-ready resource://gre/modules/SandboxUtils.sys.mjs SandboxUtils.maybeWarnAboutMissingUserNamespaces
+ #endif
+ #endif
++category browser-first-window-ready moz-src:///browser/modules/ClipboardPrivacy.sys.mjs ClipboardPrivacy.init
+ 
+ category browser-idle-startup moz-src:///browser/components/places/PlacesUIUtils.sys.mjs PlacesUIUtils.unblockToolbars
+ category browser-idle-startup resource:///modules/BuiltInThemes.sys.mjs BuiltInThemes.ensureBuiltInThemes
+diff --git a/browser/modules/ClipboardPrivacy.sys.mjs b/browser/modules/ClipboardPrivacy.sys.mjs
+new file mode 100644
+index 0000000000..656cec45a2
+--- /dev/null
++++ b/browser/modules/ClipboardPrivacy.sys.mjs
+@@ -0,0 +1,178 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++const lazy = {};
++
++ChromeUtils.defineESModuleGetters(lazy, {
 +  AsyncShutdown: "resource://gre/modules/AsyncShutdown.sys.mjs",
-   BackupService: "resource:///modules/backup/BackupService.sys.mjs",
-   BrowserSearchTelemetry:
-     "moz-src:///browser/components/search/BrowserSearchTelemetry.sys.mjs",
-@@ -108,6 +109,170 @@ if (AppConstants.ENABLE_WEBDRIVER) {
- 
- const PREF_PDFJS_ISDEFAULT_CACHE_STATE = "pdfjs.enabledCache.state";
- 
-+// Empty clipboard content from private windows on exit
-+// (tor-browser#42154)
-+const ClipboardPrivacy = {
++  PrivateBrowsingUtils: "resource://gre/modules/PrivateBrowsingUtils.sys.mjs",
++  setTimeout: "resource://gre/modules/Timer.sys.mjs",
++});
++
++/**
++ * Empty clipboard content from private windows on exit.
++ *
++ * See tor-browser#42154.
++ */
++export const ClipboardPrivacy = {
 +  _lastClipboardHash: null,
 +  _globalActivation: false,
 +  _isPrivateClipboard: false,
@@ -82,7 +102,7 @@ index 05a5063427..fca3fd2d40 100644
 +    return null;
 +  },
 +
-+  startup() {
++  init() {
 +    this._log = console.createInstance({
 +      prefix: "ClipboardPrivacy",
 +    });
@@ -198,19 +218,18 @@ index 05a5063427..fca3fd2d40 100644
 +    }
 +  },
 +};
-+
- ChromeUtils.defineLazyGetter(
-   lazy,
-   "WeaveService",
-@@ -824,6 +989,8 @@ BrowserGlue.prototype = {
-       lazy.WeaveService.init();
-     }
+diff --git a/browser/modules/moz.build b/browser/modules/moz.build
+index a4224e117a..253cc6162d 100644
+--- a/browser/modules/moz.build
++++ b/browser/modules/moz.build
+@@ -153,6 +153,7 @@ MOZ_SRC_FILES += [
+     "PrivateBrowsingUI.sys.mjs",
+     "UnexpectedScriptObserver.sys.mjs",
+     "WebAuthnPromptHelper.sys.mjs",
++    "ClipboardPrivacy.sys.mjs",
+ ]
  
-+    ClipboardPrivacy.startup();
-+
-     lazy.BrowserUtils.callModulesFromCategory(
-       {
-         categoryName: "browser-first-window-ready",
+ if CONFIG["MOZ_WIDGET_TOOLKIT"] == "windows":
 -- 
-2.50.1
+2.51.0
 
