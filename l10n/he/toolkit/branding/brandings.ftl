@@ -1,0 +1,7 @@
+-screenshots-brand-name = צילומי מסך
+-profiler-brand-name = מנתח ביצועים
+-translations-brand-name = תרגומים
+-firefox-suggest-brand-name = הצעות
+-firefox-home-brand-name = דף הבית
+-firefoxview-brand-name = תצוגת כרטיסיות
+-firefoxlabs-brand-name = תכונות ניסיוניות
