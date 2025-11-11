@@ -1,36 +1,37 @@
-From 10640b583842db1533a61f6b6087d82b0dd8f8cc Mon Sep 17 00:00:00 2001
+From 6d859883d587f565d7128a4cc1c1693cc12f316e Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Sun, 11 Dec 2022 13:28:57 +0100
 Subject: [PATCH] BB 32308: Use direct browser sizing for letterboxing.
 
 Bug 30556: align letterboxing with 200x100 new win width stepping
 ---
- browser/app/profile/firefox.js                |  7 ++
- .../tabbrowser/content/tabbrowser.js          |  4 +
- .../resistfingerprinting/RFPHelper.sys.mjs    | 19 ++++
- .../content/letterboxing.css                  | 93 +++++++++++++++++++
- 4 files changed, 123 insertions(+)
+ browser/app/profile/firefox.js                |   7 +
+ .../tabbrowser/content/tabbrowser.js          |   4 +
+ .../themes/shared/tabbrowser/content-area.css |   5 +
+ .../resistfingerprinting/RFPHelper.sys.mjs    | 343 ++++++++++++++++--
+ .../content/letterboxing.css                  | 167 ++++++++-
+ 5 files changed, 496 insertions(+), 30 deletions(-)
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index 5d16a404aa..a3ac9d5cb2 100644
+index 33d8ea4110..998eee7d66 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -3400,3 +3400,10 @@ pref("browser.ipProtection.enabled", false);
+@@ -3514,3 +3514,10 @@ pref("browser.settings-redesign.enabled", false);
  
  // Empty clipboard content from private windows on exit (tor-browser#42154)
  pref("browser.privatebrowsing.preserveClipboard", false);
 +
 +// Enable letterboxing
-+pref("privacy.resistFingerprinting.letterboxing", false);
++pref("privacy.resistFingerprinting.letterboxing", true);
 +// tor-browser#41917: Center letterboxed area vertically
 +pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
 +// tor-browser#41917: Letterboxing gradient background
 +pref("privacy.resistFingerprinting.letterboxing.gradient", true);
 diff --git a/browser/components/tabbrowser/content/tabbrowser.js b/browser/components/tabbrowser/content/tabbrowser.js
-index 96fd8acdc0..b76ca030c6 100644
+index c0eafd4faf..399f19e095 100644
 --- a/browser/components/tabbrowser/content/tabbrowser.js
 +++ b/browser/components/tabbrowser/content/tabbrowser.js
-@@ -2248,6 +2248,10 @@
+@@ -2410,6 +2410,10 @@
        stack.className = "browserStack";
        stack.appendChild(b);
  
@@ -41,100 +42,656 @@ index 96fd8acdc0..b76ca030c6 100644
        let browserContainer = document.createXULElement("vbox");
        browserContainer.className = "browserContainer";
        browserContainer.appendChild(stack);
+diff --git a/browser/themes/shared/tabbrowser/content-area.css b/browser/themes/shared/tabbrowser/content-area.css
+index db68a04d85..7d5562d1eb 100644
+--- a/browser/themes/shared/tabbrowser/content-area.css
++++ b/browser/themes/shared/tabbrowser/content-area.css
+@@ -326,6 +326,11 @@
+   position: absolute;
+   inset: 0;
+ 
++  /* Override the <stack> `grid-area: 1 / 1` rule with an `auto` placement.
++   * Otherwise the .dialogStack start edges are placed relative to the
++   * center-aligned grid items, rather than the grid's padding area. */
++  grid-area: auto;
++
+   /* Hide tab-modal dialogs when a window-modal one is up. */
+   :root[window-modal-open] .browserStack > &,
+   /* For some printing use cases we need to visually hide the dialog before
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 9770219f6c..13808565d0 100644
+index ef45f8b88f..ea5df6e28a 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-@@ -15,6 +15,10 @@ const kPrefLetterboxingDimensions =
+@@ -15,12 +15,21 @@ const kPrefLetterboxingDimensions =
    "privacy.resistFingerprinting.letterboxing.dimensions";
  const kPrefLetterboxingTesting =
    "privacy.resistFingerprinting.letterboxing.testing";
 +const kPrefLetterboxingVcenter =
 +  "privacy.resistFingerprinting.letterboxing.vcenter";
-+const kPrefLetterboxingGradient =
-+  "privacy.resistFingerprinting.letterboxing.gradient";
  
  const kTopicDOMWindowOpened = "domwindowopened";
  const kTopicDOMWindowClosed = "domwindowclosed";
-@@ -51,6 +55,9 @@ class _RFPHelper {
+ 
++const kTopicFullscreenNavToolbox = "fullscreen-nav-toolbox";
++
++const kPrefVerticalTabs = "sidebar.verticalTabs";
++
+ const lazy = {};
+ 
++ChromeUtils.defineESModuleGetters(lazy, {
++  Color: "resource://gre/modules/Color.sys.mjs",
++});
+ ChromeUtils.defineLazyGetter(lazy, "logConsole", () =>
+   console.createInstance({
+     prefix: "RFPHelper",
+@@ -56,6 +65,10 @@ class _RFPHelper {
      // Add unconditional observers
      Services.prefs.addObserver(kPrefResistFingerprinting, this);
      Services.prefs.addObserver(kPrefLetterboxing, this);
 +    Services.prefs.addObserver(kPrefLetterboxingVcenter, this);
-+    Services.prefs.addObserver(kPrefLetterboxingGradient, this);
++    Services.prefs.addObserver(kPrefVerticalTabs, this);
++    Services.obs.addObserver(this, kTopicFullscreenNavToolbox);
 +
      XPCOMUtils.defineLazyPreferenceGetter(
        this,
        "_letterboxingDimensions",
-@@ -79,6 +86,8 @@ class _RFPHelper {
+@@ -87,7 +100,10 @@ class _RFPHelper {
  
      // Remove unconditional observers
      Services.prefs.removeObserver(kPrefResistFingerprinting, this);
-+    Services.prefs.removeObserver(kPrefLetterboxingGradient, this);
 +    Services.prefs.removeObserver(kPrefLetterboxingVcenter, this);
      Services.prefs.removeObserver(kPrefLetterboxing, this);
++    Services.prefs.removeObserver(kPrefVerticalTabs, this);
++    Services.obs.removeObserver(this, kTopicFullscreenNavToolbox);
      // Remove the RFP observers, swallowing exceptions if they weren't present
      this._removeLanguagePrefObservers();
-@@ -129,6 +138,8 @@ class _RFPHelper {
+   }
+@@ -109,6 +125,15 @@ class _RFPHelper {
+       case kTopicDOMWindowClosed:
+         this._handleDOMWindowClosed(subject);
+         break;
++      case kTopicFullscreenNavToolbox:
++        // The `subject` is the gNavToolbox.
++        // Record whether the toobox has been hidden when the browser (not
++        // content) is in fullscreen.
++        subject.ownerGlobal.gBrowser.tabbox.classList.toggle(
++          "letterboxing-nav-toolbox-hidden",
++          data === "hidden"
++        );
++        break;
+       default:
+         break;
+     }
+@@ -123,6 +148,13 @@ class _RFPHelper {
+         resizeObserver.observe(browser.parentElement);
+         break;
+       }
++      case "nativethemechange":
++        // NOTE: "nativethemechange" seems to always be sent after
++        // "windowlwthemeupdate". So all the lwtheme CSS properties should be
++        // set to the new theme's values already, so we don't need to wait for
++        // windowlwthemeupdate.
++        this._updateLetterboxingColors(aMessage.currentTarget, true);
++        break;
+       default:
+         break;
+     }
+@@ -138,8 +170,14 @@ class _RFPHelper {
          this._handleSpoofEnglishChanged();
          break;
        case kPrefLetterboxing:
 +      case kPrefLetterboxingVcenter:
-+      case kPrefLetterboxingGradient:
          this._handleLetterboxingPrefChanged();
          break;
++      case kPrefVerticalTabs:
++        if (this.letterboxingEnabled) {
++          forEachWindow(win => this._updateLetterboxingColors(win));
++        }
++        break;
        default:
-@@ -593,6 +604,14 @@ class _RFPHelper {
+         break;
+     }
+@@ -346,7 +384,7 @@ class _RFPHelper {
+     // If not already cached on the document object, traverse the CSSOM and
+     // find the rule applying the default letterboxing styles to browsers
+     // preemptively in order to beat race conditions on tab/window creation
+-    return (document._letterboxingMarginsRule ||= (() => {
++    return (document._letterboxingDefaultRule ||= (() => {
+       const LETTERBOX_CSS_SELECTOR = ".letterboxing";
+       const LETTERBOX_CSS_URL =
+         "chrome://global/content/resistfingerprinting/letterboxing.css";
+@@ -553,26 +591,22 @@ class _RFPHelper {
+ 
+     if (lastRoundedSize) {
+       // Check whether the letterboxing margin is less than the border radius,
+-      // and if so flatten the borders.
+-      let borderRadius = parseInt(
+-        win
+-          .getComputedStyle(browserContainer)
+-          .getPropertyValue("--letterboxing-border-radius")
++      // and if so do not show an outline.
++      const gapVertical = parentHeight - lastRoundedSize.height;
++      const gapHorizontal = parentWidth - lastRoundedSize.width;
++      browserParent.classList.toggle(
++        "letterboxing-show-outline",
++        gapVertical >= this._letterboxingBorderRadius ||
++          gapHorizontal >= this._letterboxingBorderRadius
++      );
++      // When the Letterboxing area is top-aligned, only show the sidebar corner
++      // if there is enough horizontal space.
++      // The factor of 4 is from the horizontal centre-alignment and wanting
++      // enough space for twice the corner radius.
++      browserParent.classList.toggle(
++        "letterboxing-show-sidebar-corner",
++        gapHorizontal >= 4 * this._letterboxingBorderRadius
+       );
+-      if (
+-        borderRadius &&
+-        parentWidth - lastRoundedSize.width < borderRadius &&
+-        parentHeight - lastRoundedSize.height < borderRadius
+-      ) {
+-        borderRadius = 0;
+-      } else {
+-        borderRadius = "";
+-      }
+-      styleChanges.queueIfNeeded(browserParent, {
+-        "--letterboxing-decorator-visibility":
+-          borderRadius === 0 ? "hidden" : "",
+-        "--letterboxing-border-radius": borderRadius,
+-      });
+     }
+ 
+     // If the size of the content is already quantized, we do nothing.
+@@ -605,12 +639,31 @@ class _RFPHelper {
+ 
+   _resetContentSize(aBrowser) {
+     aBrowser.parentElement.classList.add("exclude-letterboxing");
++    aBrowser.parentElement.classList.remove(
++      "letterboxing-show-outline",
++      "letterboxing-show-sidebar-corner"
++    );
+   }
+ 
+   _updateSizeForTabsInWindow(aWindow) {
      let tabBrowser = aWindow.gBrowser;
  
-     tabBrowser.tabpanels?.classList.add("letterboxing");
-+    tabBrowser.tabpanels?.classList.toggle(
+-    tabBrowser.tabpanels?.classList.add("letterboxing");
++    tabBrowser.tabbox.classList.add("letterboxing");
++    tabBrowser.tabbox.classList.toggle(
 +      "letterboxing-vcenter",
 +      Services.prefs.getBoolPref(kPrefLetterboxingVcenter, false)
 +    );
-+    tabBrowser.tabpanels?.classList.toggle(
-+      "letterboxing-gradient",
-+      Services.prefs.getBoolPref(kPrefLetterboxingGradient, false)
-+    );
++    if (this._letterboxingBorderRadius === undefined && tabBrowser.tabbox) {
++      // Cache the value since it is not expected to change in a session for any
++      // window.
++      this._letterboxingBorderRadius = Math.ceil(
++        parseFloat(
++          aWindow
++            .getComputedStyle(tabBrowser.tabbox)
++            .getPropertyValue("--letterboxing-border-radius")
++        )
++      );
++    }
  
      for (let tab of tabBrowser.tabs) {
        let browser = tab.linkedBrowser;
+@@ -619,7 +672,7 @@ class _RFPHelper {
+     // We need to add this class late because otherwise new windows get
+     // maximized.
+     aWindow.setTimeout(() => {
+-      tabBrowser.tabpanels?.classList.add("letterboxing-ready");
++      tabBrowser.tabbox.classList.add("letterboxing-ready");
+     });
+   }
+ 
+@@ -639,6 +692,247 @@ class _RFPHelper {
+     this._resizeObservers.set(aWindow, resizeObserver);
+     // Rounding the content viewport.
+     this._updateSizeForTabsInWindow(aWindow);
++
++    this._updateLetterboxingColors(aWindow, true);
++    aWindow.addEventListener("nativethemechange", this);
++  }
++
++  /**
++   * Convert a CSS property to its RGBA value.
++   *
++   * @param {Window} win - The window for the element.
++   * @param {CSSStyleDeclaration} style - The computed style for the element we
++   *   want to grab the color from.
++   * @param {string} property - The name of the property we want.
++   *
++   * @returns {InspectorRGBATuple} - The RGBA color. The "r", "g", "b" fields
++   *   are relative to the 0-255 color range. The "a" field is in the 0-1 range.
++   */
++  _convertToRGBA(win, style, property) {
++    let cssColor = style.getPropertyValue(property);
++    if (!cssColor) {
++      lazy.logConsole.error(`Missing color "${property}"`);
++      return { r: 0, g: 0, b: 0, a: 0 };
++    }
++    const currentColorRegex =
++      /(^|[^a-zA-Z0-9_-])currentColor($|[^a-zA-Z0-9_-])/g;
++    if (currentColorRegex.test(cssColor)) {
++      const currentColor = style.color;
++      cssColor = cssColor.replace(currentColorRegex, (_, pre, post) => {
++        return pre + currentColor + post;
++      });
++      lazy.logConsole.debug(
++        "Replaced currentColor.",
++        property,
++        currentColor,
++        cssColor
++      );
++    }
++    /* Can drop the document argument after bugzilla bug 1973684 (142). */
++    const colorRGBA = win.InspectorUtils.colorToRGBA(cssColor, win.document);
++    if (!colorRGBA) {
++      lazy.logConsole.error(
++        `Failed to convert "${property}" color (${cssColor}) to RGBA`
++      );
++      return { r: 0, g: 0, b: 0, a: 0 };
++    }
++    return colorRGBA;
++  }
++
++  /**
++   * Compose two colors with alpha values on top of each other.
++   *
++   * @param {InspectorRGBATuple} topRGBA - The color to place on the top.
++   * @param {InspectorRGBATuple} bottomRGBA - The color to place on the bottom.
++   *
++   * @returns {InspectorRGBATuple} - The composed color.
++   */
++  _composeRGBA(topRGBA, bottomRGBA) {
++    const topA = Math.max(0, Math.min(1, topRGBA.a));
++    const bottomA = Math.max(0, Math.min(1, bottomRGBA.a));
++    const a = topA + bottomA - topA * bottomA; // Should be 1 if either is 1.
++    if (a === 0) {
++      return { r: 0, g: 0, b: 0, a };
++    }
++    const ret = { a };
++    for (const field of ["r", "g", "b"]) {
++      ret[field] =
++        (topRGBA[field] * topA + bottomRGBA[field] * bottomA * (1 - topA)) / a;
++    }
++    return ret;
++  }
++
++  /**
++   * Calculate the urlbar's container opaque background color, removing any
++   * transparency.
++   *
++   * @param {Window} win - The window to calculate the color for.
++   * @param {CSSStyleDeclaration} style - The computed style for the #nav-bar
++   *   element.
++   *
++   * @returns {InspectorRGBATuple} - The calculated color, which will be opaque.
++   */
++  _calculateUrlbarContainerColor(win, style) {
++    let colorRGBA;
++    if (!Services.prefs.getBoolPref(kPrefVerticalTabs)) {
++      lazy.logConsole.debug("Toolbar background used.");
++      colorRGBA = this._convertToRGBA(win, style, "--toolbar-bgcolor");
++      if (colorRGBA.a === 1) {
++        return colorRGBA;
++      }
++    } else {
++      // The urlbar only has the toolbox colour.
++      colorRGBA = { r: 0, g: 0, b: 0, a: 0 };
++    }
++    let toolboxHasBackgroundImage = false;
++    const isLwTheme = win.document.documentElement.hasAttribute("lwtheme");
++    if (isLwTheme) {
++      for (const prop of ["--lwt-header-image", "--lwt-additional-images"]) {
++        const headerImage = style.getPropertyValue(prop);
++        if (headerImage && headerImage !== "none") {
++          // The theme sets a background image behind the urlbar. No easy way to
++          // derive a single colour from this.
++          toolboxHasBackgroundImage = true;
++          lazy.logConsole.debug(
++            "Toolbox has background image.",
++            prop,
++            headerImage
++          );
++          break;
++        }
++      }
++    }
++    if (!toolboxHasBackgroundImage) {
++      lazy.logConsole.debug("Toolbox background used.");
++      colorRGBA = this._composeRGBA(
++        colorRGBA,
++        this._convertToRGBA(win, style, "--toolbox-bgcolor")
++      );
++      if (colorRGBA.a === 1) {
++        return colorRGBA;
++      }
++    }
++
++    // Determine whether the urlbar is dark.
++    // At this point, the urlbar background has some transparency, likely on top
++    // of an image.
++    // We use the theme's text colour to figure out whether the urlbar
++    // background is overall meant to be light or dark. Unlike the urlbar, we
++    // expect this colour to be (almost) opaque.
++    const textRGBA = this._convertToRGBA(win, style, "--toolbar-field-color");
++    const textColor = new lazy.Color(textRGBA.r, textRGBA.g, textRGBA.b);
++    if (textColor.relativeLuminance >= 0.5) {
++      // Light text, so assume it has a dark background.
++      // Combine with a generic opaque dark colour. Copied from "frame" for the
++      // built-in dark theme.
++      lazy.logConsole.debug("Generic dark background used.");
++      const darkFrameRGBA = { r: 28, g: 27, b: 34, a: 1 };
++      return this._composeRGBA(colorRGBA, darkFrameRGBA);
++    }
++    // Combine with an opaque light colour. Copied from "frame" for the built-in
++    // light theme.
++    lazy.logConsole.debug("Generic light background used.");
++    const lightFrameRGBA = { r: 234, g: 234, b: 237, a: 1 };
++    return this._composeRGBA(colorRGBA, lightFrameRGBA);
++  }
++
++  /**
++   * Update the Letterboxing colors and related classes, or clear them if
++   * Letterboxing is not enabled.
++   *
++   * @param {Window} win - The window to update the colors for.
++   * @param {boolean} letterboxingEnabled - Whether Letterboxing is enabled.
++   */
++  _updateLetterboxingColors(win, letterboxingEnabled) {
++    let urlbarBackgroundRGBA;
++    let urlbarTextRGBA;
++    let contentSeparatorRGBA;
++    let urlbarBackgroundDark = false;
++    let lowBackgroundOutlineContrast = false;
++
++    if (letterboxingEnabled) {
++      // Want the effective colour of various elements without any alpha values
++      // so they can be used consistently.
++      const navbarStyle = win.getComputedStyle(
++        win.document.getElementById("nav-bar")
++      );
++      const containerRGBA = this._calculateUrlbarContainerColor(
++        win,
++        navbarStyle
++      );
++      urlbarBackgroundRGBA = this._composeRGBA(
++        this._convertToRGBA(
++          win,
++          navbarStyle,
++          "--toolbar-field-background-color"
++        ),
++        containerRGBA
++      );
++      urlbarTextRGBA = this._composeRGBA(
++        this._convertToRGBA(win, navbarStyle, "--toolbar-field-color"),
++        urlbarBackgroundRGBA
++      );
++      /* Separator between the urlbar container #nav-bar and the tabbox. */
++      const tabboxStyle = win.getComputedStyle(win.gBrowser.tabbox);
++      contentSeparatorRGBA = this._composeRGBA(
++        this._convertToRGBA(
++          win,
++          tabboxStyle,
++          "--chrome-content-separator-color"
++        ),
++        containerRGBA
++      );
++      const bgColor = new lazy.Color(
++        urlbarBackgroundRGBA.r,
++        urlbarBackgroundRGBA.g,
++        urlbarBackgroundRGBA.b
++      );
++      const outlineColor = new lazy.Color(
++        contentSeparatorRGBA.r,
++        contentSeparatorRGBA.g,
++        contentSeparatorRGBA.b
++      );
++      const contrastRatio = bgColor.contrastRatio(outlineColor);
++      lazy.logConsole.debug(
++        "Outline-background contrast ratio.",
++        contrastRatio
++      );
++      urlbarBackgroundDark = bgColor.relativeLuminance < 0.5;
++      /* Very low contrast ratio. For reference the default light theme has
++       * a contrast ratio of ~1.1. */
++      lowBackgroundOutlineContrast = contrastRatio < 1.05;
++    }
++    for (const { name, colorRGBA } of [
++      {
++        name: "--letterboxing-urlbar-text-color",
++        colorRGBA: urlbarTextRGBA,
++      },
++      {
++        name: "--letterboxing-urlbar-background-color",
++        colorRGBA: urlbarBackgroundRGBA,
++      },
++      {
++        name: "--letterboxing-content-separator-color",
++        colorRGBA: contentSeparatorRGBA,
++      },
++    ]) {
++      if (letterboxingEnabled) {
++        win.gBrowser.tabbox.style.setProperty(
++          name,
++          `rgb(${colorRGBA.r}, ${colorRGBA.g}, ${colorRGBA.b})`
++        );
++      } else {
++        win.gBrowser.tabbox.style.removeProperty(name);
++      }
++    }
++    win.gBrowser.tabbox.classList.toggle(
++      "letterboxing-urlbar-background-dark",
++      urlbarBackgroundDark
++    );
++    win.gBrowser.tabbox.classList.toggle(
++      "letterboxing-low-background-outline-contrast",
++      lowBackgroundOutlineContrast
++    );
+   }
+ 
+   _attachAllWindows() {
+@@ -670,13 +964,16 @@ class _RFPHelper {
+     aWindow.removeEventListener("TabOpen", this);
+ 
+     // revert tabpanel's style to default
+-    tabBrowser.tabpanels?.classList.remove("letterboxing");
++    tabBrowser.tabbox.classList.remove("letterboxing");
+ 
+     // and restore default size on each browser element
+     for (let tab of tabBrowser.tabs) {
+       let browser = tab.linkedBrowser;
+       this._resetContentSize(browser);
+     }
++
++    aWindow.removeEventListener("nativethemechange", this);
++    this._updateLetterboxingColors(aWindow, false);
+   }
+ 
+   _detachAllWindows() {
 diff --git a/toolkit/components/resistfingerprinting/content/letterboxing.css b/toolkit/components/resistfingerprinting/content/letterboxing.css
-index 491cda5094..69ff433601 100644
+index 491cda5094..9c1ac07d30 100644
 --- a/toolkit/components/resistfingerprinting/content/letterboxing.css
 +++ b/toolkit/components/resistfingerprinting/content/letterboxing.css
-@@ -10,6 +10,14 @@
+@@ -7,9 +7,106 @@
+  * RFPHelper.sys.mjs (LETTERBOX_CSS_SELECTOR and LETTERBOX_CSS_URL,
+  * respectively), where --letterboxing-width & --letterboxing-height are
+  * actually set.
++ * Keep this block first and separate to the rules that do not necessarily
++ * require --letterboxing-width or --letterboxing-height.
   */
  .letterboxing {
-   --letterboxing-bgcolor: var(--tabpanel-background-color);
-+  --letterboxing-border-radius: 8px;
-+  --letterboxing-border-top-radius: 0;
+-  --letterboxing-bgcolor: var(--tabpanel-background-color);
++  .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) > browser {
++    width: var(--letterboxing-width) !important;
++    height: var(--letterboxing-height) !important;
++  }
++}
++
++#tabbrowser-tabbox.letterboxing {
++  --letterboxing-bgcolor: var(--background-color-canvas);
++  /* Match the border radius used for the sidebar. */
++  --letterboxing-border-radius: var(--border-radius-medium);
++  --letterboxing-border-radius-top: 0;
 +  --letterboxing-vertical-alignment: start;
-+  --letterboxing-shadow-color: rgba(12, 12, 13, 0.10);
-+  --letterboxing-gradient-color1: var(--letterboxing-bgcolor);
-+  --letterboxing-gradient-color2: color-mix(in srgb, var(--chrome-content-separator-color) 50%, var(--letterboxing-bgcolor));
-+  --letterboxing-border-color: var(--letterboxing-bgcolor);
-+  --letterboxing-decorator-visibility: visible;
++  --letterboxing-shadow: none;
++  --letterboxing-outline-color: var(--border-color);
++  --letterboxing-outline-width: 1px;
++
++  @media not ((prefers-contrast) or (forced-colors)) {
++    /* Match the #sidebar outline width. */
++    --letterboxing-outline-width: 0.5px;
++    --letterboxing-shadow-color: rgba(58, 57, 68, 0.20);
++    --letterboxing-shadow: 0 2px 14px 0 var(--letterboxing-shadow-color);
++
++    /* Match the effective urlbar background colour. */
++    --letterboxing-bgcolor: var(--letterboxing-urlbar-background-color);
++    /* Match the effective colour of the separator between the urlbar container
++     * and the content. */
++    --letterboxing-outline-color: var(--letterboxing-content-separator-color);
++
++    &.letterboxing-urlbar-background-dark {
++      --letterboxing-shadow-color: #15141a;
++    }
++
++    &.letterboxing-low-background-outline-contrast {
++      /* The default content separator colour has insufficient contrast. */
++      --letterboxing-outline-color: color-mix(in srgb, var(--letterboxing-content-separator-color) 90%, black);
++
++      &.letterboxing-urlbar-background-dark {
++        /* Lighten the colour. */
++        --letterboxing-outline-color: color-mix(in srgb, var(--letterboxing-content-separator-color) 90%, white);
++      }
++    }
++  }
++
++  @media (prefers-contrast) and (not (forced-colors)) {
++    :root[lwtheme] & {
++      /* User with prefers-contrast coming from the system settings, but also an
++       * installed theme. */
++      --letterboxing-bgcolor: var(--letterboxing-urlbar-background-color);
++      /* Presumably a user with prefers-contrast and a custom theme has chosen
++       * a theme where the contrast between the urlbar and the text is
++       * sufficiently high or low. */
++      --letterboxing-outline-color: var(--letterboxing-urlbar-text-color);
++    }
++  }
++
++  background: var(--letterboxing-bgcolor);
++
++  &:has(.deck-selected .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing).letterboxing-show-outline) {
++    /* Letterboxing outline is visible for the current tab. Replace the usual
++     * outline to match the Letterboxing outline. For most scenarios, this
++     * should be mostly the same colour as when Letterboxing is not visible. But
++     * it may make a difference for some theme combinations. */
++    outline-color: var(--letterboxing-outline-color);
++    outline-width: var(--letterboxing-outline-width);
++  }
++
++  #tabbrowser-tabpanels {
++    /* Override the --tabpanel-background-color.
++     * Also, make sure this remains transparent, otherwise it will overlap the
++     * parent's corner's border-radius due to it's "position: relative" rule. */
++    /* TODO: FIX this for newtab pages. tor-browser#44085 */
++    background: transparent;
++  }
++
++  /* stylelint-disable-next-line media-query-no-invalid */
++  @media -moz-pref("sidebar.revamp") {
++    :root:not([inDOMFullscreen]) &[sidebar-shown]:not(.letterboxing-nav-toolbox-hidden):is(
++      /* When the Letterboxing area is aligned to the top, show the rounded
++       * corner if there is enough vertical space between the sidebar and the
++       * browser element, which is not rounded at the top. */
++      :not(.letterboxing-vcenter):has(.deck-selected .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing).letterboxing-show-sidebar-corner),
++      /* When the Letterboxing area is aligned to the centre, show the rounded
++       * corner if the Letterboxing border is shown. */
++      .letterboxing-vcenter:has(.deck-selected .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing).letterboxing-show-outline)
++    ) {
++      /* stylelint-disable-next-line media-query-no-invalid */
++      @media -moz-pref("sidebar.position_start") {
++        border-start-start-radius: var(--letterboxing-border-radius);
++      }
++
++      /* stylelint-disable-next-line media-query-no-invalid */
++      @media not -moz-pref("sidebar.position_start") {
++        border-start-end-radius: var(--letterboxing-border-radius);
++      }
++    }
++  }
  
    .browserContainer {
      /*
-@@ -22,11 +30,96 @@
+@@ -18,15 +115,71 @@
+      * doesn't get notified on horizontal shrinking.
+      */
+     overflow: hidden;
+-    background: var(--letterboxing-bgcolor);
    }
  
-   .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) > browser {
-+    box-shadow: 0 4px 8px 0 var(--letterboxing-shadow-color);
-+    border-radius: var(--letterboxing-border-radius);
-+    border-top-left-radius: var(--letterboxing-border-top-radius);
-+    border-top-right-radius: var(--letterboxing-border-top-radius);
-     width: var(--letterboxing-width) !important;
-     height: var(--letterboxing-height) !important;
-+    background: var(--letterboxing-gradient-color2);
+-  .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) > browser {
+-    width: var(--letterboxing-width) !important;
+-    height: var(--letterboxing-height) !important;
++  &.letterboxing-vcenter {
++    --letterboxing-border-radius-top: var(--letterboxing-border-radius);
++    --letterboxing-vertical-alignment: center;
    }
  }
  
- :root:not([inDOMFullscreen]) .letterboxing.letterboxing-ready .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) {
-   place-content: start center;
- }
+-:root:not([inDOMFullscreen]) .letterboxing.letterboxing-ready .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) {
+-  place-content: start center;
++.browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) {
++  :root:not([inDOMFullscreen]) .letterboxing.letterboxing-ready & {
++    place-content: var(--letterboxing-vertical-alignment) center;
++  }
++
++  :root:not([inDOMFullscreen]) .letterboxing &.letterboxing-show-outline {
++    browser {
++      /* We use clip-path rather than border-radius because border-radius on its
++       * own leads to rendering artefacts in the corners (tested with GNOME).
++       * See tor-browser#44214 (comment 3262962). */
++      /* TODO: Use border-radius once bugzilla bug 1991874 is resolved. */
++      clip-path: rect(auto auto auto auto round var(--letterboxing-border-radius-top) var(--letterboxing-border-radius-top) var(--letterboxing-border-radius) var(--letterboxing-border-radius));
++    }
++
++    .browserDecorator {
++      /* Need a separate browserDecorator element because the clip-path on the
++       * browser would exclude the outline and box-shadow. */
++      /* TODO: Move these rules to the browser element once bugzilla bug 1991874
++       * is resolved, and drop browserDecorator. */
++      display: block;
++      border-radius: var(--letterboxing-border-radius-top) var(--letterboxing-border-radius-top) var(--letterboxing-border-radius) var(--letterboxing-border-radius);
++      /* NOTE: The top outline will not be visible when this is aligned to the
++       * top. */
++      outline: var(--letterboxing-outline-width) solid var(--letterboxing-outline-color);
++      box-shadow: var(--letterboxing-shadow);
++    }
++
++    #statuspanel:not([mirror]) #statuspanel-label {
++      border-end-start-radius: var(--letterboxing-border-radius);
++    }
++
++    #statuspanel[mirror] #statuspanel-label {
++      border-end-end-radius: var(--letterboxing-border-radius);
++    }
++  }
++
++  #statuspanel {
++    position: relative;
++    place-self: end start;
++    z-index: 2;
++
++    &[mirror] {
++      justify-self: end;
++    }
++  }
++
++  #statuspanel-label {
++    margin: 0;
++    outline: var(--letterboxing-outline-width) solid var(--letterboxing-outline-color);
++    max-width: calc(var(--letterboxing-width) * .5);
++  }
++}
 +
 +.browserDecorator {
 +  display: none;
@@ -142,79 +699,7 @@ index 491cda5094..69ff433601 100644
 +  background: transparent;
 +  position: relative;
 +  z-index: 1;
-+}
-+
-+.letterboxing.letterboxing-vcenter .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing) {
-+  --letterboxing-border-top-radius: var(--letterboxing-border-radius);
-+  --letterboxing-vertical-alignment: center;
-+}
-+
-+.letterboxing.letterboxing-gradient .browserContainer {
-+  background: linear-gradient(283deg, var(--letterboxing-gradient-color1) 0%, var(--letterboxing-gradient-color2) 100%), var(--letterboxing-bgcolor);
-+}
-+
-+:root:not([inDOMFullscreen]) .letterboxing .browserContainer:not(.responsive-mode)
-+  > .browserStack:not(.exclude-letterboxing)
-+  > .browserDecorator {
-+  display: initial;
-+  visibility: var(--letterboxing-decorator-visibility);
-+  border-radius: var(--letterboxing-border-radius);
-+  border-top-left-radius: var(--letterboxing-border-top-radius);
-+  border-top-right-radius: var(--letterboxing-border-top-radius);
-+  box-shadow: var(--letterboxing-border-color) 0 0 .1px inset, var(--letterboxing-border-color) 0 0 .1px;
-+  border: .1px solid var(--letterboxing-border-color);
-+  outline: .1px solid var(--letterboxing-bgcolor);
-+  height: calc(var(--letterboxing-height) + 1px);
-+  top: -1px;
-+}
-+
-+.letterboxing-vcenter .browserDecorator {
-+  height: auto !important;
-+  top: 0 !important;
-+}
-+
-+/*
-+  Align status bar with content.
-+  TODO: switch to nested CSS selectors for conciseness when available (Firefox >= 117)
-+*/
-+.letterboxing .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing)
-+  > #statuspanel:not([hidden]) {
-+  position: relative;
-+  place-self: end left;
-+  left: 0;
-+  right: 0;
-+  z-index: 2;
-+  --letterboxing-status-left-radius: var(--letterboxing-border-radius);
-+  --letterboxing-status-right-radius: 0;
-+}
-+.letterboxing .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing)
-+  > #statuspanel:not([mirror]):-moz-locale-dir(rtl),
-+.letterboxing .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing)
-+  > #statuspanel[mirror]:-moz-locale-dir(ltr) {
-+  left: 0;
-+  right: 0;
-+  --letterboxing-status-right-radius: var(--letterboxing-border-radius);
-+  --letterboxing-status-left-radius: 0;
-+  justify-self: right;
-+}
-+
-+.letterboxing .browserContainer:not(.responsive-mode) > .browserStack:not(.exclude-letterboxing)
-+#statuspanel-label {
-+  border-radius: 0 0 var(--letterboxing-status-right-radius) var(--letterboxing-status-left-radius);
-+  margin: 0;
-+  border: 1px solid var(--letterboxing-border-color);
-+  max-width: calc(var(--letterboxing-width) * .5);
-+}
-+
-+browser:fullscreen {
-+  --letterboxing-border-top-radius: 0;
-+  --letterboxing-border-radius: 0;
-+}
-+
-+:root:not([inDOMFullscreen]) .letterboxing.letterboxing-ready .browserContainer:not(.responsive-mode)
-+  > .browserStack:not(.exclude-letterboxing) {
-+  place-content: var(--letterboxing-vertical-alignment) center;
-+}
+ }
 -- 
-2.50.1
+2.51.2
 

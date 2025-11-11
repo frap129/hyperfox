@@ -1,4 +1,4 @@
-From f25407edded9471a1c880fe6607ee23d15c37f53 Mon Sep 17 00:00:00 2001
+From cafde847d21f5fe4f1de3c86d8bdde6d7639ef63 Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Mon, 21 Aug 2023 13:13:57 +0200
 Subject: [PATCH] BB 42019: Empty browser's clipboard on browser shutdown
@@ -12,23 +12,23 @@ Subject: [PATCH] BB 42019: Empty browser's clipboard on browser shutdown
  create mode 100644 browser/modules/ClipboardPrivacy.sys.mjs
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index 20e7d5a388..0c581b15fb 100644
+index f74481f014..33d8ea4110 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -3479,3 +3479,6 @@ pref("toolkit.rust-components.logging.crates", "");
+@@ -3511,3 +3511,6 @@ pref("toolkit.rust-components.logging.internal-level", "Warn");
  
- // Log level for the internal logs in `AppServicesTracing.sys.mjs`
- pref("toolkit.rust-components.logging.internal-level", "Warn");
+ // Settings Redesign 2025 prefs
+ pref("browser.settings-redesign.enabled", false);
 +
 +// Empty clipboard content from private windows on exit (tor-browser#42154)
 +pref("browser.privatebrowsing.preserveClipboard", false);
 diff --git a/browser/components/BrowserComponents.manifest b/browser/components/BrowserComponents.manifest
-index c2f8389e13..df4ac49561 100644
+index 6f5d4ef2a4..09d4222f43 100644
 --- a/browser/components/BrowserComponents.manifest
 +++ b/browser/components/BrowserComponents.manifest
-@@ -54,6 +54,7 @@ category browser-first-window-ready resource:///modules/ipprotection/IPProtectio
- category browser-first-window-ready resource://gre/modules/SandboxUtils.sys.mjs SandboxUtils.maybeWarnAboutMissingUserNamespaces
- #endif
+@@ -56,6 +56,7 @@ category browser-first-window-ready resource://gre/modules/SandboxUtils.sys.mjs
+ category browser-window-delayed-startup resource://gre/modules/SandboxUtils.sys.mjs SandboxUtils.maybeWarnAboutDisabledContentSandbox
+ category browser-first-window-ready resource://gre/modules/SandboxUtils.sys.mjs SandboxUtils.observeContentSandboxPref
  #endif
 +category browser-first-window-ready moz-src:///browser/modules/ClipboardPrivacy.sys.mjs ClipboardPrivacy.init
  
@@ -219,17 +219,17 @@ index 0000000000..656cec45a2
 +  },
 +};
 diff --git a/browser/modules/moz.build b/browser/modules/moz.build
-index a4224e117a..b6632e13c5 100644
+index a4224e117a..d2e0bbb649 100644
 --- a/browser/modules/moz.build
 +++ b/browser/modules/moz.build
 @@ -148,6 +148,7 @@ EXTRA_JS_MODULES += [
- 
  MOZ_SRC_FILES += [
      "CanvasPermissionPromptHelper.sys.mjs",
 +    "ClipboardPrivacy.sys.mjs",
      "ContextId.sys.mjs",
      "ObserverForwarder.sys.mjs",
      "PrivateBrowsingUI.sys.mjs",
+     "UnexpectedScriptObserver.sys.mjs",
 -- 
-2.51.0
+2.51.2
 
