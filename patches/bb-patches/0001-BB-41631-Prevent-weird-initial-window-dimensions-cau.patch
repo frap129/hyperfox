@@ -1,15 +1,15 @@
-From 54b7bbb57464c4060e4b622ad757068d239adf8e Mon Sep 17 00:00:00 2001
+From ee530f7dbdf3fbd4c3fbdd963613ec5eababa2c2 Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Thu, 23 Mar 2023 23:29:21 +0100
 Subject: [PATCH] BB 41631: Prevent weird initial window dimensions caused by
  subpixel computations
 
 ---
- .../resistfingerprinting/RFPHelper.sys.mjs    | 182 +++++++++++++-----
- 1 file changed, 138 insertions(+), 44 deletions(-)
+ .../resistfingerprinting/RFPHelper.sys.mjs    | 188 +++++++++++++-----
+ 1 file changed, 138 insertions(+), 50 deletions(-)
 
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 13808565d0..be042241c9 100644
+index ea5df6e28a..3517381d3f 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 @@ -4,6 +4,7 @@
@@ -20,7 +20,7 @@ index 13808565d0..be042241c9 100644
  import * as RFPTargetConstants from "resource://gre/modules/RFPTargetConstants.sys.mjs";
  
  const kPrefResistFingerprinting = "privacy.resistFingerprinting";
-@@ -36,6 +37,20 @@ function log(...args) {
+@@ -41,6 +42,20 @@ function log(...args) {
    lazy.logConsole.log(...args);
  }
  
@@ -41,7 +41,7 @@ index 13808565d0..be042241c9 100644
  class _RFPHelper {
    _resizeObservers = new WeakMap();
  
-@@ -172,9 +187,13 @@ class _RFPHelper {
+@@ -208,9 +223,13 @@ class _RFPHelper {
  
    _handleResistFingerprintingChanged() {
      this.rfpEnabled = Services.prefs.getBoolPref(kPrefResistFingerprinting);
@@ -56,16 +56,22 @@ index 13808565d0..be042241c9 100644
        this._removeLanguagePrefObservers();
      }
    }
-@@ -303,12 +322,12 @@ class _RFPHelper {
+@@ -342,18 +361,12 @@ class _RFPHelper {
    }
  
    _handleLetterboxingPrefChanged() {
 -    if (Services.prefs.getBoolPref(kPrefLetterboxing, false)) {
--      Services.ww.registerNotification(this);
+-      if (!this._letterboxingPrefObserversAdded) {
+-        Services.ww.registerNotification(this);
+-        this._letterboxingPrefObserversAdded = true;
+-      }
 -      this._attachAllWindows();
 -    } else {
 -      this._detachAllWindows();
--      Services.ww.unregisterNotification(this);
+-      if (this._letterboxingPrefObserversAdded) {
+-        Services.ww.unregisterNotification(this);
+-        this._letterboxingPrefObserversAdded = false;
+-      }
 +    this.letterboxingEnabled = Services.prefs.getBoolPref(
 +      kPrefLetterboxing,
 +      false
@@ -75,7 +81,7 @@ index 13808565d0..be042241c9 100644
      }
    }
  
-@@ -390,22 +409,23 @@ class _RFPHelper {
+@@ -435,22 +448,23 @@ class _RFPHelper {
      }
    }
  
@@ -108,7 +114,7 @@ index 13808565d0..be042241c9 100644
    }
  
    /**
-@@ -432,6 +452,17 @@ class _RFPHelper {
+@@ -477,6 +491,17 @@ class _RFPHelper {
        ])
      );
  
@@ -126,7 +132,7 @@ index 13808565d0..be042241c9 100644
      log(
        `${logPrefix} contentWidth=${contentWidth} contentHeight=${contentHeight} parentWidth=${parentWidth} parentHeight=${parentHeight} containerWidth=${containerWidth} containerHeight=${containerHeight}${
          isNewTab ? " (new tab)." : "."
-@@ -459,6 +490,11 @@ class _RFPHelper {
+@@ -504,6 +529,11 @@ class _RFPHelper {
  
        log(`${logPrefix} roundDimensions(${aWidth}, ${aHeight})`);
  
@@ -138,7 +144,7 @@ index 13808565d0..be042241c9 100644
        // If the set is empty, we will round the content with the default
        // stepping size.
        if (!this._letterboxingDimensions.length) {
-@@ -513,6 +549,17 @@ class _RFPHelper {
+@@ -558,6 +588,17 @@ class _RFPHelper {
                lazy.logConsole.error(e);
              }
            }
@@ -156,10 +162,10 @@ index 13808565d0..be042241c9 100644
            if (isTesting) {
              win.promiseDocumentFlushed(() => {
                Services.obs.notifyObservers(
-@@ -621,10 +668,41 @@ class _RFPHelper {
+@@ -673,10 +714,41 @@ class _RFPHelper {
      // maximized.
      aWindow.setTimeout(() => {
-       tabBrowser.tabpanels?.classList.add("letterboxing-ready");
+       tabBrowser.tabbox.classList.add("letterboxing-ready");
 +      if (!aWindow._rfpOriginalSize) {
 +        this._recordWindowSize(aWindow);
 +      }
@@ -198,8 +204,8 @@ index 13808565d0..be042241c9 100644
      aWindow.gBrowser.addTabsProgressListener(this);
      aWindow.addEventListener("TabOpen", this);
      let resizeObserver = new aWindow.ResizeObserver(entries => {
-@@ -642,20 +720,6 @@ class _RFPHelper {
-     this._updateSizeForTabsInWindow(aWindow);
+@@ -935,20 +1007,6 @@ class _RFPHelper {
+     );
    }
  
 -  _attachAllWindows() {
@@ -219,8 +225,8 @@ index 13808565d0..be042241c9 100644
    _detachWindow(aWindow) {
      let resizeObserver = this._resizeObservers.get(aWindow);
      if (resizeObserver) {
-@@ -680,20 +744,6 @@ class _RFPHelper {
-     }
+@@ -976,20 +1034,6 @@ class _RFPHelper {
+     this._updateLetterboxingColors(aWindow, false);
    }
  
 -  _detachAllWindows() {
@@ -240,7 +246,7 @@ index 13808565d0..be042241c9 100644
    _handleDOMWindowOpened(win) {
      let self = this;
  
-@@ -725,6 +775,50 @@ class _RFPHelper {
+@@ -1021,6 +1065,50 @@ class _RFPHelper {
      this._detachWindow(win);
    }
  
@@ -292,5 +298,5 @@ index 13808565d0..be042241c9 100644
      return RFPTargetConstants.Targets;
    }
 -- 
-2.50.1
+2.51.2
 
