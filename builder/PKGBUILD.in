@@ -10,7 +10,7 @@ arch=(x86_64)
 license=(MPL GPL LGPL)
 url="https://github.com/frap129/hyperfox"
 depends=(gtk3 libxt startup-notification mime-types dbus
-  nss ttf-font libpulse ffmpeg zlib)
+  nss ttf-font libpulse ffmpeg4.4 zlib)
 makedepends=(git)
 optdepends=(
   'hunspell-en_US: Spell checking, American English'
