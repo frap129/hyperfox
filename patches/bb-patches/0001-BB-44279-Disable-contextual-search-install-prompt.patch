@@ -1,0 +1,40 @@
+From 6c991367aab7e19f152e35f87e32572504f52236 Mon Sep 17 00:00:00 2001
+From: henry <2290-henry@gitlab.torproject.org>
+Date: Tue, 21 Oct 2025 14:54:00 +0000
+Subject: [PATCH] BB 44279: Disable contextual search install prompt.
+
+(cherry picked from commit 5b9d6ce72ac5e4a3a296d6084a9bce7cf4a1ccd6)
+
+Co-authored-by: Henry Wilkes <henry@torproject.org>
+---
+ .../urlbar/ActionsProviderContextualSearch.sys.mjs         | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/browser/components/urlbar/ActionsProviderContextualSearch.sys.mjs b/browser/components/urlbar/ActionsProviderContextualSearch.sys.mjs
+index 6558413541..100a7fb43f 100644
+--- a/browser/components/urlbar/ActionsProviderContextualSearch.sys.mjs
++++ b/browser/components/urlbar/ActionsProviderContextualSearch.sys.mjs
+@@ -9,6 +9,8 @@ import {
+   ActionsResult,
+ } from "moz-src:///browser/components/urlbar/ActionsProvider.sys.mjs";
+ 
++import { AppConstants } from "resource://gre/modules/AppConstants.sys.mjs";
++
+ const lazy = {};
+ 
+ ChromeUtils.defineESModuleGetters(lazy, {
+@@ -296,6 +298,11 @@ class ProviderContextualSearch extends ActionsProvider {
+     );
+ 
+     if (
++      // Do not show the install prompt in non-private windows to have
++      // consistent behaviour with private windows and avoid linkability
++      // concerns. tor-browser#44134.
++      // Maybe re-enable as part of tor-browser#44117.
++      !AppConstants.BASE_BROWSER_VERSION &&
+       !queryContext.isPrivate &&
+       type != INSTALLED_ENGINE &&
+       (await Services.search.shouldShowInstallPrompt(engine))
+-- 
+2.51.2
+
