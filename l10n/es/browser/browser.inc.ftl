@@ -1,1 +1,1 @@
-identity-allow-site-data = LibreWolf: Siempre almacena las cookies/datos para este sitio
+identity-allow-site-data = LibreWolf: Almacenar siempre las cookies/datos de esta página web
