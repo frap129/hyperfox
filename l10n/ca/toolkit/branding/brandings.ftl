@@ -1,0 +1,2 @@
+-screenshots-brand-name = Captures de pantalla
+-profiler-brand-name = Profiler
