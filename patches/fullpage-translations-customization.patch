@@ -1,8 +1,8 @@
 diff --git a/browser/base/content/main-popupset.inc.xhtml b/browser/base/content/main-popupset.inc.xhtml
-index 1fb595272a18..56c2c58e111c 100644
+index 78030413c4..301e5afabf 100644
 --- a/browser/base/content/main-popupset.inc.xhtml
 +++ b/browser/base/content/main-popupset.inc.xhtml
-@@ -607,6 +607,8 @@
+@@ -782,6 +782,8 @@
                checked="false"
                autocheck="false"
                id="translations-panel-settings-never-translate-site"/>
@@ -12,10 +12,10 @@ index 1fb595272a18..56c2c58e111c 100644
      <menuitem class="manage-languages-menuitem"
                data-l10n-id="translations-panel-settings-manage-languages"
 diff --git a/browser/base/content/main-popupset.js b/browser/base/content/main-popupset.js
-index c403c914f27c..6338cbd92621 100644
+index 244ff30700..57a0d5a598 100644
 --- a/browser/base/content/main-popupset.js
 +++ b/browser/base/content/main-popupset.js
-@@ -251,6 +251,9 @@ document.addEventListener(
+@@ -346,6 +346,9 @@ document.addEventListener(
          case "translations-panel-settings-never-translate-site":
            FullPageTranslationsPanel.onNeverTranslateSite();
            break;
@@ -26,10 +26,18 @@ index c403c914f27c..6338cbd92621 100644
            FullPageTranslationsPanel.openManageLanguages();
            break;
 diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
-index 4c2637db10b7..846a538036d7 100644
+index ff577c035f..3b07de78a6 100644
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
-@@ -389,8 +389,16 @@
+@@ -28,6 +28,7 @@
+ 
+   <vbox id="startupPageBox">
+     <html:setting-group groupid="startup"/>
++    <html:a is="moz-support-link" support-page="session-restore" data-l10n-id="session-restore-learn-more" />
+   </vbox>
+ 
+ </groupbox>
+@@ -366,8 +367,16 @@
            preference="layout.spellcheckDefault"/>
  
    <!-- Translations -->
@@ -47,7 +55,7 @@ index 4c2637db10b7..846a538036d7 100644
      <hbox id="translations-manage-description" align="center">
        <description flex="1" data-l10n-id="translations-manage-intro-2"/>
        <button id="translations-manage-settings-button"
-@@ -412,6 +420,7 @@
+@@ -389,6 +398,7 @@
        <description id="translations-manage-error" hidden="true"></description>
      </vbox>
    </vbox>
@@ -56,10 +64,10 @@ index 4c2637db10b7..846a538036d7 100644
  
  <!-- Files and Applications -->
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index fec5aa685ea7..92082d259903 100644
+index 46283d3..8bd2352 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -145,6 +145,10 @@ Preferences.addAll([
+@@ -170,6 +170,10 @@ Preferences.addAll([
    { id: "dom.ipc.processCount.web", type: "int" },
    { id: "layers.acceleration.disabled", type: "bool", inverted: true },
  
@@ -70,30 +78,7 @@ index fec5aa685ea7..92082d259903 100644
    // Files and Applications
    { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
  
-@@ -326,6 +330,22 @@ var gMainPane = {
- 
-     gMainPane.initTranslations();
- 
-+    let inPrompt = false;
-+    Preferences.get("browser.translations.enable").on("change", () => {
-+      if(!Preferences.get("browser.translations.enable").value)
-+      if(!inPrompt) {
-+        inPrompt = true;
-+        confirmRestartPrompt(false, 1, true, false).then(buttonIndex => {
-+          inPrompt = false;
-+          if (buttonIndex == CONFIRM_RESTART_PROMPT_RESTART_NOW) {
-+            Services.startup.quit(
-+              Ci.nsIAppStartup.eAttemptQuit | Ci.nsIAppStartup.eRestart
-+            );
-+          }
-+        });
-+      }
-+    });
-+
-     if (
-       Services.prefs.getBoolPref(
-         "media.videocontrols.picture-in-picture.enabled"
-@@ -793,6 +813,10 @@ var gMainPane = {
+@@ -2037,6 +2041,10 @@ var gMainPane = {
        document.getElementById("checkSpelling"),
        () => this.writeCheckSpelling()
      );
@@ -102,10 +87,10 @@ index fec5aa685ea7..92082d259903 100644
 +      () => this.readEnableTranslations()
 +    );
      Preferences.addSyncFromPrefListener(
-       document.getElementById("alwaysAsk"),
-       () => this.readUseDownloadDir()
-@@ -1023,24 +1047,33 @@ var gMainPane = {
-     document.getElementById("zoomBox").hidden = false;
+       document.getElementById("linkTargeting"),
+       () => this.readLinkTarget()
+@@ -2270,24 +2278,33 @@ var gMainPane = {
+       Preferences.get("browser.display.document_color_use").value != 2;
    },
  
 +  readEnableTranslations(skipInit = false) {
@@ -122,7 +107,7 @@ index fec5aa685ea7..92082d259903 100644
     */
    async initTranslations() {
 +    this.readEnableTranslations(true);
-+
++    
      if (!Services.prefs.getBoolPref("browser.translations.enable")) {
        return;
      }
@@ -142,11 +127,34 @@ index fec5aa685ea7..92082d259903 100644
      class TranslationsState {
        /**
         * The fully initialized state.
+@@ -4530,6 +4547,22 @@ var gMainPane = {
+     // they'll only visit URLs derived from that template (i.e. with %s
+     // in the template replaced by the URL of the content being handled).
+ 
++    let inPrompt = false;
++    Preferences.get("browser.translations.enable").on("change", () => {
++      if(!Preferences.get("browser.translations.enable").value)
++      if(!inPrompt) {
++        inPrompt = true;
++        confirmRestartPrompt(false, 1, true, false).then(buttonIndex => {
++          inPrompt = false;
++          if (buttonIndex == CONFIRM_RESTART_PROMPT_RESTART_NOW) {
++            Services.startup.quit(
++              Ci.nsIAppStartup.eAttemptQuit | Ci.nsIAppStartup.eRestart
++            );
++          }
++        });
++      }
++    });
++
+     if (
+       /^https?$/.test(uri.scheme) &&
+       Services.prefs.getBoolPref("browser.chrome.site_icons")
 diff --git a/browser/components/translations/content/fullPageTranslationsPanel.js b/browser/components/translations/content/fullPageTranslationsPanel.js
-index 0c8288af9aca..05e49c06ff63 100644
+index f437dce2be..b7756bdc4c 100644
 --- a/browser/components/translations/content/fullPageTranslationsPanel.js
 +++ b/browser/components/translations/content/fullPageTranslationsPanel.js
-@@ -1220,6 +1220,15 @@ var FullPageTranslationsPanel = new (class {
+@@ -1298,6 +1298,15 @@ var FullPageTranslationsPanel = new (class {
      );
    }
  

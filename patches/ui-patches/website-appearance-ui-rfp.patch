@@ -1,32 +1,41 @@
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index aa339be9ba..1da6fb658b 100644
+index 46283d3eac..cd40b7bd85 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -4382,6 +4382,7 @@ const AppearanceChooser = {
-     this.warning = document.getElementById("web-appearance-override-warning");
- 
-     FORCED_COLORS_QUERY.addEventListener("change", this);
-+    Services.prefs.addObserver("privacy.resistFingerprinting", this);
-     Services.obs.addObserver(this, "look-and-feel-changed");
-     this._update();
+@@ -525,9 +529,69 @@ Preferences.addSetting({
+   id: "web-appearance-override-warning",
+   setup: emitChange => {
+     FORCED_COLORS_QUERY.addEventListener("change", emitChange);
+-    return () => FORCED_COLORS_QUERY.removeEventListener("change", emitChange);
++    const prefObserver = {
++      observe(subject, topic, data) {
++        emitChange();
++      },
++    };
++    Services.prefs.addObserver("privacy.resistFingerprinting", prefObserver);
++    return () => {
++      FORCED_COLORS_QUERY.removeEventListener("change", emitChange);
++      Services.prefs.removeObserver("privacy.resistFingerprinting", prefObserver);
++    };
    },
-@@ -4417,6 +4418,7 @@ const AppearanceChooser = {
-   },
- 
-   destroy() {
-+    Services.prefs.removeObserver("privacy.resistFingerprinting", this);
-     Services.obs.removeObserver(this, "look-and-feel-changed");
-     FORCED_COLORS_QUERY.removeEventListener("change", this);
-   },
-@@ -4452,5 +4454,33 @@ const AppearanceChooser = {
- 
-   _updateWarning() {
-     this.warning.hidden = !FORCED_COLORS_QUERY.matches;
+   visible: () => {
++    const warning = document.getElementById("web-appearance-override-warning");
++    if (warning) {
++      warning.hidden = !FORCED_COLORS_QUERY.matches;
++    }
 +
 +    document.getElementById("web-appearance-rfp-warning")?.remove();
++
++    const chooser = document.getElementById("web-appearance-chooser");
++    const webAppearanceSettings = document.getElementById("webAppearanceSettings");
++
 +    if (Services.prefs.getBoolPref("privacy.resistFingerprinting")) {
-+      document.getElementById("web-appearance-chooser").style.opacity = 0.3;
-+      document.getElementById("web-appearance-chooser").style.pointerEvents = "none";
++      if (chooser) {
++        chooser.style.opacity = 0.3;
++        chooser.style.pointerEvents = "none";
++      }
++
++      
 +      const infoBox = document.createElement("div");
 +      infoBox.id = "web-appearance-rfp-warning";
 +      infoBox.classList.add("info-box-container");
@@ -34,9 +43,12 @@ index aa339be9ba..1da6fb658b 100644
 +      infoBox.style.alignItems = "center";
 +      infoBox.style.marginTop = "10px";
 +      infoBox.style.marginBottom = "5px";
++
 +      const text = document.createElement("div");
-+      text.innerText = "This feature is disabled because ResistFingerprinting is enabled. This means LibreWolf will force web content to display in a light theme.";
++      text.innerText =
++        "This feature is disabled because ResistFingerprinting is enabled. This means LibreWolf will force web content to display in a light theme.";
 +      infoBox.appendChild(text);
++
 +      const learnMore = document.createElement("a");
 +      learnMore.classList.add("text-link");
 +      learnMore.style.marginLeft = "5px";
@@ -45,10 +57,19 @@ index aa339be9ba..1da6fb658b 100644
 +      learnMore.href = "https://librewolf.net/docs/faq/#why-is-librewolf-forcing-light-theme";
 +      learnMore.innerText = "Learn more";
 +      infoBox.appendChild(learnMore);
-+      document.getElementById("webAppearanceSettings").insertBefore(infoBox, document.getElementById("webAppearanceSettings").children[2]);
++
++      
++      if (webAppearanceSettings) {
++        const beforeNode = webAppearanceSettings.children[2] || null;
++        webAppearanceSettings.insertBefore(infoBox, beforeNode);
++      }
 +    } else {
-+      document.getElementById("web-appearance-chooser").style.opacity = 1;
-+      document.getElementById("web-appearance-chooser").style.pointerEvents = "all";
++      if (chooser) {
++        chooser.style.opacity = 1;
++        chooser.style.pointerEvents = "all";
++      }
 +    }
++    
+     return FORCED_COLORS_QUERY.matches;
    },
- };
+ });

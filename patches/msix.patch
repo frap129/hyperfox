@@ -6,6 +6,7 @@
 # License:       MPL 2.0
 
 diff --git a/browser/installer/windows/msix/AppxManifest.xml.in b/browser/installer/windows/msix/AppxManifest.xml.in
+index b81a73518a..3e58515c5d 100644
 --- a/browser/installer/windows/msix/AppxManifest.xml.in
 +++ b/browser/installer/windows/msix/AppxManifest.xml.in
 @@ -30,13 +30,14 @@
@@ -46,9 +47,10 @@ diff --git a/browser/installer/windows/msix/AppxManifest.xml.in b/browser/instal
 -  </Extensions>
  </Package>
 diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuild/mach_commands.py
+index 58702a0734..08d7862509 100644
 --- a/python/mozbuild/mozbuild/mach_commands.py
 +++ b/python/mozbuild/mozbuild/mach_commands.py
-@@ -2747,7 +2747,7 @@ def repackage_msi(
+@@ -3003,7 +3003,7 @@ def repackage_msi(
  @CommandArgument(
      "--vendor",
      type=str,
@@ -57,7 +59,7 @@ diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuil
      required=False,
      help="The vendor to use in the Package/Identity/Name string to use in the App Manifest."
      + " Defaults to 'Mozilla'.",
-@@ -2906,7 +2906,7 @@ def repackage_msix(
+@@ -3162,7 +3162,7 @@ def repackage_msix(
          command_context.topsrcdir,
          channel=channel,
          arch=arch,
@@ -67,9 +69,10 @@ diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuil
          publisher=publisher,
          publisher_display_name=publisher_display_name,
 diff --git a/python/mozbuild/mozbuild/repackaging/msix.py b/python/mozbuild/mozbuild/repackaging/msix.py
+index 133944f06f..81c9ab2465 100644
 --- a/python/mozbuild/mozbuild/repackaging/msix.py
 +++ b/python/mozbuild/mozbuild/repackaging/msix.py
-@@ -106,68 +106,19 @@ def get_embedded_version(version, buildi
+@@ -106,68 +106,19 @@ def get_embedded_version(version, buildid):
      the dotted quad to be identically 0, so we enforce that here.
      """
  
@@ -77,8 +80,7 @@ diff --git a/python/mozbuild/mozbuild/repackaging/msix.py b/python/mozbuild/mozb
 -    # to contain exactly what we need at this time.
 -    version = version.rsplit("esr", 1)[0]
 -    alpha = "a" in version
-+    [ver, rel] = version.split("-")
- 
+-
 -    tail = None
 -    if "a" in version:
 -        head, tail = version.rsplit("a", 1)
@@ -102,9 +104,7 @@ diff --git a/python/mozbuild/mozbuild/repackaging/msix.py b/python/mozbuild/mozb
 -            )
 -    else:
 -        head = version
-+    ver_parts = ver.split(".")
-+    ver_parts += ["0"] * (3 - len(ver_parts))
- 
+-
 -    components = (head.split(".") + ["0", "0", "0"])[:3]
 -    if tail:
 -        components[2] = tail
@@ -134,9 +134,12 @@ diff --git a/python/mozbuild/mozbuild/repackaging/msix.py b/python/mozbuild/mozb
 -
 -        components[1] = "".join((year, month))
 -        components[2] = "".join((day, hour))
--
++    [ver, rel] = version.split("-")
+ 
 -    version = "{}.{}.{}.0".format(*components)
--
++    ver_parts = ver.split(".")
++    ver_parts += ["0"] * (3 - len(ver_parts))
+ 
 -    return version
 +    return ".".join(
 +        [
@@ -149,22 +152,30 @@ diff --git a/python/mozbuild/mozbuild/repackaging/msix.py b/python/mozbuild/mozb
  
  
  def remove_single_line_comments(text):
-@@ -409,13 +360,7 @@ def repackage_msix(
+@@ -410,21 +361,7 @@ def repackage_msix(
      )
  
      first = next(values)
 -    if not displayname:
 -        displayname = f"Mozilla {first}"
 -
+-        # Release (official) and Beta share branding.  Differentiate Beta a little bit.
 -        if channel == "beta":
--            # Release (official) and Beta share branding.  Differentiate Beta a little bit.
--            displayname += " Beta"
+-            suffix = " Beta"
+-            if not displayname.endswith(suffix):
+-                displayname += suffix
+-
+-        elif channel == "esr":
+-            # Release (official) and ESR share branding.  Differentiate ESR a little bit.
+-            suffix = " ESR"
+-            if not displayname.endswith(suffix):
+-                displayname += suffix
 -
 +    displayname = displayname or first
      second = next(values)
      vendor = vendor or second
  
-@@ -536,16 +481,6 @@ def repackage_msix(
+@@ -553,16 +490,6 @@ def repackage_msix(
              # In local builds and unpacked MSIX directories, `p` is like "firefox.exe" already.
              pp = p
  
