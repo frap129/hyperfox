@@ -18,3 +18,27 @@ index 3b07de78a6..f27cf7ff78 100644
  </groupbox>
  
  <!-- Data migration -->
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index 46283d3..a8b0d0f 100644
+--- a/browser/components/preferences/main.js
++++ b/browser/components/preferences/main.js
+@@ -1144,16 +1144,19 @@ let SETTINGS_CONFIG = {
+       {
+         id: "alwaysCheckDefault",
+         l10nId: "always-check-default",
++        visible: () => false,
+       },
+       {
+         id: "isDefaultPane",
+         l10nId: "is-default-browser",
+         control: "moz-promo",
++        visible: () => false,
+       },
+       {
+         id: "isNotDefaultPane",
+         l10nId: "is-not-default-browser",
+         control: "moz-promo",
++        visible: () => false,
+         options: [
+           {
+             control: "moz-button",
