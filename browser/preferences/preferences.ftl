@@ -40,8 +40,6 @@ librewolf-letterboxing-checkbox =
     .label = Enable letterboxing
 
 librewolf-security-heading = Security
-librewolf-ocsp-checkbox =
-    .label = Enforce OCSP hard-fail
 librewolf-goog-safe-checkbox =
     .label = Enable Google Safe Browsing
 librewolf-goog-safe-download-checkbox =
@@ -53,8 +51,6 @@ librewolf-extension-update-warning1 = If you don't review the code of your exten
 
 librewolf-ipv6-description = Allow { -brand-short-name } to connect using IPv6.
 librewolf-ipv6-warning1 = Instead of blocking IPv6 in the browser, we suggest enabling the IPv6 privacy extension in your OS.
-librewolf-ocsp-description = Prevent connecting to a website if the OCSP check cannot be performed.
-librewolf-ocsp-warning1 = This increases security, but it will cause breakage when an OCSP server is down.
 librewolf-sync-description = Sync your data with other browsers. Requires restart.
 librewolf-sync-warning1 = Firefox Sync encrypts data locally before transmitting it to the server.
 
