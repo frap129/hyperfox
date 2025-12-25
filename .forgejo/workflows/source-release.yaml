@@ -20,6 +20,8 @@ jobs:
           apt-get -y install pigz gnupg python3
 
       - name: Make LibreWolf source archive
+        env:
+            SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: |
           make all
 
@@ -71,7 +73,19 @@ jobs:
 
       - name: Upload Release
         run: |
-          curl --http1.1 --user "librewolf-bot:${{ secrets.CODEBERG_TOKEN }}" --upload-file "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz" >&2
+          FILES=(
+            "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz"
+            "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha256sum"
+            "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha512sum"
+          )
+
+          if [[ -n "${{ secrets.SIGNING_KEY }}" ]]; then
+            FILES+=("librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sig")
+          fi
+
+          for FILE in "${FILES[@]}"; do
+            curl --http1.1 --user "librewolf-bot:${{ secrets.CODEBERG_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
+          done
 
       - name: Create Release
         uses: actions/forgejo-release@v2.7.3
