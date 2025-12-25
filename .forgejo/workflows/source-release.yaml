@@ -1,10 +1,7 @@
 name: Create Release
 
 on:
-  push:
-    tags:
-      - '*.*-*'
-      - '*.*.*-*'
+  workflow_dispatch:
 
 jobs:
   build-source:
@@ -57,7 +54,7 @@ jobs:
         uses: https://data.forgejo.org/forgejo/download-artifact@v4
         with:
           merge-multiple: true
-     
+
       - name: Set variables
         id: version
         run: |
