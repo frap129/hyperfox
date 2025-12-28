@@ -2,6 +2,8 @@ name: Create Test Builds
 
 on:
   push:
+    branches:
+      - '**'
   workflow_dispatch:
     inputs:
       Target:
