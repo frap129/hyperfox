@@ -83,7 +83,7 @@ jobs:
           fi
 
           for FILE in "${FILES[@]}"; do
-            curl --http1.1 --user "librewolf-bot:${{ secrets.CODEBERG_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
+            curl --http1.1 --user "${{ var.FORGE_USER }}:${{ secrets.FORGE_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
           done
 
       - name: Create Release
@@ -92,9 +92,9 @@ jobs:
           direction: upload
           url: ${{ forgejo.server_url }}
           repo: ${{ forgejo.repository }}
-          token: ${{ secrets.CODEBERG_TOKEN }}
+          token: ${{ secrets.FORGE_TOKEN }}
           release-dir: release-assets
           draft: false
           prerelease: false
           tag: ${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}
-          release-notes: "## LibreWolf Source Release v${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}\n\n(Built on Codeberg by workflow [${{ forgejo.run_number }}](https://codeberg.org/librewolf/source/actions/runs/${{ forgejo.run_number }}))"
+          release-notes: "## LibreWolf Source Release v${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}\n\n(Built on Codeberg by workflow [${{ forgejo.run_number }}](https://codeberg.org/${{ forgejo.repository }}/actions/runs/${{ forgejo.run_number }}))"
