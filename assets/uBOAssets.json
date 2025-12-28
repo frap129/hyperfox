@@ -2,7 +2,7 @@
   "assets.json": {
     "content": "internal",
     "updateAfter": 13,
-    "contentURL": "https://gitlab.com/librewolf-community/browser/source/-/raw/main/assets/uBOAssets.json"
+    "contentURL": "https://codeberg.org/librewolf/source/raw/branch/main/assets/uBOAssets.json"
   },
   "public_suffix_list.dat": {
     "content": "internal",

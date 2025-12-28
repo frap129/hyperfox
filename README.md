@@ -61,7 +61,7 @@ There are two ways to build LibreWolf. You can either use the source tarball or 
 
 ### Building from the Tarball
 
-First, let's **[download the latest tarball](https://codeberg.org/librewolf/source/releases)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
+First, let's **[download the latest tarball](https://codeberg.org/librewolf/source/releases)**. This tarball is the latest produced by the [CI](https://codeberg.org/librewolf/source/actions). You can also check the sha256sum of the tarball there.
 
 ```bash
 tar xf <tarball>
@@ -89,7 +89,7 @@ Finally you can build LibreWolf and then package or run it with the following co
 First, clone this repository with Git:
 
 ```bash
-git clone --recursive https://gitlab.com/librewolf-community/browser/source.git librewolf-source
+git clone --recursive https://codeberg.org/librewolf/source.git librewolf-source
 cd librewolf-source
 ```
 
