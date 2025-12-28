@@ -83,7 +83,7 @@ jobs:
           fi
 
           for FILE in "${FILES[@]}"; do
-            curl --http1.1 --user "${{ var.FORGE_USER }}:${{ secrets.FORGE_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
+            curl --http1.1 --user "${{ vars.FORGE_USER }}:${{ secrets.FORGE_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
           done
 
       - name: Create Release
