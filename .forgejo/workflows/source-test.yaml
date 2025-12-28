@@ -22,7 +22,7 @@ on:
 jobs:
   test-linux:
     if: inputs.Target == 'all' || inputs.Target == 'linux' || inputs.Target == ''
-    runs-on: docker
+    runs-on: epsilon
     container:
       image: codeberg.org/librewolf/bsys6:dind
     steps:
@@ -59,7 +59,7 @@ jobs:
 
   test-windows:
     if: inputs.Target == 'all' || inputs.Target == 'windows'
-    runs-on: docker
+    runs-on: epsilon
     container:
       image: codeberg.org/librewolf/bsys6:dind
     steps:
@@ -96,7 +96,7 @@ jobs:
 
   test-macos:
     if: inputs.Target == 'all' || inputs.Target == 'macos'
-    runs-on: docker
+    runs-on: epsilon
     container:
       image: codeberg.org/librewolf/bsys6:dind
     steps:
