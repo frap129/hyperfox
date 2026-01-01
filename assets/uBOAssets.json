@@ -205,10 +205,10 @@
     "tags": "privacy",
     "contentURL": "https://ublockorigin.github.io/uAssets/filters/privacy-removeparam.txt",
     "cdnURLs": [
-        "https://ublockorigin.github.io/uAssetsCDN/filters/privacy-removeparam.txt",
-	"https://ublockorigin.pages.dev/filters/privacy-removeparam.txt",
-	"https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/filters/privacy-removeparam.txt",
-	"https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/filters/privacy-removeparam.txt"
+      "https://ublockorigin.github.io/uAssetsCDN/filters/privacy-removeparam.txt",
+      "https://ublockorigin.pages.dev/filters/privacy-removeparam.txt",
+      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/filters/privacy-removeparam.txt",
+      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/filters/privacy-removeparam.txt"
     ],
     "supportURL": "https://github.com/uBlockOrigin/uAssets"
   },
