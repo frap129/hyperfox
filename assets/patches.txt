@@ -27,4 +27,5 @@ patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
+patches/vendor-name.patch
 patches/windows-theming-bug.patch
