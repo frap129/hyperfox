@@ -10,7 +10,7 @@
 # which break the titlebar styling (and probably also some other things).
 #
 # See:
-# https://gitlab.com/librewolf-community/browser/windows/-/issues/146
+# https://codeberg.org/librewolf/issues/issues/908
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1801640
 diff --git a/browser/app/Makefile.in b/browser/app/Makefile.in
 index 54d6b43fe126..116410bb89d9 100644
