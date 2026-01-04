@@ -6,6 +6,23 @@ testing_targets=full-test test test-linux test-macos test-windows
 version:=$(shell cat ./version)
 release:=$(shell cat ./release)
 
+FF_BASE_URL ?= https://archive.mozilla.org/pub/firefox/releases
+FF_CHANNEL ?= releases
+FF_BUILD ?= build1
+
+# beta minor suffix (e.g "b9")
+FF_BETA_SUFFIX ?=
+
+ff_source_tarball := firefox-$(version)$(FF_BETA_SUFFIX).source.tar.xz
+
+ifeq ($(FF_CHANNEL),candidates)
+ff_source_url := https://archive.mozilla.org/pub/firefox/candidates/$(version)-candidates/$(FF_BUILD)/source/$(ff_source_tarball)
+else ifeq ($(FF_CHANNEL),beta)
+ff_source_url := https://archive.mozilla.org/pub/firefox/candidates/$(version)$(FF_BETA_SUFFIX)-candidates/$(FF_BUILD)/source/$(ff_source_tarball)
+else
+ff_source_url := $(FF_BASE_URL)/$(version)/source/$(ff_source_tarball)
+endif
+
 ## simplistic archive format selection
 
 #archive_create=tar cfJ
@@ -123,10 +140,9 @@ $(ff_source_tarball) :
 	wget -qO public_key.asc "https://keys.openpgp.org/vks/v1/by-fingerprint/14F26682D0916CDD81E37B6D61B7B526D98F0353"
 	gpg --import public_key.asc
 	rm -f public_key.asc
-	wget -q "https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz.asc" -O $(ff_source_tarball).asc
-	wget -q "https://archive.mozilla.org/pub/firefox/releases/$(version)/source/firefox-$(version).source.tar.xz" -O $(ff_source_tarball)
+	wget -qO $(ff_source_tarball).asc "$(ff_source_url).asc"
+	wget -qO $(ff_source_tarball) "$(ff_source_url)"
 	gpg --verify $(ff_source_tarball).asc $(ff_source_tarball)
-
 
 $(lw_source_dir) : $(ff_source_tarball) ./version ./release scripts/librewolf-patches.py assets/mozconfig assets/patches.txt
 	rm -rf $(ff_source_dir) $(lw_source_dir)
@@ -240,8 +256,15 @@ full-test : $(lw_source_tarball)
 
 test-linux : full-test
 
+test-candidate :
+	$(MAKE) FF_CHANNEL=candidates FF_BUILD=$(FF_BUILD) test-linux
+
+test-beta :
+	$(MAKE) FF_CHANNEL=beta FF_BUILD=$(FF_BUILD) FF_BETA_SUFFIX=$(FF_BETA_SUFFIX) test-linux
+
 test-macos : $(lw_source_tarball)
 	${MAKE} -f assets/testing.mk bsys6_x86_64_macos_dmg_artifact
 
 test-windows : $(lw_source_tarball)
 	${MAKE} -f assets/testing.mk bsys6_x86_64_windows_zip_artifact
+
