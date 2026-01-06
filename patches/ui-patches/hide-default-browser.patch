@@ -19,76 +19,10 @@ index 3b07de78a6..f27cf7ff78 100644
  
  <!-- Data migration -->
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 46283d3..9e14d59 100644
+index 6f99cbf..0ec057f 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -1000,65 +1000,6 @@ const DefaultBrowserHelper = {
-   },
- };
- 
--Preferences.addSetting({
--  id: "alwaysCheckDefault",
--  pref: "browser.shell.checkDefaultBrowser",
--  setup: emitChange => {
--    if (!DefaultBrowserHelper.canCheck) {
--      return;
--    }
--    DefaultBrowserHelper.pollForDefaultChanges(emitChange);
--    // eslint-disable-next-line consistent-return
--    return () => DefaultBrowserHelper.clearPollingForDefaultChanges();
--  },
--  /**
--   * Show button for setting browser as default browser or information that
--   * browser is already the default browser.
--   */
--  visible: () => DefaultBrowserHelper.canCheck,
--  disabled: (deps, setting) =>
--    !DefaultBrowserHelper.canCheck ||
--    setting.locked ||
--    DefaultBrowserHelper.isBrowserDefault,
--});
--
--Preferences.addSetting({
--  id: "isDefaultPane",
--  deps: ["alwaysCheckDefault"],
--  visible: () =>
--    DefaultBrowserHelper.canCheck && DefaultBrowserHelper.isBrowserDefault,
--});
--
--Preferences.addSetting({
--  id: "isNotDefaultPane",
--  deps: ["alwaysCheckDefault"],
--  visible: () =>
--    DefaultBrowserHelper.canCheck && !DefaultBrowserHelper.isBrowserDefault,
--  onUserClick: (e, { alwaysCheckDefault }) => {
--    if (!DefaultBrowserHelper.canCheck) {
--      return;
--    }
--    const setDefaultButton = /** @type {MozButton} */ (e.target);
--
--    if (!setDefaultButton) {
--      return;
--    }
--    if (setDefaultButton.disabled) {
--      return;
--    }
--
--    /**
--     * Disable the set default button, so that the user
--     * doesn't try to hit it again while browser is being set to default.
--     */
--    setDefaultButton.disabled = true;
--    alwaysCheckDefault.value = true;
--    DefaultBrowserHelper.setDefaultBrowser().finally(() => {
--      setDefaultButton.disabled = false;
--    });
--  },
--});
--
- // Performance settings
- Preferences.addSetting({
-   id: "contentProcessCount",
-@@ -1141,31 +1082,6 @@ let SETTINGS_CONFIG = {
+@@ -1759,31 +1759,6 @@ SettingGroupManager.registerGroups({
          control: "moz-message-bar",
          l10nId: "startup-windows-launch-on-login-profile-disabled",
        },
@@ -110,8 +44,8 @@ index 46283d3..9e14d59 100644
 -            control: "moz-button",
 -            l10nId: "set-as-my-default-browser",
 -            id: "setDefaultButton",
+-            slot: "actions",
 -            controlAttrs: {
--              slot: "actions",
 -              type: "primary",
 -            },
 -          },
@@ -119,4 +53,5 @@ index 46283d3..9e14d59 100644
 -      },
      ],
    },
-   zoom: {
+   importBrowserData: {
+
