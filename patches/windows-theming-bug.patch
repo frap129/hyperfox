@@ -10,7 +10,7 @@
 # which break the titlebar styling (and probably also some other things).
 #
 # See:
-# https://gitlab.com/librewolf-community/browser/windows/-/issues/146
+# https://codeberg.org/librewolf/issues/issues/908
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1801640
 diff --git a/browser/app/firefox.exe.manifest b/browser/app/librewolf.exe.manifest
 similarity index 96%
