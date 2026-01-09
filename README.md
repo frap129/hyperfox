@@ -43,7 +43,7 @@ List of browser build sub projects. These are the locations where people have th
 Currently active build repositories:
 
 * [Arch](https://codeberg.org/librewolf/arch): Arch Linux package
-* [Bsys5](https://codeberg.org/librewolf/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
+* [Bsys6](https://codeberg.org/librewolf/bsys6): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
 * [Gentoo](https://codeberg.org/librewolf/gentoo): Gentoo package
 
 Downstream distribution packages:
