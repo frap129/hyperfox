@@ -64,7 +64,7 @@ index 6445643..6eff23e 100644
 +    rv = file->AppendNative(".librewolf"_ns);
 +#  endif  // defined(XP_MACOSX)
 +  } else if (!strcmp(aProperty, XRE_MOZ_USER_NATIVE_MANIFESTS)) {
-+    rv = GetUserDataDirectoryHome(getter_AddRefs(file), false);
++    rv = GetUserDataDirectoryHome(getter_AddRefs(file), false, true);
 +    NS_ENSURE_SUCCESS(rv, rv);
  #  if defined(XP_MACOSX)
      rv = file->AppendNative("Mozilla"_ns);
