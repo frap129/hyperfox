@@ -58,14 +58,20 @@ jobs:
         run: |
           chmod +x ./scripts/detect-firefox-version.sh
           ./scripts/detect-firefox-version.sh --channel "${{ inputs.Version || 'latest' }}" >> $FORGEJO_OUTPUT
+          
+          # Read outputs
+          while IFS='=' read -r key value; do
+            export "$key=$value"
+          done < $FORGEJO_OUTPUT
+          
           echo "========================================"
           echo "Firefox Version:"
           echo "========================================"
-          echo "Version:     ${{ steps.detect.outputs.FF_VERSION }}"
-          echo "Channel:     ${{ steps.detect.outputs.FF_CHANNEL }}"
-          echo "Build:       ${{ steps.detect.outputs.FF_BUILD }}"
-          echo "Beta Suffix: ${{ steps.detect.outputs.FF_BETA_SUFFIX }}"
-          echo "Display:     ${{ steps.detect.outputs.FF_DISPLAY }}"
+          echo "Version:     $FF_VERSION"
+          echo "Channel:     $FF_CHANNEL"
+          echo "Build:       $FF_BUILD"
+          echo "Beta Suffix: $FF_BETA_SUFFIX"
+          echo "Display:     $FF_DISPLAY"
           echo "========================================"
 
   test-linux:
