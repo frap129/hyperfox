@@ -1,4 +1,4 @@
-From 7b43855d1bd6aeae069b73ac721c2723c64d239f Mon Sep 17 00:00:00 2001
+From 325f8d972ed3e6f783e042bfe688d980a3cf9fbf Mon Sep 17 00:00:00 2001
 From: Pier Angelo Vendrame <pierov@torproject.org>
 Date: Tue, 7 May 2024 17:50:20 +0200
 Subject: [PATCH] BB 41930: Remove the UI to customize accept_languages.
@@ -10,10 +10,10 @@ Subject: [PATCH] BB 41930: Remove the UI to customize accept_languages.
  3 files changed, 28 insertions(+), 4 deletions(-)
 
 diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
-index 6e5532ced8..9d23d9e298 100644
+index 3e3478c007..9f6c4b323e 100644
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
-@@ -406,6 +406,7 @@
+@@ -242,6 +242,7 @@
    </hbox>
  
    <hbox id="languagesBox" align="center">
@@ -21,7 +21,7 @@ index 6e5532ced8..9d23d9e298 100644
      <description flex="1" control="chooseLanguage" data-l10n-id="choose-language-description"/>
      <button id="chooseLanguage"
              is="highlightable-button"
-@@ -420,6 +421,9 @@
+@@ -256,6 +257,9 @@
                languages-customize-select-language.placeholder,
                languages-customize-add.label,
              " />
@@ -32,13 +32,13 @@ index 6e5532ced8..9d23d9e298 100644
  
    <checkbox id="useSystemLocale" hidden="true"
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index fe350be72f..a77df4b58f 100644
+index 478108c0d9..86413d885c 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -690,7 +690,23 @@ var gMainPane = {
-       "command",
-       makeDisableControllingExtension(PREF_SETTING_TYPE, CONTAINERS_KEY)
-     );
+@@ -3242,7 +3242,23 @@ var gMainPane = {
+       });
+     }
+ 
 -    setEventListener("chooseLanguage", "command", gMainPane.showLanguages);
 +    // setEventListener("chooseLanguage", "command", gMainPane.showLanguages);
 +    {
@@ -61,10 +61,10 @@ index fe350be72f..a77df4b58f 100644
      setEventListener(
        "fxtranslateButton",
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 1118328b5c..9770219f6c 100644
+index 75d3b8ed99..ef45f8b88f 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-@@ -175,9 +175,13 @@ class _RFPHelper {
+@@ -185,9 +185,13 @@ class _RFPHelper {
        // Works like disabling accept-language spoofing.
        // fall through
        case 1: // don't spoof
@@ -82,5 +82,5 @@ index 1118328b5c..9770219f6c 100644
        case 2: // spoof
          Services.prefs.setCharPref("intl.accept_languages", "en-US, en");
 -- 
-2.50.1
+2.52.0
 

@@ -39,7 +39,7 @@ patches/bb-patches/0001-BB-40432-Prevent-probing-installed-applications.patch
 patches/bb-patches/0001-BB-42835-Create-an-actor-to-filter-file-data-transfe.patch
 patches/bb-patches/0001-BB-12974-Disable-NTLM-and-Negotiate-HTTP-Auth.patch
 patches/bb-patches/0001-BB-42773-Replace-with-the-original-home.patch
-patches/bb-patches/0001-BB-42019-Empty-browser-s-clipboard-on-browser-shutdo.patch
+patches/bb-patches/0001-BB-42018-Empty-browser-s-clipboard-on-browser-shutdo.patch
 patches/bb-patches/0001-BB-43386-Use-Firefox-in-the-UA-in-RFP-exempt-request.patch 
 patches/bb-patches/0001-BB-13028-Prevent-potential-proxy-bypass-cases.patch
 patches/bb-patches/0001-BB-29745-Limit-remote-access-to-content-accessible-r.patch
