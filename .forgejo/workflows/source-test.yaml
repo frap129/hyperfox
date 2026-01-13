@@ -3,7 +3,7 @@ name: Create Test Builds
 on:
   push:
     branches:
-      - '**'
+      - main
   workflow_dispatch:
     inputs:
       Target:
