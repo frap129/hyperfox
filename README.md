@@ -75,19 +75,16 @@ List of browser build sub projects. These are the locations where people have th
 Currently active build repositories:
 
 * [Arch](https://codeberg.org/librewolf/arch): Arch Linux package
-* [Bsys5](https://codeberg.org/librewolf/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
+* [Bsys6](https://codeberg.org/librewolf/bsys6): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
 * [Gentoo](https://codeberg.org/librewolf/gentoo): Gentoo package
 
 Downstream distribution packages:
 
 * [Alpine Linux aport](https://pkgs.alpinelinux.org/packages?name=librewolf&arch=)
 
-Currently active (and known) forks:
-
-* Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
-
 Previous forks:
 
+* Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
 * FireDragon: https://github.com/dr460nf1r3/firedragon-browser
 
 ## LibreWolf build instructions
@@ -96,7 +93,7 @@ There are two ways to build LibreWolf. You can either use the source tarball or 
 
 ### Building from the Tarball
 
-First, let's **[download the latest tarball](https://codeberg.org/librewolf/source/releases)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
+First, let's **[download the latest tarball](https://codeberg.org/librewolf/source/releases)**. This tarball is the latest produced by the [CI](https://codeberg.org/librewolf/source/actions). You can also check the sha256sum of the tarball there.
 
 ```bash
 tar xf <tarball>
@@ -124,7 +121,7 @@ Finally you can build LibreWolf and then package or run it with the following co
 First, clone this repository with Git:
 
 ```bash
-git clone --recursive https://gitlab.com/librewolf-community/browser/source.git librewolf-source
+git clone --recursive https://codeberg.org/librewolf/source.git librewolf-source
 cd librewolf-source
 ```
 

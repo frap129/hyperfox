@@ -1,8 +1,8 @@
 diff --git a/browser/components/preferences/privacy.inc.xhtml b/browser/components/preferences/privacy.inc.xhtml
-index daf996bc5e..d92f815d02 100644
+index 2f36c0a..eef7209 100644
 --- a/browser/components/preferences/privacy.inc.xhtml
 +++ b/browser/components/preferences/privacy.inc.xhtml
-@@ -46,20 +46,6 @@
+@@ -47,20 +47,6 @@
                  permissions-exceptions-manage-etp-desc,
                "/>
      </hbox>
@@ -23,7 +23,7 @@ index daf996bc5e..d92f815d02 100644
      <hbox id="fpiIncompatibilityWarning" class="info-box-container" hidden="true">
        <vbox class="info-icon-container">
          <html:img class="info-icon"></html:img>
-@@ -74,7 +60,7 @@
+@@ -75,7 +61,7 @@
        <radiogroup id="contentBlockingCategoryRadio"
                    preference="browser.contentblocking.category"
                    aria-labelledby="trackingProtectionMenuDesc">
@@ -32,7 +32,16 @@ index daf996bc5e..d92f815d02 100644
            <hbox>
              <radio id="standardRadio"
                     value="standard"
-@@ -255,7 +241,7 @@
+@@ -240,7 +226,7 @@
+                         is="highlightable-button"
+                         data-l10n-id="content-blocking-reload-tabs-button"/>
+               </html:div>
+-              <vbox class="content-blocking-warning info-box-container">
++              <vbox class="content-blocking-warning info-box-container" hidden="true">
+                 <hbox>
+                   <image class="content-blocking-warning-image"/>
+                   <label class="content-blocking-warning-title" data-l10n-id="content-blocking-warning-title-2"/>
+@@ -256,7 +242,7 @@
              </vbox>
            </vbox>
          </vbox>
@@ -41,16 +50,7 @@ index daf996bc5e..d92f815d02 100644
            <hbox>
              <radio id="customRadio"
                     value="custom"
-@@ -370,7 +356,7 @@
-                         is="highlightable-button"
-                         data-l10n-id="content-blocking-reload-tabs-button"/>
-               </html:div>
--              <vbox class="content-blocking-warning info-box-container">
-+              <vbox class="content-blocking-warning info-box-container" hidden="true">
-                 <hbox>
-                   <image class="content-blocking-warning-image"/>
-                   <label class="content-blocking-warning-title" data-l10n-id="content-blocking-warning-title-custom"/>
-@@ -388,6 +374,20 @@
+@@ -389,6 +375,20 @@
          </vbox>
        </radiogroup>
      </vbox>
@@ -71,27 +71,15 @@ index daf996bc5e..d92f815d02 100644
    </vbox>
  </groupbox>
  <groupbox id="nonTechnicalPrivacyGroup" data-category="panePrivacy" hidden="true">
-@@ -563,7 +563,7 @@
- <!-- History -->
- <groupbox id="historyGroup" data-category="panePrivacy" hidden="true">
-   <label><html:h2 data-l10n-id="history-header"/></label>
--  <hbox align="center">
-+  <hbox align="center" hidden="true">
-     <label id="historyModeLabel"
-            control="historyMode"
-            data-l10n-id="history-remember-label"/>
-@@ -610,8 +610,9 @@
-         <vbox>
-           <checkbox id="privateBrowsingAutoStart"
-                     data-l10n-id="history-private-browsing-permanent"
--                    preference="browser.privatebrowsing.autostart"/>
--          <vbox class="indent">
-+                    preference="browser.privatebrowsing.autostart"
-+                    hidden="true" />
-+          <vbox>
-             <checkbox id="rememberHistory"
-                       data-l10n-id="history-remember-browser-option"
-                       preference="places.history.enabled"/>
+@@ -722,7 +722,7 @@
+ 
+ <!-- addons, forgery (phishing) UI Security -->
+ <groupbox data-category="panePrivacy" hidden="true">
+-  <label><html:h2 data-l10n-id="security-browsing-protection" class="section-heading"/></label>
++  <label hidden="true"><html:h2 data-l10n-id="security-browsing-protection" class="section-heading"/></label>
+   <html:setting-group groupid="browsingProtection"></html:setting-group>
+ </groupbox>
+ 
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
 index 664fcacba3..612f392974 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
@@ -130,3 +118,55 @@ index 8d33f43f26..aa52794597 100644
  }
  
  .content-blocking-label,
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index 0ec057f..5ae3d53 100644
+--- a/browser/components/preferences/main.js
++++ b/browser/components/preferences/main.js
+@@ -2525,33 +2525,6 @@ SettingGroupManager.registerGroups({
+   },
+   history: {
+     items: [
+-      {
+-        id: "historyMode",
+-        control: "moz-select",
+-        options: [
+-          {
+-            value: "remember",
+-            l10nId: "history-remember-option-all",
+-          },
+-          { value: "dontremember", l10nId: "history-remember-option-never" },
+-          { value: "custom", l10nId: "history-remember-option-custom" },
+-        ],
+-        controlAttrs: {
+-          "search-l10n-ids": `
+-            history-remember-description3,
+-            history-dontremember-description3,
+-            history-private-browsing-permanent.label,
+-            history-remember-browser-option.label,
+-            history-remember-search-option.label,
+-            history-clear-on-close-option.label,
+-            history-clear-on-close-settings.label
+-          `,
+-        },
+-      },
+-      {
+-        id: "privateBrowsingAutoStart",
+-        l10nId: "history-private-browsing-permanent",
+-      },
+       {
+         id: "rememberHistory",
+         l10nId: "history-remember-browser-option",
+diff --git a/browser/components/preferences/privacy.js b/browser/components/preferences/privacy.js
+index cde8635..39d22ac 100644
+--- a/browser/components/preferences/privacy.js
++++ b/browser/components/preferences/privacy.js
+@@ -3464,7 +3464,7 @@ var gPrivacyPane = {
+       initSettingGroup("securityPrivacyStatus");
+     }
+     initSettingGroup("httpsOnly");
+-    initSettingGroup("browsingProtection");
++    //initSettingGroup("browsingProtection");
+     initSettingGroup("cookiesAndSiteData");
+     initSettingGroup("certificates");
+     initSettingGroup("ipprotection");
+

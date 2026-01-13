@@ -2,7 +2,7 @@
   "assets.json": {
     "content": "internal",
     "updateAfter": 13,
-    "contentURL": "https://gitlab.com/librewolf-community/browser/source/-/raw/main/assets/uBOAssets.json"
+    "contentURL": "https://codeberg.org/librewolf/source/raw/branch/main/assets/uBOAssets.json"
   },
   "public_suffix_list.dat": {
     "content": "internal",
@@ -201,10 +201,16 @@
   "adguard-spyware-url": {
     "content": "filters",
     "group": "privacy",
-    "title": "AdGuard URL Tracking Protection",
+    "title": "AdGuard/uBO – URL Tracking Protection",
     "tags": "privacy",
-    "contentURL": "https://filters.adtidy.org/extension/ublock/filters/17.txt",
-    "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters"
+    "contentURL": "https://ublockorigin.github.io/uAssets/filters/privacy-removeparam.txt",
+    "cdnURLs": [
+      "https://ublockorigin.github.io/uAssetsCDN/filters/privacy-removeparam.txt",
+      "https://ublockorigin.pages.dev/filters/privacy-removeparam.txt",
+      "https://cdn.jsdelivr.net/gh/uBlockOrigin/uAssetsCDN@main/filters/privacy-removeparam.txt",
+      "https://cdn.statically.io/gh/uBlockOrigin/uAssetsCDN/main/filters/privacy-removeparam.txt"
+    ],
+    "supportURL": "https://github.com/uBlockOrigin/uAssets"
   },
   "block-lan": {
     "content": "filters",

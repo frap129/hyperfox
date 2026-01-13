@@ -10,7 +10,7 @@ RUN ( dnf -y upgrade && dnf -y install python3 python3-devel wget rpm-build rpm-
 # grab the latest source cleanly
 WORKDIR /
 RUN rm -rf /source
-RUN git clone --recursive https://gitlab.com/librewolf-community/browser/source.git
+RUN git clone --recursive https://codeberg.org/librewolf/source.git
 WORKDIR /source
 
 RUN make check && make setup-debian && make fetch && make bootstrap && make build package && make veryclean

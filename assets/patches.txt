@@ -1,5 +1,4 @@
 patches/allow-JXL-in-non-nightly-browser.patch
-patches/allow-ubo-private-mode.patch
 patches/bootstrap.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
@@ -28,7 +27,9 @@ patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/urlbarprovider-interventions.patch
+patches/vendor-name.patch
 patches/windows-theming-bug.patch
+patches/xdg-dir.patch
 patches/0011-LTO-Only-enable-LTO-for-Rust-when-complete-build-use.patch
 patches/custom_rust_version.patch
 patches/bb-patches/0001-BB-26353-Prevent-speculative-connect-that-violated-F.patch
