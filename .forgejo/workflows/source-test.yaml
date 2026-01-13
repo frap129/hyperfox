@@ -16,13 +16,61 @@ on:
           - linux
           - windows
           - macos
+      Version:
+        description: 'Firefox Version'
+        required: true
+        default: 'latest'
+        type: choice
+        options:
+          - latest
+          - beta
+          - rc
+          - stable
   pull_request_target:
     types:
       - opened
       - synchronize
 
 jobs:
+  detect-version:
+    runs-on: epsilon
+    container:
+      image: codeberg.org/librewolf/bsys6:dind
+    outputs:
+      ff_version: ${{ steps.detect.outputs.FF_VERSION }}
+      ff_channel: ${{ steps.detect.outputs.FF_CHANNEL }}
+      ff_build: ${{ steps.detect.outputs.FF_BUILD }}
+      ff_beta_suffix: ${{ steps.detect.outputs.FF_BETA_SUFFIX }}
+      ff_display: ${{ steps.detect.outputs.FF_DISPLAY }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          apt-get update
+          apt-get -y install curl jq
+
+      - name: Detect Firefox Version
+        id: detect
+        run: |
+          chmod +x ./scripts/detect-firefox-version.sh
+          ./scripts/detect-firefox-version.sh --channel "${{ inputs.Version || 'latest' }}" >> $FORGEJO_OUTPUT
+
+      - name: Display Version Info
+        run: |
+          echo "========================================"
+          echo "Firefox Version:"
+          echo "========================================"
+          echo "Version:     ${{ steps.detect.outputs.FF_VERSION }}"
+          echo "Channel:     ${{ steps.detect.outputs.FF_CHANNEL }}"
+          echo "Build:       ${{ steps.detect.outputs.FF_BUILD }}"
+          echo "Beta Suffix: ${{ steps.detect.outputs.FF_BETA_SUFFIX }}"
+          echo "Display:     ${{ steps.detect.outputs.FF_DISPLAY }}"
+          echo "========================================"
+
   test-linux:
+    needs: detect-version
     if: inputs.Target == 'all' || inputs.Target == 'linux' || inputs.Target == ''
     runs-on: epsilon
     container:
@@ -38,9 +86,19 @@ jobs:
           apt-get update && apt-get -y upgrade
           apt-get -y install build-essential curl jq make python3 python3-dev python3-pip wget unzip git pigz gnupg
 
+      - name: Display Test Configuration
+        run: |
+          echo "Testing against: ${{ needs.detect-version.outputs.ff_display }}"
+
+      - name: Update Version File
+        run: |
+          echo "${{ needs.detect-version.outputs.ff_version }}" > version
+
       - name: Fetching Firefox Source
         run: |
-          make fetch
+          make fetch FF_CHANNEL=${{ needs.detect-version.outputs.ff_channel }} \
+                     FF_BUILD=${{ needs.detect-version.outputs.ff_build || 'build1' }} \
+                     FF_BETA_SUFFIX=${{ needs.detect-version.outputs.ff_beta_suffix }}
 
       - name: Check Patchfail
         run: |
@@ -60,6 +118,7 @@ jobs:
           retention-days: ${{ github.event_name == 'push' && 3 || 14 }}
 
   test-windows:
+    needs: detect-version
     if: inputs.Target == 'all' || inputs.Target == 'windows'
     runs-on: epsilon
     container:
@@ -75,9 +134,19 @@ jobs:
           apt-get update && apt-get -y upgrade
           apt-get -y install build-essential curl jq make python3 python3-dev python3-pip wget unzip git pigz gnupg
 
+      - name: Display Test Configuration
+        run: |
+          echo "Testing against: ${{ needs.detect-version.outputs.ff_display }}"
+
+      - name: Update Version File
+        run: |
+          echo "${{ needs.detect-version.outputs.ff_version }}" > version
+
       - name: Fetching Firefox Source
         run: |
-          make fetch
+          make fetch FF_CHANNEL=${{ needs.detect-version.outputs.ff_channel }} \
+                     FF_BUILD=${{ needs.detect-version.outputs.ff_build || 'build1' }} \
+                     FF_BETA_SUFFIX=${{ needs.detect-version.outputs.ff_beta_suffix }}
 
       - name: Check Patchfail
         run: |
@@ -97,6 +166,7 @@ jobs:
           retention-days: ${{ github.event_name == 'push' && 3 || 14 }}
 
   test-macos:
+    needs: detect-version
     if: inputs.Target == 'all' || inputs.Target == 'macos'
     runs-on: epsilon
     container:
@@ -112,9 +182,19 @@ jobs:
           apt-get update && apt-get -y upgrade
           apt-get -y install build-essential curl jq make python3 python3-dev python3-pip wget unzip git pigz gnupg
 
+      - name: Display Test Configuration
+        run: |
+          echo "Testing against: ${{ needs.detect-version.outputs.ff_display }}"
+
+      - name: Update Version File
+        run: |
+          echo "${{ needs.detect-version.outputs.ff_version }}" > version
+
       - name: Fetching Firefox Source
         run: |
-          make fetch
+          make fetch FF_CHANNEL=${{ needs.detect-version.outputs.ff_channel }} \
+                     FF_BUILD=${{ needs.detect-version.outputs.ff_build || 'build1' }} \
+                     FF_BETA_SUFFIX=${{ needs.detect-version.outputs.ff_beta_suffix }}
 
       - name: Check Patchfail
         run: |
