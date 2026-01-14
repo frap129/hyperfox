@@ -64,13 +64,7 @@ jobs:
           echo "RELEASE=$(cat release)" >> $FORGEJO_OUTPUT
           echo "BUILD_JOB_ID=$FORGEJO_RUN_NUMBER" >> $FORGEJO_OUTPUT
 
-      - name: Prepare release directory
-        run: |
-          mkdir -p release-assets
-          cp librewolf-*.source.tar.gz* release-assets/
-          ls -lsa release-assets
-
-      - name: Upload Release
+      - name: Upload to Package Registry
         run: |
           FILES=(
             "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz"
@@ -87,14 +81,42 @@ jobs:
           done
 
       - name: Create Release
-        uses: actions/forgejo-release@v2.7.3
-        with:
-          direction: upload
-          url: ${{ forgejo.server_url }}
-          repo: ${{ forgejo.repository }}
-          token: ${{ secrets.FORGE_TOKEN }}
-          release-dir: release-assets
-          draft: false
-          prerelease: false
-          tag: ${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}
-          release-notes: "## LibreWolf Source Release v${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}\n\n(Built on Codeberg by workflow [${{ forgejo.run_number }}](https://codeberg.org/${{ forgejo.repository }}/actions/runs/${{ forgejo.run_number }}))"
+        run: |
+          TAG="${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}"
+          PACKAGE_BASE="${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${TAG}"
+          
+          # Create release
+          body=$(jq -n \
+            --arg tag "$TAG" \
+            --arg name "LibreWolf Source v${TAG}" \
+            --arg body $'## LibreWolf Source Release v'"${TAG}"$'\n\nBuilt on Codeberg by workflow [#${{ forgejo.run_number }}](${{ forgejo.server_url }}/${{ forgejo.repository }}/actions/runs/${{ forgejo.run_number }})' \
+            '{tag_name: $tag, name: $name, body: $body, draft: false, prerelease: false}')
+          
+          release_id=$(curl --fail-with-body --header 'Content-Type: application/json' \
+            --header 'accept: application/json' \
+            --header "Authorization: token ${{ secrets.FORGE_TOKEN }}" \
+            --data "$body" \
+            --request POST \
+            "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/releases" | jq -r '.id')
+          
+          echo "Release created with ID: $release_id"
+          
+          # Add external URL assets
+          FILES=(
+            "librewolf-${TAG}.source.tar.gz"
+            "librewolf-${TAG}.source.tar.gz.sha256sum"
+            "librewolf-${TAG}.source.tar.gz.sha512sum"
+          )
+          
+          if [[ -n "${{ secrets.SIGNING_KEY }}" ]]; then
+            FILES+=("librewolf-${TAG}.source.tar.gz.sig")
+          fi
+          
+          for FILE in "${FILES[@]}"; do
+            echo "Adding external asset: $FILE"
+            curl --fail-with-body --header 'accept: application/json' \
+              --header "Authorization: token ${{ secrets.FORGE_TOKEN }}" \
+              -F "external_url=${PACKAGE_BASE}/${FILE}" \
+              --request POST \
+              "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/releases/${release_id}/assets?name=$(printf '%s' "$FILE" | jq -sRr @uri)"
+          done
