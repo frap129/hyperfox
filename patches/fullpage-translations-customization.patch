@@ -37,12 +37,13 @@ index ff577c035f..3b07de78a6 100644
    </vbox>
  
  </groupbox>
-@@ -366,8 +367,16 @@
+@@ -233,9 +234,17 @@
            preference="layout.spellcheckDefault"/>
  
-   <!-- Translations -->
--  <vbox id="translationsGroup" hidden="true" data-subcategory="translations">
-+  <vbox id="translationsGroup" data-subcategory="translations">
+   <!-- This Translations UI is the pre-settings-redesign UI and should be removed
+        when getting ready for the settings redesign to fully ship. -->
+-  <vbox id="translationsGroup" data-srd-groupid="translations" hidden="true" data-subcategory="translations">
++  <vbox id="translationsGroup" data-srd-groupid="translations" data-subcategory="translations">
      <label><html:h2 data-l10n-id="translations-manage-header"/></label>
 +    <checkbox id="translations-manage-enable" 
 +          data-l10n-id="translations-manage-enable" 
