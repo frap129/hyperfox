@@ -55,11 +55,11 @@ index ff577c035f..3b07de78a6 100644
      <hbox id="translations-manage-description" align="center">
        <description flex="1" data-l10n-id="translations-manage-intro-2"/>
        <button id="translations-manage-settings-button"
-@@ -255,6 +264,7 @@
+@@ -389,6 +398,7 @@
        <description id="translations-manage-error" hidden="true"></description>
      </vbox>
-+    </vbox>
    </vbox>
++  </vbox>
  </groupbox>
  
  <!-- Files and Applications -->
@@ -67,12 +67,13 @@ diff --git a/browser/components/preferences/main.js b/browser/components/prefere
 index 46283d3..8bd2352 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -170,6 +170,9 @@ Preferences.addAll([
+@@ -170,6 +170,10 @@ Preferences.addAll([
    { id: "dom.ipc.processCount.web", type: "int" },
    { id: "layers.acceleration.disabled", type: "bool", inverted: true },
  
 +  /* Fullpage Translations */
 +  { id: "browser.translations.enable", type: "bool" },
++  { id: "browser.translations.automaticallyPopup", type: "bool" },
 +
    // Files and Applications
    { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
