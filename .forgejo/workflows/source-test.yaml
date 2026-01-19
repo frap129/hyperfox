@@ -1,11 +1,10 @@
 name: Create Test Builds
 
 on:
-  schedule:
-    - cron: '0 0 */3 * *'
   push:
     branches:
       - main
+      - beta
   workflow_dispatch:
     inputs:
       Target:
@@ -21,7 +20,7 @@ on:
       Version:
         description: 'Firefox Version'
         required: true
-        default: 'latest'
+        default: 'stable'
         type: choice
         options:
           - latest
@@ -47,6 +46,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Install Dependencies
         run: |
@@ -57,7 +58,7 @@ jobs:
         id: detect
         run: |
           chmod +x ./scripts/detect-firefox-version.sh
-          ./scripts/detect-firefox-version.sh --channel "${{ inputs.Version || 'latest' }}" >> $FORGEJO_OUTPUT
+          ./scripts/detect-firefox-version.sh --channel "${{ (github.ref == 'refs/heads/beta' || github.base_ref == 'beta') && 'latest' || inputs.Version || 'latest' }}" >> $FORGEJO_OUTPUT
           
           # Read outputs
           while IFS='=' read -r key value; do
@@ -85,6 +86,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          persist-credentials: false
 
       - name: Install Dependencies
         run: |
@@ -130,6 +132,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          persist-credentials: false
 
       - name: Install Dependencies
         run: |
@@ -175,6 +178,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          persist-credentials: false
 
       - name: Install Dependencies
         run: |
