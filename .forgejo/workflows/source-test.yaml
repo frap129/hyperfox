@@ -58,7 +58,7 @@ jobs:
         id: detect
         run: |
           chmod +x ./scripts/detect-firefox-version.sh
-          ./scripts/detect-firefox-version.sh --channel "${{ (github.ref == 'refs/heads/beta' || github.base_ref == 'beta') && 'latest' || inputs.Version || 'latest' }}" >> $FORGEJO_OUTPUT
+          ./scripts/detect-firefox-version.sh --channel "${{ (github.ref == 'refs/heads/beta' || github.base_ref == 'beta') && 'latest' || inputs.Version || 'stable' }}" >> $FORGEJO_OUTPUT
           
           # Read outputs
           while IFS='=' read -r key value; do
