@@ -161,8 +161,7 @@ $(lw_source_tarball) : $(lw_source_dir)
 	sha512sum $(lw_source_tarball) > $(lw_source_tarball).sha512sum
 	cat $(lw_source_tarball).sha512sum
 	sha512sum -c $(lw_source_tarball).sha512sum
-	printf '%s\n' "$${SIGNING_KEY}" > pk.asc ; true
-	if [ -f pk.asc ]; then gpg --import pk.asc; gpg --detach-sign $(lw_source_tarball) && ls -lh $(lw_source_tarball).sig; fi
+	if [ -n "$${SIGNING_KEY}" ]; then printf '%s\n' "$${SIGNING_KEY}" | gpg --import && gpg --detach-sign $(lw_source_tarball) && ls -lh $(lw_source_tarball).sig; fi
 	ls -lh $(lw_source_tarball)*
 
 
