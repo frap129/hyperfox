@@ -32,11 +32,11 @@ index e69de29..8589aac 100644
 +  "local-settings.js",
 +]
 diff --git a/moz.build b/moz.build
-index 41c9ad7..046e01b 100644
+index 4b7fabd..734eee8 100644
 --- a/moz.build
 +++ b/moz.build
-@@ -202,3 +202,5 @@ SPHINX_TREES["metrics"] = "docs/metrics"
- SPHINX_TREES["gtest"] = "docs/gtest"
+@@ -244,3 +244,5 @@ SPHINX_TREES["content-security"] = "docs/content-security"
+ SPHINX_TREES["jsloader"] = "docs/jsloader"
  
  include("build/templates.mozbuild")
 +
