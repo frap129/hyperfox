@@ -116,6 +116,9 @@ def librewolf_patches():
     # vs_pack.py issue... should be temporary
     exec('cp -v ../patches/pack_vs.py build/vs/')
 
+    # https://codeberg.org/librewolf/source/pulls/97#issuecomment-5654510
+    exec("sed -i '/# This must remain last./i gkrust_features += [\"glean_disable_upload\"]\\n' toolkit/library/rust/gkrust-features.mozbuild")
+
 
     #
     # Apply most recent `settings` repository files.
@@ -144,7 +147,7 @@ def librewolf_patches():
     
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw/')
-    exec('cp -v ../assets/mozconfig.new ../assets/mozconfig.new.without-bootstrap lw/')
+    exec('cp -v ../assets/mozconfig.new lw/')
 
     # override the firefox version
     for file in ["browser/config/version.txt", "browser/config/version_display.txt"]:

@@ -1,0 +1,48 @@
+diff --git a/browser/base/content/browser-init.js b/browser/base/content/browser-init.js
+index 288a79e..f0106ba 100644
+--- a/browser/base/content/browser-init.js
++++ b/browser/base/content/browser-init.js
+@@ -504,7 +504,7 @@ var gBrowserInit = {
+       gDataNotificationInfoBar.init();
+     }
+ 
+-    if (!AppConstants.MOZILLA_OFFICIAL) {
++    if (Services.prefs.getBoolPref("librewolf.devHelpers", false)) {
+       DevelopmentHelpers.init();
+     }
+ 
+diff --git a/dom/media/gmp/ChromiumCDMAdapter.cpp b/dom/media/gmp/ChromiumCDMAdapter.cpp
+index 475de25..e1f0324 100644
+--- a/dom/media/gmp/ChromiumCDMAdapter.cpp
++++ b/dom/media/gmp/ChromiumCDMAdapter.cpp
+@@ -69,7 +69,7 @@ void* ChromiumCdmHostCompat(int aHostInterfaceVersion, void* aUserData) {
+   return aUserData;
+ }
+ 
+-#ifdef MOZILLA_OFFICIAL
++#if 0
+ static cdm::HostFile TakeToCDMHostFile(HostFileData& aHostFileData) {
+   return cdm::HostFile(aHostFileData.mBinary.Path().get(),
+                        aHostFileData.mBinary.TakePlatformFile(),
+@@ -85,7 +85,7 @@ GMPErr ChromiumCDMAdapter::GMPInit(const GMPPlatformAPI* aPlatformAPI) {
+     return GMPGenericErr;
+   }
+ 
+-#ifdef MOZILLA_OFFICIAL
++#if 0
+   // Note: we must call the VerifyCdmHost_0 function if it's present before
+   // we call the initialize function.
+   auto verify = reinterpret_cast<decltype(::VerifyCdmHost_0)*>(
+diff --git a/media/gmp-clearkey/0.1/gmp-clearkey.cpp b/media/gmp-clearkey/0.1/gmp-clearkey.cpp
+index e54d654..1b6039e 100644
+--- a/media/gmp-clearkey/0.1/gmp-clearkey.cpp
++++ b/media/gmp-clearkey/0.1/gmp-clearkey.cpp
+@@ -73,7 +73,7 @@ void* CreateCdmInstance(int cdm_interface_version, const char* key_system,
+     return nullptr;
+   }
+ 
+-#ifdef MOZILLA_OFFICIAL
++#if 0
+   // Test that we're able to read the host files.
+   if (!sCanReadHostVerificationFiles) {
+     return nullptr;
