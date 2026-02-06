@@ -1,0 +1,12 @@
+pane-librewolf-title = LibreWolf preferencias Barra lateral
+category-librewolf =
+    .tooltiptext = as modificacións de about:config, agrupadas lóxicamente e doadamente accesibles
+librewolf-header = Preferencias do LibreWolf
+librewolf-warning-title = Aviso!
+librewolf-warning-description = Escollemos coidadosamente as configuracións predeterminadas para centrarnos na privacidade e na seguridade. Cando modifique estas configuracións, lea as descripcións para entender o que implican esos cambios.
+librewolf-extension-update-checkbox =
+    .label = Actualizar complementos automaticamente
+librewolf-sync-checkbox =
+    .label = Habilitar a sincronización con Firefox
+librewolf-styling-checkbox =
+    .label = Permitir a personalización do usuarioChrome.css
