@@ -89,6 +89,10 @@ def leave_srcdir():
 def librewolf_patches():
 
     enter_srcdir()
+
+    # remove OpenAI integration
+    exec('rm -vf toolkit/components/ml/content/backends/OpenAIPipeline.mjs')
+    exec('rm -vrf toolkit/components/ml/vendor/openai')
     
     # create the right mozconfig file..
     exec('cp -v ../assets/mozconfig.new mozconfig')
