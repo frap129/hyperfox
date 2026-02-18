@@ -65,20 +65,21 @@ index ff577c035f..3b07de78a6 100644
  
  <!-- Files and Applications -->
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 46283d3..8bd2352 100644
+index 3720de1..a686ec1 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -170,6 +170,9 @@ Preferences.addAll([
+@@ -201,6 +201,10 @@ Preferences.addAll([
+   { id: "dom.ipc.processCount", type: "int" },
    { id: "dom.ipc.processCount.web", type: "int" },
    { id: "layers.acceleration.disabled", type: "bool", inverted: true },
- 
++  
 +  /* Fullpage Translations */
 +  { id: "browser.translations.enable", type: "bool" },
-+
++  { id: "browser.translations.automaticallyPopup", type: "bool" },
+ 
    // Files and Applications
    { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
- 
-@@ -2037,6 +2041,10 @@ var gMainPane = {
+@@ -4916,6 +4920,10 @@ var gMainPane = {
        document.getElementById("checkSpelling"),
        () => this.writeCheckSpelling()
      );
@@ -86,13 +87,14 @@ index 46283d3..8bd2352 100644
 +      document.getElementById("translations-manage-enable"),
 +      () => this.readEnableTranslations()
 +    );
-     Preferences.addSyncFromPrefListener(
-       document.getElementById("linkTargeting"),
-       () => this.readLinkTarget()
-@@ -2270,24 +2278,33 @@ var gMainPane = {
-       Preferences.get("browser.display.document_color_use").value != 2;
+     this.setInitialized();
    },
  
+@@ -5034,39 +5042,36 @@ var gMainPane = {
+     button.disabled = !preference.value;
+     return undefined;
+   },
++  
 +  readEnableTranslations(skipInit = false) {
 +    const translationsEnabled = Preferences.get("browser.translations.enable").value;
 +    document.getElementById("innerTranslationsGroup").hidden = !translationsEnabled;
@@ -102,36 +104,56 @@ index 46283d3..8bd2352 100644
 +
 +  _translationsInitialized: false,
 +
+ 
    /**
     * Initialize the translations view.
     */
    async initTranslations() {
+-    let legacyTranslationsVisible = Preferences.getSetting(
+-      "legacyTranslationsVisible"
+-    );
 +    this.readEnableTranslations(true);
 +    
-     if (!Services.prefs.getBoolPref("browser.translations.enable")) {
-       return;
-     }
- 
++    if (!Services.prefs.getBoolPref("browser.translations.enable")) {
++       return;
++    }
++    
 +    this._translationsInitialized = true;
-+
++    
      /**
       * Which phase a language download is in.
       *
       * @typedef {"downloaded" | "loading" | "uninstalled"} DownloadPhase
       */
  
--    // Immediately show the group so that the async load of the component does
--    // not cause the layout to jump. The group will be empty initially.
--    document.getElementById("translationsGroup").hidden = false;
--
+-    let translationsGroup = document.getElementById("translationsGroup");
+-    let setTranslationsGroupVisbility = () => {
+-      // Immediately show the group so that the async load of the component does
+-      // not cause the layout to jump. The group will be empty initially.
+-      translationsGroup.hidden = !legacyTranslationsVisible.visible;
+-      translationsGroup.classList.toggle(
+-        "setting-hidden",
+-        translationsGroup.hidden
+-      );
+-    };
+-    setTranslationsGroupVisbility();
+ 
+-    legacyTranslationsVisible.on("change", setTranslationsGroupVisbility);
+-    window.addEventListener(
+-      "unload",
+-      () =>
+-        legacyTranslationsVisible.off("change", setTranslationsGroupVisbility),
+-      { once: true }
+-    );
+ 
      class TranslationsState {
        /**
-        * The fully initialized state.
-@@ -4530,6 +4547,22 @@ var gMainPane = {
+@@ -7110,6 +7115,23 @@ var gMainPane = {
+     // they don't visit, and users won't visit the web app's URL template,
      // they'll only visit URLs derived from that template (i.e. with %s
      // in the template replaced by the URL of the content being handled).
- 
-+    let inPrompt = false;
++    
++  let inPrompt = false;
 +    Preferences.get("browser.translations.enable").on("change", () => {
 +      if(!Preferences.get("browser.translations.enable").value)
 +      if(!inPrompt) {
@@ -147,9 +169,9 @@ index 46283d3..8bd2352 100644
 +      }
 +    });
 +
+ 
      if (
        /^https?$/.test(uri.scheme) &&
-       Services.prefs.getBoolPref("browser.chrome.site_icons")
 diff --git a/browser/components/translations/content/fullPageTranslationsPanel.js b/browser/components/translations/content/fullPageTranslationsPanel.js
 index f437dce2be..b7756bdc4c 100644
 --- a/browser/components/translations/content/fullPageTranslationsPanel.js
