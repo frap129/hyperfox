@@ -65,7 +65,7 @@ index ff577c035f..3b07de78a6 100644
  
  <!-- Files and Applications -->
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 3720de1..34e8dbf 100644
+index 3720de1..c348d6f 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
 @@ -237,6 +237,7 @@ Preferences.addAll([
@@ -145,30 +145,6 @@ index 3720de1..34e8dbf 100644
  
      class TranslationsState {
        /**
-@@ -7110,6 +7112,23 @@ var gMainPane = {
-     // they don't visit, and users won't visit the web app's URL template,
-     // they'll only visit URLs derived from that template (i.e. with %s
-     // in the template replaced by the URL of the content being handled).
-+    
-+  let inPrompt = false;
-+    Preferences.get("browser.translations.enable").on("change", () => {
-+      if(!Preferences.get("browser.translations.enable").value)
-+      if(!inPrompt) {
-+        inPrompt = true;
-+        confirmRestartPrompt(false, 1, true, false).then(buttonIndex => {
-+          inPrompt = false;
-+          if (buttonIndex == CONFIRM_RESTART_PROMPT_RESTART_NOW) {
-+            Services.startup.quit(
-+              Ci.nsIAppStartup.eAttemptQuit | Ci.nsIAppStartup.eRestart
-+            );
-+          }
-+        });
-+      }
-+    });
-+
- 
-     if (
-       /^https?$/.test(uri.scheme) &&
 diff --git a/browser/components/translations/content/fullPageTranslationsPanel.js b/browser/components/translations/content/fullPageTranslationsPanel.js
 index f437dce2be..b7756bdc4c 100644
 --- a/browser/components/translations/content/fullPageTranslationsPanel.js
