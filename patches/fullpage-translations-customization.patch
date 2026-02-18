@@ -65,21 +65,18 @@ index ff577c035f..3b07de78a6 100644
  
  <!-- Files and Applications -->
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 3720de1..a686ec1 100644
+index 3720de1..34e8dbf 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -201,6 +201,10 @@ Preferences.addAll([
-   { id: "dom.ipc.processCount", type: "int" },
-   { id: "dom.ipc.processCount.web", type: "int" },
-   { id: "layers.acceleration.disabled", type: "bool", inverted: true },
-+  
-+  /* Fullpage Translations */
-+  { id: "browser.translations.enable", type: "bool" },
-+  { id: "browser.translations.automaticallyPopup", type: "bool" },
+@@ -237,6 +237,7 @@ Preferences.addAll([
  
-   // Files and Applications
-   { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
-@@ -4916,6 +4920,10 @@ var gMainPane = {
+   // Translations
+   { id: "browser.translations.automaticallyPopup", type: "bool" },
++  { id: "browser.translations.enable", type: "bool" },
+ ]);
+ 
+ if (AppConstants.HAVE_SHELL_SERVICE) {
+@@ -4916,6 +4917,10 @@ var gMainPane = {
        document.getElementById("checkSpelling"),
        () => this.writeCheckSpelling()
      );
@@ -90,7 +87,7 @@ index 3720de1..a686ec1 100644
      this.setInitialized();
    },
  
-@@ -5034,39 +5042,36 @@ var gMainPane = {
+@@ -5034,39 +5039,36 @@ var gMainPane = {
      button.disabled = !preference.value;
      return undefined;
    },
@@ -148,7 +145,7 @@ index 3720de1..a686ec1 100644
  
      class TranslationsState {
        /**
-@@ -7110,6 +7115,23 @@ var gMainPane = {
+@@ -7110,6 +7112,23 @@ var gMainPane = {
      // they don't visit, and users won't visit the web app's URL template,
      // they'll only visit URLs derived from that template (i.e. with %s
      // in the template replaced by the URL of the content being handled).
