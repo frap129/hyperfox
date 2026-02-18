@@ -27,7 +27,7 @@ on:
           - beta
           - rc
           - stable
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - synchronize
