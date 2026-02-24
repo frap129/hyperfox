@@ -34,7 +34,7 @@ patches/webrtc-backport-pipeWire-capture-clear-e.patch
 patches/windows-theming-bug.patch
 patches/xdg-dir.patch
 patches/0011-LTO-Only-enable-LTO-for-Rust-when-complete-build-use.patch
-patches/custom_rust_version.patch
+patches/0001-bootstrap-Allow-custom-rust-version-from-env.patch
 patches/bb-patches/0001-BB-26353-Prevent-speculative-connect-that-violated-F.patch
 patches/bb-patches/0001-BB-40309-Avoid-using-regional-OS-locales.patch
 patches/bb-patches/0001-BB-44279-Disable-contextual-search-install-prompt.patch

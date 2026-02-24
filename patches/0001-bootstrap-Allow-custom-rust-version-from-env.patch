@@ -1,0 +1,33 @@
+From b247361a88521d2cf5fc88e7ca49852c70c8f541 Mon Sep 17 00:00:00 2001
+From: Joe Maples <joe@maples.dev>
+Date: Tue, 24 Feb 2026 18:23:29 -0500
+Subject: [PATCH] bootstrap: Allow custom rust version from env
+
+---
+ python/mozboot/mozboot/base.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/python/mozboot/mozboot/base.py b/python/mozboot/mozboot/base.py
+index 1456bfdaa3..a5581004f3 100644
+--- a/python/mozboot/mozboot/base.py
++++ b/python/mozboot/mozboot/base.py
+@@ -654,6 +654,7 @@ class BaseBootstrapper:
+         platform = rust.platform()
+         url = rust.rustup_url(platform)
+         checksum = rust.rustup_hash(platform)
++        version = os.environ.get("MOZ_RUST_VERSION", "stable")
+         if not url or not checksum:
+             print("ERROR: Could not download installer.")
+             sys.exit(1)
+@@ -671,7 +672,7 @@ class BaseBootstrapper:
+                 str(rustup_init),
+                 "-y",
+                 "--default-toolchain",
+-                "stable",
++                version,
+                 "--default-host",
+                 platform,
+                 "--component",
+-- 
+2.51.2
+
