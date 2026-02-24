@@ -167,6 +167,16 @@ case "$CHANNEL" in
         
         echo "Target major version: $TARGET_MAJOR" >&2
         
+        # Check for RC
+        RC_VERSION=$(find_rc "$TARGET_MAJOR")
+        if [[ -n "$RC_VERSION" ]]; then
+            echo "Found RC: $RC_VERSION" >&2
+            BUILD=$(find_latest_build "$RC_VERSION")
+            [[ -z "$BUILD" ]] && BUILD="build1"
+            output_result "$RC_VERSION" "candidates" "$BUILD" "" "Firefox ${RC_VERSION} (RC)"
+            exit 0
+        fi
+
         # Check for beta
         LATEST_BETA=$(find_latest_beta "$TARGET_MAJOR")
         if [[ -n "$LATEST_BETA" ]]; then
@@ -176,16 +186,6 @@ case "$CHANNEL" in
             BUILD=$(find_latest_build "$LATEST_BETA")
             [[ -z "$BUILD" ]] && BUILD="build1"
             output_result "$BASE_VERSION" "beta" "$BUILD" "$BETA_SUFFIX" "Firefox ${LATEST_BETA} (Beta)"
-            exit 0
-        fi
-        
-        # Check for RC
-        RC_VERSION=$(find_rc "$TARGET_MAJOR")
-        if [[ -n "$RC_VERSION" ]]; then
-            echo "Found RC: $RC_VERSION" >&2
-            BUILD=$(find_latest_build "$RC_VERSION")
-            [[ -z "$BUILD" ]] && BUILD="build1"
-            output_result "$RC_VERSION" "candidates" "$BUILD" "" "Firefox ${RC_VERSION} (RC)"
             exit 0
         fi
         

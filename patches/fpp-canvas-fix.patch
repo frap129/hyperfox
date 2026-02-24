@@ -24,10 +24,10 @@ index ee186c2..ec57312 100644
        // need to calculate random noises if we are going to use the place
        // holder.
 diff --git a/dom/canvas/ClientWebGLContext.cpp b/dom/canvas/ClientWebGLContext.cpp
-index 11578f4..d52d929 100644
+index 12492d6..e84280c 100644
 --- a/dom/canvas/ClientWebGLContext.cpp
 +++ b/dom/canvas/ClientWebGLContext.cpp
-@@ -3598,7 +3598,9 @@ void ClientWebGLContext::GetBufferSubData(GLenum target, GLintptr srcByteOffset,
+@@ -3632,7 +3632,9 @@ void ClientWebGLContext::GetBufferSubData(GLenum target, GLintptr srcByteOffset,
        if (extraction == CanvasUtils::ImageExtraction::Placeholder) {
          dom::GeneratePlaceholderCanvasData(destView->size_bytes(),
                                             destView->Elements());
@@ -38,16 +38,16 @@ index 11578f4..d52d929 100644
          // We have no idea what's in the buffer. So, we randomize it as if each
          // elemSize bytes is a single element.
          uint8_t elementsPerGroup = 1,
-@@ -5354,7 +5356,8 @@ void ClientWebGLContext::ReadPixels(GLint x, GLint y, GLsizei width,
- 
-       if (extraction == CanvasUtils::ImageExtraction::Placeholder) {
-         dom::GeneratePlaceholderCanvasData(range->size(), range->Elements());
--      } else if (extraction == CanvasUtils::ImageExtraction::Randomize) {
-+      } else if (extraction == CanvasUtils::ImageExtraction::Randomize ||
+@@ -5391,7 +5393,8 @@ void ClientWebGLContext::ReadPixels(GLint x, GLint y, GLsizei width,
+       } else {
+         RecordCanvasUsage(CanvasExtractionAPI::ReadPixels,
+                           CSSIntSize(width, height));
+-        if (extraction == CanvasUtils::ImageExtraction::Randomize) {
++        if (extraction == CanvasUtils::ImageExtraction::Randomize ||
 +            extraction == CanvasUtils::ImageExtraction::EfficientRandomize) {
-         const auto pii = webgl::PackingInfoInfo::For(desc.pi);
-         // DoReadPixels() requres pii to be Some().
-         MOZ_ASSERT(pii.isSome());
+           const auto pii = webgl::PackingInfoInfo::For(desc.pi);
+           // DoReadPixels() requres pii to be Some().
+           MOZ_ASSERT(pii.isSome());
 diff --git a/toolkit/components/resistfingerprinting/nsRFPService.cpp b/toolkit/components/resistfingerprinting/nsRFPService.cpp
 index 9554fbb..0c1e380 100644
 --- a/toolkit/components/resistfingerprinting/nsRFPService.cpp

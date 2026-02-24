@@ -37,12 +37,13 @@ index ff577c035f..3b07de78a6 100644
    </vbox>
  
  </groupbox>
-@@ -366,8 +367,16 @@
+@@ -233,9 +234,17 @@
            preference="layout.spellcheckDefault"/>
  
-   <!-- Translations -->
--  <vbox id="translationsGroup" hidden="true" data-subcategory="translations">
-+  <vbox id="translationsGroup" data-subcategory="translations">
+   <!-- This Translations UI is the pre-settings-redesign UI and should be removed
+        when getting ready for the settings redesign to fully ship. -->
+-  <vbox id="translationsGroup" data-srd-groupid="translations" hidden="true" data-subcategory="translations">
++  <vbox id="translationsGroup" data-srd-groupid="translations" data-subcategory="translations">
      <label><html:h2 data-l10n-id="translations-manage-header"/></label>
 +    <checkbox id="translations-manage-enable" 
 +          data-l10n-id="translations-manage-enable" 
@@ -55,30 +56,27 @@ index ff577c035f..3b07de78a6 100644
      <hbox id="translations-manage-description" align="center">
        <description flex="1" data-l10n-id="translations-manage-intro-2"/>
        <button id="translations-manage-settings-button"
-@@ -389,6 +398,7 @@
+@@ -255,6 +264,7 @@
        <description id="translations-manage-error" hidden="true"></description>
      </vbox>
++    </vbox>
    </vbox>
-+  </vbox>
  </groupbox>
  
  <!-- Files and Applications -->
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 46283d3..8bd2352 100644
+index 3720de1..c348d6f 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -170,6 +170,10 @@ Preferences.addAll([
-   { id: "dom.ipc.processCount.web", type: "int" },
-   { id: "layers.acceleration.disabled", type: "bool", inverted: true },
+@@ -237,6 +237,7 @@ Preferences.addAll([
  
-+  /* Fullpage Translations */
+   // Translations
+   { id: "browser.translations.automaticallyPopup", type: "bool" },
 +  { id: "browser.translations.enable", type: "bool" },
-+  { id: "browser.translations.automaticallyPopup", type: "bool" },
-+
-   // Files and Applications
-   { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
+ ]);
  
-@@ -2037,6 +2041,10 @@ var gMainPane = {
+ if (AppConstants.HAVE_SHELL_SERVICE) {
+@@ -4916,6 +4917,10 @@ var gMainPane = {
        document.getElementById("checkSpelling"),
        () => this.writeCheckSpelling()
      );
@@ -86,13 +84,14 @@ index 46283d3..8bd2352 100644
 +      document.getElementById("translations-manage-enable"),
 +      () => this.readEnableTranslations()
 +    );
-     Preferences.addSyncFromPrefListener(
-       document.getElementById("linkTargeting"),
-       () => this.readLinkTarget()
-@@ -2270,24 +2278,33 @@ var gMainPane = {
-       Preferences.get("browser.display.document_color_use").value != 2;
+     this.setInitialized();
    },
  
+@@ -5034,39 +5039,36 @@ var gMainPane = {
+     button.disabled = !preference.value;
+     return undefined;
+   },
++  
 +  readEnableTranslations(skipInit = false) {
 +    const translationsEnabled = Preferences.get("browser.translations.enable").value;
 +    document.getElementById("innerTranslationsGroup").hidden = !translationsEnabled;
@@ -102,54 +101,50 @@ index 46283d3..8bd2352 100644
 +
 +  _translationsInitialized: false,
 +
+ 
    /**
     * Initialize the translations view.
     */
    async initTranslations() {
+-    let legacyTranslationsVisible = Preferences.getSetting(
+-      "legacyTranslationsVisible"
+-    );
 +    this.readEnableTranslations(true);
 +    
-     if (!Services.prefs.getBoolPref("browser.translations.enable")) {
-       return;
-     }
- 
++    if (!Services.prefs.getBoolPref("browser.translations.enable")) {
++       return;
++    }
++    
 +    this._translationsInitialized = true;
-+
++    
      /**
       * Which phase a language download is in.
       *
       * @typedef {"downloaded" | "loading" | "uninstalled"} DownloadPhase
       */
  
--    // Immediately show the group so that the async load of the component does
--    // not cause the layout to jump. The group will be empty initially.
--    document.getElementById("translationsGroup").hidden = false;
--
+-    let translationsGroup = document.getElementById("translationsGroup");
+-    let setTranslationsGroupVisbility = () => {
+-      // Immediately show the group so that the async load of the component does
+-      // not cause the layout to jump. The group will be empty initially.
+-      translationsGroup.hidden = !legacyTranslationsVisible.visible;
+-      translationsGroup.classList.toggle(
+-        "setting-hidden",
+-        translationsGroup.hidden
+-      );
+-    };
+-    setTranslationsGroupVisbility();
+ 
+-    legacyTranslationsVisible.on("change", setTranslationsGroupVisbility);
+-    window.addEventListener(
+-      "unload",
+-      () =>
+-        legacyTranslationsVisible.off("change", setTranslationsGroupVisbility),
+-      { once: true }
+-    );
+ 
      class TranslationsState {
        /**
-        * The fully initialized state.
-@@ -4530,6 +4547,22 @@ var gMainPane = {
-     // they'll only visit URLs derived from that template (i.e. with %s
-     // in the template replaced by the URL of the content being handled).
- 
-+    let inPrompt = false;
-+    Preferences.get("browser.translations.enable").on("change", () => {
-+      if(!Preferences.get("browser.translations.enable").value)
-+      if(!inPrompt) {
-+        inPrompt = true;
-+        confirmRestartPrompt(false, 1, true, false).then(buttonIndex => {
-+          inPrompt = false;
-+          if (buttonIndex == CONFIRM_RESTART_PROMPT_RESTART_NOW) {
-+            Services.startup.quit(
-+              Ci.nsIAppStartup.eAttemptQuit | Ci.nsIAppStartup.eRestart
-+            );
-+          }
-+        });
-+      }
-+    });
-+
-     if (
-       /^https?$/.test(uri.scheme) &&
-       Services.prefs.getBoolPref("browser.chrome.site_icons")
 diff --git a/browser/components/translations/content/fullPageTranslationsPanel.js b/browser/components/translations/content/fullPageTranslationsPanel.js
 index f437dce2be..b7756bdc4c 100644
 --- a/browser/components/translations/content/fullPageTranslationsPanel.js

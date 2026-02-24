@@ -119,10 +119,10 @@ index 8d33f43f26..aa52794597 100644
  
  .content-blocking-label,
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 0ec057f..5ae3d53 100644
+index 3720de1..34d70a8 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -2525,33 +2525,6 @@ SettingGroupManager.registerGroups({
+@@ -3259,33 +3259,6 @@ SettingGroupManager.registerGroups({
    },
    history: {
      items: [
@@ -156,6 +156,46 @@ index 0ec057f..5ae3d53 100644
        {
          id: "rememberHistory",
          l10nId: "history-remember-browser-option",
+@@ -4525,39 +4498,6 @@ SettingGroupManager.registerGroups({
+             l10nId: "addressbar-locbar-quickactions-option",
+             supportPage: "quick-actions-firefox-search-bar",
+           },
+-          {
+-            id: "firefoxSuggestAll",
+-            l10nId: "addressbar-locbar-suggest-all-option-2",
+-            items: [
+-              {
+-                id: "firefoxSuggestSponsored",
+-                l10nId: "addressbar-locbar-suggest-sponsored-option-2",
+-              },
+-              {
+-                id: "firefoxSuggestOnlineEnabledToggle",
+-                l10nId: "addressbar-firefox-suggest-online",
+-                supportPage: "firefox-suggest",
+-                subcategory: "w_what-is-firefox-suggest",
+-              },
+-            ],
+-          },
+-          {
+-            id: "dismissedSuggestionsDescription",
+-            l10nId: "addressbar-dismissed-suggestions-label-2",
+-            control: "moz-fieldset",
+-            controlAttrs: {
+-              headinglevel: 3,
+-            },
+-            items: [
+-              {
+-                id: "restoreDismissedSuggestions",
+-                l10nId: "addressbar-restore-dismissed-suggestions-button-2",
+-                control: "moz-button",
+-                iconSrc:
+-                  "chrome://global/skin/icons/arrow-counterclockwise-16.svg",
+-              },
+-            ],
+-          },
+         ],
+       },
+     ],
 diff --git a/browser/components/preferences/privacy.js b/browser/components/preferences/privacy.js
 index cde8635..39d22ac 100644
 --- a/browser/components/preferences/privacy.js
