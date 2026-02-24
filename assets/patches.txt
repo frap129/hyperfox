@@ -14,6 +14,7 @@ patches/moz-configure.patch
 patches/mozilla_dirs.patch
 patches/msix.patch
 patches/newtab-fix.patch
+patches/remove-pingsender.patch
 patches/rs-blocker.patch
 patches/rust-gentoo-musl.patch
 patches/sed-patches/stop-undesired-requests.patch
