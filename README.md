@@ -72,7 +72,6 @@ Then, you have to bootstrap your system to be able to build LibreWolf. You only 
 
 ```bash
 ./mach --no-interactive bootstrap --application-choice=browser
-./lw/setup-wasi-linux.sh
 ```
 
 Finally you can build LibreWolf and then package or run it with the following commands:
