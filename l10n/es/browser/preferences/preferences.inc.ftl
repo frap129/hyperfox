@@ -1,5 +1,5 @@
 category-librewolf =
-    .tooltiptext = cambios de "about:config", agrupados de forma lógica y fácilmente accesibles
+    .tooltiptext = cambios en el about:config, agrupados de forma lógica y fácilmente accesibles
 librewolf-header = Opciones de LibreWolf
 librewolf-warning-title = ¡Precaución!
 librewolf-general-heading = Comportamiento del navegador
