@@ -355,18 +355,20 @@ index f65f6bb61a..e5bbe3f976 100644
  .popup-notification-icon[popupid^="webauthn-prompt-"] {
    list-style-image: url(chrome://browser/skin/fingerprint.svg);
 diff --git a/dom/canvas/ClientWebGLContext.cpp b/dom/canvas/ClientWebGLContext.cpp
-index 11578f425f..b36dae5d79 100644
+index 11578f425f..3c1632676d 100644
 --- a/dom/canvas/ClientWebGLContext.cpp
 +++ b/dom/canvas/ClientWebGLContext.cpp
-@@ -24,6 +24,7 @@
+@@ -23,7 +23,9 @@
+ #include "mozilla/EnumeratedRange.h"
  #include "mozilla/ResultVariant.h"
  #include "mozilla/ScopeExit.h"
++#include "mozilla/StaticPrefs_librewolf.h"
  #include "mozilla/StaticPrefs_webgl.h"
 +#include "mozilla/dom/BrowserChild.h"
  #include "mozilla/dom/BufferSourceBinding.h"
  #include "mozilla/dom/Document.h"
  #include "mozilla/dom/GeneratePlaceholderCanvasData.h"
-@@ -44,6 +45,8 @@
+@@ -44,6 +46,8 @@
  #include "mozilla/layers/WebRenderUserData.h"
  #include "nsContentUtils.h"
  #include "nsDisplayList.h"
@@ -375,7 +377,7 @@ index 11578f425f..b36dae5d79 100644
  
  namespace mozilla {
  
-@@ -846,6 +849,129 @@ static bool IsWebglOutOfProcessEnabled() {
+@@ -846,6 +850,129 @@ static bool IsWebglOutOfProcessEnabled() {
    return StaticPrefs::webgl_out_of_process();
  }
  
@@ -505,7 +507,7 @@ index 11578f425f..b36dae5d79 100644
  bool ClientWebGLContext::CreateHostContext(const uvec2& requestedSize) {
    const auto pNotLost = MakeRefPtr<webgl::NotLostData>(*this);
    auto& notLost = *pNotLost;
-@@ -879,7 +1005,18 @@ bool ClientWebGLContext::CreateHostContext(const uvec2& requestedSize) {
+@@ -879,7 +1006,18 @@ bool ClientWebGLContext::CreateHostContext(const uvec2& requestedSize) {
          .size = requestedSize,
          .options = options,
      };
@@ -590,7 +592,7 @@ index b3323467b1..eb6d319d8f 100644
      sync SetSystemFont(nsCString aFontName);
      sync GetSystemFont() returns (nsCString retval);
 diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
-index 62f49dc803..0d539addc7 100644
+index 0986e53121..0d539addc7 100644
 --- a/modules/libpref/init/StaticPrefList.yaml
 +++ b/modules/libpref/init/StaticPrefList.yaml
 @@ -11151,6 +11151,15 @@
