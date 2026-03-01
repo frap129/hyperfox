@@ -590,18 +590,22 @@ index b3323467b1..eb6d319d8f 100644
      sync SetSystemFont(nsCString aFontName);
      sync GetSystemFont() returns (nsCString retval);
 diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
-index 0986e53121..62f49dc803 100644
+index 62f49dc803..0d539addc7 100644
 --- a/modules/libpref/init/StaticPrefList.yaml
 +++ b/modules/libpref/init/StaticPrefList.yaml
-@@ -18735,6 +18735,11 @@
+@@ -11151,6 +11151,15 @@
    value: false
    mirror: always
  
++#---------------------------------------------------------------------------
++# Prefs starting with "librewolf."
++#---------------------------------------------------------------------------
++
 +- name: librewolf.webgl.prompt
 +  type: RelaxedAtomicBool
 +  value: true
 +  mirror: always  
 +
- - name: webgl.enable-debug-renderer-info
-   type: RelaxedAtomicBool
-   value: true
+ #---------------------------------------------------------------------------
+ # Prefs starting with "logging."
+ #---------------------------------------------------------------------------
