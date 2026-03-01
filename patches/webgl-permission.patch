@@ -609,3 +609,15 @@ index 62f49dc803..0d539addc7 100644
  #---------------------------------------------------------------------------
  # Prefs starting with "logging."
  #---------------------------------------------------------------------------
+diff --git a/modules/libpref/moz.build b/modules/libpref/moz.build
+index 46034d8d99..d3a6ffc9ae 100644
+--- a/modules/libpref/moz.build
++++ b/modules/libpref/moz.build
+@@ -59,6 +59,7 @@ pref_groups = [
+     "javascript",
+     "layers",
+     "layout",
++    "librewolf",
+     "logging",
+     "mathml",
+     "media",
