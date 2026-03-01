@@ -30,7 +30,7 @@ index 5fbdd8d..1ae96b2 100644
              )
 +            label_to_taskid_response.raise_for_status()
 +            label_to_taskid = label_to_taskid_response.json()
-+            task_id = label_to_taskid.get(task["label"])
++            task_id = label_to_taskid.get(task.label)
              if task_id in (True, False) or not artifact_name:
                  command_context.log(
                      logging.ERROR,
