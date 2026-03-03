@@ -448,7 +448,7 @@ index 11578f425f..3c1632676d 100644
 +	}
 +	
 +	nsAutoString message;
-+	message.AppendPrintf("Blocked %s from creating webGL context but prompting the user.",
++	message.AppendPrintf("Blocked %s from creating WebGL context but prompting the user.",
 +						getOrigin() ? origin->get() : "unknown");
 +	aReportToConsole(message);
 +
