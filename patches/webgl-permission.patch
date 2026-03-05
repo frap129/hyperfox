@@ -113,7 +113,7 @@ new file mode 100644
 index 0000000000..0d8c7213ec
 --- /dev/null
 +++ b/browser/modules/WebGLPermissionPromptHelper.sys.mjs
-@@ -0,0 +1,114 @@
+@@ -0,0 +1,113 @@
 +/* This Source Code Form is subject to the terms of the Mozilla Public
 + * License, v. 2.0. If a copy of the MPL was not distributed with this
 + * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
@@ -175,7 +175,6 @@ index 0000000000..0d8c7213ec
 +          Ci.nsIPermissionManager.ALLOW_ACTION,
 +          state && state.checkboxChecked
 +        );
-+        browser.reloadTab(browser.selectedTab);
 +      },
 +    };
 +
