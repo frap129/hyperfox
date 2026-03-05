@@ -175,6 +175,10 @@ index 0000000000..0d8c7213ec
 +          Ci.nsIPermissionManager.ALLOW_ACTION,
 +          state && state.checkboxChecked
 +        );
++          let tab = window?.gBrowser?.getTabForBrowser(browser);
++          if (tab) {
++            window.gBrowser.reloadTab(tab);
++          }
 +      },
 +    };
 +
@@ -187,10 +191,6 @@ index 0000000000..0d8c7213ec
 +            Ci.nsIPermissionManager.DENY_ACTION,
 +            state && state.checkboxChecked
 +          );
-+          let tab = window?.gBrowser?.getTabForBrowser(browser);
-+          if (tab) {
-+            window.gBrowser.reloadTab(tab);
-+          }
 +        },
 +      },
 +    ];
