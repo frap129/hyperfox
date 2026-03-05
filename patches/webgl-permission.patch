@@ -513,7 +513,7 @@ index 11578f425f..3c1632676d 100644
      };
 -
 +	
-+	if (mCanvasElement) {		
++	if (mCanvasElement && !StaticPrefs::webgl_disabled()) {		
 +		if(!IsWebGLAllowed(mCanvasElement->OwnerDoc(), 
 +		                   nsContentUtils::GetCurrentJSContext(), 
 +		                   mCanvasElement->NodePrincipal())) {
