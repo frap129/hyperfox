@@ -187,9 +187,9 @@ index 0000000000..0d8c7213ec
 +            Ci.nsIPermissionManager.DENY_ACTION,
 +            state && state.checkboxChecked
 +          );
-+          let tab = win?.gBrowser?.getTabForBrowser(browser);
++          let tab = window?.gBrowser?.getTabForBrowser(browser);
 +          if (tab) {
-+            win.gBrowser.reloadTab(tab);
++            window.gBrowser.reloadTab(tab);
 +          }
 +        },
 +      },
