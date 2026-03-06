@@ -13,8 +13,6 @@ ac_add_options --enable-stl-hardening
 ac_add_options --enable-optimize
 ac_add_options --enable-release
 ac_add_options --enable-rust-simd
-ac_add_options --enable-strip
-ac_add_options --enable-install-strip
 # allow replacing malloc manually, will not affect regular systems
 # not compatible with ac_add_options --disable-jemalloc, which only works when preloading custom malloc
 ac_add_options --enable-replace-malloc
