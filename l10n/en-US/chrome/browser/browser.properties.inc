@@ -1,0 +1,9 @@
+# WebGL permission prompt
+# LOCALIZATION NOTE (webgl.siteprompt2): %S is hostname
+webgl.siteprompt2=Allow %S to create a WebGL context?
+webgl.siteprompt2.warning=This may be used to uniquely identify your computer.
+webgl.block=Block
+webgl.block.accesskey=B
+webgl.allow2=Allow
+webgl.allow2.accesskey=A
+webgl.remember2=Remember this decision

@@ -38,39 +38,6 @@ index cb57017aa9..d56c1c1114 100644
  
      <popupnotification id="contextual-feature-recommendation-notification"
                         buttonhighlight="true"
-diff --git a/browser/locales/en-US/chrome/browser/browser.properties b/browser/locales/en-US/chrome/browser/browser.properties
-index 89156e42a9..93e8c32444 100644
---- a/browser/locales/en-US/chrome/browser/browser.properties
-+++ b/browser/locales/en-US/chrome/browser/browser.properties
-@@ -119,6 +119,16 @@ canvas.allow2=Allow
- canvas.allow2.accesskey=A
- canvas.remember2=Remember this decision
- 
-+# WebGL permission prompt
-+# LOCALIZATION NOTE (webgl.siteprompt2): %S is hostname
-+webgl.siteprompt2=Allow %S to create a WebGL context?
-+webgl.siteprompt2.warning=This may be used to uniquely identify your computer.
-+webgl.block=Block
-+webgl.block.accesskey=B
-+webgl.allow2=Allow
-+webgl.allow2.accesskey=A
-+webgl.remember2=Remember this decision
-+
- # LOCALIZATION NOTE (identity.identified.verifier, identity.identified.state_and_country, identity.ev.contentOwner2):
- # %S is the hostname of the site that is being displayed.
- identity.identified.verifier=Verified by: %S
-diff --git a/browser/locales/en-US/chrome/browser/sitePermissions.properties b/browser/locales/en-US/chrome/browser/sitePermissions.properties
-index f132ec0503..0fcbe8443f 100644
---- a/browser/locales/en-US/chrome/browser/sitePermissions.properties
-+++ b/browser/locales/en-US/chrome/browser/sitePermissions.properties
-@@ -50,6 +50,7 @@ permission.shortcuts.label = Override keyboard shortcuts
- permission.focus-tab-by-prompt.label = Switch to this tab
- permission.persistent-storage.label = Store data in persistent storage
- permission.canvas.label = Extract canvas data
-+permission.webgl.label = Create WebGL context
- permission.midi.label = Access MIDI devices
- permission.midi-sysex.label = Access MIDI devices with SysEx support
- # LOCALIZATION NOTE (permission.open-protocol-handler.label):
 diff --git a/browser/modules/ObserverForwarder.sys.mjs b/browser/modules/ObserverForwarder.sys.mjs
 index 8cf14355f3..b3a93a65c4 100644
 --- a/browser/modules/ObserverForwarder.sys.mjs
@@ -211,7 +178,7 @@ index 0000000000..0d8c7213ec
 +        Services.urlFormatter.formatURLPref("app.support.baseURL") +
 +        "fingerprint-permission",
 +      eventCallback(e) {
-+        if (e == "showing") {
++        if (e == "showing" && this?.browser?.ownerDocument) {
 +          this.browser.ownerDocument.getElementById(
 +            "webgl-permissions-prompt-warning"
 +          ).textContent = gBrowserBundle.GetStringFromName(
