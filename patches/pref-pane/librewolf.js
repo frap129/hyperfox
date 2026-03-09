@@ -86,7 +86,7 @@ var gLibrewolfPane = {
     setBoolSyncListeners(
       "librewolf-webgl-prompt-checkbox",
       ["librewolf.webgl.prompt"],
-      [false                   ],
+      [true                   ],
     );
     setBoolSyncListeners(
       "librewolf-rfp-checkbox",
