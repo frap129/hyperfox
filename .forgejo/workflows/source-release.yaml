@@ -42,7 +42,7 @@ jobs:
           retention-days: 7
 
   publish-release:
-    runs-on: epsilon
+    runs-on: codeberg-medium
     container:
       image: codeberg.org/librewolf/bsys6:dind
     needs: [build-source]
