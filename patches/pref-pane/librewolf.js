@@ -81,7 +81,7 @@ var gLibrewolfPane = {
     setBoolSyncListeners(
       "librewolf-webgl-checkbox",
       ["webgl.disabled"],
-      [false           ],
+      [true            ],
     );
     setBoolSyncListeners(
       "librewolf-webgl-prompt-checkbox",
