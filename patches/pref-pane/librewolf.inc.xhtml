@@ -163,6 +163,22 @@
       <checkbox preference="webgl.disabled" label="webgl.disabled" />
     </vbox>
   </vbox>
+  
+  <vbox class="indent">
+
+    <hbox>
+      <checkbox id="librewolf-webgl-prompt-checkbox" data-l10n-id="librewolf-webgl-prompt-checkbox" preference="librewolf.webgl.prompt" flex="1" />
+      <html:label for="librewolf-webgl-prompt-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+    </hbox>
+    <vbox class="librewolf-collapse indent">
+      <html:input type="checkbox" id="librewolf-webgl-prompt-collapse" />
+      <vbox class="librewolf-collapsed tracking-protection-ui content-blocking-category">
+        <label data-l10n-id="librewolf-webgl-prompt-description" />
+        <checkbox preference="librewolf.webgl.prompt" label="librewolf.webgl.prompt" />
+      </vbox>
+    </vbox>
+
+  </vbox>
 
 
 </groupbox>
