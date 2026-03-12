@@ -157,7 +157,7 @@ jobs:
       
       - name: Test Build
         run: |
-          VERBOSE=true make test-windows
+          make test-windows
 
       - name: Upload artifacts
         uses: https://data.forgejo.org/forgejo/upload-artifact@v4
