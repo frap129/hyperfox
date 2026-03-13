@@ -10,3 +10,7 @@ librewolf-sync-checkbox =
     .label = Habilitar a sincronización con Firefox
 librewolf-styling-checkbox =
     .label = Permitir a personalización do usuarioChrome.css
+librewolf-general-heading = Comportamento do navegador
+librewolf-network-heading = Conectividade
+librewolf-ipv6-checkbox =
+    .label = Habilitar IPv6

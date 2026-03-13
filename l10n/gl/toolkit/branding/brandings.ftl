@@ -1,0 +1,2 @@
+-screenshots-brand-name = Capturas de pantalla
+-translations-brand-name = Traducións
