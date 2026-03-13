@@ -426,7 +426,7 @@ index 12492d606c..f92f5abcb7 100644
 +       bool webGLDisabled, JSContext* aCx,
 +       nsIPrincipal* aPrincipal,
 +       const std::function<void(const nsAutoString&)>& aReportToConsole,
-+       const std::function<void()>& aTryPrompt) {
++       const std::function<void(bool)>& aTryPrompt) {
 +       
 +       if(!webGLDisabled) {
 +               return true;
