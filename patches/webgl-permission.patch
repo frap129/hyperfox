@@ -97,7 +97,7 @@ index 0000000000..f47008b8eb
 +  // aData is an Origin string.
 +  observe(aSubject, aTopic, aData) {
 +    if (
-+      aTopic != this._permissionsPrompt
++      aTopic != this._permissionsPrompt &&
 +      aTopic != this._permissionsPromptHideDoorHanger
 +    ) {
 +      return;
