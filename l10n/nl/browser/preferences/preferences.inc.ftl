@@ -59,3 +59,6 @@ librewolf-webgl-checkbox =
     .label = WebGL inschakelen
 librewolf-sync-warning1 = Firefox Sync versleutelt uw gegevens op uw computer voorafgaand aan de synchronisatie.
 content-blocking-section-top-level-description = LibreWolf ondersteunt verbeterde bescherming tegen volgen op het strenge niveau en schakelt dit standaard in. Dit is een van de belangrijkste instellingen van de browsers, daar deze instelling onder andere zorgt voor strenge blokkadelijsten en andere nuttige privacyfuncties. Wij raden het kiezen van een ander niveau af.
+librewolf-webgl-prompt-checkbox =
+    .label = Om WebGL-toegang vragen
+librewolf-webgl-prompt-description = Vraag om toegang tot WebGL als dat is ingeschakeld, in plaats van automatisch toestemming te verlenen.
