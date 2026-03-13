@@ -615,10 +615,10 @@ index 66f77eb554..05464d905d 100644
      sync SetSystemFont(nsCString aFontName);
      sync GetSystemFont() returns (nsCString retval);
 diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
-index 2de28d8df4..30bac2e16c 100644
+index 2de28d8df4..2a72c821bb 100644
 --- a/modules/libpref/init/StaticPrefList.yaml
 +++ b/modules/libpref/init/StaticPrefList.yaml
-@@ -11288,6 +11288,15 @@
+@@ -11288,6 +11288,20 @@
    value: false
    mirror: always
  
@@ -631,6 +631,11 @@ index 2de28d8df4..30bac2e16c 100644
 +  value: true
 +  mirror: always  
 +
++- name: librewolf.webgl.prompt.hide
++  type: RelaxedAtomicBool
++  value: true
++  mirror: always  
++  
  #---------------------------------------------------------------------------
  # Prefs starting with "logging."
  #---------------------------------------------------------------------------
