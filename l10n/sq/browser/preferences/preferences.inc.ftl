@@ -59,3 +59,6 @@ librewolf-rfp-checkbox =
 librewolf-letterboxing-checkbox =
     .label = Aktivizo “letterboxing”
 librewolf-security-heading = Siguri
+librewolf-webgl-prompt-checkbox =
+    .label = Aktivizo hap lejesh WebGL
+librewolf-webgl-prompt-description = Kjo krijon një hap lejesh, kur WebGL është e aktivizuar, në vend se të akordohet leje drejtpërdrejt.
