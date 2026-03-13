@@ -70,7 +70,7 @@ index ee8f09234f..d582b92958 100644
      },
 +    
 +    "webgl": {
-+      exactHostMatch: true,
++//      exactHostMatch: true,
 +    },
  
      midi: {
