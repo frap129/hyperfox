@@ -26,9 +26,9 @@ librewolf-xorigin-ref-checkbox =
     .label = Limit cross-origin referrers
 librewolf-broken-heading = Fingerprinting
 librewolf-webgl-checkbox =
-    .label = Enable WebGL
+    .label = Enable WebGL with per-site permissions
 librewolf-webgl-prompt-checkbox =
-    .label = Enable WebGL permission prompt
+    .label = Hide the WebGL per-site popup
 librewolf-rfp-checkbox =
     .label = Enable ResistFingerprinting
 librewolf-letterboxing-checkbox =
@@ -54,9 +54,9 @@ librewolf-styling-description = Enable this if you want to customize the UI with
 librewolf-styling-warning1 = Make sure you trust the provider of the theme.
 librewolf-xorigin-ref-description = Send a referrer only on same-origin.
 librewolf-xorigin-ref-warning1 = This may cause breakage. Additionally, even when sent referrers will still be trimmed.
-librewolf-webgl-description = WebGL is a strong fingerprinting vector.
-librewolf-webgl-warning1 = If you need to enable it, consider using an extension like Canvas Blocker.
-librewolf-webgl-prompt-description = This creates a permission prompt when WebGL is enabled, instead of directly granting permission.
+librewolf-webgl-description = This enables WebGL with a per-site permission prompt.
+librewolf-webgl-warning1 = When a site tries to create a WebGL context, you will first be asked for permission.
+librewolf-webgl-prompt-description = This hides the popup that appears when a site tries to create a WebGL context. You can still manually bring up the prompt by clicking the icon in the searchbar.
 librewolf-rfp-description = ResistFingerprinting is the best in class anti-fingerprinting tool.
 librewolf-rfp-warning1 = If you need to disable it, consider using an extension like Canvas Blocker.
 librewolf-letterboxing-description = Letterboxing applies margins around your windows, in order to return a limited set of rounded resolutions.
@@ -72,3 +72,8 @@ librewolf-open-profile = Open user profile directory
 ## Privacy & Security preferences
 
 content-blocking-section-top-level-description = LibreWolf supports - and it enables by default - Enhanced Tracking Protection in Strict mode. This is one of the most important settings in the browser, as it provides state partitioning, strict blocking lists and other neat privacy features. We do not recommend changing to other modes.
+
+## Permissions
+
+permissions-webgl2 =
+    .label = WebGL
