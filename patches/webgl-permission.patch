@@ -572,16 +572,3 @@ index 46034d8d99..d3a6ffc9ae 100644
      "logging",
      "mathml",
      "media",
-diff --git a/toolkit/content/license.html b/toolkit/content/license.html
-index 4c982d0db2..cdae794aed 100644
---- a/toolkit/content/license.html
-+++ b/toolkit/content/license.html
-@@ -4133,6 +4133,8 @@ product.
-               <li><code>toolkit/components/ml/vendor/wllama-module-dev.mjs</code></li>
- #endif
-               <li><code>toolkit/components/ml/vendor/wllama-module.mjs</code></li>
-+              <li><code>browser/themes/shared/icons/webgl.svg</code></li>
-+              <li><code>browser/themes/shared/icons/webgl-blocked.svg</code></li>
- #ifdef XP_WIN
-               <li>CoreMessagingXP.dll</li>
-               <li>marshal.dll</li>
