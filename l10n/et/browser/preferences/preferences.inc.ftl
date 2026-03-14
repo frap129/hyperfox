@@ -59,3 +59,6 @@ librewolf-xorigin-ref-warning1 = See võib põhjustada olukorra, kus kõik veebi
 librewolf-autocopy-description = Kui oled kusagil kopeerinud teksti, siis saad seda uude kohta asetada hiire keskmise klõpsuga.
 librewolf-rfp-warning1 = Kui sul tõesti on vaja see valik välja lülitada, siis privaatsuse parandamise nimel võta kasutusele laiendus Canvas Blocker.
 librewolf-goog-safe-warning1 = Võimaliku tsenseerimisriski tõttu pole see valik vaikimisi kasutusel, kuid vähemteadlikule kasutajale on ta siiski soovitatav. Kogu kontrollimine toimub kohalikus arvutis või seadmes.
+librewolf-webgl-prompt-checkbox =
+    .label = Lülita WebGL-i õiguste päring sisse
+librewolf-webgl-prompt-description = Kui WebGL on üldiselt lubatud, siis see võimaldab kasutada täiendavat saidikohast vastavate õiguste päringut.
