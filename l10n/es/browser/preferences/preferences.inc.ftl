@@ -59,3 +59,6 @@ librewolf-webgl-checkbox =
     .label = Activar WebGL
 librewolf-ocsp-checkbox =
     .label = Aplicar fallo estricto con OCSP
+librewolf-webgl-prompt-checkbox =
+    .label = Activar el aviso de permiso para WebGL
+librewolf-webgl-prompt-description = Muestra un aviso de permiso cuando WebGL está activado, en lugar de concederlo directamente.
