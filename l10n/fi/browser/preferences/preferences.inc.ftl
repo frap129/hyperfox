@@ -59,3 +59,6 @@ librewolf-goog-safe-description = Jos olet huolissasi haittaohjelmista ja tietoj
 librewolf-goog-safe-download-warning1 = Kaikki tarkistukset tapahtuvat paikallisesti.
 librewolf-config-link = Kaikki lisäasetukset (about:config)
 content-blocking-section-top-level-description = LibreWolf tukee - ja se mahdollistaa oletuksena - parannetun seurantasuojauksen tiukassa tilassa. Tämä on yksi selaimen tärkeimmistä asetuksista, koska se tarjoaa tilaosioinnin, tiukat estoluettelot ja muita siistejä tietosuojaominaisuuksia. Emme suosittele vaihtamista muihin tiloihin.
+librewolf-webgl-prompt-checkbox =
+    .label = Ota käyttöön WebGL-käyttöoikeuden kysely
+librewolf-webgl-prompt-description = Tämä näyttää kysymysikkunan, kun WebGL on otettu käyttöön, sen sijaan että annetaan suoraan käyttöoikeus.
