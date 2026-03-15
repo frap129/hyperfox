@@ -59,3 +59,6 @@ librewolf-goog-safe-download-description = Povolit službě Bezpečné prohlíž
 librewolf-styling-description = Tuto možnost povolte, pokud si chcete přizpůsobit rozhraní ručně načteným motivem.
 librewolf-xorigin-ref-warning1 = Může způsobit chyby. Navíc i po odeslání budou referrery stále ořezány.
 librewolf-rfp-description = ResistFingerprinting je nejlepší nástroj proti vytváření otisku prohlížeče.
+librewolf-webgl-prompt-checkbox =
+    .label = Povolit dotaz na oprávnění WebGL
+librewolf-webgl-prompt-description = Toto vytvoří dotaz na oprávnění, pokud je povolen WebGL, namísto přímého udělení oprávnění.
