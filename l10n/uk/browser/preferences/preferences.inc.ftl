@@ -59,3 +59,6 @@ librewolf-letterboxing-description = Letterboxing розміщує веб-сто
 librewolf-goog-safe-download-description = Дозвольте функції Safe Browsing перевіряти завантаження на наявність підозрілих файлів.
 librewolf-rfp-description = ResistFingerprinting – найкращий інструмент захисту від унікальної ідентифікації користувачів.
 content-blocking-section-top-level-description = LibreWolf підтримує — і за замовчуванням увімкнено — розширений захист від відстеження (Enhanced Tracking Protection) у суворому режимі. Це одне з найважливіших налаштувань у браузері, оскільки воно забезпечує розділення станів, суворі списки блокування та інші корисні функції для захисту конфіденційності. Ми не рекомендуємо змінювати цей режим на інші.
+librewolf-webgl-prompt-checkbox =
+    .label = Ввімкнути запит на дозвіл WebGL на сайті
+librewolf-webgl-prompt-description = Якщо WebGL увімкнено, на певному сайті виникає запит на дозвіл замість автоматичного надання доступу.
