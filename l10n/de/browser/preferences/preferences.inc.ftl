@@ -61,3 +61,6 @@ librewolf-goog-safe-download-description = Erlauben Sie Safe Browsing, Ihre Down
 librewolf-goog-safe-download-warning1 = Alle Überprüfungen finden lokal statt.
 librewolf-open-profile = Benutzerprofilverzeichnis öffnen
 content-blocking-section-top-level-description = LibreWolf unterstützt erweiterten Trackingschutz im strengen Modus und hat diesen standardmäßig aktiviert. Dies ist eine der wichtigsten Einstellungen im Browser, da sie eine Aufteilung nach Status, strenge Sperrlisten und andere nützliche Datenschutzfunktionen bietet. Wir empfehlen nicht, einen anderen Modus auszuwählen.
+librewolf-webgl-prompt-checkbox =
+    .label = WebGL-Berechtigungsabfrage aktivieren
+librewolf-webgl-prompt-description = Dadurch wird bei aktiviertem WebGL eine Berechtigungsabfrage angezeigt, statt die Berechtigung direkt zu erteilen.
