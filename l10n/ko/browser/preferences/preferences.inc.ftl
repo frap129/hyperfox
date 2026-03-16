@@ -59,3 +59,6 @@ librewolf-footer = 유용한 링크
 librewolf-config-link = 모든 고급 설정 (about:config)
 librewolf-open-profile = 사용자 프로필 경로 열기
 content-blocking-section-top-level-description = LibreWolf는 강화된 추적 방지 기능을 엄격 모드로 지원하며, 기본적으로 활성화되어 있습니다. 이는 상태 분할, 엄격한 차단 목록 및 기타 유용한 개인정보 보호 기능을 제공하므로 브라우저에서 가장 중요한 설정 중 하나입니다. 다른 모드로 변경하는 것은 권장하지 않습니다.
+librewolf-webgl-prompt-checkbox =
+    .label = WebGL 허용 프롬프트 활성화
+librewolf-webgl-prompt-description = WebGL이 활성화될 때 직접 권한을 부여하는 대신 권한 프롬프트를 생성합니다.
