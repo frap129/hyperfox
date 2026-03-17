@@ -59,3 +59,6 @@ librewolf-config-link = Tutte le impostazioni avanzate (about:config)
 librewolf-open-profile = Apri la cartella del profilo utente
 content-blocking-section-top-level-description = LibreWolf supporta e abilita di default, la modalità avanzata di protezione al tracciamento in modalità ristretta. Questa è una delle impostazioni più importanti nel browser, provvede alla divisione delle sessioni, liste di siti da bloccare ed altre ottime funzionalità sulla privacy. Non è raccomandabile cambiare in altre modalità.
 librewolf-goog-safe-warning1 = Disabilitato per preoccupazioni sulla censura ma raccomandato per gli utenti meno esperti. Tutti i controlli avvengono localmente.
+librewolf-webgl-prompt-checkbox =
+    .label = Abilita la richiesta di autorizzazione WebGL
+librewolf-webgl-prompt-description = Mostra una richiesta di autorizzazione quando WebGL è abilitato, anziché concedere automaticamente l'approvazione.
