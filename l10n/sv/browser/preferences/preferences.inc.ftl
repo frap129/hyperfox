@@ -59,3 +59,6 @@ content-blocking-section-top-level-description = LibreWolf stöder - och det akt
 librewolf-webgl-description = WebGL är en stark fingeravtrycksvektor.
 librewolf-goog-safe-checkbox =
     .label = Aktivera Google säker surfning
+librewolf-webgl-prompt-checkbox =
+    .label = Aktivera WebGL behörighetsfråga
+librewolf-webgl-prompt-description = Detta skapar en behörighetsfråga när WebGL är aktiverat, istället för att ge tillstånd direkt.
