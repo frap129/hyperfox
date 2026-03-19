@@ -71,15 +71,6 @@ index 2f36c0a..eef7209 100644
    </vbox>
  </groupbox>
  <groupbox id="nonTechnicalPrivacyGroup" data-category="panePrivacy" hidden="true">
-@@ -722,7 +722,7 @@
- 
- <!-- addons, forgery (phishing) UI Security -->
- <groupbox data-category="panePrivacy" hidden="true">
--  <label><html:h2 data-l10n-id="security-browsing-protection" class="section-heading"/></label>
-+  <label hidden="true"><html:h2 data-l10n-id="security-browsing-protection" class="section-heading"/></label>
-   <html:setting-group groupid="browsingProtection"></html:setting-group>
- </groupbox>
- 
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
 index 664fcacba3..612f392974 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
