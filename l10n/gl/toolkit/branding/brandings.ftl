@@ -4,3 +4,4 @@
 -firefox-home-brand-name = Páxina de inicio
 -firefoxlabs-brand-name = Características experimentais
 -profiler-brand-name = Perfilador
+-firefoxview-brand-name = Vista das pestanas
