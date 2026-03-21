@@ -63,3 +63,4 @@ librewolf-open-profile = Abrir directorio do perfil de usuaria
 content-blocking-section-top-level-description = LibreWolf é compatible - e activa de xeito predeterminado - a Protección Avanzada contra o Rastrexo en Modo Estrito. Este é un dos axustes máis relevantes do navegador, xa que proporciona listas de bloqueo estritas, separación do estado e outras características de privacidade moi acaídas. Non recomendamos cambiar a outros modos.
 permissions-webgl2 =
     .label = WebGL
+librewolf-xorigin-ref-warning1 = Isto pode dar fallo. Ademais, incluso enviando os referentes, van ser enviados recortados.
