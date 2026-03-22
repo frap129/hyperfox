@@ -172,47 +172,12 @@ def librewolf_patches():
             target_path = Path(
                 rel_path.parts[1],
                 "locales", "en-US",
-                *rel_path.parts[1:]
+                *rel_path.parts[2:]
             )
         else:
             target_path = Path(
                 "lw", "l10n",
-                *rel_path.parts[0:2],
-                *rel_path.parts[1:]
-            )
-
-        if "sitePermissions.inc.properties" in target_path.name and "en-US" not in str(target_path):
-            target_path = Path(
-                "lw", "l10n",
-                rel_path.parts[0],
-                "browser", "chrome",
-                "browser",
-                rel_path.parts[-1]
-            )
-
-        if "sitePermissions.inc.properties" in target_path.name and "en-US" in str(target_path):
-            target_path = Path(
-                "browser", "locales",
-                "en-US", "chrome",
-                "browser",
-                rel_path.parts[-1]
-            )
-
-        if "browser.inc.properties" in target_path.name and "en-US" not in str(target_path):
-            target_path = Path(
-                "lw", "l10n",
-                rel_path.parts[0],
-                "browser", "chrome",
-                "browser",
-                rel_path.parts[-1]
-            )
-
-        if "browser.inc.properties" in target_path.name and "en-US" in str(target_path):
-            target_path = Path(
-                "browser", "locales",
-                "en-US", "chrome",
-                "browser",
-                rel_path.parts[-1]
+                *rel_path.parts
             )
         
         target_path.parent.mkdir(parents=True, exist_ok=True)
@@ -224,6 +189,8 @@ def librewolf_patches():
 
         print(f"{source_path} {'>' if write_mode == 'w' else '>>'} {target_path}")
 
+        if not target_path.exists() and write_mode == "a":
+            print(f"warning: target file {target_path} doesn't exist")
         with open(target_path, write_mode) as target_file:
             with open(source_path, "r") as source_file:
                 target_file.write(("\n\n" if write_mode == "a" else "") + source_file.read())
