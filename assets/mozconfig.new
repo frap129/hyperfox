@@ -15,6 +15,7 @@ ac_add_options --enable-rust-simd
 # allow replacing malloc manually, will not affect regular systems
 # not compatible with ac_add_options --disable-jemalloc, which only works when preloading custom malloc
 ac_add_options --enable-replace-malloc
+ac_add_options --enable-jemalloc
 
 ac_add_options --with-app-name=librewolf
 ac_add_options --with-branding=browser/branding/librewolf
