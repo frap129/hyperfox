@@ -4,6 +4,7 @@ patches/backport-build-fixes-from-150.patch
 patches/bootstrap.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
+patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/firefox-in-ua.patch
 patches/flatpak-autoconf.patch
