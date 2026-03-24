@@ -62,3 +62,5 @@ librewolf-goog-safe-warning1 = Võimaliku tsenseerimisriski tõttu pole see vali
 librewolf-webgl-prompt-checkbox =
     .label = Lülita WebGL-i õiguste päring sisse
 librewolf-webgl-prompt-description = Kui WebGL on üldiselt lubatud, siis see võimaldab kasutada täiendavat saidikohast vastavate õiguste päringut.
+permissions-webgl2 =
+    .label = WebGL
