@@ -62,3 +62,5 @@ librewolf-goog-safe-warning1 = Disabilitato per preoccupazioni sulla censura ma 
 librewolf-webgl-prompt-checkbox =
     .label = Abilita la richiesta di autorizzazione WebGL
 librewolf-webgl-prompt-description = Mostra una richiesta di autorizzazione quando WebGL è abilitato, anziché concedere automaticamente l'approvazione.
+permissions-webgl2 =
+    .label = WebGL
