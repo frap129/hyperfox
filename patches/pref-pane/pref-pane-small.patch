@@ -105,3 +105,78 @@ index 641c936533..7ff76e622f 100644
  #category-sync > .category-icon {
    list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
  }
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index 8e59a4fa9b..b4e2ce1f3f 100644
+--- a/browser/components/preferences/main.js
++++ b/browser/components/preferences/main.js
+@@ -4264,6 +4264,70 @@ SettingGroupManager.registerGroups({
+       },
+     ],
+   },
++  librewolfBehavior: {
++    l10nId: "librewolf-general-heading",
++    headingLevel: 2,
++    items: [
++      {
++        id: "librewolfExtensionUpdate",
++        l10nId: "librewolf-extension-update-checkbox",
++      },
++      {
++        id: "librewolfSync",
++        l10nId: "librewolf-sync-checkbox",
++      },
++      {
++        id: "librewolfMiddleClick",
++        l10nId: "librewolf-autocopy-checkbox",
++      },
++      {
++        id: "librewolfUserChrome",
++        l10nId: "librewolf-styling-checkbox",
++      },
++    ],
++  },
++  librewolfNetworking: {
++    l10nId: "librewolf-network-heading",
++    headingLevel: 2,
++    items: [
++      {
++        id: "librewolfIPv6",
++        l10nId: "librewolf-ipv6-checkbox",
++      }
++    ],
++  },
++  librewolfPrivacy: {
++    l10nId: "librewolf-privacy-heading",
++    headingLevel: 2,
++    items: [
++      {
++        id: "librewolfCrossOrigin",
++        l10nId: "librewolf-xorigin-ref-checkbox",
++      },
++    ],
++  },
++  librewolfFingerprinting: {
++    l10nId: "librewolf-broken-heading",
++    headingLevel: 2,
++    items: [
++      {
++        id: "librewolfRFP",
++        l10nId: "librewolf-rfp-checkbox",
++      },
++      {
++        id: "librewolfLetterboxing",
++        l10nId: "librewolf-letterboxing-checkbox",
++      },
++      {
++        id: "librewolfWebGLPrompt",
++        l10nId: "librewolf-webgl-checkbox",
++      },
++      {
++        id: "librewolfWebGLPromptHide",
++        l10nId: "librewolf-webgl-prompt-checkbox",
++      },
++    ],
++  },
+   searchSuggestions: {
+     l10nId: "search-suggestions-header-2",
+     headingLevel: 2,
