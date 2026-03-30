@@ -114,7 +114,7 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
      ],
    },
 +  librewolfBehavior: {
-+    l10nId: "librewolf-general-heading",
++    l10nId: "librewolf-general-heading2",
 +    headingLevel: 2,
 +    items: [
 +      {
@@ -136,7 +136,7 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
 +    ],
 +  },
 +  librewolfNetworking: {
-+    l10nId: "librewolf-network-heading",
++    l10nId: "librewolf-network-heading2",
 +    headingLevel: 2,
 +    items: [
 +      {
@@ -146,7 +146,7 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
 +    ],
 +  },
 +  librewolfPrivacy: {
-+    l10nId: "librewolf-privacy-heading",
++    l10nId: "librewolf-privacy-heading2",
 +    headingLevel: 2,
 +    items: [
 +      {
@@ -156,7 +156,7 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
 +    ],
 +  },
 +  librewolfFingerprinting: {
-+    l10nId: "librewolf-broken-heading",
++    l10nId: "librewolf-broken-heading2",
 +    headingLevel: 2,
 +    items: [
 +      {
