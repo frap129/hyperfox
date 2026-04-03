@@ -119,19 +119,19 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
 +    items: [
 +      {
 +        id: "librewolfExtensionUpdate",
-+        l10nId: "librewolf-extension-update-checkbox",
++        l10nId: "librewolf-extension-update-checkbox2",
 +      },
 +      {
 +        id: "librewolfSync",
-+        l10nId: "librewolf-sync-checkbox",
++        l10nId: "librewolf-sync-checkbox2",
 +      },
 +      {
 +        id: "librewolfMiddleClick",
-+        l10nId: "librewolf-autocopy-checkbox",
++        l10nId: "librewolf-autocopy-checkbox2",
 +      },
 +      {
 +        id: "librewolfUserChrome",
-+        l10nId: "librewolf-styling-checkbox",
++        l10nId: "librewolf-styling-checkbox2",
 +      },
 +    ],
 +  },
@@ -141,7 +141,7 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
 +    items: [
 +      {
 +        id: "librewolfIPv6",
-+        l10nId: "librewolf-ipv6-checkbox",
++        l10nId: "librewolf-ipv6-checkbox2",
 +      }
 +    ],
 +  },
@@ -151,7 +151,7 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
 +    items: [
 +      {
 +        id: "librewolfCrossOrigin",
-+        l10nId: "librewolf-xorigin-ref-checkbox",
++        l10nId: "librewolf-xorigin-ref-checkbox2",
 +      },
 +    ],
 +  },
@@ -161,19 +161,19 @@ index 8e59a4fa9b..b4e2ce1f3f 100644
 +    items: [
 +      {
 +        id: "librewolfRFP",
-+        l10nId: "librewolf-rfp-checkbox",
++        l10nId: "librewolf-rfp-checkbox2",
 +      },
 +      {
 +        id: "librewolfLetterboxing",
-+        l10nId: "librewolf-letterboxing-checkbox",
++        l10nId: "librewolf-letterboxing-checkbox2",
 +      },
 +      {
 +        id: "librewolfWebGLPrompt",
-+        l10nId: "librewolf-webgl-checkbox",
++        l10nId: "librewolf-webgl-checkbox2",
 +      },
 +      {
 +        id: "librewolfWebGLPromptHide",
-+        l10nId: "librewolf-webgl-prompt-checkbox",
++        l10nId: "librewolf-webgl-prompt-checkbox2",
 +      },
 +    ],
 +  },
