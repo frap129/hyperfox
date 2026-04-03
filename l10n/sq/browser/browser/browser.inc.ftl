@@ -1,4 +1,4 @@
-identity-allow-site-data = LibreWolf: Depozito përherë “cookies”/të dhëna për këtë sajt
+identity-allow-site-data = Depozito përherë “cookies”/të dhëna për këtë sajt
 urlbar-webgl-notification-anchor =
     .tooltiptext = Administroni leje krijimi konteksti WebGL
 urlbar-webgl-blocked =
