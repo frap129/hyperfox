@@ -1,4 +1,4 @@
-identity-allow-site-data = LibreWolf: Kilor/daneyên vê malperê her dem tomar bike
+identity-allow-site-data = Kilor/daneyên vê malperê her dem tomar bike
 urlbar-webgl-notification-anchor =
     .tooltiptext = Mafê afirandinê çarçoveya WebGL bi rê ve bibe
 urlbar-webgl-blocked =
