@@ -10,7 +10,20 @@ index 288a79e..f0106ba 100644
 +    if (Services.prefs.getBoolPref("librewolf.devHelpers", false)) {
        DevelopmentHelpers.init();
      }
- 
+
+diff --git a/browser/base/content/browser-main.js b/browser/base/content/browser-main.js
+index d24bcbb..1c161f3 100644
+--- a/browser/base/content/browser-main.js
++++ b/browser/base/content/browser-main.js
+@@ -12,7 +12,7 @@
+   if (AppConstants.MOZ_DATA_REPORTING) {
+     Services.scriptloader.loadSubScript("chrome://browser/content/browser-data-submission-info-bar.js", this);
+   }
+-  if (!AppConstants.MOZILLA_OFFICIAL) {
++  if (Services.prefs.getBoolPref("librewolf.devHelpers", false)) {
+     Services.scriptloader.loadSubScript("chrome://browser/content/browser-development-helpers.js", this);
+   }
+   Services.scriptloader.loadSubScript("chrome://browser/content/browser-pageActions.js", this);
 diff --git a/dom/media/gmp/ChromiumCDMAdapter.cpp b/dom/media/gmp/ChromiumCDMAdapter.cpp
 index 475de25..e1f0324 100644
 --- a/dom/media/gmp/ChromiumCDMAdapter.cpp
