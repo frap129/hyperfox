@@ -1,0 +1,7 @@
+-screenshots-brand-name = Skrinskeusennow
+-profiler-brand-name = Profilell
+-translations-brand-name = Treylyansow
+-firefox-suggest-brand-name = Profyansow
+-firefox-home-brand-name = Folen dre
+-firefoxview-brand-name = Gwel Tabb
+-firefoxlabs-brand-name = Nasyow Arbrovel
