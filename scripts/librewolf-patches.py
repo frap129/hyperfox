@@ -119,6 +119,8 @@ def librewolf_patches():
     # https://codeberg.org/librewolf/source/pulls/97#issuecomment-5654510
     exec("sed -i '/# This must remain last./i gkrust_features += [\"glean_disable_upload\"]\\n' toolkit/library/rust/gkrust-features.mozbuild")
 
+    # Temporary fix used with patches/rust-build.patch
+    exec("sed -i 's/9456ca46168ef86c98399a2536f577ef7be3cdde90c0c51392d8ac48519d3fae/b9432f9ed39742015f4bb4c3e75c89a2b9a9eef943dd0fd7cd889fddd1e6d39c/g' third_party/rust/encoding_rs/.cargo-checksum.json")
 
     #
     # Apply most recent `settings` repository files.

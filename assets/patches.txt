@@ -22,6 +22,7 @@ patches/remove-language-packs.patch
 patches/remove-openai.patch
 patches/remove-pingsender.patch
 patches/rs-blocker.patch
+patches/rust-build.patch
 patches/rust-gentoo-musl.patch
 patches/sed-patches/stop-undesired-requests.patch
 patches/temp-macos-fix.patch
