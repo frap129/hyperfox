@@ -7,7 +7,6 @@ patches/dbus_name.patch
 patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/firefox-in-ua.patch
-patches/flatpak-autoconf.patch
 patches/fpp-canvas-fix.patch
 patches/fullpage-translations-customization.patch
 patches/fullpage-translations.patch
