@@ -1,4 +1,4 @@
-identity-allow-site-data = LibreWolf: Tallenna aina evästeet/tiedot tälle sivustolle
+identity-allow-site-data = Tallenna aina evästeet/tiedot tälle sivustolle
 urlbar-webgl-notification-anchor =
     .tooltiptext = Hallitse WebGL-kontekstin luomisen käyttöoikeutta
 urlbar-webgl-blocked =
