@@ -46,7 +46,7 @@ jobs:
       ff_display: ${{ steps.detect.outputs.FF_DISPLAY }}
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
 
@@ -60,12 +60,12 @@ jobs:
         run: |
           chmod +x ./scripts/detect-firefox-version.sh
           ./scripts/detect-firefox-version.sh --channel "${{ (github.ref == 'refs/heads/beta' || github.base_ref == 'beta') && 'latest' || inputs.Version || 'stable' }}" >> $FORGEJO_OUTPUT
-          
+
           # Read outputs
           while IFS='=' read -r key value; do
             export "$key=$value"
           done < $FORGEJO_OUTPUT
-          
+
           echo "========================================"
           echo "Firefox Version:"
           echo "========================================"
@@ -84,7 +84,7 @@ jobs:
       image: codeberg.org/librewolf/bsys6:dind
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
           persist-credentials: false
@@ -108,7 +108,7 @@ jobs:
       - name: Check Patchfail
         run: |
           sh -c "./scripts/check-patchfail.sh"
-      
+
       - name: Test Build
         run: |
           make test-linux
@@ -130,7 +130,7 @@ jobs:
       image: codeberg.org/librewolf/bsys6:dind
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
           persist-credentials: false
@@ -154,7 +154,7 @@ jobs:
       - name: Check Patchfail
         run: |
           sh -c "./scripts/check-patchfail.sh"
-      
+
       - name: Test Build
         run: |
           make test-windows
@@ -176,7 +176,7 @@ jobs:
       image: codeberg.org/librewolf/bsys6:dind
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
           persist-credentials: false
@@ -200,7 +200,7 @@ jobs:
       - name: Check Patchfail
         run: |
           sh -c "./scripts/check-patchfail.sh"
-      
+
       - name: Test Build
         run: |
           make test-macos

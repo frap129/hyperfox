@@ -10,7 +10,7 @@ jobs:
       image: codeberg.org/librewolf/bsys6:dind
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
 
@@ -48,10 +48,10 @@ jobs:
     needs: [build-source]
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
-      
+
       - name: Download artifacts
         uses: https://data.forgejo.org/forgejo/download-artifact@v4
         with:
@@ -84,34 +84,34 @@ jobs:
         run: |
           TAG="${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}"
           PACKAGE_BASE="${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${TAG}"
-          
+
           # Create release
           body=$(jq -n \
             --arg tag "$TAG" \
             --arg name "LibreWolf Source v${TAG}" \
             --arg body $'## LibreWolf Source Release v'"${TAG}"$'\n\nBuilt on Codeberg by workflow [#${{ forgejo.run_number }}](${{ forgejo.server_url }}/${{ forgejo.repository }}/actions/runs/${{ forgejo.run_number }})' \
             '{tag_name: $tag, name: $name, body: $body, draft: false, prerelease: false}')
-          
+
           release_id=$(curl --fail-with-body --header 'Content-Type: application/json' \
             --header 'accept: application/json' \
             --header "Authorization: token ${{ secrets.FORGE_TOKEN }}" \
             --data "$body" \
             --request POST \
             "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/releases" | jq -r '.id')
-          
+
           echo "Release created with ID: $release_id"
-          
+
           # Add external URL assets
           FILES=(
             "librewolf-${TAG}.source.tar.gz"
             "librewolf-${TAG}.source.tar.gz.sha256sum"
             "librewolf-${TAG}.source.tar.gz.sha512sum"
           )
-          
+
           if [[ -n "${{ secrets.SIGNING_KEY }}" ]]; then
             FILES+=("librewolf-${TAG}.source.tar.gz.sig")
           fi
-          
+
           for FILE in "${FILES[@]}"; do
             echo "Adding external asset: $FILE"
             curl --fail-with-body --header 'accept: application/json' \

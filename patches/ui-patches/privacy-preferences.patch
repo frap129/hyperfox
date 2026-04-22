@@ -1,8 +1,8 @@
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index e77dfebdf3..bb77a3fc34 100644
+index 8f8da3c..fef63b1 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -3891,34 +3891,6 @@ SettingGroupManager.registerGroups({
+@@ -3771,34 +3771,6 @@ SettingGroupManager.registerGroups({
      l10nId: "history-group",
      headingLevel: 2,
      items: [
@@ -12,7 +12,7 @@ index e77dfebdf3..bb77a3fc34 100644
 -        options: [
 -          {
 -            value: "remember",
--            l10nId: "history-remember-option-all",
+-            l10nId: "history-remember-option-all2",
 -          },
 -          { value: "dontremember", l10nId: "history-remember-option-never2" },
 -          { value: "custom", l10nId: "history-remember-option-custom2" },
@@ -37,7 +37,7 @@ index e77dfebdf3..bb77a3fc34 100644
        {
          id: "rememberHistory",
          l10nId: "history-remember-browser-option",
-@@ -5195,39 +5167,6 @@ SettingGroupManager.registerGroups({
+@@ -5092,39 +5064,6 @@ SettingGroupManager.registerGroups({
              l10nId: "addressbar-locbar-quickactions-option",
              supportPage: "quick-actions-firefox-search-bar",
            },

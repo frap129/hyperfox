@@ -1,4 +1,4 @@
-identity-allow-site-data = LibreWolf: Alati salvesta selle saidi küpsised/andmed
+identity-allow-site-data = Alati salvesta selle saidi küpsised/andmed
 urlbar-webgl-notification-anchor =
     .tooltiptext = Halda WebGL-i konteksti loomise õigusi
 urlbar-webgl-blocked =

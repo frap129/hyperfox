@@ -1,4 +1,4 @@
-identity-allow-site-data = LibreWolf: sempre almacenar cookies/datos para este sitio
+identity-allow-site-data = Almacenar sempre rastros/datos para este sitio
 urlbar-webgl-blocked =
     .tooltiptext = Bloqueaches a creación de contexto WebGL para esta páxina web.
 urlbar-webgl-notification-anchor =

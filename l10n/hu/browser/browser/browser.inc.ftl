@@ -1,4 +1,4 @@
-identity-allow-site-data = LibreWolf: Mindig tárolja el a sütiket/adatokat ezen az oldalon
+identity-allow-site-data = Mindig tárolja el a sütiket/adatokat ezen az oldalon
 urlbar-webgl-notification-anchor =
     .tooltiptext = WebGL-kontextus engedélyének kezelése
 urlbar-webgl-blocked =

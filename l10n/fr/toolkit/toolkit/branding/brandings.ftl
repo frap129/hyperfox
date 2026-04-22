@@ -1,0 +1,5 @@
+-screenshots-brand-name = Captures d'écran
+-translations-brand-name = Traductions
+-firefox-suggest-brand-name = Suggestions
+-firefox-home-brand-name = Page d'accueil
+-firefoxlabs-brand-name = Fonctionnalités expérimentales
