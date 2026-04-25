@@ -21,7 +21,7 @@ jobs:
 
       - name: Make LibreWolf source archive
         env:
-            SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+            SIGNING_KEY: ${{ forgejo.ref == 'refs/heads/master' && secrets.SIGNING_KEY || '' }}
         run: |
           make all
 
@@ -43,6 +43,7 @@ jobs:
 
   publish-release:
     runs-on: codeberg-medium
+    if: forgejo.ref == 'refs/heads/master'
     container:
       image: codeberg.org/librewolf/bsys6:dind
     needs: [build-source]
@@ -65,6 +66,8 @@ jobs:
           echo "BUILD_JOB_ID=$FORGEJO_RUN_NUMBER" >> $FORGEJO_OUTPUT
 
       - name: Upload to Package Registry
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: |
           FILES=(
             "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz"
@@ -72,7 +75,7 @@ jobs:
             "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha512sum"
           )
 
-          if [[ -n "${{ secrets.SIGNING_KEY }}" ]]; then
+          if [[ -n "$SIGNING_KEY" ]]; then
             FILES+=("librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sig")
           fi
 
@@ -81,6 +84,8 @@ jobs:
           done
 
       - name: Create Release
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: |
           TAG="${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}"
           PACKAGE_BASE="${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${TAG}"
@@ -108,7 +113,7 @@ jobs:
             "librewolf-${TAG}.source.tar.gz.sha512sum"
           )
 
-          if [[ -n "${{ secrets.SIGNING_KEY }}" ]]; then
+          if [[ -n "$SIGNING_KEY" ]]; then
             FILES+=("librewolf-${TAG}.source.tar.gz.sig")
           fi
 
