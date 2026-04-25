@@ -16,8 +16,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          apt-get update && apt-get -y upgrade
-          apt-get -y install pigz gnupg python3
+          apt-get update
+          apt-get -y install --no-install-recommends pigz gnupg python3
 
       - name: Make LibreWolf source archive
         env:
