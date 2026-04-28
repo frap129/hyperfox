@@ -21,7 +21,7 @@ jobs:
 
       - name: Make LibreWolf source archive
         env:
-            SIGNING_KEY: ${{ forgejo.ref == 'refs/heads/master' && secrets.SIGNING_KEY || '' }}
+            SIGNING_KEY: ${{ forgejo.ref == 'refs/heads/main' && secrets.SIGNING_KEY || '' }}
         run: |
           make all
 
@@ -43,7 +43,7 @@ jobs:
 
   publish-release:
     runs-on: codeberg-medium
-    if: forgejo.ref == 'refs/heads/master'
+    if: forgejo.ref == 'refs/heads/main'
     container:
       image: codeberg.org/librewolf/bsys6:dind
     needs: [build-source]
