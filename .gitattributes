@@ -3,15 +3,14 @@
 *.cfg        linguist-language=JavaScript
 *.build      linguist-language=Python
 *.dtd        linguist-language=XML
-*.ftl        linguist-language=ini
 *.htm        linguist-language=HTML
 *.json       linguist-detectable
 *.jsonc      linguist-language=JSON
 *.mk         linguist-language=Makefile
 *.mn         linguist-language=Makefile
 *.nsi        linguist-language=NSIS
-*.properties linguist-language=ini
 *.xhtml      linguist-language=HTML
 *.yml        linguist-language=YAML
 mozconfig*   linguist-language=Shell
 moztree      linguist-language=Shell
+/l10n/*      linguist-vendored
