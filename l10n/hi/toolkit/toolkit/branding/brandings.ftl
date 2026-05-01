@@ -1,0 +1,1 @@
+-screenshots-brand-name = छविग्रहणों
