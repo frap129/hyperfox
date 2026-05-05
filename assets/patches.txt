@@ -6,6 +6,7 @@ patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
+patches/extensions-setUninstallURL.patch
 patches/firefox-in-ua.patch
 patches/fpp-canvas-fix.patch
 patches/fullpage-translations-customization.patch
