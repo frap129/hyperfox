@@ -3,3 +3,5 @@
 -firefox-suggest-brand-name = Suggestions
 -firefox-home-brand-name = Page d'accueil
 -firefoxlabs-brand-name = Fonctionnalités expérimentales
+-profiler-brand-name = Profileur
+-firefoxview-brand-name = Affichage Onglet
