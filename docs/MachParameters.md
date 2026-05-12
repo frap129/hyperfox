@@ -1,9 +1,12 @@
+# Mach Parameters
+
 To get all these options, use:
-```
+
+```sh
 ./mach configure -- --help | less
 ```
 
-```
+```sh
  Usage: configure.py [options]
  
  Options: [defaults in brackets after descriptions]
