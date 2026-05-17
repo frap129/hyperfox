@@ -46,3 +46,4 @@ patches/vendor-name.patch
 patches/webgl-permission.patch
 patches/windows-theming-bug.patch
 patches/xdg-dir.patch
+patches/ui-patches/add-translate-page-context-menu.patch
