@@ -75,3 +75,7 @@ content-blocking-section-top-level-description = LibreWolf supports - and it ena
 
 permissions-webgl2 =
     .label = WebGL
+
+## General
+librewolf-rfp-warning =
+    .message = This feature is disabled because ResistFingerprinting is enabled. This means LibreWolf will force web content to display in a light theme.
