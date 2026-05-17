@@ -1,5 +1,5 @@
 diff --git a/browser/base/content/browser-context.inc b/browser/base/content/browser-context.inc
-index 53130d6..7590d56 100644
+index 53130d6c51..7590d56b30 100644
 --- a/browser/base/content/browser-context.inc
 +++ b/browser/base/content/browser-context.inc
 @@ -366,6 +366,8 @@
@@ -12,7 +12,7 @@ index 53130d6..7590d56 100644
  
        <menuseparator id="frame-sep"/>
 diff --git a/browser/base/content/browser-context.js b/browser/base/content/browser-context.js
-index aa81043..09526bd 100644
+index aa8104304e..09526bde59 100644
 --- a/browser/base/content/browser-context.js
 +++ b/browser/base/content/browser-context.js
 @@ -205,6 +205,9 @@ document.addEventListener(
@@ -26,7 +26,7 @@ index aa81043..09526bd 100644
            gContextMenu.showOnlyThisFrame();
            break;
 diff --git a/browser/base/content/nsContextMenu.sys.mjs b/browser/base/content/nsContextMenu.sys.mjs
-index 5ee0ee4..16f5e21 100644
+index 5ee0ee4246..8639ed7900 100644
 --- a/browser/base/content/nsContextMenu.sys.mjs
 +++ b/browser/base/content/nsContextMenu.sys.mjs
 @@ -873,6 +873,7 @@ export class nsContextMenu {
@@ -37,7 +37,7 @@ index 5ee0ee4..16f5e21 100644
      lazy.GenAI.buildAskChatMenu(document.getElementById("context-ask-chat"), {
        browser: this.browser,
        selectionInfo: this.selectionInfo,
-@@ -2549,6 +2550,39 @@ export class nsContextMenu {
+@@ -2549,6 +2550,42 @@ export class nsContextMenu {
      this.window.openTrustedLinkIn(drmInfoURL, dest);
    }
  
@@ -58,12 +58,15 @@ index 5ee0ee4..16f5e21 100644
 +      "context-translate-page"
 +    );
 +    const translationsEnabled = lazy.TranslationsParent.AIFeature.isEnabled;
++    const isAboutPage = this.browser?.currentURI?.schemeIs?.("about");
 +
 +    translatePageItem.hidden =
 +      // Only show the item if the feature is enabled.
 +      !translationsEnabled ||
 +      // Only show the item if Translations is supported on this hardware.
 +      !lazy.TranslationsParent.getIsTranslationsEngineSupported() ||
++      // Do not show page translation on internal about: pages.
++      isAboutPage ||
 +      // Do not show page translation for page contexts where it does not make sense.
 +      this.onTextInput ||
 +      this.isContentSelected ||
