@@ -5,3 +5,4 @@
 -firefox-home-brand-name = Homepage
 -firefoxview-brand-name = Tab View
 -firefoxlabs-brand-name = Experimental Features
+-relay-brand-name = Relay
