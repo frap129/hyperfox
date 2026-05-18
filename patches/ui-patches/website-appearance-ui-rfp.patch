@@ -2,7 +2,7 @@ diff --git a/browser/components/preferences/main.js b/browser/components/prefere
 index 0879c5e10d..e09fab02f6 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -759,6 +759,14 @@ Preferences.addSetting({
+@@ -759,6 +759,27 @@ Preferences.addSetting({
    },
  });
  
@@ -10,6 +10,19 @@ index 0879c5e10d..e09fab02f6 100644
 +  id: "librewolfRFPWarning",
 +  deps: ["librewolfRFP"],
 +  visible: ({librewolfRFP}) => {
++    const interval = setInterval(() => {
++      const chooser = document.getElementById("web-appearance-chooser");
++      if (chooser) {
++        clearInterval(interval);
++        if (librewolfRFP.value) {
++          chooser.style.opacity = "0.3";
++          chooser.style.pointerEvents = "none";
++        } else {
++          chooser.style.opacity = "1";
++          chooser.style.pointerEvents = "all";
++        }
++      }
++    }, 100);
 +    return librewolfRFP.value;
 +  },
 +});
