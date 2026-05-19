@@ -1,7 +1,0 @@
--translations-brand-name = Werger
--firefox-suggest-brand-name = Pêşniyarî
--profiler-brand-name = Analîzkerê performansê
--firefox-home-brand-name = Rûpela sereke
--screenshots-brand-name = Wêneyên dîmenderê
--firefoxview-brand-name = Dîmena rûgerê
--firefoxlabs-brand-name = Taybetmendiyên ezmûnî
