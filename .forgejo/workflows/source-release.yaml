@@ -42,7 +42,7 @@ jobs:
           retention-days: 7
 
   publish-release:
-    runs-on: codeberg-medium
+    runs-on: epsilon
     if: forgejo.ref == 'refs/heads/main'
     container:
       image: codeberg.org/librewolf/bsys6:dind
