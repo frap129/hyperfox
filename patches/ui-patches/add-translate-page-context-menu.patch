@@ -1,7 +1,7 @@
-diff --git a/browser/base/content/browser-context.inc b/browser/base/content/browser-context.inc
+diff --git a/browser/base/content/browser-context.inc.xhtml b/browser/base/content/browser-context.inc.xhtml
 index 53130d6c51..7590d56b30 100644
---- a/browser/base/content/browser-context.inc
-+++ b/browser/base/content/browser-context.inc
+--- a/browser/base/content/browser-context.inc.xhtml
++++ b/browser/base/content/browser-context.inc.xhtml
 @@ -366,6 +366,8 @@
        <menuitem id="context-searchselect-private"/>
        <menuitem id="context-translate-selection"
