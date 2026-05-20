@@ -104,3 +104,5 @@ librewolf-letterboxing-checkbox2 =
     .description = Letterboxing tillämpar marginaler runt dina fönster för att returnera en begränsad uppsättning rundade upplösningar.
 librewolf-security-heading2 =
     .label = Säkerhet
+librewolf-rfp-warning =
+    .message = Den här funktionen är inaktiverad eftersom ResistFingerprinting är aktiverat. Det betyder att LibreWolf tvingar webbinnehåll att visas i ett ljust tema.
