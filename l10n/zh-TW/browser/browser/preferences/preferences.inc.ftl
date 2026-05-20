@@ -62,3 +62,5 @@ librewolf-letterboxing-checkbox2 =
     .description = 視窗留白會在您的視窗周圍加上邊距，以便回傳一組有限的取整解析度。
 librewolf-security-heading2 =
     .label = 安全性
+librewolf-rfp-warning =
+    .message = 由於已啟用防指紋追蹤（ResistFingerprinting），此功能已停用。這表示 LibreWolf 將強制網頁內容以淺色主題顯示。

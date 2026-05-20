@@ -1,4 +1,4 @@
-identity-allow-site-data = LibreWolf: всегда сохранять куки и данные этого сайта
+identity-allow-site-data = LibreWolf: всегда сохранять данные для этого сайта
 urlbar-webgl-notification-anchor =
     .tooltiptext = Управление разрешением на создание контекста WebGL
 urlbar-webgl-blocked =
