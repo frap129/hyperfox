@@ -106,3 +106,5 @@ librewolf-letterboxing-checkbox2 =
     .description = Режим "letterboxing" добавляет поля вокруг окон, чтобы обеспечить ограниченный набор округленных разрешений.
 librewolf-security-heading2 =
     .label = Безопасность
+librewolf-rfp-warning =
+    .message = Эта функция отключена, так как включена настройка ResistFingerprinting. Это означает, что LibreWolf будет принудительно отображать контент в светлой теме.
