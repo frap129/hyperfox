@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Návrhy
 -firefox-home-brand-name = Domovská stránka
 -firefoxview-brand-name = Přehled panelů
--firefoxlabs-brand-name = Experimentální funkce
+-firefoxlabs-brand-name = Firefox Labs od Mozilly
+-relay-brand-name = Relay od Mozilly
