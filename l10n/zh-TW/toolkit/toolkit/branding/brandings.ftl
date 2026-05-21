@@ -1,8 +1,8 @@
--screenshots-brand-name = 截圖
--profiler-brand-name = 分析器
+-screenshots-brand-name = 螢幕擷圖
+-profiler-brand-name = 效能分析器
 -translations-brand-name = 翻譯
 -firefox-suggest-brand-name = 建議
 -firefox-home-brand-name = 首頁
--firefoxview-brand-name = 標籤頁視圖
+-firefoxview-brand-name = 分頁檢視
 -firefoxlabs-brand-name = Firefox 實驗室 (Mozilla 提供)
 -relay-brand-name = Relay (Mozilla 提供)
