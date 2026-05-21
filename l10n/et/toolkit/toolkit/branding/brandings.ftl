@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Soovitused
 -firefox-home-brand-name = Koduleht
 -firefoxview-brand-name = Vahekaartide vaade
--firefoxlabs-brand-name = Katselised funktsionaalsused
+-firefoxlabs-brand-name = Katselised funktsionaalsused (Firefox Labs Mozillalt)
+-relay-brand-name = E-posti edastusteenus (Relay by Mozilla)
