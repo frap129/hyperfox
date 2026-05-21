@@ -106,3 +106,5 @@ librewolf-rfp-checkbox2 =
 librewolf-letterboxing-checkbox2 =
     .label = Letterboxing aktivieren
     .description = Beim Letterboxing werden um die Fenster herum Ränder eingefügt, um eine begrenzte Anzahl abgerundeter Auflösungen zurückzugeben.
+librewolf-rfp-warning =
+    .message = Diese Funktion ist deaktiviert, da der Fingerprinting-Schutz aktiviert ist. Das bedeutet, dass LibreWolf die Anzeige von Webinhalten in einem hellen Design erzwingt.
