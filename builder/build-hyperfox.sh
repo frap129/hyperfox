@@ -24,13 +24,16 @@ make build || exit
 
 # Generate PGO profdata
 (
-  cd $srcdir || exit
-  ./mach package
-  LLVM_PROFDATA="$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" JARLOG_FILE="$srcdir/jarlog" \
-    dbus-run-session \
-    wlheadless-run -c weston --width=1920 --height=1080 -- \
-    ./mach python build/pgo/profileserver.py
-  ./mach clobber objdir
+	cd $srcdir || exit
+	./mach package
+	export LLVM_PROFILE_FILE="$srcdir/profile_%p_%m.profraw"
+	LLVM_PROFDATA="$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" JARLOG_FILE="$srcdir/jarlog" \
+		dbus-run-session \
+		wlheadless-run -c weston --width=1920 --height=1080 -- \
+		./mach python build/pgo/profileserver.py
+	"$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge -o "$srcdir/merged.profdata" "$srcdir"/*.profraw
+	rm -f "$srcdir"/*.profraw
+	./mach clobber objdir
 )
 
 # Final build
