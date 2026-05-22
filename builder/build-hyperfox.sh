@@ -24,19 +24,19 @@ make build || exit
 
 # Generate PGO profdata
 (
-	cd $srcdir || exit
-	./mach package
-	# Patch profileserver.py to remove %m (merge pool) - temporal profiling
-	# does not support runtime merging. Use only %p for unique filenames.
-	sed -i 's/default_%p_random_%m/profile_%p/g' build/pgo/profileserver.py
-	JARLOG_FILE="$srcdir/jarlog" \
-		dbus-run-session \
-		wlheadless-run -c weston --width=1920 --height=1080 -- \
-		./mach python build/pgo/profileserver.py
-	# Merge profiles - use --failure-mode=warn to skip corrupt files from short-lived processes
-	"$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge --failure-mode=warn -o merged.profdata *.profraw || exit
-	rm -f *.profraw
-	./mach clobber objdir
+  cd $srcdir || exit
+  ./mach package
+  # Patch profileserver.py to remove %m (merge pool) - temporal profiling
+  # does not support runtime merging. Use only %p for unique filenames.
+  sed -i 's/default_%p_random_%m/profile_%p/g' build/pgo/profileserver.py
+  JARLOG_FILE="$srcdir/jarlog" \
+    dbus-run-session \
+    wlheadless-run -c weston --width=1920 --height=1080 -- \
+    ./mach python build/pgo/profileserver.py
+  # Merge profiles - use --failure-mode=warn to skip corrupt files from short-lived processes
+  "$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge --failure-mode=warn -o merged.profdata *.profraw || exit
+  rm -f *.profraw
+  ./mach clobber objdir
 )
 
 # Final build
