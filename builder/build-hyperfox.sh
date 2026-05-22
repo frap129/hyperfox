@@ -26,15 +26,13 @@ make build || exit
 (
 	cd $srcdir || exit
 	./mach package
-	# Use %p (pid) and %c (continuous mode) for unique atomic writes
-	# Note: %m (merge pool) is incompatible with temporal profiling
-	export LLVM_PROFILE_FILE="$srcdir/profile_%p_%c.profraw"
+	# Patch profileserver.py to use %c (continuous mode) instead of %m (merge pool)
+	# Temporal profiling does not support runtime merging via %m
+	sed -i 's/default_%p_random_%m/profile_%p_%c/g' build/pgo/profileserver.py
 	LLVM_PROFDATA="$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" JARLOG_FILE="$srcdir/jarlog" \
 		dbus-run-session \
 		wlheadless-run -c weston --width=1920 --height=1080 -- \
 		./mach python build/pgo/profileserver.py
-	"$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge -o "$srcdir/merged.profdata" "$srcdir"/*.profraw
-	rm -f "$srcdir"/*.profraw
 	./mach clobber objdir
 )
 
