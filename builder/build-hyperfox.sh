@@ -26,7 +26,9 @@ make build || exit
 (
 	cd $srcdir || exit
 	./mach package
-	export LLVM_PROFILE_FILE="$srcdir/profile_%p_%m.profraw"
+	# Use %p (pid) and %c (continuous mode) for unique atomic writes
+	# Note: %m (merge pool) is incompatible with temporal profiling
+	export LLVM_PROFILE_FILE="$srcdir/profile_%p_%c.profraw"
 	LLVM_PROFDATA="$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" JARLOG_FILE="$srcdir/jarlog" \
 		dbus-run-session \
 		wlheadless-run -c weston --width=1920 --height=1080 -- \
