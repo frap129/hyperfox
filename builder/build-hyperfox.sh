@@ -33,8 +33,8 @@ make build || exit
 		dbus-run-session \
 		wlheadless-run -c weston --width=1920 --height=1080 -- \
 		./mach python build/pgo/profileserver.py
-	# Merge profiles explicitly (profileserver.py may skip if LLVM_PROFDATA not in env)
-	"$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge -o merged.profdata *.profraw || exit
+	# Merge profiles - use --failure-mode=warn to skip corrupt files from short-lived processes
+	"$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge --failure-mode=warn -o merged.profdata *.profraw || exit
 	rm -f *.profraw
 	./mach clobber objdir
 )
