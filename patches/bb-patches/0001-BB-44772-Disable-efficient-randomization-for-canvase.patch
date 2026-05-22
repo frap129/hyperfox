@@ -1,0 +1,35 @@
+From 594101e6d6cb62cf98dee657c5ddb983f3623d05 Mon Sep 17 00:00:00 2001
+From: Pier Angelo Vendrame <pierov@torproject.org>
+Date: Tue, 17 Mar 2026 19:42:26 +0100
+Subject: [PATCH] BB 44772: Disable efficient randomization for canvases.
+
+Always use the regular randomization algorithm, instead.
+---
+ dom/canvas/CanvasUtils.cpp | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
+
+diff --git a/dom/canvas/CanvasUtils.cpp b/dom/canvas/CanvasUtils.cpp
+index e354d53212..454287eb91 100644
+--- a/dom/canvas/CanvasUtils.cpp
++++ b/dom/canvas/CanvasUtils.cpp
+@@ -381,14 +381,9 @@ ImageExtraction ImageExtractionResult(dom::HTMLCanvasElement* aCanvasElement,
+     return ImageExtraction::Placeholder;
+   }
+ 
+-  if (ownerDoc->ShouldResistFingerprinting(
+-          RFPTarget::EfficientCanvasRandomization) &&
+-      GetCanvasExtractDataPermission(aPrincipal) !=
+-          nsIPermissionManager::ALLOW_ACTION) {
+-    return ImageExtraction::EfficientRandomize;
+-  }
+-
+-  if ((ownerDoc->ShouldResistFingerprinting(RFPTarget::CanvasRandomization) ||
++  if ((ownerDoc->ShouldResistFingerprinting(
++           RFPTarget::EfficientCanvasRandomization) ||
++       ownerDoc->ShouldResistFingerprinting(RFPTarget::CanvasRandomization) ||
+        ownerDoc->ShouldResistFingerprinting(RFPTarget::WebGLRandomization)) &&
+       GetCanvasExtractDataPermission(aPrincipal) !=
+           nsIPermissionManager::ALLOW_ACTION) {
+-- 
+2.53.0
+
