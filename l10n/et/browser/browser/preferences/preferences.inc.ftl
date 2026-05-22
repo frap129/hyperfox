@@ -104,3 +104,5 @@ librewolf-letterboxing-checkbox2 =
     .description = Ümbrikpildi vaade kasutab üldaates ääriseid ning sellega vähendatakse sinu veebibrauseri unikaalsust.
 librewolf-security-heading2 =
     .label = Turvalisus
+librewolf-rfp-warning =
+    .message = Kuna „ResistFingerprinting“ ehk tuvastusvastased võtted on kasutusel, siis see funktsionaalsus ei toimi. See tähendab, et LibreWolf näitab sundkorras veebisisu heledas kujunduses.

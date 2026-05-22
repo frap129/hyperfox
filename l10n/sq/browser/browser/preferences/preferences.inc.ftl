@@ -101,3 +101,5 @@ librewolf-letterboxing-checkbox2 =
     .description = “Letterboxing” aplikon mënjana përreth dritareve tuaja, që të mund të jepet një grup i kufizuar përfundimesh të rrumbullakosura.
 librewolf-security-heading2 =
     .label = Siguri
+librewolf-rfp-warning =
+    .message = Kjo veçori është çaktivizuar, ngaqë është aktiv ResistFingerprinting. Kjo do të thotë se LibreWolf-i do ta detyrojë lëndën web të shfaqet nën një temë të çelët.

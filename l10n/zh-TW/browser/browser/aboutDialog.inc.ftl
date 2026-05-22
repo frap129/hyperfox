@@ -1,1 +1,1 @@
-about-librewolf = LibreWolf 瀏覽器是 Firefox 瀏覽器的訂製版本，其主要目標是隱私、安全和用戶自由。
+about-librewolf = LibreWolf 是 Firefox 的客製化版本，其主要目標為隱私、安全與使用者自由。

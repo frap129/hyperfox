@@ -104,3 +104,5 @@ librewolf-letterboxing-checkbox2 =
     .description = Letterboxing fai referencia ás marxes arredor das xanelas, para poder responder cun número limitado de resolucións xenéricas.
 librewolf-security-heading2 =
     .label = Seguridade
+librewolf-rfp-warning =
+    .message = Esta opción está desactivada porque ResistFingerprinting está activada. LibreWolf vai forzar que o contido web se mostre usando a decoración clara.

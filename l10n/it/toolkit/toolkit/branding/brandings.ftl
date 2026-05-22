@@ -4,4 +4,4 @@
 -firefox-suggest-brand-name = Suggerimenti
 -firefox-home-brand-name = Pagina iniziale
 -firefoxview-brand-name = Visualizzazione tabellare
--firefoxlabs-brand-name = Funzionalità sperimentali
+-firefoxlabs-brand-name = Firefox Labs di Mozilla

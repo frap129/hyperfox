@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Предложения
 -firefox-home-brand-name = Домашняя страница
 -firefoxview-brand-name = Просмотр вкладок
--firefoxlabs-brand-name = Экспериментальные функции
+-firefoxlabs-brand-name = Эксперементы Firefox от Mozilla
+-relay-brand-name = Relay от Mozilla

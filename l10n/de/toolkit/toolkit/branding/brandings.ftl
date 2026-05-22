@@ -4,4 +4,5 @@
 -profiler-brand-name = Profiler
 -translations-brand-name = Übersetzungen
 -firefoxview-brand-name = Tab-Übersicht
--firefoxlabs-brand-name = Experimentelle Funktionen
+-firefoxlabs-brand-name = Firefox Labs von Mozilla
+-relay-brand-name = Weitergeleitet von Mozilla

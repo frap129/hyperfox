@@ -1,6 +1,6 @@
 translations-panel-disable-translations =
-    .label = 完全禁用翻譯
+    .label = 完全停用翻譯
 translations-manage-enable =
     .label = 啟用整頁翻譯
 translations-manage-autopopup =
-    .label = 提示翻譯非瀏覽器配置語言的頁面
+    .label = 當頁面非瀏覽器設定之語言時，提示進行翻譯

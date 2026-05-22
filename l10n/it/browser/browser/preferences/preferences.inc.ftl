@@ -64,3 +64,5 @@ librewolf-webgl-prompt-checkbox =
 librewolf-webgl-prompt-description = Mostra una richiesta di autorizzazione quando WebGL è abilitato, anziché concedere automaticamente l'approvazione.
 permissions-webgl2 =
     .label = WebGL
+librewolf-general-heading2 =
+    .label = Comportamento del Browser

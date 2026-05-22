@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = 제안
 -firefox-home-brand-name = 홈페이지
 -firefoxview-brand-name = 탭 뷰
--firefoxlabs-brand-name = 실험적인 기능
+-firefoxlabs-brand-name = Mozilla의 Firefox 실험실
+-relay-brand-name = Mozilla에 의해 제공됨
