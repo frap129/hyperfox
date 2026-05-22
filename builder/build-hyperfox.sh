@@ -29,10 +29,13 @@ make build || exit
 	# Patch profileserver.py to remove %m (merge pool) - temporal profiling
 	# does not support runtime merging. Use only %p for unique filenames.
 	sed -i 's/default_%p_random_%m/profile_%p/g' build/pgo/profileserver.py
-	LLVM_PROFDATA="$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" JARLOG_FILE="$srcdir/jarlog" \
+	JARLOG_FILE="$srcdir/jarlog" \
 		dbus-run-session \
 		wlheadless-run -c weston --width=1920 --height=1080 -- \
 		./mach python build/pgo/profileserver.py
+	# Merge profiles explicitly (profileserver.py may skip if LLVM_PROFDATA not in env)
+	"$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge -o merged.profdata *.profraw || exit
+	rm -f *.profraw
 	./mach clobber objdir
 )
 
