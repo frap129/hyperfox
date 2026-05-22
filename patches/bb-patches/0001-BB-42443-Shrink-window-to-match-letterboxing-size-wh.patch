@@ -1,4 +1,4 @@
-From 1f07c4a4242702da4e170cc30cdc29c7373a4f72 Mon Sep 17 00:00:00 2001
+From 69ba13224d6bf9ddcaa15dd831a3ee894a1688be Mon Sep 17 00:00:00 2001
 From: hackademix <giorgio@maone.net>
 Date: Sun, 10 Mar 2024 15:01:07 +0100
 Subject: [PATCH] BB 42443: Shrink window to match letterboxing size when the
@@ -9,10 +9,10 @@ Subject: [PATCH] BB 42443: Shrink window to match letterboxing size when the
  1 file changed, 10 insertions(+)
 
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 6db5dd0cf9..8598db8b6e 100644
+index bffc488677..66a213a355 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-@@ -754,8 +754,16 @@ class _RFPHelper {
+@@ -753,8 +753,16 @@ class _RFPHelper {
      return false;
    }
  
@@ -29,7 +29,7 @@ index 6db5dd0cf9..8598db8b6e 100644
      aWindow.gBrowser.addTabsProgressListener(this);
      aWindow.addEventListener("TabOpen", this);
      let resizeObserver = new aWindow.ResizeObserver(entries => {
-@@ -1036,6 +1044,8 @@ class _RFPHelper {
+@@ -1035,6 +1043,8 @@ class _RFPHelper {
        let browser = tab.linkedBrowser;
        this._resetContentSize(browser);
      }
@@ -39,5 +39,5 @@ index 6db5dd0cf9..8598db8b6e 100644
      aWindow.removeEventListener("nativethemechange", this);
      this._updateLetterboxingColors(aWindow, false);
 -- 
-2.52.0
+2.53.0
 
