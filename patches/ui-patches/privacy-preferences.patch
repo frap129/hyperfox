@@ -1,42 +1,3 @@
-diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
-index 8b67ea2..ccbbf54 100644
---- a/browser/components/preferences/config/privacy.mjs
-+++ b/browser/components/preferences/config/privacy.mjs
-@@ -1156,34 +1156,6 @@ SettingGroupManager.registerGroups({
-     l10nId: "history-group",
-     headingLevel: 2,
-     items: [
--      {
--        id: "historyMode",
--        control: "moz-select",
--        options: [
--          {
--            value: "remember",
--            l10nId: "history-remember-option-all2",
--          },
--          { value: "dontremember", l10nId: "history-remember-option-never2" },
--          { value: "custom", l10nId: "history-remember-option-custom2" },
--        ],
--        controlAttrs: {
--          "search-l10n-ids": `
--            history-remember-description4,
--            history-dontremember-description4,
--            history-custom-description4,
--            history-private-browsing-permanent.label,
--            history-remember-browser-option.label,
--            history-remember-search-option.label,
--            history-clear-on-close-option.label,
--            history-clear-on-close-settings.label
--          `,
--        },
--      },
--      {
--        id: "privateBrowsingAutoStart",
--        l10nId: "history-private-browsing-permanent",
--      },
-       {
-         id: "rememberHistory",
-         l10nId: "history-remember-browser-option",
 diff --git a/browser/components/preferences/privacy.inc.xhtml b/browser/components/preferences/privacy.inc.xhtml
 index 4a4759e925..eefd978cfc 100644
 --- a/browser/components/preferences/privacy.inc.xhtml
@@ -163,10 +124,45 @@ index 1cfe9a9eef..d18112d234 100644
  .content-blocking-label,
 
 diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
-index ccbbf54..a4530ce 100644
+index 8b67ea2..1b34787 100644
 --- a/browser/components/preferences/config/privacy.mjs
 +++ b/browser/components/preferences/config/privacy.mjs
-@@ -1978,108 +2002,6 @@ SettingGroupManager.registerGroups({
+@@ -1156,34 +1156,6 @@ SettingGroupManager.registerGroups({
+     l10nId: "history-group",
+     headingLevel: 2,
+     items: [
+-      {
+-        id: "historyMode",
+-        control: "moz-select",
+-        options: [
+-          {
+-            value: "remember",
+-            l10nId: "history-remember-option-all2",
+-          },
+-          { value: "dontremember", l10nId: "history-remember-option-never2" },
+-          { value: "custom", l10nId: "history-remember-option-custom2" },
+-        ],
+-        controlAttrs: {
+-          "search-l10n-ids": `
+-            history-remember-description4,
+-            history-dontremember-description4,
+-            history-custom-description4,
+-            history-private-browsing-permanent.label,
+-            history-remember-browser-option.label,
+-            history-remember-search-option.label,
+-            history-clear-on-close-option.label,
+-            history-clear-on-close-settings.label
+-          `,
+-        },
+-      },
+-      {
+-        id: "privateBrowsingAutoStart",
+-        l10nId: "history-private-browsing-permanent",
+-      },
+       {
+         id: "rememberHistory",
+         l10nId: "history-remember-browser-option",
+@@ -2006,108 +1978,6 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -275,6 +271,15 @@ index ccbbf54..a4530ce 100644
    // Bug 1968111: move this elsewhere
    managePayments: {
      items: [
+@@ -2956,7 +2826,7 @@ Preferences.addSetting({
+ });
+ 
+ // Study opt out
+-if (lazy.AppConstants.MOZ_DATA_REPORTING) {
++if (true) {
+   Preferences.addAll([
+     // Preference instances for prefs that we need to monitor while the page is open.
+     { id: "app.shield.optoutstudies.enabled", type: "bool" },
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
 index 1ee6a8b..abacf35 100644
 --- a/browser/components/preferences/preferences.js
