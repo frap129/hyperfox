@@ -104,3 +104,5 @@ librewolf-letterboxing-checkbox2 =
     .description = Letterboxing margókat alkalmaz az ablakok körül, hogy korlátozott számú lekerekített felbontást biztosítson.
 librewolf-security-heading2 =
     .label = Biztonság
+librewolf-rfp-warning =
+    .message = Ez a funkció le van tiltva, mert a ResistFingerprinting engedélyezve van. Emiatt a LibreWolf a webes tartalmakat világos témával fogja megjeleníteni.
