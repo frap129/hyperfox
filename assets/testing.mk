@@ -15,6 +15,7 @@ bsys6_x86_64_linux_xz_artifact :
 
 	rm -rf bsys6
 	git clone "https://codeberg.org/librewolf/bsys6.git"
+	(cd bsys6 && sed -i '6,9d' assets/linux.mozconfig)
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_linux)
 	cp -v bsys6/*.xz .
 	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
