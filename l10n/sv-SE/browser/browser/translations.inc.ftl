@@ -4,3 +4,6 @@ translations-manage-enable =
     .label = Aktivera fullsidiga översättningar
 translations-manage-autopopup =
     .label = Fråga om att översätta sidor som inte är i webbläsarens konfigurerade språk
+main-context-menu-translate-page =
+    .label = Översätt sida…
+    .accesskey = T

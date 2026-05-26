@@ -4,3 +4,6 @@ translations-manage-enable =
     .label = Activar as traduccións de páxina completa
 translations-manage-autopopup =
     .label = Indicación para traducir páxinas que non están no idioma establecido no navegador
+main-context-menu-translate-page =
+    .label = Traducir a páxina…
+    .accesskey = T

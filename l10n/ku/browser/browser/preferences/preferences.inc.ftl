@@ -104,3 +104,5 @@ librewolf-letterboxing-checkbox2 =
     .description = Letterboxing qeraxan derdorê çarçoveyên te desepîne, da ku komek pîvanên taybet û gilover vegere.
 librewolf-security-heading2 =
     .label = Ewlehî
+librewolf-rfp-warning =
+    .message = Ev taybetmendî neçalak e ji ber ku ResistFingerprinting çalak e. Ev tê vê wateyê ku LibreWolf wê naveroka webê neçar bike ku rûkara ron bide nîşandan.

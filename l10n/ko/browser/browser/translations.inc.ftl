@@ -4,3 +4,6 @@ translations-manage-enable =
     .label = 전체 페이지 번역 활성화
 translations-manage-autopopup =
     .label = 브라우저에 설정된 언어가 아닌 페이지를 번역할지 확인
+main-context-menu-translate-page =
+    .label = 페이지 번역…
+    .accesskey = T

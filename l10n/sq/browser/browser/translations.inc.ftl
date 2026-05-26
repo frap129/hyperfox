@@ -4,3 +4,6 @@ translations-manage-autopopup =
     .label = Ofro të përkthesh faqe që s’janë në gjuhën e formësuar të shfletuesit
 translations-manage-enable =
     .label = Aktivizo përkthime të krejt faqes
+main-context-menu-translate-page =
+    .label = Përktheni Faqe…
+    .accesskey = P

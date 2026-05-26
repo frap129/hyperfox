@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Pêşniyarî
 -firefox-home-brand-name = Rûpela sereke
 -firefoxview-brand-name = Dîmena rûgerê
--firefoxlabs-brand-name = Taybetmendiyên ezmûnî
+-firefoxlabs-brand-name = Laboratuarên Firefox ji aliye Mozilla ve
+-relay-brand-name = Relay ji aliyê Mozilla ve
