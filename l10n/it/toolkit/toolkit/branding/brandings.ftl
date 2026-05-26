@@ -5,3 +5,4 @@
 -firefox-home-brand-name = Pagina iniziale
 -firefoxview-brand-name = Visualizzazione tabellare
 -firefoxlabs-brand-name = Firefox Labs di Mozilla
+-relay-brand-name = Relay di Mozilla
