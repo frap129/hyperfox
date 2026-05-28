@@ -5,3 +5,4 @@
 -firefoxlabs-brand-name = Fonctionnalités expérimentales
 -profiler-brand-name = Profileur
 -firefoxview-brand-name = Affichage Onglet
+-relay-brand-name = Relay de Mozilla
