@@ -22,10 +22,10 @@ index fc3c64110c37..032010493054 100644
        }
 diff --git a/browser/modules/EMEPermissionPrompt.sys.mjs b/browser/modules/EMEPermissionPrompt.sys.mjs
 new file mode 100644
-index 000000000000..97206b71b91d
+index 000000000000..c019ce2073bc
 --- /dev/null
 +++ b/browser/modules/EMEPermissionPrompt.sys.mjs
-@@ -0,0 +1,112 @@
+@@ -0,0 +1,111 @@
 +/* This Source Code Form is subject to the terms of the Mozilla Public
 + * License, v. 2.0. If a copy of the MPL was not distributed with this
 + * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
@@ -70,8 +70,7 @@ index 000000000000..97206b71b91d
 +
 +  get popupOptions() {
 +    let options = {
-+      learnMoreURL: Services.urlFormatter.formatURLPref("app.support.baseURL") +
-+        "eme-permission",
++      learnMoreURL: Services.urlFormatter.formatURLPref("librewolf.eme.warning.infoURL"),
 +      displayURI: false,
 +      name: this.getPrincipalName(),
 +    };
