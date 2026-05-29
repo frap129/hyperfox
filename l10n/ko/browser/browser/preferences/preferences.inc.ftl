@@ -106,3 +106,5 @@ librewolf-security-heading2 =
     .label = 보안
 librewolf-rfp-warning =
     .message = 이 기능은 ResistFingerprinting이 활성화되어 있으므로 비활성화됩니다. 따라서 LibreWolf가 웹 컨텐츠를 라이트 테마 표시로 강제합니다.
+permissions-eme2 =
+    .label = DRM 제어 콘텐츠

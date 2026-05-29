@@ -103,3 +103,5 @@ librewolf-broken-heading2 =
 librewolf-letterboxing-checkbox2 =
     .label = Ativar letterboxing
     .description = O letterboxing aplica margens ao redor das suas janelas, a fim de retornar um conjunto limitado de resoluções arredondadas.
+permissions-eme2 =
+    .label = Conteúdo controlado por direitos autorais

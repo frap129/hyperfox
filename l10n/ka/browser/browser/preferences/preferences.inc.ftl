@@ -31,3 +31,5 @@ librewolf-open-profile = მომხმარებლის პროფილ
 librewolf-goog-safe-download-checkbox =
     .label = გადმოწერების სკანირება
 librewolf-footer = სასარგებლო ბმულები
+permissions-eme2 =
+    .label = DRM-დაქვემდებარებული შიგთავსი

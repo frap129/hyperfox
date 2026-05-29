@@ -106,3 +106,5 @@ librewolf-xorigin-ref-checkbox2 =
     .description = Lähetä viittaaja vain samassa alkuperässä.
 librewolf-rfp-warning =
     .message = Tämä ominaisuus on pois käytöstä, koska ResistFingerprinting on käytössä. Tämä tarkoittaa, että LibreWolf pakottaa verkkosisällön näyttäytymään vaalealla teemalla.
+permissions-eme2 =
+    .label = DRM-suojattu sisältö

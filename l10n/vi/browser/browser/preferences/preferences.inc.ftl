@@ -59,3 +59,5 @@ librewolf-ocsp-warning1 = Điều này làm tăng bảo mật, nhưng nó sẽ g
 librewolf-styling-description = Kích hoạt điều này nếu bạn muốn tùy chỉnh giao diện người dùng với chủ đề được tải thủ công.
 librewolf-ocsp-description = Ngăn chặn kết nối với một trang web nếu kiểm tra OCSP không thể được thực hiện.
 content-blocking-section-top-level-description = LibreWolf hỗ trợ - và mặc định bật tính năng Trình chống theo dõi nâng cao ở chế độ Nghiêm ngặt. Đây là một trong những cài đặt quan trọng nhất của trình duyệt, vì nó cung cấp tính năng phân vùng trạng thái, danh sách chặn nghiêm ngặt và các tính năng bảo mật hữu ích khác. Chúng tôi không khuyến nghị chuyển sang các chế độ khác.
+permissions-eme2 =
+    .label = Nội dung DRM được kiểm soát

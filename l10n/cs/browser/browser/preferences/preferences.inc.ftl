@@ -106,3 +106,5 @@ librewolf-security-heading2 =
     .label = Zabezpečení
 librewolf-rfp-warning =
     .message = Tato funkce je zakázaná z důvodu povoleného nastavení ResistFingerprinting. To znamená, že LibreWolf vynutí, aby byl webový obsah ve světlém motivu.
+permissions-eme2 =
+    .label = Obsah chráněný pomocí DRM

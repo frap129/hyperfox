@@ -59,3 +59,5 @@ librewolf-footer = Mga kapaki-pakinabang na link
 librewolf-config-link = Lahat ng mga advanced na setting (about:config)
 librewolf-open-profile = Buksan ang direktoryo ng user profile
 content-blocking-section-top-level-description = Sinusuportahan ng LibreWolf - at palaging pinapagana bilang default - ang Pinahusay na Proteksyon sa Pag-track sa Strict mode. Ito ang isa sa mga pinaka-importanteng setting sa browser, dahil ito ay nagbibigay ng state partitioning, mga striktong listahan ng pag-block at iba pang mga maayos na privacy feature. Hindi naming inirerekomenda ang pagpalit sa iba pang mode.
+permissions-eme2 =
+    .label = DRM-controlled content

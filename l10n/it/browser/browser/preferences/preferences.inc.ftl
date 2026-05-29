@@ -89,3 +89,5 @@ librewolf-webgl-checkbox2 =
     .description = Questo abiliterà sempre WebGL senza richiedere permessi.
 librewolf-security-heading2 =
     .label = Sicurezza
+permissions-eme2 =
+    .label = Contenuti protetti da DRM

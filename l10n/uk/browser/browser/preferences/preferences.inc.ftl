@@ -62,3 +62,5 @@ content-blocking-section-top-level-description = LibreWolf підтримує �
 librewolf-webgl-prompt-checkbox =
     .label = Ввімкнути запит на дозвіл WebGL на сайті
 librewolf-webgl-prompt-description = Якщо WebGL увімкнено, на певному сайті виникає запит на дозвіл замість автоматичного надання доступу.
+permissions-eme2 =
+    .label = Вміст, контрольований DRM

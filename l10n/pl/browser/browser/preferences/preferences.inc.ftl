@@ -106,3 +106,5 @@ librewolf-security-heading2 =
     .label = Bezpieczeństwo
 librewolf-rfp-warning =
     .message = Ta funkcja jest wyłączona, ponieważ jest włączona ochrona przed wyliczaniem cyfrowego odcisku palca. To oznacza, że LibreWolf będzie wymuszał wyświetlanie treści internetowych w jasnym motywie.
+permissions-eme2 =
+    .label = Treści chronione przez DRM
