@@ -1,5 +1,5 @@
 diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
-index 8b67ea2befb9..f2880bbe0acf 100644
+index 8b67ea2befb9..ab0bf7364e46 100644
 --- a/browser/components/preferences/config/privacy.mjs
 +++ b/browser/components/preferences/config/privacy.mjs
 @@ -329,6 +329,32 @@ export class PrivacySettingHelpers {
@@ -73,10 +73,14 @@ index 8b67ea2befb9..f2880bbe0acf 100644
          ],
        },
        {
-@@ -4157,6 +4207,40 @@ Preferences.addSetting({
+@@ -4157,6 +4207,44 @@ Preferences.addSetting({
    onUserClick: () => PrivacySettingHelpers.showXRExceptions(),
  });
  
++Preferences.addSetting({
++  id: "emeEnabled",
++  pref: "media.eme.enabled",
++});
 +Preferences.addSetting({
 +  id: "emePermissionPromptEnabled",
 +  pref: "media.eme.require-app-approval",
@@ -88,9 +92,9 @@ index 8b67ea2befb9..f2880bbe0acf 100644
 +Preferences.addSetting({
 +  id: "emeSettingsButton",
 +  onUserClick: () => PrivacySettingHelpers.showEMEExceptions(),
-+  deps: ["emePermissionPromptEnabled", "emeUIEnabled"],
++  deps: ["emeEnabled", "emePermissionPromptEnabled", "emeUIEnabled"],
 +  visible: deps => {
-+    return deps.emePermissionPromptEnabled.value && deps.emeUIEnabled.value;
++    return deps.emeEnabled.value && deps.emePermissionPromptEnabled.value && deps.emeUIEnabled.value;
 +  },
 +});
 +
@@ -208,7 +212,7 @@ index 360866be9b80..4c54c5c483a6 100644
  
  if CONFIG["MOZ_WIDGET_TOOLKIT"] == "windows":
 diff --git a/browser/modules/SitePermissions.sys.mjs b/browser/modules/SitePermissions.sys.mjs
-index 91b2aa7deeff..10073016e668 100644
+index 91b2aa7deeff..114fd428a9f6 100644
 --- a/browser/modules/SitePermissions.sys.mjs
 +++ b/browser/modules/SitePermissions.sys.mjs
 @@ -1043,6 +1043,21 @@ let gPermissions = {
@@ -219,7 +223,7 @@ index 91b2aa7deeff..10073016e668 100644
 +      labelID: "eme",
 +      exactHostMatch: true,
 +      get disabled() {
-+        return !SitePermissions.emePermissionPromptEnabled || !SitePermissions.emeUIEnabled;
++        return !SitePermissions.emeEnabled || !SitePermissions.emePermissionPromptEnabled || !SitePermissions.emeUIEnabled;
 +      },
 +    },
 +
@@ -233,10 +237,17 @@ index 91b2aa7deeff..10073016e668 100644
      midi: {
        exactHostMatch: true,
        get disabled() {
-@@ -1076,6 +1091,35 @@ let gPermissions = {
+@@ -1076,6 +1091,42 @@ let gPermissions = {
    },
  };
  
++XPCOMUtils.defineLazyPreferenceGetter(
++  SitePermissions,
++  "emeEnabled",
++  "media.eme.enabled",
++  false,
++  SitePermissions.invalidatePermissionList.bind(SitePermissions)
++);
 +XPCOMUtils.defineLazyPreferenceGetter(
 +  SitePermissions,
 +  "emePermissionPromptEnabled",
