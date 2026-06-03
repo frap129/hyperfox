@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Sugestões
 -firefox-home-brand-name = Página inicial
 -firefoxview-brand-name = Visualização de guias
--firefoxlabs-brand-name = Recursos experimentais
+-firefoxlabs-brand-name = Mozilla Firefox Labs
+-relay-brand-name = Mozilla Relay
