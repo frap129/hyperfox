@@ -12,13 +12,13 @@ Subject: [PATCH] BB 42019: Empty browser's clipboard on browser shutdown
  create mode 100644 browser/modules/ClipboardPrivacy.sys.mjs
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index a77cc20e81..ba39bd5e1e 100644
+index cdc984ec48..5d77f5b5fb 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -3609,3 +3609,6 @@ pref("browser.contentsharing.enabled", false);
+@@ -3615,3 +3615,6 @@ pref("browser.contentsharing.newBadge.enabled", true);
  
- // Controls whether the "New" badge is shown on the content sharing menu items
- pref("browser.contentsharing.newBadge.enabled", true);
+ // When enabled, Firefox ignores the distribution.ini file if global.id is MozillaOnline.
+ pref("distribution.mozillaonline.ignore", true);
 +
 +// Empty clipboard content from private windows on exit (tor-browser#42154)
 +pref("browser.privatebrowsing.preserveClipboard", false);
