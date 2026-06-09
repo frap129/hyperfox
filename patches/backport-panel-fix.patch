@@ -1,0 +1,31 @@
+diff --git a/toolkit/themes/shared/popup.css b/toolkit/themes/shared/popup.css
+index a7ecfc6..da6df2f 100644
+--- a/toolkit/themes/shared/popup.css
++++ b/toolkit/themes/shared/popup.css
+@@ -19,14 +19,6 @@
+       --panel-border-color: color-mix(in srgb, currentColor 60%, transparent);
+     }
+ 
+-    /* On some linux WMs we need to draw square and opaque menus because alpha
+-     * is not available */
+-    @media not (-moz-gtk-csd-transparency-available) {
+-      --panel-shadow-margin: 0px !important;
+-      --panel-border-radius: 0px !important;
+-    }
+-  }
+-
+   @media (-moz-platform: macos) {
+     --panel-background: none;
+     --panel-border-color: transparent;
+@@ -51,8 +43,10 @@
+ 
+   @media (-moz-platform: linux) and (not (-moz-gtk-csd-transparency-available)) {
+     /* On some linux WMs we need to draw square and opaque menus because alpha
+-     * is not available */
++     * is not available. */
+     opacity: 1 !important;
++    --panel-box-shadow-margin: 0px !important;
++    --panel-border-radius: 0px !important;
+   }
+ 
+   @media (-moz-platform: macos) {
