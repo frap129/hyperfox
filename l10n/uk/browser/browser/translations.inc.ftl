@@ -1,6 +1,9 @@
 translations-panel-disable-translations =
     .label = Повністю вимкнути переклад
 translations-manage-autopopup =
-    .label = Пропозиція перекласти сторінки, мова яких відрізняється від налаштувань браузера
+    .label = Пропонувати перекласти сторінки, мова яких відрізняється від мови браузера
 translations-manage-enable =
     .label = Увімкнути переклад усієї сторінки
+main-context-menu-translate-page =
+    .label = Перекласти сторінку…
+    .accesskey = T

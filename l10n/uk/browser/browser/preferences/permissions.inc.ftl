@@ -1,0 +1,11 @@
+permissions-site-eme-desc = Наступні сайти попросили дозвіл на відтворення контрольованого DRM вмісту. Ви можете вказати, яким сайтам можна відтворювати вміст, контрольований DRM. Також ви можете блокувати нові запити на відтворення вмісту з DRM.
+permissions-site-eme-disable-label =
+    .label = Блокувати нові запити на відтворення вмісту з DRM
+permissions-site-eme-disable-desc = Це заборонить усім не вказаним вище сайтам питати дозволу на відтворення вмісту з DRM.
+permissions-site-webgl-window2 =
+    .title = Налаштування - Дозволи WebGL
+    .style = { permissions-window2.style }
+permissions-site-webgl-desc = Наступні сайти попросили створити контекст WebGL. Ви можете вказати, яким сайтам можна створювати контекст WebGL. Також ви можете блокувати нові запити на створення контексту WebGL.
+permissions-site-eme-window2 =
+    .title = Налаштування - Дозволи EME
+    .style = { permissions-window2.style }
