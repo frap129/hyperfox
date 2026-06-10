@@ -19,10 +19,20 @@ index fa2a000cab..08664b00c2 100644
    }
  
 diff --git a/dom/media/eme/MediaKeySystemAccessManager.cpp b/dom/media/eme/MediaKeySystemAccessManager.cpp
-index acdc1030c0..14152b3736 100644
+index acdc103..57880cb 100644
 --- a/dom/media/eme/MediaKeySystemAccessManager.cpp
 +++ b/dom/media/eme/MediaKeySystemAccessManager.cpp
-@@ -421,8 +421,8 @@ void MediaKeySystemAccessManager::RequestMediaKeySystemAccess(
+@@ -365,8 +365,7 @@ void MediaKeySystemAccessManager::OnDoesAppAllowProtectedMedia(
+                   NS_ConvertUTF16toUTF8(aRequest->mKeySystem).get());
+   if (!aIsAllowed) {
+     aRequest->RejectPromiseWithNotSupportedError(
+-        nsLiteralCString("The application embedding this user agent has "
+-                         "blocked MediaKeySystemAccess"));
++        nsLiteralCString("EME has been preffed off"));
+     return;
+   }
+
+@@ -421,8 +420,8 @@ void MediaKeySystemAccessManager::RequestMediaKeySystemAccess(
      return;
    }
  
