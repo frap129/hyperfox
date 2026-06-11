@@ -103,3 +103,5 @@ librewolf-security-heading2 =
     .label = Siguri
 librewolf-rfp-warning =
     .message = Kjo veçori është çaktivizuar, ngaqë është aktiv ResistFingerprinting. Kjo do të thotë se LibreWolf-i do ta detyrojë lëndën web të shfaqet nën një temë të çelët.
+permissions-eme2 =
+    .label = Lëndë nën DRM

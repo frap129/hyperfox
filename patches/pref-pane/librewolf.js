@@ -18,7 +18,7 @@ Preferences.addAll([
   // Firefox Accounts
   { id: "identity.fxaccounts.enabled", type: "bool" },
   // WebGL
-  { id: "librewolf.webgl.prompt", type: "bool" },
+  //{ id: "librewolf.webgl.prompt", type: "bool" }, // Already added (see lw-permissions.patch)
   { id: "librewolf.webgl.prompt.hide", type: "bool" },
   // Automatically Update Extensions
   { id: "extensions.update.enabled", type: "bool" },

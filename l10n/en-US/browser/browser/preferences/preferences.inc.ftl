@@ -73,6 +73,11 @@ content-blocking-section-top-level-description = LibreWolf supports - and it ena
 
 ## Permissions
 
+# (This label matches Fenix's preference_phone_feature_media_key_system_access string:
+# https://searchfox.org/firefox-main/rev/e28b34ab/mobile/android/fenix/app/src/main/res/values/strings.xml#2117)
+permissions-eme2 =
+    .label = DRM-controlled content
+
 permissions-webgl2 =
     .label = WebGL
 

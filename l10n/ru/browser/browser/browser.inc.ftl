@@ -3,3 +3,5 @@ urlbar-webgl-notification-anchor =
     .tooltiptext = Управление разрешением на создание контекста WebGL
 urlbar-webgl-blocked =
     .tooltiptext = Вы заблокировали создание WebGL-контекста на этом веб-сайте.
+urlbar-eme-blocked =
+    .tooltiptext = Вы заблокировали воспроизведение защищённого DRM содержимого на этом сайте.

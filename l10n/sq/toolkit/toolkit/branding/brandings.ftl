@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Sugjerime
 -firefox-home-brand-name = Faqe hyrëse
 -firefoxview-brand-name = Pamje Skedash
--firefoxlabs-brand-name = Veçori Eksperimentale
+-firefoxlabs-brand-name = Firefox Labs nga Mozilla
+-relay-brand-name = Relay nga Mozilla

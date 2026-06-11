@@ -91,3 +91,5 @@ librewolf-webgl-checkbox2 =
 librewolf-webgl-prompt-checkbox2 =
     .label = WebGL izin kutusunu gizle
     .description = Bu ayar herhangi bir site WebGL içeriği oluşturmak istediğinde gelen izin kutsunu gizler. Arama çubuğundaki simgeye tıklayarak bu izin kutusunu görüntüleyebilirsin.
+permissions-eme2 =
+    .label = DRM denetimli içerikler

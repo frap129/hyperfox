@@ -2,3 +2,6 @@ permissions-site-webgl-desc = Os seguintes sites solicitaram a criação de um c
 permissions-site-webgl-window2 =
     .title = Configurações - Permissões WebGL
     .style = { permissions-window2.style }
+permissions-site-eme-window2 =
+    .title = Configurações - Permissões EME
+    .style = { permissions-window2.style }

@@ -108,3 +108,5 @@ librewolf-security-heading2 =
     .label = Безопасность
 librewolf-rfp-warning =
     .message = Эта функция отключена, так как включена настройка ResistFingerprinting. Это означает, что LibreWolf будет принудительно отображать контент в светлой теме.
+permissions-eme2 =
+    .label = Защищённое авторским правом содержимое

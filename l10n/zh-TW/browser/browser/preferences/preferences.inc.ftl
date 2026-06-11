@@ -64,3 +64,5 @@ librewolf-security-heading2 =
     .label = 安全性
 librewolf-rfp-warning =
     .message = 由於已啟用防指紋追蹤（ResistFingerprinting），此功能已停用。這表示 LibreWolf 將強制網頁內容以淺色主題顯示。
+permissions-eme2 =
+    .label = 由 DRM 控制的內容

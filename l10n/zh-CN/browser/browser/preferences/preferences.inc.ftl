@@ -104,3 +104,7 @@ librewolf-webgl-prompt-checkbox2 =
 librewolf-letterboxing-checkbox2 =
     .label = 启用窗口留白
     .description = 窗口留白会在您的窗口周围添加边距，从而返回一组有限的标准分辨率。
+librewolf-rfp-warning =
+    .message = 由于启用了防指纹跟踪（ResistFingerprinting），此功能已被禁用。这意味着 LibreWolf 会强制网页内容（默认）以浅色主题显示。
+permissions-eme2 =
+    .label = 受 DRM 控制的内容
