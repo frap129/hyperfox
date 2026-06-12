@@ -1,6 +1,6 @@
 pane-librewolf-title = LibreWolf
 category-librewolf =
-    .tooltiptext = as modificacións de about:config, agrupadas lóxicamente e doadamente accesibles
+    .tooltiptext = as modificacións de about:config, agrupadas con lóxica e doadamente accesibles
 librewolf-header = Preferencias do LibreWolf
 librewolf-warning-title = Aviso!
 librewolf-warning-description = Escollemos coidadosamente as configuracións predeterminadas para centrarnos na privacidade e seguridade. Cando modifique estas configuracións, lea as descricións para entender que implican estes cambios.
