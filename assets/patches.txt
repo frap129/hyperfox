@@ -1,4 +1,3 @@
-patches/allow-JXL-in-non-nightly-browser.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-setEnv.patch
 patches/backport-panel-fix.patch
