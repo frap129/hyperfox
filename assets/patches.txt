@@ -1,6 +1,5 @@
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-setEnv.patch
-patches/backport-panel-fix.patch
 patches/bootstrap.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
