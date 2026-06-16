@@ -14,6 +14,7 @@ patches/fpp-canvas-fix.patch
 patches/fullpage-translations-customization.patch
 patches/fullpage-translations.patch
 patches/hide-passwordmgr.patch
+patches/languages.patch
 patches/limit-access.patch
 patches/link-preview.patch
 patches/lw-permissions.patch
