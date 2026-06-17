@@ -108,3 +108,5 @@ librewolf-rfp-warning =
     .message = Kuna „ResistFingerprinting“ ehk tuvastusvastased võtted on kasutusel, siis see funktsionaalsus ei toimi. See tähendab, et LibreWolf näitab sundkorras veebisisu heledas kujunduses.
 permissions-eme2 =
     .label = DRMiga kaitstud sisu
+pane-librewolf-title2 = LibreWolf
+    .title = LibreWolf
