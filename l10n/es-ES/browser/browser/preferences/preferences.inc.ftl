@@ -108,3 +108,5 @@ librewolf-rfp-warning =
     .message = Esta función está desactivada porque ResistFingerprinting está activado. Esto significa que LibreWolf obligará a que el contenido web se muestre con un tema claro.
 permissions-eme2 =
     .label = Contenido controlado por DRM
+pane-librewolf-title2 = LibreWolf
+    .title = LibreWolf
