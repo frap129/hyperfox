@@ -106,3 +106,7 @@ librewolf-security-heading2 =
     .label = Ewlehî
 librewolf-rfp-warning =
     .message = Ev taybetmendî neçalak e ji ber ku ResistFingerprinting çalak e. Ev tê vê wateyê ku LibreWolf wê naveroka webê neçar bike ku rûkara ron bide nîşandan.
+pane-librewolf-title2 = LibreWolf
+    .title = LibreWolf
+permissions-eme2 =
+    .label = Naverok ku hatiye kontrolkirin bi riya DRMê
