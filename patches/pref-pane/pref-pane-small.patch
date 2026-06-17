@@ -31,7 +31,7 @@ index e4746e3408..3755be8a78 100644
  
    if (Services.prefs.getBoolPref("browser.translations.newSettingsUI.enable")) {
 diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
-index 3c4b322..f5094de 100644
+index 9760a4a..4ea4230 100644
 --- a/browser/components/preferences/preferences.xhtml
 +++ b/browser/components/preferences/preferences.xhtml
 @@ -38,6 +38,7 @@
@@ -42,29 +42,29 @@ index 3c4b322..f5094de 100644
    <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-group.css" />
    <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-pane.css" />
    <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-control.css" />
-@@ -147,10 +148,10 @@
-         iconsrc="chrome://browser/skin/preferences/category-sync.svg"
-         data-l10n-id="pane-sync-title3">
+@@ -173,10 +174,10 @@
+         iconsrc="chrome://browser/skin/translations.svg"
+         data-l10n-id="pane-languages-title2">
        </html:moz-page-nav-button>
 -      <html:moz-page-nav-button id="category-ai-features"
 -        view="paneAi"
 -        iconsrc="chrome://global/skin/icons/highlights.svg"
--        data-l10n-id="pane-ai-controls-title">
+-        data-l10n-id="pane-ai-controls-title2">
 +      <html:moz-page-nav-button id="category-librewolf"
 +        view="paneLibrewolf"
 +        iconsrc="chrome://browser/skin/preferences/category-librewolf.svg"
-+        data-l10n-id="pane-librewolf-title">
++        data-l10n-id="pane-librewolf-title2">
        </html:moz-page-nav-button>
-       <html:moz-page-nav-button id="category-experimental"
-         hidden="true"
-@@ -214,6 +215,7 @@
+       <html:moz-page-nav-button id="category-permissions-data"
+         view="panePermissionsData"
+@@ -250,6 +251,7 @@
  #include home.inc.xhtml
  #include search.inc.xhtml
  #include privacy.inc.xhtml
 +#include librewolf.inc.xhtml
  #include containers.inc.xhtml
  #include sync.inc.xhtml
- #include experimental.inc.xhtml
+ #include moreFromMozilla.inc.xhtml
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
 index c2bebf7e96..62ab632cec 100644
 --- a/browser/themes/shared/jar.inc.mn
@@ -86,13 +86,13 @@ index c2bebf7e96..62ab632cec 100644
    skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
    skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 6f4cb34..ef77196 100644
+index c86e54b..752a38b 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -3280,6 +3280,70 @@ SettingGroupManager.registerGroups({
-       },
-     ],
-   },
+@@ -692,6 +692,70 @@ SettingGroupManager.registerGroups({
+   startup: createStartupConfig(
+     Services.prefs.getBoolPref("browser-settings-redesign.enabled", false)
+   ),
 +  librewolfBehavior: {
 +    l10nId: "librewolf-general-heading2",
 +    headingLevel: 2,
@@ -157,6 +157,6 @@ index 6f4cb34..ef77196 100644
 +      },
 +    ],
 +  },
-   translationsDownloadLanguages: {
-     inProgress: true,
-     headingLevel: 2,
+ });
+ 
+ /**

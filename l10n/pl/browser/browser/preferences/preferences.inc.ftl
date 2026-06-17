@@ -1,7 +1,7 @@
 pane-librewolf-title = LibreWolf
 librewolf-network-heading = Sieć
 librewolf-privacy-heading = Prywatność
-librewolf-header = Ustawienia LibreWolf
+librewolf-header = Ustawienia LibreWolfa
 librewolf-warning-title = Uwaga!
 librewolf-general-heading = Zachowanie przeglądarki
 librewolf-ipv6-checkbox =
@@ -108,3 +108,5 @@ librewolf-rfp-warning =
     .message = Ta funkcja jest wyłączona, ponieważ jest włączona ochrona przed wyliczaniem cyfrowego odcisku palca. To oznacza, że LibreWolf będzie wymuszał wyświetlanie treści internetowych w jasnym motywie.
 permissions-eme2 =
     .label = Treści chronione przez DRM
+pane-librewolf-title2 = LibreWolf
+    .title = LibreWolf

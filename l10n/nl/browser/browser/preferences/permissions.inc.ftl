@@ -1,4 +1,11 @@
 permissions-site-webgl-window2 =
-    .title = Instellingen — WebGL-rechten
+    .title = Instellingen - WebGL-toestemming
     .style = { permissions-window2.style }
-permissions-site-webgl-desc = Onderstaande websites hebben verzocht een WebGL-context aan te maken. U kunt hier aangeven voor welke websites deze context expliciet is toegestaan of moet worden geblokkeerd.
+permissions-site-webgl-desc = Onderstaande websites hebben verzocht een WebGL-context aan te maken. U kunt hier aangeven voor welke websites deze context is toegestaan of expliciet moet worden geblokkeerd.
+permissions-site-eme-window2 =
+    .title = Instellingen - EME-toestemming
+    .style = { permissions-window2.style }
+permissions-site-eme-desc = Onderstaande websites hebben verzocht om met DRM beveiligde inhoud af te spelen. U kunt hier aangeven voor welke websites DRM-inhoud is toegestaan of expliciet moet worden geblokkeerd.
+permissions-site-eme-disable-label =
+    .label = Nieuwe verzoeken voor het afspelen van met DRM beveiligde inhoud blokkeren
+permissions-site-eme-disable-desc = Hiermee kunnen andere websites dan hierboven vermeld geen toestemming vragen om met DRM beveiligde inhoud af te spelen.

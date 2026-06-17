@@ -5,3 +5,6 @@ permissions-site-webgl-window2 =
 permissions-site-eme-window2 =
     .title = Configurações - Permissões EME
     .style = { permissions-window2.style }
+permissions-site-eme-desc = Os seguintes sites requisitam reproduzir conteúdo protegido por DRM. Você pode especificar quais sites estão autorizados para reproduzir conteúdo protegido por DRM. Você também pode bloquear novas requisições para reproduzir conteúdo protegido por DRM.
+permissions-site-eme-disable-label = Bloquear novas requisições para reproduzir conteúdo controlado por DRM
+permissions-site-eme-disable-desc = Isso vai prevenir quaisquer sites não listados acima de requisitar permissão para reproduzir conteúdos protegidos por DRM.

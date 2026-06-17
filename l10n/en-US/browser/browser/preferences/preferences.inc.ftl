@@ -1,7 +1,8 @@
 ## LibreWolf preferences
 
 # Sidebar
-pane-librewolf-title = LibreWolf
+pane-librewolf-title2 = LibreWolf
+  .title = LibreWolf
 category-librewolf =
     .tooltiptext = about:config changes, logically grouped and easily accessible
 # Main content
