@@ -15,10 +15,10 @@ Subject: [PATCH] BB 41918: Option to reuse last window size when letterboxing
  7 files changed, 46 insertions(+), 6 deletions(-)
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index a3b4279c10..e42fbb41bf 100644
+index 60e91c685d..19b2be607b 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -3619,3 +3619,7 @@ pref("privacy.resistFingerprinting.letterboxing", true);
+@@ -3633,3 +3633,7 @@ pref("privacy.resistFingerprinting.letterboxing", true);
  pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
  // tor-browser#41917: Letterboxing gradient background
  pref("privacy.resistFingerprinting.letterboxing.gradient", true);
@@ -27,10 +27,10 @@ index a3b4279c10..e42fbb41bf 100644
 +// tor-browser#41918: Should we reuse last window sizes if letterboxing is enabled
 +pref("privacy.resistFingerprinting.letterboxing.rememberSize", false);
 diff --git a/dom/base/nsContentUtils.cpp b/dom/base/nsContentUtils.cpp
-index 6a691098bd..de1cbf84eb 100644
+index 8f53fc6dbe..4a26a6def3 100644
 --- a/dom/base/nsContentUtils.cpp
 +++ b/dom/base/nsContentUtils.cpp
-@@ -3086,6 +3086,18 @@ void nsContentUtils::CalcRoundedWindowSizeForResistingFingerprinting(
+@@ -3087,6 +3087,18 @@ void nsContentUtils::CalcRoundedWindowSizeForResistingFingerprinting(
    *aOutputHeight = resultHeight;
  }
  
@@ -50,7 +50,7 @@ index 6a691098bd..de1cbf84eb 100644
    return NS_IsMainThread() ? IsCallerChrome()
                             : IsCurrentThreadRunningChromeWorker();
 diff --git a/dom/base/nsContentUtils.h b/dom/base/nsContentUtils.h
-index 17f547a8f2..6f0f20c9a4 100644
+index 19abe99fe8..7b99c3f1be 100644
 --- a/dom/base/nsContentUtils.h
 +++ b/dom/base/nsContentUtils.h
 @@ -453,6 +453,10 @@ class nsContentUtils {
@@ -65,7 +65,7 @@ index 17f547a8f2..6f0f20c9a4 100644
     * Returns the parent node of aChild crossing document boundaries, but skips
     * any cross-process parent frames and continues with the nearest in-process
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index a7585cfee7..bffc488677 100644
+index f9176346aa..6ab5ee7dc8 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 @@ -17,6 +17,10 @@ const kPrefLetterboxingTesting =
@@ -109,10 +109,10 @@ index a7585cfee7..bffc488677 100644
      }
  
 diff --git a/toolkit/components/windowwatcher/nsWindowWatcher.cpp b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
-index 3233371b6c..d4e3cfec69 100644
+index 387727f68c..0fb0b5d8a6 100644
 --- a/toolkit/components/windowwatcher/nsWindowWatcher.cpp
 +++ b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
-@@ -2420,7 +2420,8 @@ static void SizeOpenedWindow(nsIDocShellTreeOwner* aTreeOwner,
+@@ -2426,7 +2426,8 @@ static void SizeOpenedWindow(nsIDocShellTreeOwner* aTreeOwner,
                  "complicated, and this is a conservative behavior to avoid "
                  "exempting something that shouldn't be. It also presents a "
                  "uniform behavior for something that's very browser-related.",
@@ -123,18 +123,18 @@ index 3233371b6c..d4e3cfec69 100644
               size actually was specified. Otherwise, intrinsically sized
               windows are broken. */
 diff --git a/toolkit/xre/nsAppRunner.cpp b/toolkit/xre/nsAppRunner.cpp
-index 3ce65316e7..ac49f60d7e 100644
+index 12fed39d6d..676ab4a207 100644
 --- a/toolkit/xre/nsAppRunner.cpp
 +++ b/toolkit/xre/nsAppRunner.cpp
-@@ -294,6 +294,7 @@ static const char kPrefThemeId[] = "extensions.activeThemeID";
+@@ -293,6 +293,7 @@ static const char kPrefThemeId[] = "extensions.activeThemeID";
  static const char kPrefBrowserStartupBlankWindow[] =
      "browser.startup.blankWindow";
  static const char kPrefPreXulSkeletonUI[] = "browser.startup.preXulSkeletonUI";
 +static const char kPrefResistFingerprinting[] = "privacy.resistFingerprinting";
- #endif  // defined(XP_WIN)
+ #  endif  // defined(MOZ_DEFAULT_BROWSER_AGENT)
+ #endif    // defined(XP_WIN)
  
- #if defined(MOZ_WIDGET_GTK)
-@@ -2302,6 +2303,7 @@ static void ReflectSkeletonUIPrefToRegistry(const char* aPref, void* aData) {
+@@ -2307,6 +2308,7 @@ static void ReflectSkeletonUIPrefToRegistry(const char* aPref, void* aData) {
    bool skeletonUIPref = StaticPrefs::browser_startup_preXulSkeletonUI();
    bool startupBlankWindowPref = StaticPrefs::browser_startup_blankWindow();
    bool drawInTitlebar = LookAndFeel::DrawInTitlebar();
@@ -142,7 +142,7 @@ index 3ce65316e7..ac49f60d7e 100644
    SKELETON_LOG(
        "ReflectSkeletonUIPrefToRegistry: hasShowProfileSelector %d, "
        "skeletonUIPref %d, startupBlankWindowPref %d, drawInTitlebar %d",
-@@ -2309,7 +2311,7 @@ static void ReflectSkeletonUIPrefToRegistry(const char* aPref, void* aData) {
+@@ -2314,7 +2316,7 @@ static void ReflectSkeletonUIPrefToRegistry(const char* aPref, void* aData) {
        startupBlankWindowPref ? 1 : 0, drawInTitlebar ? 1 : 0);
  
    bool shouldBeEnabled = !hasShowProfileSelector && skeletonUIPref &&
@@ -152,7 +152,7 @@ index 3ce65316e7..ac49f60d7e 100644
                 shouldBeEnabled ? 1 : 0);
    if (shouldBeEnabled && Preferences::HasUserValue(kPrefThemeId)) {
 diff --git a/xpfe/appshell/AppWindow.cpp b/xpfe/appshell/AppWindow.cpp
-index d980bca7b4..844f32994f 100644
+index 6b218ca7d7..1612e97389 100644
 --- a/xpfe/appshell/AppWindow.cpp
 +++ b/xpfe/appshell/AppWindow.cpp
 @@ -1037,8 +1037,9 @@ NS_IMETHODIMP AppWindow::GetAvailScreenSize(int32_t* aAvailWidth,
@@ -179,7 +179,7 @@ index d980bca7b4..844f32994f 100644
    return NS_OK;
  }
  
-@@ -2472,7 +2478,8 @@ void AppWindow::SizeShell() {
+@@ -2480,7 +2486,8 @@ void AppWindow::SizeShell() {
            "if RFP is enabled we want to round the dimensions of the new"
            "new pop up window regardless of their origin",
            RFPTarget::RoundWindowSize) &&
@@ -190,5 +190,5 @@ index d980bca7b4..844f32994f 100644
      if (mPrimaryContentShell || mPrimaryBrowserParent) {
        ForceRoundedDimensions();
 -- 
-2.53.0
+2.54.0
 

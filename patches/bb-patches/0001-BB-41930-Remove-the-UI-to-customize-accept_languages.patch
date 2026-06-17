@@ -3,25 +3,25 @@ From: Pier Angelo Vendrame <pierov@torproject.org>
 Date: Tue, 7 May 2024 17:50:20 +0200
 Subject: [PATCH] BB 41930: Remove the UI to customize accept_languages.
 
----
- browser/components/preferences/main.inc.xhtml  |  4 ++++
- browser/components/preferences/main.js         | 18 +++++++++++++++++-
- .../resistfingerprinting/RFPHelper.sys.mjs     | 10 +++++++---
- 3 files changed, 28 insertions(+), 4 deletions(-)
+----
+ browser/components/preferences/main.inc.xhtml | 12 ++++++---
+ browser/components/preferences/main.js        | 26 +++++++++++++++----
+ .../resistfingerprinting/RFPHelper.sys.mjs    | 10 ++++---
+ 3 files changed, 36 insertions(+), 12 deletions(-)
 
 diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
-index 3e3478c007..9f6c4b323e 100644
+index 5ded6de68d..43085fb2f6 100644
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
-@@ -242,6 +242,7 @@
+@@ -80,6 +80,7 @@
    </hbox>
  
-   <hbox id="languagesBox" align="center">
-+    <!--
+   <hbox id="languagesBox" align="center" data-srd-groupid="websiteLanguage">
++  <!--
      <description flex="1" control="chooseLanguage" data-l10n-id="choose-language-description"/>
      <button id="chooseLanguage"
              is="highlightable-button"
-@@ -256,6 +257,9 @@
+@@ -94,6 +95,9 @@
                languages-customize-select-language.placeholder,
                languages-customize-add.label,
              " />
@@ -31,16 +31,34 @@ index 3e3478c007..9f6c4b323e 100644
    </hbox>
  
    <checkbox id="useSystemLocale" hidden="true"
+@@ -105,13 +109,13 @@
+        when getting ready for the settings redesign to fully ship. -->
+   <vbox id="translationsGroup" data-srd-groupid="translations" data-subcategory="translations">
+     <label><html:h2 data-l10n-id="translations-manage-header"/></label>
+-    <checkbox id="translations-manage-enable" 
+-          data-l10n-id="translations-manage-enable" 
++    <checkbox id="translations-manage-enable"
++          data-l10n-id="translations-manage-enable"
+           preference="browser.translations.enable"
+           data-subcategory="translations-enable" />
+     <vbox id="innerTranslationsGroup" hidden="true">
+-    <checkbox id="translations-manage-autopopup" 
+-              data-l10n-id="translations-manage-autopopup" 
++    <checkbox id="translations-manage-autopopup"
++              data-l10n-id="translations-manage-autopopup"
+               preference="browser.translations.automaticallyPopup" />
+     <hbox id="translations-manage-description" align="center">
+       <description flex="1" data-l10n-id="translations-manage-intro-2"/>
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 478108c0d9..86413d885c 100644
+index 8feb0ce923..32e635be8d 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -3242,7 +3242,23 @@ var gMainPane = {
-       });
-     }
+@@ -743,7 +743,23 @@ var gMainPane = {
+       gMainPane.showBrowserLanguagesSubDialog({ search: false });
+     });
  
 -    setEventListener("chooseLanguage", "command", gMainPane.showLanguages);
-+    // setEventListener("chooseLanguage", "command", gMainPane.showLanguages);
++   // setEventListener("chooseLanguage", "command", gMainPane.showLanguages);
 +    {
 +      const spoofEnglish = document.getElementById("spoofEnglish");
 +      const kPrefSpoofEnglish = "privacy.spoof_english";
@@ -57,14 +75,40 @@ index 478108c0d9..86413d885c 100644
 +        preference.value = spoofEnglish.checked ? 2 : 1;
 +      });
 +    }
-     // TODO (Bug 1817084) Remove this code when we disable the extension
-     setEventListener(
-       "fxtranslateButton",
+ 
+     // Initilize Application section.
+ 
+@@ -859,7 +875,7 @@ var gMainPane = {
+     button.disabled = !preference.value;
+     return undefined;
+   },
+-  
++
+   readEnableTranslations(skipInit = false) {
+     const translationsEnabled = Preferences.get("browser.translations.enable").value;
+     document.getElementById("innerTranslationsGroup").hidden = !translationsEnabled;
+@@ -875,13 +891,13 @@ var gMainPane = {
+    */
+   async initTranslations() {
+     this.readEnableTranslations(true);
+-    
++
+     if (!Services.prefs.getBoolPref("browser.translations.enable")) {
+        return;
+     }
+-    
++
+     this._translationsInitialized = true;
+-    
++
+     /**
+      * Which phase a language download is in.
+      *
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index 75d3b8ed99..ef45f8b88f 100644
+index f82d7309e1..5ee259c25c 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-@@ -185,9 +185,13 @@ class _RFPHelper {
+@@ -179,9 +179,13 @@ class _RFPHelper {
        // Works like disabling accept-language spoofing.
        // fall through
        case 1: // don't spoof
@@ -82,5 +126,4 @@ index 75d3b8ed99..ef45f8b88f 100644
        case 2: // spoof
          Services.prefs.setCharPref("intl.accept_languages", "en-US, en");
 -- 
-2.52.0
-
+2.54.0
