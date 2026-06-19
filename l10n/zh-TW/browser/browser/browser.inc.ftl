@@ -3,3 +3,5 @@ urlbar-webgl-notification-anchor =
     .tooltiptext = 管理 WebGL 環境建立權限
 urlbar-webgl-blocked =
     .tooltiptext = 您已阻擋此網站建立 WebGL 環境。
+urlbar-eme-blocked =
+    .tooltiptext = 您已封鎖此網站播放由 DRM 控制的內容。

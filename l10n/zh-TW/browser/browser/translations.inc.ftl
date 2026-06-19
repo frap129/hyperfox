@@ -4,3 +4,6 @@ translations-manage-enable =
     .label = 啟用整頁翻譯
 translations-manage-autopopup =
     .label = 當頁面非瀏覽器設定之語言時，提示進行翻譯
+main-context-menu-translate-page =
+    .label = 翻譯網頁…
+    .accesskey = T
