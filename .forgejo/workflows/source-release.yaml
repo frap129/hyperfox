@@ -14,11 +14,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install Dependencies
-        run: |
-          apt-get update
-          apt-get -y install --no-install-recommends pigz gnupg python3
-
       - name: Make LibreWolf source archive
         env:
             SIGNING_KEY: ${{ forgejo.ref == 'refs/heads/main' && secrets.SIGNING_KEY || '' }}
