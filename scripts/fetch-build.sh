@@ -4,12 +4,12 @@ set -e
 
 fetch_and_extract() {
     rm -rf version source_release
-    wget -q -O version "https://codeberg.org/librewolf/source/raw/branch/main/version"
-    wget -q -O source_release "https://codeberg.org/librewolf/source/raw/branch/main/release"
-    
+    curl -so version "https://codeberg.org/librewolf/source/raw/branch/main/version"
+    curl -so source_release "https://codeberg.org/librewolf/source/raw/branch/main/release"
+
     rm -f "librewolf-$(cat version)-$(cat source_release).source.tar.gz"
-    wget -O "librewolf-$(cat version)-$(cat source_release).source.tar.gz" "https://codeberg.org/api/packages/librewolf/generic/librewolf-source/$(cat version)-$(cat source_release)/librewolf-$(cat version)-$(cat source_release).source.tar.gz"
-    
+    curl -so "librewolf-$(cat version)-$(cat source_release).source.tar.gz" "https://codeberg.org/api/packages/librewolf/generic/librewolf-source/$(cat version)-$(cat source_release)/librewolf-$(cat version)-$(cat source_release).source.tar.gz"
+
     rm -rf librewolf-$(cat version)
     tar xf librewolf-$(cat version)-$(cat source_release).source.tar.gz
 

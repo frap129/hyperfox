@@ -72,7 +72,7 @@ def enter_srcdir(_dir = None):
             print("fatal error: can't change to '{}' folder.".format(dir))
             sys.stdout.flush()
             script_exit(1)
-        
+
 def leave_srcdir():
     print("cd ..")
     sys.stdout.flush()
@@ -80,7 +80,7 @@ def leave_srcdir():
         os.chdir("..")
 
 
-        
+
 #
 # This is the only interesting function in this script
 #
@@ -93,7 +93,7 @@ def librewolf_patches():
     # remove OpenAI integration
     exec('rm -vf toolkit/components/ml/content/backends/OpenAIPipeline.mjs')
     exec('rm -vrf toolkit/components/ml/vendor/openai')
-    
+
     # create the right mozconfig file..
     exec('cp -v ../assets/mozconfig.new mozconfig')
 
@@ -128,7 +128,7 @@ def librewolf_patches():
     leave_srcdir();
 
 
-    
+
     #
     # pref-pane patches
     #
@@ -140,7 +140,7 @@ def librewolf_patches():
     exec('cp ../patches/pref-pane/librewolf.css browser/themes/shared/preferences/librewolf.css')
     exec('cp ../patches/pref-pane/librewolf.inc.xhtml browser/components/preferences/librewolf.inc.xhtml')
     exec('cp ../patches/pref-pane/librewolf.js browser/components/preferences/librewolf.js')
-    
+
     # provide a script that fetches and bootstraps Nightly and some mozconfigs
     exec('cp -v ../scripts/mozfetch.sh lw/')
     exec('cp -v ../assets/mozconfig.new lw/')
@@ -152,7 +152,7 @@ def librewolf_patches():
 
     print("-> Downloading locales from https://github.com/mozilla-l10n/firefox-l10n")
     with TemporaryDirectory() as tmpdir:
-        exec(f"wget -qO {tmpdir}/l10n.zip 'https://codeload.github.com/mozilla-l10n/firefox-l10n/zip/refs/heads/main'")
+        exec(f"curl -so {tmpdir}/l10n.zip 'https://codeload.github.com/mozilla-l10n/firefox-l10n/zip/refs/heads/main'")
         exec(f"unzip -qo {tmpdir}/l10n.zip -d {tmpdir}/l10n")
         exec(f"mv {tmpdir}/l10n/firefox-l10n-main lw/l10n")
 
@@ -178,7 +178,7 @@ def librewolf_patches():
                 "lw", "l10n",
                 *rel_path.parts
             )
-        
+
         target_path.parent.mkdir(parents=True, exist_ok=True)
 
         write_mode = "w"
