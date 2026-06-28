@@ -39,7 +39,6 @@ full_build_stage2_linux:
 	(cd SOURCEDIR && tar xf ../../librewolf*.tar.gz)
 
 
-	TARGET=linux ARCH=x86_64 ./bsys6 prepare
 	TARGET=linux ARCH=x86_64 ./bsys6 package
 
 	@echo "[debug] Done full_build_stage2_linux"
@@ -79,7 +78,6 @@ full_build_stage2_macos:
 	(cd SOURCEDIR && tar xf ../../librewolf*.tar.gz)
 
 
-	TARGET=macos ARCH=x86_64 ./bsys6 prepare
 	TARGET=macos ARCH=x86_64 ./bsys6 package
 
 	@echo "[debug] Done full_build_stage2_macos"
@@ -114,9 +112,6 @@ full_build_stage2_windows:
 	(cd SOURCEDIR && tar xf ../../librewolf*.tar.gz)
 
 
-	TARGET=windows ARCH=x86_64 ./bsys6 prepare
 	TARGET=windows ARCH=x86_64 ./bsys6 package
 
 	@echo "[debug] Done full_build_stage2_windows"
-
-
