@@ -50,11 +50,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install Dependencies
-        run: |
-          apt-get update
-          apt-get -y install curl jq
-
       - name: Detect Firefox Version
         id: detect
         run: |
@@ -81,7 +76,7 @@ jobs:
     if: inputs.Target == 'all' || inputs.Target == 'linux' || inputs.Target == ''
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: codeberg.org/librewolf/bsys6:linux
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -127,7 +122,7 @@ jobs:
     if: inputs.Target == 'all' || inputs.Target == 'windows'
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: codeberg.org/librewolf/bsys6:windows
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -173,7 +168,7 @@ jobs:
     if: inputs.Target == 'all' || inputs.Target == 'macos'
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: codeberg.org/librewolf/bsys6:macos
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
