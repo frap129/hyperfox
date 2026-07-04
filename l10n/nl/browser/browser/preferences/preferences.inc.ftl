@@ -108,3 +108,5 @@ librewolf-rfp-warning =
     .message = Deze optie is niet beschikbaar omdat ResistFingerprinting is ingeschakeld. Dit betekent dat LibreWolf lichte thema's op websites zal forceren.
 permissions-eme2 =
     .label = DRM-beheerde inhoud
+pane-librewolf-title2 = LibreWolf
+    .title = LibreWolf
