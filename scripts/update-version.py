@@ -22,7 +22,7 @@ def exec(cmd, exit_on_fail = True, do_print = True):
 
 def get_version_from_file(version_filename = './version'):
     with open(version_filename) as f:
-        lines = f.readlines()  
+        lines = f.readlines()
         if len(lines) != 1:
             sys.stderr.write('error: ./version contains too many lines.')
             os.exit(1)
@@ -39,7 +39,7 @@ def firefox_release_url(ver):
     return 'https://archive.mozilla.org/pub/firefox/releases/{}/source/firefox-{}.source.tar.xz'.format(ver, ver)
 
 def check_url_exists(url):
-    i = exec('wget --spider {} 2>/dev/null'.format(url), exit_on_fail=False, do_print=False)
+    i = exec('curl -I {} 2>/dev/null'.format(url), exit_on_fail=False, do_print=False)
     if i == 0:
         return True
     else:
@@ -85,7 +85,7 @@ elif check_url_exists(firefox_release_url(make_version_string(major+1,0,0))):
     s = ('{}.0'.format(major+1))
 else:
     s = base_version
-    
+
 if s != base_version:
     print('The wheel has turned, and version {} has been released.'.format(s))
 
@@ -94,5 +94,5 @@ if s != base_version:
     exec('echo 1 > release')
 else:
     print('Latest Firefox release is still {}.'.format(base_version))
-    
+
 sys.exit(0) # ensure 0 exit code

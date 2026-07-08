@@ -108,3 +108,5 @@ librewolf-rfp-warning =
     .message = Ez a funkció le van tiltva, mert a ResistFingerprinting engedélyezve van. Emiatt a LibreWolf a webes tartalmakat világos témával fogja megjeleníteni.
 permissions-eme2 =
     .label = DRM-vezérelt tartalom
+pane-librewolf-title2 = LibreWolf
+    .title = LibreWolf

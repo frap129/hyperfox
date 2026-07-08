@@ -21,8 +21,6 @@ ac_add_options --with-branding=browser/branding/librewolf
 
 ac_add_options --with-l10n-base=$PWD/lw/l10n
 
-ac_add_options --enable-bootstrap
-
 export MOZ_TELEMETRY_REPORTING=
 export MOZ_REQUIRE_SIGNING=
 export MOZILLA_OFFICIAL=1

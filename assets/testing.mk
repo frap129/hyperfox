@@ -15,7 +15,7 @@ bsys6_x86_64_linux_xz_artifact :
 
 	rm -rf bsys6
 	git clone "https://codeberg.org/librewolf/bsys6.git"
-	(cd bsys6 && sed -i '6,9d' assets/linux.mozconfig)
+	(cd bsys6 && sed -i '/ac_add_options --enable-profile-use\|ac_add_options --with-pgo-profile-path/d' assets/linux.mozconfig)
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_linux)
 	cp -v bsys6/*.xz .
 	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
@@ -39,7 +39,6 @@ full_build_stage2_linux:
 	(cd SOURCEDIR && tar xf ../../librewolf*.tar.gz)
 
 
-	TARGET=linux ARCH=x86_64 ./bsys6 prepare
 	TARGET=linux ARCH=x86_64 ./bsys6 package
 
 	@echo "[debug] Done full_build_stage2_linux"
@@ -56,6 +55,7 @@ bsys6_x86_64_macos_dmg_artifact :
 
 	rm -rf bsys6
 	git clone "https://codeberg.org/librewolf/bsys6.git"
+	(cd bsys6 && sed -i '/ac_add_options --enable-profile-use\|ac_add_options --with-pgo-profile-path/d' assets/macos.mozconfig)
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_macos)
 	cp -v bsys6/*.dmg .
 	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
@@ -79,7 +79,6 @@ full_build_stage2_macos:
 	(cd SOURCEDIR && tar xf ../../librewolf*.tar.gz)
 
 
-	TARGET=macos ARCH=x86_64 ./bsys6 prepare
 	TARGET=macos ARCH=x86_64 ./bsys6 package
 
 	@echo "[debug] Done full_build_stage2_macos"
@@ -91,6 +90,7 @@ bsys6_x86_64_windows_zip_artifact :
 
 	rm -rf bsys6
 	git clone "https://codeberg.org/librewolf/bsys6.git"
+	(cd bsys6 && sed -i '/ac_add_options --enable-profile-use\|ac_add_options --with-pgo-profile-path/d' assets/windows.mozconfig)
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_windows)
 	cp -v bsys6/*.zip .
 	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
@@ -114,9 +114,6 @@ full_build_stage2_windows:
 	(cd SOURCEDIR && tar xf ../../librewolf*.tar.gz)
 
 
-	TARGET=windows ARCH=x86_64 ./bsys6 prepare
 	TARGET=windows ARCH=x86_64 ./bsys6 package
 
 	@echo "[debug] Done full_build_stage2_windows"
-
-
