@@ -5,16 +5,15 @@ export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=pip
 export MOZBUILD_STATE_PATH="$srcdir/mozbuild"
 export MOZ_BUILD_DATE="$(date -u${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH} +%Y%m%d%H%M%S)"
 export MOZ_NOSPAM=1
-export MOZ_RUST_VERSION="1.90.0"
 export SCCACHE_DIR="/src/sccache"
 export SCCACHE_DIRECT=true
 
 cd /src || exit
 make dir || exit
-make bootstrap || exit
 
 # Build without PGO
 cat >$srcdir/mozconfig assets/mozconfig.new - <<END
+ac_add_options --with-wasi-sysroot=/usr
 ac_add_options --enable-profile-generate=cross
 ac_add_options --disable-elf-hack
 ac_add_options --enable-linker=mold
@@ -24,23 +23,24 @@ make build || exit
 
 # Generate PGO profdata
 (
-  cd $srcdir || exit
-  ./mach package
-  # Patch profileserver.py to remove %m (merge pool) - temporal profiling
-  # does not support runtime merging. Use only %p for unique filenames.
-  sed -i 's/default_%p_random_%m/profile_%p/g' build/pgo/profileserver.py
-  JARLOG_FILE="$srcdir/jarlog" \
-    dbus-run-session \
-    wlheadless-run -c weston --width=1920 --height=1080 -- \
-    ./mach python build/pgo/profileserver.py
-  # Merge profiles - use --failure-mode=warn to skip corrupt files from short-lived processes
-  "$MOZBUILD_STATE_PATH/clang/bin/llvm-profdata" merge --failure-mode=warn -o merged.profdata *.profraw || exit
-  rm -f *.profraw
-  ./mach clobber objdir
+	cd $srcdir || exit
+	./mach package
+	# Patch profileserver.py to remove %m (merge pool) - temporal profiling
+	# does not support runtime merging. Use only %p for unique filenames.
+	sed -i 's/default_%p_random_%m/profile_%p/g' build/pgo/profileserver.py
+	JARLOG_FILE="$srcdir/jarlog" \
+		dbus-run-session \
+		wlheadless-run -c weston --width=1920 --height=1080 -- \
+		./mach python build/pgo/profileserver.py
+	# Merge profiles - use --failure-mode=warn to skip corrupt files from short-lived processes
+	llvm-profdata merge --failure-mode=warn -o merged.profdata *.profraw || exit
+	rm -f *.profraw
+	./mach clobber objdir
 )
 
 # Final build
 cat >$srcdir/mozconfig assets/mozconfig.new - <<END
+ac_add_options --with-wasi-sysroot=/usr
 ac_add_options --enable-elf-hack=relr
 ac_add_options --enable-linker=lld
 ac_add_options --enable-lto=cross,full
