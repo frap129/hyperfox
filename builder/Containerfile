@@ -38,6 +38,7 @@ RUN apt install -y \
   clang-${LLVM_VERSION} \
   lld-${LLVM_VERSION} \
   llvm-${LLVM_VERSION} \
+  libclang-${LLVM_VERSION}-dev \
   libclang-rt-${LLVM_VERSION}-dev-wasm32 \
   libc++-${LLVM_VERSION}-dev-wasm32 \
   libc++abi-${LLVM_VERSION}-dev-wasm32 \
