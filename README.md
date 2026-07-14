@@ -239,6 +239,12 @@ The same steps as above do apply,
 you will just have to walk through the beginning part of the guides for:
 
 * [MacOS](https://firefox-source-docs.mozilla.org/setup/macos_build.html): The cross-compiled Mac `.dmg` files are somewhat new. They should work, perhaps with the exception of the `make setup-wasi` step.
+  macOS also ships BSD `patch` by default, which cannot parse some of the LibreWolf patches. Install GNU `patch` with Homebrew and the build scripts will use it automatically:
+
+  ```sh
+  brew install gpatch
+  ```
+
 * [Windows](https://firefox-source-docs.mozilla.org/setup/windows_build.html): Building on Windows is not very well tested.
 
 Help with testing these targets is always welcome.

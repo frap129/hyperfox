@@ -6,6 +6,7 @@
 
 
 import os
+import shutil
 import sys
 import optparse
 import time
@@ -47,8 +48,10 @@ def exec(cmd, exit_on_fail = True, do_print = True):
             return retval
         return None
 
+PATCH_BIN = shutil.which("gpatch") or "patch"
+
 def patch(patchfile):
-    cmd = "patch -p1 -i {}".format(patchfile)
+    cmd = "{} -p1 -i {}".format(PATCH_BIN, patchfile)
     print("\n*** -> {}".format(cmd))
     sys.stdout.flush()
     if not options.no_execute:
@@ -106,7 +109,7 @@ def librewolf_patches():
     # read lines of .txt file into 'patches'
     with open('../assets/patches.txt'.format(version), "r") as f:
         for line in f.readlines():
-            patch('../'+line)
+            patch('../'+line.strip())
 
     # apply xmas.patch seperately because not all builders use this repo the same way, and
     # we don't want to disturbe those workflows.
