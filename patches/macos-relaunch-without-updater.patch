@@ -1,0 +1,17 @@
+--- a/toolkit/xre/nsCommandLineServiceMac.mm
++++ b/toolkit/xre/nsCommandLineServiceMac.mm
+@@ -61,8 +61,12 @@
+     NSString* updaterPath = [[path stringByDeletingLastPathComponent]
+         stringByAppendingPathComponent:
+             @"updater.app/Contents/MacOS/org.mozilla.updater"];
+-    AddToCommandLine(updaterPath.UTF8String);
+-    AddToCommandLine("--openAppBundle");
++    // Only use the updater as a relauncher when it exists. When the updater is
++    // disabled, fall back to relaunching the .app bundle directly via NSWorkspace.
++    if ([[NSFileManager defaultManager] fileExistsAtPath:updaterPath]) {
++      AddToCommandLine(updaterPath.UTF8String);
++      AddToCommandLine("--openAppBundle");
++    }
+   }
+ 
+   // We adjust the path to point to the .app bundle, rather than the executable
