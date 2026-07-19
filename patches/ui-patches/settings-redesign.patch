@@ -572,10 +572,10 @@ index 813722a092..5a2574e072 100644
    return {
      l10nId: "startup-group",
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index adf60fab82..efcc3a6763 100644
+index c76a064..cbe4d17 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
-@@ -225,7 +225,7 @@ var scrollOffsets;
+@@ -224,7 +224,7 @@ var scrollOffsets;
  const CONFIG_PANES = Object.freeze({
    about: {
      l10nId: "about-firefox-header",
@@ -584,7 +584,7 @@ index adf60fab82..efcc3a6763 100644
      groupIds: ["updates", "support"],
      module: "chrome://browser/content/preferences/config/about-firefox.mjs",
      visible: () => srdSectionPrefs.all,
-@@ -273,7 +273,6 @@ const CONFIG_PANES = Object.freeze({
+@@ -272,7 +272,6 @@ const CONFIG_PANES = Object.freeze({
        "httpsOnly",
        "networkProxy",
        "privacyPanel",
@@ -592,7 +592,7 @@ index adf60fab82..efcc3a6763 100644
        "certificates",
      ],
      replaces: "privacy",
-@@ -316,7 +315,7 @@ const CONFIG_PANES = Object.freeze({
+@@ -315,7 +314,7 @@ const CONFIG_PANES = Object.freeze({
    home: {
      l10nId: "home-section",
      iconSrc: "chrome://browser/skin/home.svg",
@@ -601,7 +601,7 @@ index adf60fab82..efcc3a6763 100644
      module: "chrome://browser/content/preferences/config/home-startup.mjs",
      replaces: "home",
    },
-@@ -387,13 +386,12 @@ const CONFIG_PANES = Object.freeze({
+@@ -386,13 +385,12 @@ const CONFIG_PANES = Object.freeze({
      l10nId: "pane-privacy-section",
      iconSrc: "chrome://browser/skin/preferences/category-privacy-security.svg",
      groupIds: [
@@ -618,7 +618,7 @@ index adf60fab82..efcc3a6763 100644
        "dnsOverHttps",
        "connectionLink",
      ],
-@@ -416,7 +414,6 @@ const CONFIG_PANES = Object.freeze({
+@@ -415,7 +413,6 @@ const CONFIG_PANES = Object.freeze({
      l10nId: "account-sync-section",
      iconSrc: "chrome://browser/skin/fxa/avatar-empty.svg",
      groupIds: [
@@ -626,15 +626,15 @@ index adf60fab82..efcc3a6763 100644
        "accountDisabled",
        "account",
        "sync",
-@@ -441,6 +438,7 @@ const CONFIG_PANES = Object.freeze({
+@@ -440,6 +437,7 @@ const CONFIG_PANES = Object.freeze({
        "browserLayout",
        "tabs",
        "pageNavigation",
 +      "mouse",
        "media",
        "performance",
-     ],
-@@ -523,11 +521,13 @@ function init_all() {
+       "recommendations",
+@@ -523,6 +521,9 @@ function init_all() {
      register_module("paneGeneral", gMainPane);
      document.getElementById("category-general").hidden = false;
      document.getElementById("nav-separator").hidden = true;
@@ -644,12 +644,7 @@ index adf60fab82..efcc3a6763 100644
    }
    register_module("paneHome", gHomePane);
    register_module("paneSearch", gSearchPane);
-   register_module("panePrivacy", gPrivacyPane);
--  register_module("paneLibrewolf", gLibrewolfPane);
- 
-   // Restore the cached Firefox Labs nav button visibility so it shows
-   // immediately when recipes are expected to be available, before
-@@ -598,6 +598,12 @@ function init_all() {
+@@ -599,6 +600,12 @@ function init_all() {
    document.getElementById("focusSearch1").addEventListener("command", () => {
      gSearchResultsPane.searchInput.focus();
    });

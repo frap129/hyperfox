@@ -22,14 +22,6 @@ index c76a064..845d0dc 100644
  /* import-globals-from sync.js */
  /* import-globals-from moreFromMozilla.js */
  /* import-globals-from findInPage.js */
-@@ -527,6 +528,7 @@ function init_all() {
-   register_module("paneHome", gHomePane);
-   register_module("paneSearch", gSearchPane);
-   register_module("panePrivacy", gPrivacyPane);
-+  register_module("paneLibrewolf", gLibrewolfPane);
- 
-   // Restore the cached Firefox Labs nav button visibility so it shows
-   // immediately when recipes are expected to be available, before
 diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
 index 1b8c381..b5531ac 100644
 --- a/browser/components/preferences/preferences.xhtml
