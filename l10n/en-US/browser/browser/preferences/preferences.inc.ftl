@@ -82,6 +82,9 @@ librewolf-swap-settings = Swap settings design
 librewolf-mouse-heading2 =
     .label = Mouse behavior
 
+librewolf-JXL =
+    .label = Enable JXL (JPEG XL) support
+
 ## Permissions
 
 # (This label matches Fenix's preference_phone_feature_media_key_system_access string:

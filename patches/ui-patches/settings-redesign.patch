@@ -444,18 +444,19 @@ index d06a45ed88..001483f751 100644
          id: "etpLevelWarning",
          control: "moz-promo",
 diff --git a/browser/components/preferences/config/tabs-browsing.mjs b/browser/components/preferences/config/tabs-browsing.mjs
-index ec183922fd..0b13585ed4 100644
+index ec183922fd..0b5db0e6ae 100644
 --- a/browser/components/preferences/config/tabs-browsing.mjs
 +++ b/browser/components/preferences/config/tabs-browsing.mjs
-@@ -125,7 +125,28 @@ if (srdEnabled) {
+@@ -125,7 +125,34 @@ if (srdEnabled) {
         document; when set to false, no search action happens */
      { id: "accessibility.browsewithcaret", type: "bool" },
      { id: "accessibility.typeaheadfind", type: "bool" },
 +    // Clipboard autocopy/paste
 +    { id: "clipboard.autocopy", type: "bool" },
 +    { id: "middlemouse.paste", type: "bool" },
++    { id: "image.jxl.enabled", type: "bool"},
    ]);
-+  
++
 +  Preferences.addSetting({
 +    id: "librewolfAutocopy",
 +    pref: "clipboard.autocopy",
@@ -473,10 +474,15 @@ index ec183922fd..0b13585ed4 100644
 +      deps.librewolfPaste.value = value;
 +    },
 +  });
++
++  Preferences.addSetting({
++    id: "librewolfJXL",
++    pref: "image.jxl.enabled",
++  });
  }
  
  // Tabs settings
-@@ -711,6 +732,16 @@ SettingGroupManager.registerGroups({
+@@ -711,6 +738,16 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -493,6 +499,17 @@ index ec183922fd..0b13585ed4 100644
    media: {
      l10nId: "settings-media-group",
      headingLevel: 2,
+@@ -733,6 +770,10 @@ SettingGroupManager.registerGroups({
+         l10nId: "play-drm-content",
+         supportPage: "drm-content",
+       },
++      {
++        id: "librewolfJXL",
++        l10nId: "librewolf-JXL",
++      },
+     ],
+   },
+   performance: {
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
 index 813722a092..5a2574e072 100644
 --- a/browser/components/preferences/main.js
