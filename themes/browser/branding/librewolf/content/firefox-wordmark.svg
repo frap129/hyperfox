@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="172" height="48"></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="350.48819mm"
+   height="57.414528mm"
+   viewBox="0 0 350.48819 57.414528"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-4.9614865,-9.6879244)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:74.0833px;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';writing-mode:lr-tb;direction:ltr;fill:context-fill;stroke-width:0.264583"
+       x="-1.3355262"
+       y="66.361603"
+       id="text1"><tspan
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:74.0833px;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:context-fill;stroke-width:0.264583"
+         x="-1.3355262"
+         y="66.361603">LibreWolf</tspan></text>
+  </g>
+</svg>
