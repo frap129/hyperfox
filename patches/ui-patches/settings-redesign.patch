@@ -883,3 +883,23 @@ index 0000000..7c552cc
 +       transform="matrix(0.23203125,0.40188991,-0.99392962,0.57384553,246.21921,73.888081)" />
 +  </g>
 +</svg>
+diff --git a/browser/extensions/newtab/css/activity-stream.css b/browser/extensions/newtab/css/activity-stream.css
+index 5f86582..20fad77 100644
+--- a/browser/extensions/newtab/css/activity-stream.css
++++ b/browser/extensions/newtab/css/activity-stream.css
+@@ -1072,13 +1072,13 @@ main.newtab-main section {
+ }
+ .logo-and-wordmark .wordmark {
+   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
+-  background-size: 105px;
++  background-size: 200px;
+   -moz-context-properties: fill;
+   display: inline-block;
+   fill: var(--newtab-wordmark-color);
+   height: 64px;
+   margin-inline-start: var(--space-large);
+-  width: 105px;
++  width: 200px;
+ }
+ .lightWallpaper .logo-and-wordmark .wordmark {
+   color-scheme: light;
