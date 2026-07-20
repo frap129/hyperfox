@@ -1,8 +1,101 @@
 diff --git a/browser/components/preferences/config/about-firefox.mjs b/browser/components/preferences/config/about-firefox.mjs
-index e90e8ec677..5211e60af7 100644
+index e90e8ec..fbab201 100644
 --- a/browser/components/preferences/config/about-firefox.mjs
 +++ b/browser/components/preferences/config/about-firefox.mjs
-@@ -574,14 +574,6 @@ SettingGroupManager.registerGroups({
+@@ -472,92 +472,6 @@ Preferences.addSetting({
+ });
+ 
+ SettingGroupManager.registerGroups({
+-  updates: {
+-    l10nId: "update-application-heading",
+-    iconSrc: "chrome://browser/skin/update-badge.svg",
+-    subcategory: "update-state",
+-    headingLevel: 2,
+-    items: [
+-      {
+-        id: "updatesManagedByOS",
+-        l10nId: "update-application-updates-managed-by-os",
+-        control: "moz-message-bar",
+-        controlAttrs: {
+-          role: "status",
+-        },
+-      },
+-      {
+-        id: "updateApp",
+-        control: "moz-box-group",
+-        items: [
+-          {
+-            id: "updateState",
+-            control: "update-state",
+-          },
+-          {
+-            id: "updateAppInfo",
+-            control: "update-information",
+-          },
+-          {
+-            id: "showUpdateHistory",
+-            l10nId: "update-history-2",
+-            control: "moz-box-button",
+-            controlAttrs: {
+-              "search-l10n-ids": "history-title,history-intro",
+-            },
+-          },
+-        ],
+-      },
+-      {
+-        id: "installationFieldset",
+-        control: "moz-fieldset",
+-        l10nId: "update-application-installation",
+-        items: [
+-          {
+-            id: "updateSettingCrossUserWarning",
+-            control: "moz-message-bar",
+-            l10nId: "update-application-warning-cross-user-setting-2",
+-            controlAttrs: {
+-              role: "status",
+-            },
+-          },
+-          {
+-            id: "updateRadioGroup",
+-            control: "moz-radio-group",
+-            options: [
+-              {
+-                id: "autoDesktop",
+-                value: true,
+-                l10nId: "update-application-auto-2",
+-                items: [
+-                  {
+-                    id: "backgroundUpdate",
+-                    l10nId: "update-application-background-enabled",
+-                  },
+-                ],
+-              },
+-              {
+-                id: "manualDesktop",
+-                value: false,
+-                l10nId: "update-application-check-choose-2",
+-              },
+-            ],
+-          },
+-        ],
+-      },
+-      {
+-        id: "showUpdatePromptsHeader",
+-        control: "moz-fieldset",
+-        l10nId: "update-application-suppress-prompts-heading",
+-        items: [
+-          {
+-            id: "showUpdatePrompts",
+-            l10nId: "update-application-suppress-prompts-2",
+-          },
+-        ],
+-      },
+-    ],
+-  },
+   support: {
+     inProgress: true,
+     l10nId: "support-application-heading",
+@@ -574,14 +488,6 @@ SettingGroupManager.registerGroups({
              control: "moz-box-link",
              supportPage: "preferences",
            },
@@ -572,18 +665,20 @@ index 813722a092..5a2574e072 100644
    return {
      l10nId: "startup-group",
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index c76a064..cbe4d17 100644
+index c76a064..ea0e9e2 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
-@@ -224,7 +224,7 @@ var scrollOffsets;
+@@ -224,8 +224,8 @@ var scrollOffsets;
  const CONFIG_PANES = Object.freeze({
    about: {
      l10nId: "about-firefox-header",
 -    iconSrc: "chrome://browser/skin/sidebar/firefox.svg",
+-    groupIds: ["updates", "support"],
 +    iconSrc: "chrome://browser/skin/sidebar/librewolf.svg",
-     groupIds: ["updates", "support"],
++    groupIds: ["support"],
      module: "chrome://browser/content/preferences/config/about-firefox.mjs",
      visible: () => srdSectionPrefs.all,
+   },
 @@ -272,7 +272,6 @@ const CONFIG_PANES = Object.freeze({
        "httpsOnly",
        "networkProxy",
