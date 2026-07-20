@@ -12,21 +12,21 @@ Subject: [PATCH] BB 42019: Empty browser's clipboard on browser shutdown
  create mode 100644 browser/modules/ClipboardPrivacy.sys.mjs
 
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index cdc984ec48..5d77f5b5fb 100644
+index d7f3045f1f..30135d1e04 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -3615,3 +3615,6 @@ pref("browser.contentsharing.newBadge.enabled", true);
- 
- // When enabled, Firefox ignores the distribution.ini file if global.id is MozillaOnline.
- pref("distribution.mozillaonline.ignore", true);
+@@ -3626,3 +3626,6 @@ pref("distribution.mozillaonline.ignore", true);
+ #ifdef XP_MACOSX
+   pref("browser.macAppMenu.setAsDefaultShown", false);
+ #endif
 +
 +// Empty clipboard content from private windows on exit (tor-browser#42154)
 +pref("browser.privatebrowsing.preserveClipboard", false);
 diff --git a/browser/components/BrowserComponents.manifest b/browser/components/BrowserComponents.manifest
-index d91f7fd2de..a4dbe60f2b 100644
+index 8edb9fe210..7c13c642e8 100644
 --- a/browser/components/BrowserComponents.manifest
 +++ b/browser/components/BrowserComponents.manifest
-@@ -73,6 +73,7 @@ category browser-first-window-ready resource://gre/modules/SandboxUtils.sys.mjs
+@@ -121,6 +121,7 @@ category browser-first-window-ready resource://gre/modules/SandboxUtils.sys.mjs
  category browser-window-delayed-startup resource://gre/modules/SandboxUtils.sys.mjs SandboxUtils.maybeWarnAboutDisabledContentSandbox
  category browser-first-window-ready resource://gre/modules/SandboxUtils.sys.mjs SandboxUtils.observeContentSandboxPref
  #endif
@@ -219,17 +219,17 @@ index 0000000000..e0cccc8b66
 +  },
 +};
 diff --git a/browser/modules/moz.build b/browser/modules/moz.build
-index 08637b3419..8599eb556d 100644
+index 76561d82f9..ab672f1027 100644
 --- a/browser/modules/moz.build
 +++ b/browser/modules/moz.build
-@@ -148,6 +148,7 @@ EXTRA_JS_MODULES += [
+@@ -149,6 +149,7 @@ EXTRA_JS_MODULES += [
  
  MOZ_SRC_FILES += [
      "CanvasPermissionPromptHelper.sys.mjs",
 +    "ClipboardPrivacy.sys.mjs",
      "ContextId.sys.mjs",
+     "EMEPermissionPrompt.sys.mjs",
      "ObserverForwarder.sys.mjs",
-     "PrivateBrowsingUI.sys.mjs",
 -- 
-2.53.0
+2.54.0
 
