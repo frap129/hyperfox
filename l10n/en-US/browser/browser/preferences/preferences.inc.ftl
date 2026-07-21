@@ -72,6 +72,19 @@ librewolf-open-profile = Open user profile directory
 
 content-blocking-section-top-level-description = LibreWolf supports - and it enables by default - Enhanced Tracking Protection in Strict mode. This is one of the most important settings in the browser, as it provides state partitioning, strict blocking lists and other neat privacy features. We do not recommend changing to other modes.
 
+librewolf-etp =
+    .label = Enhanced Tracking Protection
+    .description = LibreWolf supports - and it enables by default - Enhanced Tracking Protection in Strict mode. This is one of the most important settings in the browser, as it provides state partitioning, strict blocking lists and other neat privacy features. We do not recommend changing to other modes.
+
+librewolf-swap-settings = Swap settings design
+    .title = Swap settings design
+    
+librewolf-mouse-heading2 =
+    .label = Mouse behavior
+
+librewolf-JXL =
+    .label = Enable JXL (JPEG XL) support
+
 ## Permissions
 
 # (This label matches Fenix's preference_phone_feature_media_key_system_access string:
