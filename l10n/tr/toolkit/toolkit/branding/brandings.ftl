@@ -2,6 +2,7 @@
 -translations-brand-name = Çeviriler
 -firefox-suggest-brand-name = Öneriler
 -firefox-home-brand-name = Ana sayfa
--firefoxlabs-brand-name = Deneysel Özellikler
+-firefoxlabs-brand-name = Mozilla'dan Firefox Labs
 -profiler-brand-name = İşleyiş Gözden Geçirici
 -firefoxview-brand-name = Sekme Görünümü
+-relay-brand-name = Mozilla'dan Relay
