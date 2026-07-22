@@ -101,4 +101,10 @@ async function init(aEvent) {
       screen.availHeight / 5
     );
   }
+
+  document.getElementById("escapeKey").addEventListener("command", () => {
+    window.close();
+  });
 }
+
+document.addEventListener("DOMContentLoaded", init);

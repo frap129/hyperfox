@@ -1,7 +1,7 @@
 translations-panel-disable-translations =
     .label = Çeviri servisini tamamen devre dışı bırak
 translations-manage-autopopup =
-    .label = Tarayıcının ana dilinde olmayan sayfaların çevrilmesini öner
+    .label = Tarayıcıda yapılandırılmamış dillerdeki sayfaları çevirmeyi öner
 translations-manage-enable =
     .label = Sayfanın tamamen çevrilmesini etkinleştir
 main-context-menu-translate-page =

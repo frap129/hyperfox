@@ -604,10 +604,10 @@ index ec183922fd..0b5db0e6ae 100644
    },
    performance: {
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 813722a092..5a2574e072 100644
+index fcbd421..ebc5a65 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -537,56 +537,6 @@ Preferences.addSetting({
+@@ -596,56 +596,6 @@ Preferences.addSetting({
    pref: "browser.ai.control.smartWindow",
  });
  
@@ -664,6 +664,14 @@ index 813722a092..5a2574e072 100644
  function createStartupConfig(hidden = false) {
    return {
      l10nId: "startup-group",
+@@ -812,7 +762,6 @@ var gMainPane = {
+     initSettingGroup("browsing");
+     initSettingGroup("keyboardAndScrolling");
+     initSettingGroup("motionAndLink");
+-    initSettingGroup("updates");
+     initSettingGroup("translations");
+     initSettingGroup("spellCheck");
+     initSettingGroup("performance");
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
 index c76a064..ea0e9e2 100644
 --- a/browser/components/preferences/preferences.js
@@ -998,3 +1006,47 @@ index 5f86582..20fad77 100644
  }
  .lightWallpaper .logo-and-wordmark .wordmark {
    color-scheme: light;
+diff --git a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
+index ea50223..d782989 100644
+--- a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
++++ b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
+@@ -74,12 +74,12 @@ p {
+ .wordmark {
+   display: inline-block;
+   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
+-  background-size: 172px;
++  background-size: 250px;
+   margin-inline-start: 15px;
+   -moz-context-properties: fill;
+   fill: currentColor;
+   height: 96px;
+-  width: 172px;
++  width: 250px;
+ }
+ 
+ .search-inner-wrapper {
+diff --git a/browser/components/backup/BackupService.sys.mjs b/browser/components/backup/BackupService.sys.mjs
+index bd2f95db2d..23ed1d8e90 100644
+--- a/browser/components/backup/BackupService.sys.mjs
++++ b/browser/components/backup/BackupService.sys.mjs
+@@ -657,7 +657,7 @@ export class BackupService extends EventTarget {
+    *
+    * @see BACKUP_DIR_NAME
+    */
+-  static #backupFolderName = "Restore Firefox";
++  static #backupFolderName = "Restore LibreWolf";
+ 
+   /**
+    * The name of the backup archive file. Should be localized.
+diff --git a/browser/components/controlcenter/content/trustPanel.inc.xhtml b/browser/components/controlcenter/content/trustPanel.inc.xhtml
+index 9ba778ccac..2e3c86ba5b 100644
+--- a/browser/components/controlcenter/content/trustPanel.inc.xhtml
++++ b/browser/components/controlcenter/content/trustPanel.inc.xhtml
+@@ -35,7 +35,6 @@
+         </html:breach-alert-panel>
+         <vbox id="trustpanel-graphic-section">
+           <hbox class="trustpanel-card-main">
+-            <image id="trustpanel-graphic-image-legacy"></image>
+             <vbox id="trustpanel-graphic-section-text" class="trustpanel-card-content">
+               <label when-connection="secure secure-ev secure-etsi secure-cert-user-overridden chrome file extension net-error-page https-only-error-page"
+                      id="trustpanel-header"
