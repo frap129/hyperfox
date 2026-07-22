@@ -1038,3 +1038,15 @@ index bd2f95db2d..23ed1d8e90 100644
  
    /**
     * The name of the backup archive file. Should be localized.
+diff --git a/browser/components/controlcenter/content/trustPanel.inc.xhtml b/browser/components/controlcenter/content/trustPanel.inc.xhtml
+index 9ba778ccac..2e3c86ba5b 100644
+--- a/browser/components/controlcenter/content/trustPanel.inc.xhtml
++++ b/browser/components/controlcenter/content/trustPanel.inc.xhtml
+@@ -35,7 +35,6 @@
+         </html:breach-alert-panel>
+         <vbox id="trustpanel-graphic-section">
+           <hbox class="trustpanel-card-main">
+-            <image id="trustpanel-graphic-image-legacy"></image>
+             <vbox id="trustpanel-graphic-section-text" class="trustpanel-card-content">
+               <label when-connection="secure secure-ev secure-etsi secure-cert-user-overridden chrome file extension net-error-page https-only-error-page"
+                      id="trustpanel-header"
