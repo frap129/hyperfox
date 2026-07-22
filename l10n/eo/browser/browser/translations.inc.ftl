@@ -1,0 +1,9 @@
+translations-panel-disable-translations =
+    .label = Tute malŝalti tradukadon
+translations-manage-enable =
+    .label = Ŝalti tradukadon de tutaj paĝoj
+translations-manage-autopopup =
+    .label = Sugesti tradukadon por paĝoj, kiuj ne estas en la agordita lingvo de la retumilo
+main-context-menu-translate-page =
+    .label = Traduki paĝon…
+    .accesskey = T

@@ -1,0 +1,11 @@
+permissions-site-eme-window2 =
+    .title = Agordoj - Permesoj de EME
+    .style = { permissions-window2.style }
+permissions-site-eme-desc = La sekvaj retejoj petis ludi DRM-kontrolitan enhavon. Vi povas specifi, kiuj retejoj rajtas ludi DRM-kontrolitan enhavon. Vi povas ankaŭ bloki novajn petojn por ludado de DRM-kontrolita enhavo.
+permissions-site-eme-disable-label =
+    .label = Bloki novajn petojn por ludado de DRM-kontrolita enhavo
+permissions-site-eme-disable-desc = Ĉi tiu agordo malebligas al ĉiuj retejoj, ne listigitaj supre, peti permeson por ludado de DRM-kontrolita enhavo.
+permissions-site-webgl-window2 =
+    .title = Agordoj - Permesoj de WebGL
+    .style = { permissions-window2.style }
+permissions-site-webgl-desc = La sekvaj retejoj petis krei kuntekston de WebGL. Vi povas specifi, kiuj retejoj rajtas krei kuntekston de WebGL. Vi povas ankaŭ bloki novajn petojn por kreado de kuntekstoj de WebGL.

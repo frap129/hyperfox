@@ -1,0 +1,8 @@
+-screenshots-brand-name = Ekrankopioj
+-profiler-brand-name = Profililo
+-translations-brand-name = Tradukoj
+-firefox-suggest-brand-name = Sugestoj
+-firefox-home-brand-name = Hejma paĝo
+-firefoxview-brand-name = Langeta vido
+-firefoxlabs-brand-name = Firefox Labs de Mozilla
+-relay-brand-name = Relay de Mozilla
