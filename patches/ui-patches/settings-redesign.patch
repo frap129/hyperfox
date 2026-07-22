@@ -604,10 +604,10 @@ index ec183922fd..0b5db0e6ae 100644
    },
    performance: {
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 813722a092..5a2574e072 100644
+index fcbd421..ebc5a65 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -537,56 +537,6 @@ Preferences.addSetting({
+@@ -596,56 +596,6 @@ Preferences.addSetting({
    pref: "browser.ai.control.smartWindow",
  });
  
@@ -664,6 +664,14 @@ index 813722a092..5a2574e072 100644
  function createStartupConfig(hidden = false) {
    return {
      l10nId: "startup-group",
+@@ -812,7 +762,6 @@ var gMainPane = {
+     initSettingGroup("browsing");
+     initSettingGroup("keyboardAndScrolling");
+     initSettingGroup("motionAndLink");
+-    initSettingGroup("updates");
+     initSettingGroup("translations");
+     initSettingGroup("spellCheck");
+     initSettingGroup("performance");
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
 index c76a064..ea0e9e2 100644
 --- a/browser/components/preferences/preferences.js
