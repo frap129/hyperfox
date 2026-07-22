@@ -998,3 +998,22 @@ index 5f86582..20fad77 100644
  }
  .lightWallpaper .logo-and-wordmark .wordmark {
    color-scheme: light;
+diff --git a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
+index ea50223..d782989 100644
+--- a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
++++ b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
+@@ -74,12 +74,12 @@ p {
+ .wordmark {
+   display: inline-block;
+   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
+-  background-size: 172px;
++  background-size: 250px;
+   margin-inline-start: 15px;
+   -moz-context-properties: fill;
+   fill: currentColor;
+   height: 96px;
+-  width: 172px;
++  width: 250px;
+ }
+ 
+ .search-inner-wrapper {
