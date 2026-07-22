@@ -1017,3 +1017,16 @@ index ea50223..d782989 100644
  }
  
  .search-inner-wrapper {
+diff --git a/browser/components/backup/BackupService.sys.mjs b/browser/components/backup/BackupService.sys.mjs
+index bd2f95db2d..23ed1d8e90 100644
+--- a/browser/components/backup/BackupService.sys.mjs
++++ b/browser/components/backup/BackupService.sys.mjs
+@@ -657,7 +657,7 @@ export class BackupService extends EventTarget {
+    *
+    * @see BACKUP_DIR_NAME
+    */
+-  static #backupFolderName = "Restore Firefox";
++  static #backupFolderName = "Restore LibreWolf";
+ 
+   /**
+    * The name of the backup archive file. Should be localized.
