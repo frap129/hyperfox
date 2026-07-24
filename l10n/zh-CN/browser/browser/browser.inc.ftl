@@ -3,3 +3,5 @@ urlbar-webgl-notification-anchor =
     .tooltiptext = 管理WebGL上下文创建权限
 urlbar-webgl-blocked =
     .tooltiptext = 您已阻止此网站创建WebGL上下文。
+urlbar-eme-blocked =
+    .tooltiptext = 您已阻止此网站播放由 DRM 控制的內容。
