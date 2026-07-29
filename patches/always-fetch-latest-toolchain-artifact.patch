@@ -2,7 +2,7 @@ diff --git a/python/mozbuild/mozbuild/artifact_commands.py b/python/mozbuild/moz
 index edbc11f..6f369ef 100644
 --- a/python/mozbuild/mozbuild/artifact_commands.py
 +++ b/python/mozbuild/mozbuild/artifact_commands.py
-@@
+@@ -9,8 +9,9 @@
  import logging
  import os
  import pathlib
@@ -13,7 +13,7 @@ index edbc11f..6f369ef 100644
  import mozversioncontrol
  from mach.decorators import Command, CommandArgument, SubCommand
 
-@@
+@@ -452,28 +452,30 @@
              artifact_name = task["attributes"].get(f"{task['kind']}-artifact")
 -            optimization = task.get("optimization", {})
 -            command_context.log(

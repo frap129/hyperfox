@@ -24,6 +24,7 @@ ac_add_options --with-l10n-base=$PWD/lw/l10n
 export MOZ_TELEMETRY_REPORTING=
 export MOZ_REQUIRE_SIGNING=
 export MOZILLA_OFFICIAL=1
+export MOZ_APP_REMOTINGNAME=LibreWolf
 
 mk_add_options MOZ_CRASHREPORTER=0
 mk_add_options MOZ_DATA_REPORTING=0

@@ -1,0 +1,11 @@
+permissions-site-eme-window2 =
+    .title = Configuració - Permisos EME
+    .style = { permissions-window2.style }
+permissions-site-eme-desc = Els següents llocs web han demanat reproduir contingut gestionat per DRM. Pots especificar quins llocs web tenen permís per a reproduir contingut DRM. També pots bloquejar noves demandes de reproducció de contingut DRM.
+permissions-site-eme-disable-label =
+    .label = Blocar noves sol·licituds de reproducció de contingut DRM
+permissions-site-eme-disable-desc = Això impedirà que les pàgines web no llistades anteriorment puguin demanar permís per a reproduir contingut DRM.
+permissions-site-webgl-window2 =
+    .title = Arranjament - Permisos WebGL
+    .style = { permissions-window2.style }
+permissions-site-webgl-desc = Les següents pàgines web han demanat la creació d'un context WebGL. Pots especificar quins llocs web tenen permisos per a la creació del context WebGL. També pots blocar les noves sol·licituds de creació del context WebGL.

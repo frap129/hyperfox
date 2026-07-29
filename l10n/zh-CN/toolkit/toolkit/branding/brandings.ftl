@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = 建议
 -firefox-home-brand-name = 主页
 -firefoxview-brand-name = 标签页视图
--firefoxlabs-brand-name = 实验功能
+-firefoxlabs-brand-name = Firefox 实验室
+-relay-brand-name = Relay (Mozilla 提供)

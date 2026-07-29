@@ -105,3 +105,13 @@ librewolf-letterboxing-checkbox2 =
     .description = O letterboxing aplica margens ao redor das suas janelas, a fim de retornar um conjunto limitado de resoluções arredondadas.
 permissions-eme2 =
     .label = Conteúdo controlado por direitos autorais
+librewolf-etp = j.label = Proteção Aprimorada contra Rastreamento
+    .description = O LibreWolf suporta - e habilita por padrão - a Proteção Aprimorada contra Rastreamento no modo Rigoroso. Essa é uma das configurações mais importantes do navegador, já que ela oferece partição de estados, listas de bloqueio rígidas e outros recursos interessantes de privacidade. Não é recomendado alterar para outros modos.
+librewolf-swap-settings = Trocar modelo de configurações
+    .title = Trocar modelo de configurações
+librewolf-mouse-heading2 =
+    .label = Comportamento do mouse
+librewolf-JXL =
+    .label = Habilitar suporte a JXL (JPEG XL)
+pane-librewolf-title2 = jLibreWolf
+    .title = LibreWolf
