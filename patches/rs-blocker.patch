@@ -22,23 +22,10 @@ index 3e4e915..a927685 100644
      if (records === null) {
        // Return -1 if file is missing.
 diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/RemoteSettingsClient.sys.mjs
-index 3ee4ae6..5e4aa40 100644
+index 3ee4ae6..12165e1 100644
 --- a/services/settings/RemoteSettingsClient.sys.mjs
 +++ b/services/settings/RemoteSettingsClient.sys.mjs
-@@ -26,6 +26,12 @@ ChromeUtils.defineESModuleGetters(lazy, {
- 
- ChromeUtils.defineLazyGetter(lazy, "console", () => lazy.Utils.log);
- 
-+ChromeUtils.defineLazyGetter(lazy, "allowedCollectionsFromDump", () =>
-+  Services.prefs
-+    .getStringPref("librewolf.services.settings.allowedCollectionsFromDump", "")
-+    .split(",")
-+);
-+
- /**
-  * Minimalist event emitter.
-  *
-@@ -215,6 +221,11 @@ class AttachmentDownloader extends Downloader {
+@@ -215,6 +215,11 @@ class AttachmentDownloader extends Downloader {
     * @see Downloader.download
     */
    async download(record, options) {
@@ -50,28 +37,18 @@ index 3ee4ae6..5e4aa40 100644
      await lazy.UptakeTelemetry.report(
        lazy.UptakeTelemetry.STATUS.DOWNLOAD_START,
        {
-@@ -523,7 +534,8 @@ export class RemoteSettingsClient extends EventEmitter {
-         // overwrites the local data).
-         let lastModifiedDump = await lazy.Utils.getLocalDumpLastModified(
-           this.bucketName,
--          this.collectionName
-+          this.collectionName,
-+          lazy.allowedCollectionsFromDump
-         );
-         if (lastModified < lastModifiedDump) {
-           lazy.console.debug(
-@@ -586,7 +598,9 @@ export class RemoteSettingsClient extends EventEmitter {
+@@ -586,7 +591,9 @@ export class RemoteSettingsClient extends EventEmitter {
        }
        ({ data } = await lazy.SharedUtils.loadJSONDump(
          this.bucketName,
 -        this.collectionName
 +        this.collectionName,
 +        lazy.Utils.allowedCollections,
-+        lazy.allowedCollectionsFromDump
++        lazy.Utils.allowedCollectionsFromDump
        ));
        if (data !== null) {
          lazy.console.info(`${this.identifier} falling back to JSON dump`);
-@@ -656,6 +670,10 @@ export class RemoteSettingsClient extends EventEmitter {
+@@ -656,6 +663,10 @@ export class RemoteSettingsClient extends EventEmitter {
        return;
      }
  
@@ -82,14 +59,14 @@ index 3ee4ae6..5e4aa40 100644
      // We want to know which timestamp we are expected to obtain in order to leverage
      // cache busting. We don't provide ETag because we don't want a 304.
      const { changes } = await lazy.Utils.fetchLatestChanges(
-@@ -1040,7 +1058,9 @@ export class RemoteSettingsClient extends EventEmitter {
+@@ -1040,7 +1051,9 @@ export class RemoteSettingsClient extends EventEmitter {
      lazy.console.info(`${this.identifier} try to restore dump`);
      const result = await lazy.RemoteSettingsWorker.importJSONDump(
        this.bucketName,
 -      this.collectionName
 +      this.collectionName,
 +      lazy.Utils.allowedCollections,
-+      lazy.allowedCollectionsFromDump
++      lazy.Utils.allowedCollectionsFromDump
      );
      if (result < 0) {
        lazy.console.debug(`${this.identifier} no dump available`);
@@ -204,10 +181,10 @@ index e5b20d9..9a71c99 100644
 +  },
  };
 diff --git a/services/settings/Utils.sys.mjs b/services/settings/Utils.sys.mjs
-index 76f69ab..b30fbbf 100644
+index 76f69ab..daf715c 100644
 --- a/services/settings/Utils.sys.mjs
 +++ b/services/settings/Utils.sys.mjs
-@@ -91,6 +91,12 @@ XPCOMUtils.defineLazyPreferenceGetter(
+@@ -91,6 +91,18 @@ XPCOMUtils.defineLazyPreferenceGetter(
    false
  );
  
@@ -217,10 +194,16 @@ index 76f69ab..b30fbbf 100644
 +    .split(",")
 +);
 +
++ChromeUtils.defineLazyGetter(lazy, "allowedCollectionsFromDump", () =>
++  Services.prefs
++    .getStringPref("librewolf.services.settings.allowedCollectionsFromDump", "")
++    .split(",")
++);
++
  function _isUndefined(value) {
    return typeof value === "undefined";
  }
-@@ -105,6 +111,10 @@ export var Utils = {
+@@ -105,6 +117,14 @@ export var Utils = {
        : AppConstants.REMOTE_SETTINGS_SERVER_URLS[0];
    },
  
@@ -228,33 +211,25 @@ index 76f69ab..b30fbbf 100644
 +    return lazy.allowedCollections;
 +  },
 +
++  get allowedCollectionsFromDump() {
++    return lazy.allowedCollectionsFromDump;
++  },
++
    CHANGES_PATH: "/buckets/monitor/collections/changes/changeset",
  
    /**
-@@ -368,9 +378,10 @@ export var Utils = {
-    *
-    * @param {string} bucket
-    * @param {string} collection
-+   * @param {string} allowedCollectionsFromDump
-    * @return {int} The last modification time of the dump. -1 if non-existent.
-    */
--  async getLocalDumpLastModified(bucket, collection) {
-+  async getLocalDumpLastModified(bucket, collection, allowedCollectionsFromDump) {
-     if (!this._dumpStats) {
-       if (!this._dumpStatsInitPromise) {
-         this._dumpStatsInitPromise = (async () => {
-@@ -393,7 +404,9 @@ export var Utils = {
+@@ -393,7 +413,9 @@ export var Utils = {
      if (lastModified === undefined) {
        const { timestamp: dumpTimestamp } = await lazy.SharedUtils.loadJSONDump(
          bucket,
 -        collection
 +        collection,
 +        this.allowedCollections,
-+        allowedCollectionsFromDump
++        this.allowedCollectionsFromDump
        );
        // Client recognize -1 as missing dump.
        lastModified = dumpTimestamp ?? -1;
-@@ -503,7 +516,9 @@ export var Utils = {
+@@ -503,7 +525,9 @@ export var Utils = {
      }
  
      return {
