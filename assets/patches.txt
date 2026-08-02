@@ -1,3 +1,4 @@
+patches/add-mojeek.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-setEnv.patch
 patches/bootstrap.patch
