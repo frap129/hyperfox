@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Ehdotukset
 -firefox-home-brand-name = Kotisivu
 -firefoxview-brand-name = Välilehtinäkymä
--firefoxlabs-brand-name = Kokeelliset ominaisuudet
+-firefoxlabs-brand-name = Firefox Labs Mozillalta
+-relay-brand-name = Relay Mozillalta
