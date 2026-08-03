@@ -101,7 +101,7 @@
       "filter_expression": "env.appinfo.OS != \"iOS\"",
       "id": "2c4b8834-030c-4097-a887-c7506689095c",
       "last_modified": 1785706613505
-    },
+    }
   ],
   "timestamp": 1785706613505
 }
