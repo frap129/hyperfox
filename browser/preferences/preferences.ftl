@@ -77,6 +77,6 @@ librewolf-goog-safe-download-description = Allow Safe Browsing to scan your down
 librewolf-goog-safe-download-warning1 = All the checks happen locally.
 
 # Footer
-librewolf-footer = Useful linkss
+librewolf-footer = Useful links
 librewolf-config-link = All advanced settings (about:config)
 librewolf-open-profile = Open user profile directory
