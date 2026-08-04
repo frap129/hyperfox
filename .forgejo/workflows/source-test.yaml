@@ -84,11 +84,6 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
-      - name: Setup Version
-        run: |
-          echo "Testing against: ${{ needs.detect-version.outputs.ff_display }}"
-          echo "${{ needs.detect-version.outputs.ff_version }}" > version
-
       - name: Fetching Firefox Source
         run: |
           make fetch FF_CHANNEL=${{ needs.detect-version.outputs.ff_channel }} \
@@ -125,11 +120,6 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
-      - name: Setup Version
-        run: |
-          echo "Testing against: ${{ needs.detect-version.outputs.ff_display }}"
-          echo "${{ needs.detect-version.outputs.ff_version }}" > version
-
       - name: Fetching Firefox Source
         run: |
           make fetch FF_CHANNEL=${{ needs.detect-version.outputs.ff_channel }} \
@@ -165,11 +155,6 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
-
-      - name: Setup Version
-        run: |
-          echo "Testing against: ${{ needs.detect-version.outputs.ff_display }}"
-          echo "${{ needs.detect-version.outputs.ff_version }}" > version
 
       - name: Fetching Firefox Source
         run: |

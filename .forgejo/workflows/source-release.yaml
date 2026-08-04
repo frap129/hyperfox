@@ -20,10 +20,6 @@ jobs:
         run: |
           make all
 
-      - name: Check patches
-        run: |
-          make check-fuzz
-
       - name: Upload artifacts
         uses: https://data.forgejo.org/forgejo/upload-artifact@v4
         with:

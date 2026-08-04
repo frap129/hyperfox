@@ -1,16 +1,20 @@
 * text=auto eol=lf
 
-*.cfg        linguist-language=JavaScript
-*.build      linguist-language=Python
-*.dtd        linguist-language=XML
-*.htm        linguist-language=HTML
-*.json       linguist-detectable
-*.jsonc      linguist-language=JSON
-*.mk         linguist-language=Makefile
-*.mn         linguist-language=Makefile
-*.nsi        linguist-language=NSIS
-*.xhtml      linguist-language=HTML
-*.yml        linguist-language=YAML
-mozconfig*   linguist-language=Shell
-moztree      linguist-language=Shell
-/l10n/*      linguist-vendored
+*.build         linguist-language=Python
+*.cfg           linguist-language=JavaScript
+*.dtd           linguist-language=XML
+*.ftl           linguist-detectable=false
+*.htm           linguist-language=HTML
+*.json          linguist-detectable
+*.jsonc         linguist-language=JSON
+*.mk            linguist-language=Makefile
+*.mn            linguist-language=Makefile
+*.nsi           linguist-language=NSIS
+*.properties    linguist-language=INI
+*.txt           linguist-generated
+*.xhtml         linguist-language=HTML
+*.yml           linguist-language=YAML
+preferences.ftl linguist-language=INI
+mozconfig*      linguist-language=Shell
+moztree         linguist-language=Shell
+/l10n/*         linguist-generated
