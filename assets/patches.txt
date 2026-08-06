@@ -47,7 +47,6 @@ patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/settings-redesign.patch
 patches/ui-patches/trustpanel.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
-patches/urlbarprovider-interventions.patch
 patches/vendor-name.patch
 patches/webgl-permission.patch
 patches/windows-theming-bug.patch
