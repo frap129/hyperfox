@@ -240,3 +240,22 @@ index 76f69ab..daf715c 100644
        timestamp,
        serverTimeMillis,
        backoffSeconds,
+diff --git a/toolkit/components/search/SearchEngineSelector.sys.mjs b/toolkit/components/search/SearchEngineSelector.sys.mjs
+index 3a42b38..3befe8d 100644
+--- a/toolkit/components/search/SearchEngineSelector.sys.mjs
++++ b/toolkit/components/search/SearchEngineSelector.sys.mjs
+@@ -409,13 +409,7 @@ export class SearchEngineSelector {
+    *   could be obtained.
+    */
+   async #getConfigurationOverrides() {
+-    let result = [];
+-    try {
+-      result = await this.#remoteConfigOverrides.get();
+-    } catch (ex) {
+-      // This data is remote only, so we just return an empty array if it fails.
+-    }
+-    return result;
++    return [];
+   }
+ 
+   /**
