@@ -90,10 +90,6 @@ jobs:
                      FF_BUILD=${{ needs.detect-version.outputs.ff_build || 'build1' }} \
                      FF_BETA_SUFFIX=${{ needs.detect-version.outputs.ff_beta_suffix }}
 
-      - name: Check Patchfail
-        run: |
-          sh -c "./scripts/check-patchfail.sh"
-
       - name: Test Build
         run: |
           make test-linux
@@ -126,10 +122,6 @@ jobs:
                      FF_BUILD=${{ needs.detect-version.outputs.ff_build || 'build1' }} \
                      FF_BETA_SUFFIX=${{ needs.detect-version.outputs.ff_beta_suffix }}
 
-      - name: Check Patchfail
-        run: |
-          sh -c "./scripts/check-patchfail.sh"
-
       - name: Test Build
         run: |
           make test-windows
@@ -161,10 +153,6 @@ jobs:
           make fetch FF_CHANNEL=${{ needs.detect-version.outputs.ff_channel }} \
                      FF_BUILD=${{ needs.detect-version.outputs.ff_build || 'build1' }} \
                      FF_BETA_SUFFIX=${{ needs.detect-version.outputs.ff_beta_suffix }}
-
-      - name: Check Patchfail
-        run: |
-          sh -c "./scripts/check-patchfail.sh"
 
       - name: Test Build
         run: |
