@@ -9,7 +9,6 @@ patches/disable-data-reporting-at-compile-time.patch
 patches/eme-permission.patch
 patches/extensions-setUninstallURL.patch
 patches/firefox-in-ua.patch
-patches/fix-canvas-extraction-permission.patch
 patches/fpp-canvas-fix.patch
 patches/fullpage-translations-customization.patch
 patches/hide-passwordmgr.patch
