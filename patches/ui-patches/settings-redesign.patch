@@ -673,10 +673,10 @@ index fcbd421..ebc5a65 100644
      initSettingGroup("spellCheck");
      initSettingGroup("performance");
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index c76a064..ea0e9e2 100644
+index a76699a..5daa665 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
-@@ -224,8 +224,8 @@ var scrollOffsets;
+@@ -243,8 +243,8 @@ var gCurrentHistoryEntryId = null;
  const CONFIG_PANES = Object.freeze({
    about: {
      l10nId: "about-firefox-header",
@@ -687,7 +687,7 @@ index c76a064..ea0e9e2 100644
      module: "chrome://browser/content/preferences/config/about-firefox.mjs",
      visible: () => srdSectionPrefs.all,
    },
-@@ -272,7 +272,6 @@ const CONFIG_PANES = Object.freeze({
+@@ -297,7 +297,6 @@ const CONFIG_PANES = Object.freeze({
        "httpsOnly",
        "networkProxy",
        "privacyPanel",
@@ -695,7 +695,7 @@ index c76a064..ea0e9e2 100644
        "certificates",
      ],
      replaces: "privacy",
-@@ -315,7 +314,7 @@ const CONFIG_PANES = Object.freeze({
+@@ -340,7 +339,7 @@ const CONFIG_PANES = Object.freeze({
    home: {
      l10nId: "home-section",
      iconSrc: "chrome://browser/skin/home.svg",
@@ -704,7 +704,7 @@ index c76a064..ea0e9e2 100644
      module: "chrome://browser/content/preferences/config/home-startup.mjs",
      replaces: "home",
    },
-@@ -386,13 +385,12 @@ const CONFIG_PANES = Object.freeze({
+@@ -411,13 +410,12 @@ const CONFIG_PANES = Object.freeze({
      l10nId: "pane-privacy-section",
      iconSrc: "chrome://browser/skin/preferences/category-privacy-security.svg",
      groupIds: [
@@ -721,7 +721,7 @@ index c76a064..ea0e9e2 100644
        "dnsOverHttps",
        "connectionLink",
      ],
-@@ -415,7 +413,6 @@ const CONFIG_PANES = Object.freeze({
+@@ -440,7 +438,6 @@ const CONFIG_PANES = Object.freeze({
      l10nId: "account-sync-section",
      iconSrc: "chrome://browser/skin/fxa/avatar-empty.svg",
      groupIds: [
@@ -729,15 +729,15 @@ index c76a064..ea0e9e2 100644
        "accountDisabled",
        "account",
        "sync",
-@@ -440,6 +437,7 @@ const CONFIG_PANES = Object.freeze({
+@@ -465,6 +462,7 @@ const CONFIG_PANES = Object.freeze({
        "browserLayout",
        "tabs",
        "pageNavigation",
 +      "mouse",
+       "keyboardShortcuts",
        "media",
        "performance",
-       "recommendations",
-@@ -523,6 +521,9 @@ function init_all() {
+@@ -549,6 +547,9 @@ function init_all() {
      register_module("paneGeneral", gMainPane);
      document.getElementById("category-general").hidden = false;
      document.getElementById("nav-separator").hidden = true;
@@ -747,7 +747,7 @@ index c76a064..ea0e9e2 100644
    }
    register_module("paneHome", gHomePane);
    register_module("paneSearch", gSearchPane);
-@@ -599,6 +600,12 @@ function init_all() {
+@@ -639,6 +640,12 @@ function init_all() {
    document.getElementById("focusSearch1").addEventListener("command", () => {
      gSearchResultsPane.searchInput.focus();
    });
