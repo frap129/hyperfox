@@ -93,6 +93,9 @@ def librewolf_patches():
 
     enter_srcdir()
 
+    exec("sed -i 's/5bc8c9bbe8c0eabe408d9a7cd7a8e6e09eee0ead817607643882b38a36d07c91/bddacbe056ce7458663a39dc99d5bb3434099aa69cae793cf0c57d4e54f5a6a4/g' third_party/rust/glean-core/.cargo-checksum.json")
+    exec("sed -i 's/c20989b1aa336b0849e96ec1b2beea1eab825ffd192c2c3a636e20f830b811d0/50a71c7059650b473730cc5a4110fdf89208ac0092e7eba6d123a2ae4f0250b8/g' third_party/rust/glean-core/.cargo-checksum.json")
+
     # remove OpenAI integration
     exec('rm -vf toolkit/components/ml/content/backends/OpenAIPipeline.mjs')
     exec('rm -vrf toolkit/components/ml/vendor/openai')
