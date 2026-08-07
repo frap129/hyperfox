@@ -53,7 +53,7 @@ index c401c3d..d6c744a 100644
  /// **DEPRECATION NOTICE**:
  /// This API is deprecated. Use `set_collection_enabled` instead.
  pub fn glean_set_upload_enabled(enabled: bool) {
-+    enabled = false;
++    let enabled = false;
      if !was_initialize_called() {
          return;
      }
@@ -62,7 +62,7 @@ index c401c3d..d6c744a 100644
  /// This replaces `set_upload_enabled`.
  pub fn glean_set_collection_enabled(enabled: bool) {
 +    // Redundant currently
-+    enabled = false;
++    let enabled = false;
      glean_set_upload_enabled(enabled)
  }
  
