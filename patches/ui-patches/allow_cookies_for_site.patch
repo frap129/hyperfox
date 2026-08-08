@@ -21,7 +21,7 @@ index d0ba6ac670f4..a7dc8393e9de 100644
 +      "pressed",
 +      Services.perms.testExactPermissionFromPrincipal(
 +        gBrowser.contentPrincipal,
-+        "cookie"
++        "persist-data-on-shutdown"
 +      ) === Services.perms.ALLOW_ACTION
 +    );
 +  },
@@ -34,12 +34,12 @@ index d0ba6ac670f4..a7dc8393e9de 100644
 +    if (pressed) {
 +      Services.perms.addFromPrincipal(
 +        gBrowser.contentPrincipal,
-+        "cookie",
++        "persist-data-on-shutdown",
 +        Services.perms.ALLOW_ACTION,
 +        Services.perms.EXPIRE_NEVER
 +      );
 +    } else {
-+      Services.perms.removeFromPrincipal(gBrowser.contentPrincipal, "cookie");
++      Services.perms.removeFromPrincipal(gBrowser.contentPrincipal, "persist-data-on-shutdown");
 +    }
 +  },
 +
@@ -97,19 +97,19 @@ index a6ccf07..0d8d644 100644
 +    if (pressed) {
 +      Services.perms.addFromPrincipal(
 +        gBrowser.contentPrincipal,
-+        "cookie",
++        "persist-data-on-shutdown",
 +        Services.perms.ALLOW_ACTION,
 +        Services.perms.EXPIRE_NEVER
 +      );
 +    } else {
-+      Services.perms.removeFromPrincipal(gBrowser.contentPrincipal, "cookie");
++      Services.perms.removeFromPrincipal(gBrowser.contentPrincipal, "persist-data-on-shutdown");
 +    }
 +  }
 +
 +  #areCookiesAllowed() {
 +    return Services.perms.testExactPermissionFromPrincipal(
 +        gBrowser.contentPrincipal,
-+        "cookie"
++        "persist-data-on-shutdown"
 +      ) === Services.perms.ALLOW_ACTION;
 +  }
 +
