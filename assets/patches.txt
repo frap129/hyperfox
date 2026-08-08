@@ -4,6 +4,7 @@ patches/autoconfig-setEnv.patch
 patches/bootstrap.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
+patches/delete-cookie-permission.patch
 patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/eme-permission.patch
