@@ -114,8 +114,8 @@
       "schema": 1785706613505
     },
     {
-      "globalDefault": "duckduckgo",
-      "globalDefaultPrivate": "duckduckgo",
+      "globalDefault": "ddg",
+      "globalDefaultPrivate": "ddg",
       "id": "f3891684-2348-4e7a-9765-0c5d2d0ab1b9",
       "last_modified": 1785706613505,
       "recordType": "defaultEngines",
