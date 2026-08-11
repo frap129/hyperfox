@@ -1,0 +1,13 @@
+diff --git a/services/settings/dumps/main/moz.build b/services/settings/dumps/main/moz.build
+index 2c83ffc..3b53956 100644
+--- a/services/settings/dumps/main/moz.build
++++ b/services/settings/dumps/main/moz.build
+@@ -61,6 +61,8 @@ if CONFIG["MOZ_BUILD_APP"] == "browser":
+         "search-config-icons/25de0352-aabb-d31f-15f7-bf9299fb004c.meta.json",
+         "search-config-icons/2bbe48f4-d3b8-c9e0-86e3-a54c37ec3335",
+         "search-config-icons/2bbe48f4-d3b8-c9e0-86e3-a54c37ec3335.meta.json",
++        "search-config-icons/2c4b8834-030c-4097-a887-c7506689095c",
++        "search-config-icons/2c4b8834-030c-4097-a887-c7506689095c.meta.json",
+         "search-config-icons/2e835b0e-9709-d1bb-9725-87f59f3445ca",
+         "search-config-icons/2e835b0e-9709-d1bb-9725-87f59f3445ca.meta.json",
+         "search-config-icons/32d26d19-aeb0-5c01-32e8-f8970be9246f",

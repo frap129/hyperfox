@@ -103,8 +103,13 @@ def librewolf_patches():
     # copy branding files..
     exec("cp -r ../themes/browser .")
 
-    # copy the right search-config.json file
-    exec('cp -v ../assets/search-config.json services/settings/dumps/main/search-config.json')
+    # copy the right search-config.json-v2 file and search-config-icons file
+    exec('cp -v ../assets/search-config-v2.json services/settings/dumps/main/search-config-v2.json')
+    exec('cp -v ../assets/search-config-icons.json services/settings/dumps/main/search-config-icons.json')
+
+    # add mojeek
+    exec('cp -v ../assets/2c4b8834-030c-4097-a887-c7506689095c services/settings/dumps/main/search-config-icons')
+    exec('cp -v ../assets/2c4b8834-030c-4097-a887-c7506689095c.meta.json services/settings/dumps/main/search-config-icons')
 
     # read lines of .txt file into 'patches'
     with open('../assets/patches.txt'.format(version), "r") as f:

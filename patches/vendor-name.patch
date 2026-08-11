@@ -19,3 +19,27 @@ index 0d7a3e5..8853dd0 100644
            return Promise.resolve(info);
          },
  
+diff --git a/toolkit/xre/nsAppRunner.cpp b/toolkit/xre/nsAppRunner.cpp
+index 0b0e8a1..cdc2e52 100644
+--- a/toolkit/xre/nsAppRunner.cpp
++++ b/toolkit/xre/nsAppRunner.cpp
+@@ -2245,9 +2245,6 @@ static void DumpHelp() {
+ }
+ 
+ static inline void DumpVersion() {
+-  if (gAppData->vendor && *gAppData->vendor) {
+-    printf("%s ", (const char*)gAppData->vendor);
+-  }
+   printf("%s ", (const char*)gAppData->name);
+ 
+   // Use the displayed version
+@@ -2261,9 +2258,6 @@ static inline void DumpVersion() {
+ }
+ 
+ static inline void DumpFullVersion() {
+-  if (gAppData->vendor && *gAppData->vendor) {
+-    printf("%s ", (const char*)gAppData->vendor);
+-  }
+   printf("%s ", (const char*)gAppData->name);
+ 
+   // Use the displayed version
