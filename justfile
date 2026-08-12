@@ -25,3 +25,12 @@ arch:
 clean:
     make veryclean
     rm -rf librewolf-* firefox-* hyperfox-* out/
+
+release version:
+    git tag -a v{{version}} -m "v{{version}}"
+    git push origin v{{version}}
+    gh release create -d v{{version}} \
+      --title "v{{version}}" \
+      out/hyperfox-{{version}}.en-US.linux-x86_64.tar.xz \
+      out/hyperfox-{{version}}-x86_64.deb \
+      out/hyperfox-browser-bin-{{version}}-x86_64.pkg.tar.zst
