@@ -1,0 +1,37 @@
+# backport of https://phabricator.services.mozilla.com/D299877 with edit
+diff --git a/browser/extensions/newtab/lib/Wallpapers/WallpaperFeed.sys.mjs b/browser/extensions/newtab/lib/Wallpapers/WallpaperFeed.sys.mjs
+index 288735f..1fa6305 100644
+--- a/browser/extensions/newtab/lib/Wallpapers/WallpaperFeed.sys.mjs
++++ b/browser/extensions/newtab/lib/Wallpapers/WallpaperFeed.sys.mjs
+@@ -155,16 +155,27 @@ export class WallpaperFeed {
+     }
+ 
+     // retrieving all records in collection
+-    const records = await this.wallpaperClient.get();
+-    if (!records?.length) {
+-      return;
++    let records = [];
++    try {
++      if (Services.prefs.getBoolPref("librewolf.externalWallpapers.enabled", false)) {
++        records = await this.wallpaperClient.get();
++      }
++    } catch (error) {
++      // Fall through so the custom-wallpaper upload entry is still surfaced.
++      console.error(
++        "Error fetching wallpaper records from remote settings",
++        error
++      );
+     }
+ 
+     const customWallpaperEnabled = Services.prefs.getBoolPref(
+       PREF_WALLPAPERS_CUSTOM_WALLPAPER_ENABLED
+     );
+ 
+-    const baseAttachmentURL = await lazy.Utils.baseAttachmentsURL();
++    let baseAttachmentURL = "";
++    if (records.length) {
++      baseAttachmentURL = await lazy.Utils.baseAttachmentsURL();
++    }
+ 
+     const wallpapers = [
+       ...records.map(record => {
