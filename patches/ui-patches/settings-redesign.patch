@@ -701,10 +701,30 @@ index a780854..9cdd6d3 100644
      initSettingGroup("browsingProtection");
      initSettingGroup("cookiesAndSiteData"); 
 diff --git a/browser/extensions/newtab/lib/AboutPreferences.sys.mjs b/browser/extensions/newtab/lib/AboutPreferences.sys.mjs
-index 577431fbc9..10c35d4549 100644
+index 4562efc..bd99654 100644
 --- a/browser/extensions/newtab/lib/AboutPreferences.sys.mjs
 +++ b/browser/extensions/newtab/lib/AboutPreferences.sys.mjs
-@@ -1608,39 +1608,6 @@ export class AboutPreferences {
+@@ -393,6 +393,7 @@ export class AboutPreferences {
+         type: "bool",
+         inverted: true,
+       },
++      { id: "librewolf.externalWallpapers.enabled", type: "bool" },
+       {
+         id: "browser.newtabpage.activity-stream.system.showWeather",
+         type: "bool",
+@@ -1301,6 +1302,11 @@ export class AboutPreferences {
+       });
+     }
+ 
++    Preferences.addSetting({
++      id: "librewolfExternalWallpapers",
++      pref: "librewolf.externalWallpapers.enabled",
++    });
++
+     // Search
+     Preferences.addSetting({
+       id: "webSearch",
+@@ -1739,39 +1745,6 @@ export class AboutPreferences {
              },
            ],
          },
@@ -744,6 +764,18 @@ index 577431fbc9..10c35d4549 100644
          {
            id: "recentActivity",
            subcategory: "highlights",
+@@ -1819,6 +1792,11 @@ export class AboutPreferences {
+             },
+           ],
+         },
++       {
++         id: "librewolfExternalWallpapers",
++         l10nId: "librewolf-external-wallpapers",
++         control: "moz-toggle",
++       },
+         {
+           id: "chooseWallpaper",
+           l10nId: "home-prefs-choose-wallpaper-link2",
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
 index da21558..993966b 100644
 --- a/browser/themes/shared/jar.inc.mn
