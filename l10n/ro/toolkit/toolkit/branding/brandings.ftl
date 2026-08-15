@@ -1,0 +1,8 @@
+-screenshots-brand-name = Capturi de ecran
+-profiler-brand-name = Profiler
+-translations-brand-name = Traduceri
+-firefox-suggest-brand-name = Sugestii
+-firefox-home-brand-name = Pagina casă
+-firefoxview-brand-name = Tab View
+-firefoxlabs-brand-name = Firefox Labs de Mozilla
+-relay-brand-name = Relay de Mozilla

@@ -1,0 +1,11 @@
+permissions-site-eme-window2 =
+    .title = Setări - Permisiuni EME.
+    .style = { permissions-window2.style }
+permissions-site-eme-desc = Următoarele site-uri au cerut permisiunea de a reda conținut controlat de DRM. Poți specifica care site-uri pot reda conținut controlat de DRM. Poți, de-asemenea, să blochezi cereri noi de a reda conținut controlat de DRM.
+permissions-site-eme-disable-label =
+    .label = Blochează cereri noi de a reda conținut controlat de DRM
+permissions-site-eme-disable-desc = Asta va preveni toate site-urile care nu sunt în lista de mai sus din a crea cereri să redea conținut controlat de DRM.
+permissions-site-webgl-window2 =
+    .title = Setări - Permisiuni WebGL.
+    .style = { permissions-window2.style }
+permissions-site-webgl-desc = Următoarele site-uri au cerut permisiunea de a crea un context WebGL. Poți speicifica care site-uri pot crea un context WebGL. Poți, de-asemenea, să blochezi noi cereri de a crea un context WebGL.
