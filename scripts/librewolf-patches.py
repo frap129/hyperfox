@@ -161,11 +161,10 @@ def librewolf_patches():
         with open(file, "w") as f:
             f.write("{}-{}".format(version,release))
 
-    print("-> Downloading locales from https://github.com/mozilla-l10n/firefox-l10n")
+    print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
     with TemporaryDirectory() as tmpdir:
-        exec(f"curl -so {tmpdir}/l10n.zip 'https://codeload.github.com/mozilla-l10n/firefox-l10n/zip/refs/heads/main'")
-        exec(f"unzip -qo {tmpdir}/l10n.zip -d {tmpdir}/l10n")
-        exec(f"mv {tmpdir}/l10n/firefox-l10n-main lw/l10n")
+        exec(f"git clone --depth=1 https://librewolf.dev/mirror/firefox-l10n {tmpdir}/l10n")
+        exec(f"mv {tmpdir}/l10n lw/l10n")
 
     print("-> Patching appstrings.properties")
     # Why is "Firefox" hardcoded there???
