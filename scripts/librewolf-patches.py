@@ -164,6 +164,7 @@ def librewolf_patches():
     print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
     with TemporaryDirectory() as tmpdir:
         exec(f"git clone --depth=1 https://librewolf.dev/mirror/firefox-l10n {tmpdir}/l10n")
+        exec(f"rm -rf {tmpdir}/l10n/.git {tmpdir}/l10n/.github {tmpdir}/l10n/LICENSE {tmpdir}/l10n/README")
         exec(f"mv {tmpdir}/l10n lw/l10n")
 
     print("-> Patching appstrings.properties")
