@@ -111,10 +111,10 @@ index e90e8ec..fbab201 100644
        },
      ],
 diff --git a/browser/components/preferences/config/account-sync.mjs b/browser/components/preferences/config/account-sync.mjs
-index 44ff0a1..2cb14a1 100644
+index ad333a5..76ba937 100644
 --- a/browser/components/preferences/config/account-sync.mjs
 +++ b/browser/components/preferences/config/account-sync.mjs
-@@ -813,6 +813,26 @@ Preferences.addSetting({
+@@ -831,12 +831,27 @@ Preferences.addSetting({
  
  let accountsEnabled = Services.prefs.getBoolPref("identity.fxaccounts.enabled");
  
@@ -139,9 +139,15 @@ index 44ff0a1..2cb14a1 100644
 +});
 +
  SettingGroupManager.registerGroups({
-   defaultBrowserSync: window.createDefaultBrowserConfig({
-     includeIsDefaultPane: false,
-@@ -833,6 +853,10 @@ SettingGroupManager.registerGroups({
+-  defaultBrowserSync: window.createDefaultBrowserConfig({
+-    includeIsDefaultPane: false,
+-    inProgress: true,
+-    hiddenFromSearch: true,
+-  }),
+   accountDisabled: {
+     inProgress: true,
+     hidden: accountsEnabled,
+@@ -851,6 +866,10 @@ SettingGroupManager.registerGroups({
            headinglevel: 2,
          },
        },
@@ -152,7 +158,7 @@ index 44ff0a1..2cb14a1 100644
      ],
    },
    account: {
-@@ -931,6 +955,10 @@ SettingGroupManager.registerGroups({
+@@ -949,6 +968,10 @@ SettingGroupManager.registerGroups({
            },
          ],
        },
@@ -577,10 +583,41 @@ index ec183922fd..0b5db0e6ae 100644
    },
    performance: {
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index fcbd421..ebc5a65 100644
+index 5a56d34..bc180bb 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -812,7 +762,6 @@ var gMainPane = {
+@@ -470,17 +470,13 @@ function createDefaultBrowserConfig({
+ } = {}) {
+   const isDefaultPane = {
+     id: "isDefaultPane",
+-    l10nId: "is-default-browser-2",
++    l10nId: "librewolf-is-default-browser-2",
+     control: "moz-promo",
+-    controlAttrs: {
+-      imagesrc: "chrome://global/skin/illustrations/kit-happy.svg",
+-      imagedisplay: "cover",
+-    },
+   };
+ 
+   const isNotDefaultPane = {
+     id: "isNotDefaultPane",
+-    l10nId: "is-not-default-browser-2",
++    l10nId: "librewolf-is-not-default-browser-2",
+     control: "moz-promo",
+     options: [
+       {
+@@ -494,10 +490,6 @@ function createDefaultBrowserConfig({
+         },
+       },
+     ],
+-    controlAttrs: {
+-      imagesrc: "chrome://global/skin/illustrations/kit-concerned.svg",
+-      imagedisplay: "cover",
+-    },
+   };
+ 
+   const items = includeIsDefaultPane
+@@ -686,7 +678,6 @@ var gMainPane = {
      initSettingGroup("browsing");
      initSettingGroup("keyboardAndScrolling");
      initSettingGroup("motionAndLink");
@@ -589,7 +626,7 @@ index fcbd421..ebc5a65 100644
      initSettingGroup("spellCheck");
      initSettingGroup("performance");
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index a76699a..d4a783f 100644
+index 94612d8..4c82403 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
 @@ -244,7 +244,7 @@ const CONFIG_PANES = Object.freeze({
@@ -609,7 +646,7 @@ index a76699a..d4a783f 100644
        "certificates",
      ],
      replaces: "privacy",
-@@ -411,13 +410,12 @@ const CONFIG_PANES = Object.freeze({
+@@ -419,13 +418,12 @@ const CONFIG_PANES = Object.freeze({
      l10nId: "pane-privacy-section",
      iconSrc: "chrome://browser/skin/preferences/category-privacy-security.svg",
      groupIds: [
@@ -626,7 +663,15 @@ index a76699a..d4a783f 100644
        "dnsOverHttps",
        "connectionLink",
      ],
-@@ -465,6 +463,7 @@ const CONFIG_PANES = Object.freeze({
+@@ -448,7 +446,6 @@ const CONFIG_PANES = Object.freeze({
+     l10nId: "account-sync-section",
+     iconSrc: "chrome://browser/skin/fxa/avatar-empty.svg",
+     groupIds: [
+-      "defaultBrowserSync",
+       "accountDisabled",
+       "account",
+       "sync",
+@@ -474,6 +471,7 @@ const CONFIG_PANES = Object.freeze({
        "browserLayout",
        "tabs",
        "pageNavigation",
@@ -634,7 +679,7 @@ index a76699a..d4a783f 100644
        "keyboardShortcuts",
        "media",
        "performance",
-@@ -549,6 +548,9 @@ function init_all() {
+@@ -558,6 +556,9 @@ function init_all() {
      register_module("paneGeneral", gMainPane);
      document.getElementById("category-general").hidden = false;
      document.getElementById("nav-separator").hidden = true;
@@ -644,7 +689,7 @@ index a76699a..d4a783f 100644
    }
    register_module("paneHome", gHomePane);
    register_module("paneSearch", gSearchPane);
-@@ -640,6 +642,12 @@ function init_all() {
+@@ -649,6 +650,12 @@ function init_all() {
      gSearchResultsPane.searchInput.focus();
    });
  
