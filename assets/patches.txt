@@ -12,7 +12,6 @@ patches/extensions-setUninstallURL.patch
 patches/firefox-in-ua.patch
 patches/fpp-canvas-fix.patch
 patches/fullpage-translations-customization.patch
-patches/hide-passwordmgr.patch
 patches/languages.patch
 patches/limit-access.patch
 patches/link-preview.patch
