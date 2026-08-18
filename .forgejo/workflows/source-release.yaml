@@ -60,6 +60,11 @@ jobs:
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: |
+          if [ -z "$SIGNING_KEY" ]; then
+            echo "SIGNING_KEY is not defined; don't publish an unsigned release" >&2
+            exit 1
+          fi
+
           FILES=(
             "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz"
             "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha256sum"

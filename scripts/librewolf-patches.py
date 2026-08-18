@@ -93,6 +93,9 @@ def librewolf_patches():
 
     enter_srcdir()
 
+    exec("sed -i 's/5bc8c9bbe8c0eabe408d9a7cd7a8e6e09eee0ead817607643882b38a36d07c91/bddacbe056ce7458663a39dc99d5bb3434099aa69cae793cf0c57d4e54f5a6a4/g' third_party/rust/glean-core/.cargo-checksum.json")
+    exec("sed -i 's/c20989b1aa336b0849e96ec1b2beea1eab825ffd192c2c3a636e20f830b811d0/0b43fbc5f86c6c247c5189af58be425a829c3b09018c6b26589661eec9a5ad24/g' third_party/rust/glean-core/.cargo-checksum.json")
+
     # remove OpenAI integration
     exec('rm -vf toolkit/components/ml/content/backends/OpenAIPipeline.mjs')
     exec('rm -vrf toolkit/components/ml/vendor/openai')
@@ -158,11 +161,11 @@ def librewolf_patches():
         with open(file, "w") as f:
             f.write("{}-{}".format(version,release))
 
-    print("-> Downloading locales from https://github.com/mozilla-l10n/firefox-l10n")
+    print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
     with TemporaryDirectory() as tmpdir:
-        exec(f"curl -so {tmpdir}/l10n.zip 'https://codeload.github.com/mozilla-l10n/firefox-l10n/zip/refs/heads/main'")
-        exec(f"unzip -qo {tmpdir}/l10n.zip -d {tmpdir}/l10n")
-        exec(f"mv {tmpdir}/l10n/firefox-l10n-main lw/l10n")
+        exec(f"git clone --depth=1 https://librewolf.dev/mirror/firefox-l10n {tmpdir}/l10n")
+        exec(f"rm -rf {tmpdir}/l10n/.git {tmpdir}/l10n/.github {tmpdir}/l10n/LICENSE {tmpdir}/l10n/README")
+        exec(f"mv {tmpdir}/l10n lw/l10n")
 
     print("-> Patching appstrings.properties")
     # Why is "Firefox" hardcoded there???

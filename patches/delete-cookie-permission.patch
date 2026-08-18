@@ -1,0 +1,30 @@
+diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
+index 344f311..9197788 100644
+--- a/browser/components/ProfileDataUpgrader.sys.mjs
++++ b/browser/components/ProfileDataUpgrader.sys.mjs
+@@ -1030,6 +1030,9 @@ export let ProfileDataUpgrader = {
+       // Only migrate durable, user-set permissions. Anything that expires
+       // (session/time) or is re-applied from an enterprise policy on every
+       // startup (EXPIRE_POLICY) must not be persisted as a regular permission.
++
++      const toDelete = [];
++
+       Services.perms.getAllByTypes(["cookie"]).forEach(p => {
+         if (p.expireType != Services.perms.EXPIRE_NEVER) {
+           return;
+@@ -1040,8 +1043,15 @@ export let ProfileDataUpgrader = {
+             "persist-data-on-shutdown",
+             Ci.nsICookiePermission.ACCESS_ALLOW
+           );
++          toDelete.push(p);
+         }
+       });
++
++      toDelete.forEach(p => {
++        Services.perms.removePermission(p);
++      });
++
++      Services.perms.removeOrphanedInteractionRecords();
+     }
+ 
+     if (

@@ -4,15 +4,14 @@ patches/autoconfig-setEnv.patch
 patches/bootstrap.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
+patches/delete-cookie-permission.patch
 patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/eme-permission.patch
 patches/extensions-setUninstallURL.patch
 patches/firefox-in-ua.patch
-patches/fix-canvas-extraction-permission.patch
 patches/fpp-canvas-fix.patch
 patches/fullpage-translations-customization.patch
-patches/hide-passwordmgr.patch
 patches/languages.patch
 patches/limit-access.patch
 patches/link-preview.patch
@@ -32,9 +31,7 @@ patches/temp-macos-fix.patch
 patches/macos-relaunch-without-updater.patch
 patches/ui-patches/add-translate-page-context-menu.patch
 patches/ui-patches/allow_cookies_for_site.patch
-patches/ui-patches/firefox-view.patch
-patches/ui-patches/hide-default-browser.patch
-patches/ui-patches/hide-finish-setup-bookmark.patch
+patches/ui-patches/backport-wallpapers.patch
 patches/ui-patches/home-preferences.patch
 patches/ui-patches/lw-logo-devtools.patch
 patches/ui-patches/neterror.patch

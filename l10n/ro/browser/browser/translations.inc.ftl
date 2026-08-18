@@ -1,0 +1,9 @@
+translations-panel-disable-translations =
+    .label = Dezactivează complet traducerile
+translations-manage-enable =
+    .label = Activează traduceri pe-toată-pagina
+translations-manage-autopopup =
+    .label = Cere traducerea paginilor care nu sunt în limba configurată a browser-ului
+main-context-menu-translate-page =
+    .label = Traduce Pagina...
+    .accesskey = T
