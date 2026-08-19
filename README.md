@@ -5,9 +5,8 @@
 # LibreWolf
 
 This repository contains all the patches and theming that make up LibreWolf,
-as well as scripts and a Makefile to build LibreWolf.
-There is also the [Settings repository](https://codeberg.org/librewolf/settings),
-which contains the LibreWolf preferences.
+as well as the LibreWolf preferences (in [settings/](./settings)) and the
+scripts and Makefile to build LibreWolf.
 
 </div>
 
@@ -22,10 +21,9 @@ graph LR
     FFSRC--Tarball--->Source
 
     subgraph LibreWolf/
-    Settings(Settings)--"librewolf.cfg<br>policies.json"-->Source
     Website(Website<br><br>- Documentation<br>- FAQ)
     subgraph Browser/
-        Source(Source<br><br>- Patches<br>- Theming<br>- Weblate<br>- Build scripts)
+        Source(Source<br><br>- Patches<br>- Theming<br>- Settings<br>- Weblate<br>- Build scripts)
         bsys6(bsys6<br><br>New Docker building<br>repository)
         AppImage
         ArchGentoo["Arch / Gentoo"]
