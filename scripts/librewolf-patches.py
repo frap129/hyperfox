@@ -161,11 +161,14 @@ def librewolf_patches():
         with open(file, "w") as f:
             f.write("{}-{}".format(version,release))
 
-    print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
-    with TemporaryDirectory() as tmpdir:
-        exec(f"git clone --depth=1 https://librewolf.dev/mirror/firefox-l10n {tmpdir}/l10n")
-        exec(f"rm -rf {tmpdir}/l10n/.git {tmpdir}/l10n/.github {tmpdir}/l10n/LICENSE {tmpdir}/l10n/README")
-        exec(f"mv {tmpdir}/l10n lw/l10n")
+    if os.environ.get("NO_FETCH") is not None:
+        print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
+        with TemporaryDirectory() as tmpdir:
+            exec(f"git clone --depth=1 https://librewolf.dev/mirror/firefox-l10n {tmpdir}/l10n")
+            exec(f"rm -rf {tmpdir}/l10n/.git {tmpdir}/l10n/.github {tmpdir}/l10n/LICENSE {tmpdir}/l10n/README")
+            exec(f"mv {tmpdir}/l10n lw/l10n")
+    else:
+        print("-> Using pre-fetched locales")
 
     print("-> Patching appstrings.properties")
     # Why is "Firefox" hardcoded there???
