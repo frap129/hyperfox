@@ -1,5 +1,5 @@
 diff --git a/browser/modules/SitePermissions.sys.mjs b/browser/modules/SitePermissions.sys.mjs
-index d8be7e7..fe44e78 100644
+index d8be7e7644..81aad0a569 100644
 --- a/browser/modules/SitePermissions.sys.mjs
 +++ b/browser/modules/SitePermissions.sys.mjs
 @@ -3,6 +3,7 @@
@@ -10,7 +10,7 @@ index d8be7e7..fe44e78 100644
  
  var gStringBundle = Services.strings.createBundle(
    "chrome://browser/locale/sitePermissions.properties"
-@@ -811,6 +812,57 @@ export var SitePermissions = {
+@@ -811,6 +812,67 @@ export var SitePermissions = {
          return null;
      }
    },
@@ -30,7 +30,9 @@ index d8be7e7..fe44e78 100644
 +      const active = new Set(defaults);
 +      const overrides = this.fingerprintingProtectionOverrides;
 +      this._applyOverrides(active, overrides);
-+      if (active.has("CanvasImageExtractionPrompt")) return true;
++      if (active.has("CanvasImageExtractionPrompt")) {
++        return true;
++      }
 +    }
 +
 +    if (baselineEnabled) {
@@ -38,7 +40,9 @@ index d8be7e7..fe44e78 100644
 +      const active = new Set(defaults);
 +      const overrides = this.baselineFingerprintingProtectionOverrides;
 +      this._applyOverrides(active, overrides);
-+      if (active.has("CanvasImageExtractionPrompt")) return true;
++      if (active.has("CanvasImageExtractionPrompt")) {
++        return true;
++      }
 +    }
 +
 +    return false;
@@ -50,34 +54,43 @@ index d8be7e7..fe44e78 100644
 +   * @param {Set} active - The active targets set
 +   * @param {string} overridesString - The override string (e.g., "+CanvasImageExtractionPrompt,+AllTargets")
 +   */
-+   _applyOverrides(active, overridesString) {
-+     for (const flag of overridesString.split(",").filter(Boolean)) {
-+       if (flag.startsWith("+")) {
-+         const target = flag.slice(1);
-+         if (target === "AllTargets" || target === "CanvasImageExtractionPrompt") {
-+           active.add("CanvasImageExtractionPrompt");
-+         }
-+       } else if (flag.startsWith("-")) {
-+         const target = flag.slice(1);
-+         if (target === "AllTargets" || target === "CanvasImageExtractionPrompt") {
-+           active.delete("CanvasImageExtractionPrompt");
-+         }
-+       }
-+     }
-+   },
++  _applyOverrides(active, overridesString) {
++    for (const flag of overridesString.split(",").filter(Boolean)) {
++      if (flag.startsWith("+")) {
++        const target = flag.slice(1);
++        if (
++          target === "AllTargets" ||
++          target === "CanvasImageExtractionPrompt"
++        ) {
++          active.add("CanvasImageExtractionPrompt");
++        }
++      } else if (flag.startsWith("-")) {
++        const target = flag.slice(1);
++        if (
++          target === "AllTargets" ||
++          target === "CanvasImageExtractionPrompt"
++        ) {
++          active.delete("CanvasImageExtractionPrompt");
++        }
++      }
++    }
++  },
  };
  
  let gPermissions = {
-@@ -1073,7 +1125,7 @@ let gPermissions = {
+@@ -1073,7 +1135,10 @@ let gPermissions = {
  
      canvas: {
        get disabled() {
 -        return !SitePermissions.resistFingerprinting;
-+        return !SitePermissions.resistFingerprinting && !SitePermissions._computeCanvasImageExtractionEnabled();
++        return (
++          !SitePermissions.resistFingerprinting &&
++          !SitePermissions._computeCanvasImageExtractionEnabled()
++        );
        },
      },
  
-@@ -1137,6 +1189,37 @@ XPCOMUtils.defineLazyPreferenceGetter(
+@@ -1137,6 +1202,37 @@ XPCOMUtils.defineLazyPreferenceGetter(
    false,
    SitePermissions.invalidatePermissionList.bind(SitePermissions)
  );
