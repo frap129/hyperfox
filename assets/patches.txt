@@ -26,6 +26,7 @@ patches/newtab-fix.patch
 patches/pip-hide.patch
 patches/pip-hide-ui.patch
 patches/profile-directory.patch
+patches/refresh.patch
 patches/remove-language-packs.patch
 patches/remove-openai.patch
 patches/remove-pingsender.patch
