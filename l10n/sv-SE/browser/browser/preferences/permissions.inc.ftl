@@ -9,3 +9,7 @@ permissions-site-eme-desc = Följande webbplatser har begärt att få spela upp 
 permissions-site-eme-disable-label =
     .label = Blockera nya förfrågningar som ber om att få spela upp DRM-kontrollerat innehåll
 permissions-site-eme-disable-desc = Detta förhindrar att webbplatser som inte listas ovan begär tillstånd att spela upp DRM-kontrollerat innehåll.
+permissions-site-canvas-window2 =
+    .title = Inställningar - Behörigheter för extrahering av Canvas
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Följande webbplatser har begärt att extrahera canvasdata. Du kan ange vilka webbplatser som får extrahera canvasdata. Du kan också blockera nya förfrågningar som begär att extrahera canvasdata.

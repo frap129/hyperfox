@@ -9,3 +9,7 @@ permissions-site-eme-desc = Las siguientes páginas web han solicitado reproduci
 permissions-site-eme-disable-label =
     .label = Bloquear nuevas solicitudes para reproducir contenido protegido por DRM
 permissions-site-eme-disable-desc = De este modo, se evitará que cualquier página web que no figure en la lista anterior solicite permiso para reproducir contenido protegido por DRM.
+permissions-site-canvas-window2 =
+    .title = Configuración - Permisos de extracción de Canvas
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Las siguientes páginas web han solicitado extraer datos de canvas. Puedes especificar qué páginas web lo tienen permitido. También puedes bloquear las nuevas solicitudes.

@@ -9,3 +9,7 @@ permissions-site-eme-desc = 다음 웹사이트에서 DRM 제어 컨텐츠 재�
 permissions-site-eme-disable-label =
     .label = 신규 DRM 제어 컨텐츠 재생 요청 차단
 permissions-site-eme-disable-desc = 위에 나열되지 않은 웹사이트에서 DRM 제어 컨텐츠 재생 권한을 요청할 수 없게 합니다.
+permissions-site-canvas-window2 =
+    .title = 설정 - 캔버스 추출 권한
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = 다음 웹사이트들이 캔버스 데이터 추출을 요청했습니다. 캔버스 데이터 추출을 허용할 웹사이트를 지정할 수 있습니다. 신규 캔버스 데이터 추출 요청을 차단할 수도 있습니다.

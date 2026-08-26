@@ -9,3 +9,7 @@ permissions-site-eme-desc = Os seguintes sites requisitam reproduzir conteúdo p
 permissions-site-eme-disable-label =
     .label = Bloquear novas requisições para reproduzir conteúdo controlado por DRM
 permissions-site-eme-disable-desc = Isso vai prevenir quaisquer sites não listados acima de requisitar permissão para reproduzir conteúdos protegidos por DRM.
+permissions-site-canvas-window2 =
+    .title = Configurações - Permissão para extrair imagens
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Os seguintes sites pediram permissão para extrair dados da tela. Você pode especificar quais sites têm permissão para extrair dados da tela. Você também pode bloquear novas requisições para extrair dados da tela.

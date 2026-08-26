@@ -9,3 +9,7 @@ permissions-site-webgl-desc = Наступні сайти попросили с�
 permissions-site-eme-window2 =
     .title = Налаштування - Дозволи EME
     .style = { permissions-window2.style }
+permissions-site-canvas-window2 =
+    .title = Налаштування - Дозвіл на отримання Canvas.
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Наступні сайти попросили витяг даних з Canvas. Ви можете вказати, яким сайтам можна отримувати дані Canvas. Також ви можете блокувати нові запити на витяг даних.

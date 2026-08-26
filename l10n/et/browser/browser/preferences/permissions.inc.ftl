@@ -9,3 +9,7 @@ permissions-site-eme-desc = Järgmised veebisaidid on küsinud luba DRM-iga kait
 permissions-site-eme-disable-label =
     .label = Blokeeri uued päringud DRM-iga kaitstud sisu esitamiseks
 permissions-site-eme-disable-desc = See takistab eespool nimetamata veebisaitidel küsida luba DRM-iga kaitstud sisu esitamiseks.
+permissions-site-canvas-window2 =
+    .title = Seadistused - kanvaa andmete tuvastamise õigused
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Järgnevad andmed on küsinud luba kanvaa andmete tuvastamiseks. Sa võid määratleda, saidid, mis võivad sellist võimalust kasutada. Lisaks saad reaalajas seda keelata.

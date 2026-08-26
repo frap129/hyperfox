@@ -9,3 +9,7 @@ permissions-site-eme-desc = Následující webové stránky požádaly o přehr�
 permissions-site-eme-disable-label =
     .label = Blokovat nové žádosti o přehrávání obsahu chráněného technologií DRM
 permissions-site-eme-disable-desc = Toto zabrání všem webovým stránkám nevypsaným výše žádat o oprávnění přehrávat obsah chráněný technologií DRM.
+permissions-site-canvas-window2 =
+    .title = Nastavení – oprávnění k extrahování Canvas
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Následující webové stránky požádaly o extrahování dat o Canvas. Můžete určit, které weby mají extrahování dat o Canvas povoleno. Můžete také zablokovat nové žádosti žádající o tuto akci.

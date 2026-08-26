@@ -9,3 +9,7 @@ permissions-site-eme-desc = Następujące witryny chciały odtwarzać treści ch
 permissions-site-eme-disable-label =
     .label = Blokuj nowe próby odtwarzania treści chronionych przez DRM
 permissions-site-eme-disable-desc = To uniemożliwi witrynom niewymienionym powyżej żądanie uprawnienia do odtwarzania treści chronionych przez DRM.
+permissions-site-canvas-window2 =
+    .title = Ustawienia — uprawnienia wyodrębniania płócien
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Następujące witryny chciały wyodrębnić dane płócien (canvas). Możesz określić, którym witrynom można na to zezwolić. Możesz również zablokować nowe próby wyodrębniania danych płócien.
