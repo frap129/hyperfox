@@ -81,7 +81,7 @@ index a723bc5..96a2c94 100644
        tabindex="9"
  #endif
 diff --git a/toolkit/components/pictureinpicture/content/player.js b/toolkit/components/pictureinpicture/content/player.js
-index 978c6be..432a7ce 100644
+index 978c6be..a26ba02 100644
 --- a/toolkit/components/pictureinpicture/content/player.js
 +++ b/toolkit/components/pictureinpicture/content/player.js
 @@ -257,6 +257,7 @@ let Player = {
@@ -92,7 +92,7 @@ index 978c6be..432a7ce 100644
      this.setupTooltip("fullscreen", strId, "fullscreenToggleShortcut");
  
      // Set the specific remoteType and browsingContextGroupID to use for the
-@@ -599,6 +600,11 @@ let Player = {
+@@ -898,6 +899,11 @@ let Player = {
          break;
        }
  
@@ -101,6 +101,6 @@ index 978c6be..432a7ce 100644
 +        break;
 +      }
 +
-       case "resize": {
-         this.onResize(event);
-         break;
+       case "playpause": {
+         if (!this.isPlaying) {
+           this.actor.sendAsyncMessage("PictureInPicture:Play");
