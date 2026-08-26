@@ -9,3 +9,7 @@ permissions-site-eme-desc = Bu websiteleri DRM Korumalı içerik oynatmayı tale
 permissions-site-eme-disable-label =
     .label = Yeni DRM korumalı içerikleri oynatmaya yönelik istekleri engelle
 permissions-site-eme-disable-desc = Bu yukarıda listelenmeyen tüm websitelerinin DRM korumalı içerik oynatma isteği talep etmesini engeller.
+permissions-site-canvas-window2 =
+    .title = Ayarkar - Canvas çıkarma izni
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Aşağıdaki websiteleri canvas verisini çıkartmayı talep etti. Hangi sitelerin canvas verisi çıkartmasına izin vereceğinizi seçebilirsiniz. Ayrıca yeni canvas verisi çıkartma isteklerini engelleyebilirsiniz.
