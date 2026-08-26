@@ -24,6 +24,7 @@ patches/moz-official.patch
 patches/msix.patch
 patches/newtab-fix.patch
 patches/pip-hide.patch
+patches/pip-hide-ui.patch
 patches/profile-directory.patch
 patches/remove-language-packs.patch
 patches/remove-openai.patch
