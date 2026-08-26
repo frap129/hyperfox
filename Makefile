@@ -1,7 +1,7 @@
 docker_targets = docker-build-image docker-run-build-job docker-remove-image
 woodpecker_targets = fetch-upstream-woodpecker check-patchfail-woodpecker
 testing_targets = full-test test test-linux test-macos test-windows
-.PHONY : help moztree check all clean veryclean distclean patches dir bootstrap fetch build package run update setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets) $(testing_targets)
+.PHONY : help moztree check all clean veryclean distclean patches dir bootstrap fetch build package run setup-wasi check-patchfail check-fuzz fixfuzz $(docker_targets) $(woodpecker_targets) $(testing_targets)
 
 version := $(shell cat ./version)
 release := $(shell cat ./release)
@@ -43,7 +43,6 @@ help:
 	@echo "  all         - Make LibreWolf source archive ${version}-${release}."
 	@echo ""
 	@echo "  check       - Check if there is a new version of Firefox."
-	@echo "  update      - Update the git submodules."
 	@echo ""
 	@echo "  clean       - Clean everything except the upstream firefox tarball."
 	@echo "  veryclean   - Clean everything including the firefox tarball."
@@ -77,7 +76,6 @@ help:
 	@echo ""
 	@echo "  moztree   - show LW source tree"
 	@echo "  check     - checking for new versions of FF"
-	@echo "  update    - update settings submodule"
 	@echo ""
 
 moztree:
@@ -107,7 +105,6 @@ distclean: veryclean
 # Check for new versions
 
 check:
-	-bash -c ./scripts/update-settings-module.sh
 	python3 scripts/update-version.py
 	cut -f1 version > version.tmp
 	mv -vf version.tmp version
@@ -115,11 +112,6 @@ check:
 	@echo "Firefox version   : " $$(cat version)
 	@echo "LibreWolf release : " $$(cat release)
 	@echo ""
-
-# Update settings submodule
-
-update:
-	-bash -c ./scripts/update-settings-module.sh
 
 # The actual build stuff
 

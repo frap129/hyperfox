@@ -95,6 +95,9 @@ permissions-eme2 =
 permissions-webgl2 =
     .label = WebGL
 
+permissions-canvas2 =
+    .label = Canvas extraction
+
 ## General
 librewolf-rfp-warning =
     .message = This feature is disabled because ResistFingerprinting is enabled. This means LibreWolf will force web content to display in a light theme.
