@@ -129,20 +129,23 @@ index d8be7e7644..81aad0a569 100644
  XPCOMUtils.defineLazyPreferenceGetter(
    SitePermissions,
 diff --git a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-index f82d730..45b2a1c 100644
+index f82d7309e1..d11f8a011f 100644
 --- a/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
 +++ b/toolkit/components/resistfingerprinting/RFPHelper.sys.mjs
-@@ -208,7 +208,12 @@ class _RFPHelper {
+@@ -208,8 +208,14 @@ class _RFPHelper {
        return;
      }
  
 -    let loadContext = notificationCallbacks.getInterface(Ci.nsILoadContext);
+-    if (!loadContext || !loadContext.isContent) {
 +    let loadContext;
 +    try {
 +      loadContext = notificationCallbacks.getInterface(Ci.nsILoadContext);
 +    } catch (e) {
 +      return;
 +    }
-     if (!loadContext || !loadContext.isContent) {
++
++    if (!loadContext.isContent) {
        return;
      }
+ 
