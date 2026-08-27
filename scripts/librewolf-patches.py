@@ -161,7 +161,7 @@ def librewolf_patches():
         with open(file, "w") as f:
             f.write("{}-{}".format(version,release))
 
-    if os.environ.get("SKIP_FETCHING_LOCALES") is not None:
+    if os.environ.get("SKIP_FETCHING_LOCALES") is None:
         print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
         with TemporaryDirectory() as tmpdir:
             exec(f"git clone --depth=1 https://librewolf.dev/mirror/firefox-l10n {tmpdir}/l10n")
