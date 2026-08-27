@@ -1,11 +1,15 @@
 permissions-site-webgl-window2 =
     .title = 设置 - WebGL 权限
     .style = { permissions-window2.style }
-permissions-site-webgl-desc = 下列网站已提出创建 WebGL 环境的请求。您可以指定允许哪些网站建立 WebGL 环境，也可以阻止后续要求创建 WebGL 环境的新请求。
+permissions-site-webgl-desc = 下列网站已请求创建 WebGL 上下文。您可以指定允许哪些网站创建 WebGL 上下文，也可以阻止新的 WebGL 上下文创建请求。
 permissions-site-eme-window2 =
     .title = 设置 - EME 权限
     .style = { permissions-window2.style }
 permissions-site-eme-disable-desc = 所有列表外的网站将无法请求获得播放由 DRM 控制的内容的权限。
-permissions-site-eme-desc = 下列网站曾请求播放由 DRM 控制的內容。您可指定允许哪些网站播放由 DRM 控制的內容，还可禁止新的播放由 DRM 控制的內容请求。
+permissions-site-eme-desc = 下列网站已请求播放受 DRM 保护的内容。您可以指定允许哪些网站播放受 DRM 保护的内容，也可以阻止新的 DRM 内容播放请求。
 permissions-site-eme-disable-label =
     .label = 禁止新的播放由 DRM 控制的內容请求
+permissions-site-canvas-window2 =
+    .title = 设置 - Canvas 画布读取权限
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = 下列网站已请求提取 Canvas 画布数据。您可以指定允许哪些网站提取 Canvas 数据。您也可以阻止新的 Canvas 数据提取请求。
