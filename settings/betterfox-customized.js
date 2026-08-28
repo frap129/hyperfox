@@ -235,6 +235,10 @@ user_pref("browser.low_commit_space_threshold_percent", 20); // determine when t
 user_pref("network.trr.max-fails", 5); // lower max attempts to use DoH
 user_pref("geo.provider.use_geoclue", false); // [LINUX]
 
+// Fix blurry pages on linux
+user_pref("widget.wayland.fractional-scale.enabled", true);
+user_pref("gfx.webrender.all", true);
+user_pref("gfx.webrender.quality.force-subpixel-aa-where-possible", true);
 /****************************************************************************
  * END: BETTERFOX                                                           *
  ****************************************************************************/
