@@ -62,24 +62,24 @@ jobs:
           fi
 
           FILES=(
-            "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz"
-            "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha256sum"
-            "librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha512sum"
+            "librewolf-${{ steps.version.outputs.VERSION }}.${{ steps.version.outputs.RELEASE }}.source.tar.gz"
+            "librewolf-${{ steps.version.outputs.VERSION }}.${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha256sum"
+            "librewolf-${{ steps.version.outputs.VERSION }}.${{ steps.version.outputs.RELEASE }}.source.tar.gz.sha512sum"
           )
 
           if [[ -n "$SIGNING_KEY" ]]; then
-            FILES+=("librewolf-${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}.source.tar.gz.sig")
+            FILES+=("librewolf-${{ steps.version.outputs.VERSION }}.${{ steps.version.outputs.RELEASE }}.source.tar.gz.sig")
           fi
 
           for FILE in "${FILES[@]}"; do
-            curl --http1.1 --user "${{ vars.FORGE_USER }}:${{ secrets.FORGE_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
+            curl --http1.1 --user "${{ vars.FORGE_USER }}:${{ secrets.FORGE_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}.${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
           done
 
       - name: Create Release
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: |
-          TAG="${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}"
+          TAG="${{ steps.version.outputs.VERSION }}.${{ steps.version.outputs.RELEASE }}"
           PACKAGE_BASE="${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${TAG}"
 
           # Create release
