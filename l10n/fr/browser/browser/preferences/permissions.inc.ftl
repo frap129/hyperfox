@@ -9,3 +9,7 @@ permissions-site-eme-desc = Les sites web suivants ont demandé à lire du conte
 permissions-site-eme-disable-label =
     .label = Bloquer les nouvelles demandes de lire du contenu protégé par DRM
 permissions-site-eme-disable-desc = Cela empêchera tout site web non listé ci-dessus de demander l'autorisation de lire du contenu protégé par DRM.
+permissions-site-canvas-window2 =
+    .title = Paramètres - Permission d'extraction des Canvas
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Les sites web suivants ont demandé à extraire des données des Canvas. Vous pouvez spécifier quels sites web sont autorisés à extraire des données des Canvas. Vous pouvez également bloquer les nouvelles demandes d'extraction de données des Canvas.
