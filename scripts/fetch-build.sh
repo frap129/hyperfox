@@ -7,11 +7,11 @@ fetch_and_extract() {
     curl -so version "https://codeberg.org/librewolf/source/raw/branch/main/version"
     curl -so source_release "https://codeberg.org/librewolf/source/raw/branch/main/release"
 
-    rm -f "librewolf-$(cat version)-$(cat source_release).source.tar.gz"
-    curl -so "librewolf-$(cat version)-$(cat source_release).source.tar.gz" "https://codeberg.org/api/packages/librewolf/generic/librewolf-source/$(cat version)-$(cat source_release)/librewolf-$(cat version)-$(cat source_release).source.tar.gz"
+    rm -f "librewolf-$(cat version).$(cat source_release).source.tar.gz"
+    curl -so "librewolf-$(cat version).$(cat source_release).source.tar.gz" "https://codeberg.org/api/packages/librewolf/generic/librewolf-source/$(cat version)-$(cat source_release)/librewolf-$(cat version)-$(cat source_release).source.tar.gz"
 
     rm -rf librewolf-$(cat version)
-    tar xf librewolf-$(cat version)-$(cat source_release).source.tar.gz
+    tar xf librewolf-$(cat version).$(cat source_release).source.tar.gz
 
     # here would be a great spot to insert system dependent stuff like mozconfig/patches.
 }

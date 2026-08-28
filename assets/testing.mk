@@ -10,18 +10,18 @@ bsys6_x86_64_linux_xz_artifact:
 	git clone "https://codeberg.org/librewolf/bsys6.git"
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_linux)
 	cp -v bsys6/*.xz .
-	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
+	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version).$$(cat release)/mozconfig" mozconfig.txt
 	rm -rf bsys6
 
 full_build_stage2_linux:
 
 	echo "[debug] Starting full_build_stage2_linux"
 
-	echo "VERSION=$$(cat ../version)-$$(cat ../release)" > env.sh
+	echo "VERSION=$$(cat ../version).$$(cat ../release)" > env.sh
 	echo "WORKDIR=$$(pwd)/WORKDIR" >> env.sh
 	echo "TARGET=linux" >> env.sh
 	echo "ARCH=x86_64" >> env.sh
-	echo "SOURCEDIR=$$(pwd)/SOURCEDIR/librewolf-$$(cat ../version)-$$(cat ../release)" >> env.sh
+	echo "SOURCEDIR=$$(pwd)/SOURCEDIR/librewolf-$$(cat ../version).$$(cat ../release)" >> env.sh
 	cat env.sh
 
 	mkdir WORKDIR
@@ -40,18 +40,18 @@ bsys6_x86_64_macos_dmg_artifact:
 	git clone "https://codeberg.org/librewolf/bsys6.git"
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_macos)
 	cp -v bsys6/*.dmg .
-	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
+	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version).$$(cat release)/mozconfig" mozconfig.txt
 	rm -rf bsys6
 
 full_build_stage2_macos:
 
 	echo "[debug] Starting full_build_stage2_macos"
 
-	echo "VERSION=$$(cat ../version)-$$(cat ../release)" > env.sh
+	echo "VERSION=$$(cat ../version).$$(cat ../release)" > env.sh
 	echo "WORKDIR=$$(pwd)/WORKDIR" >> env.sh
 	echo "TARGET=macos" >> env.sh
 	echo "ARCH=x86_64" >> env.sh
-	echo "SOURCEDIR=$$(pwd)/SOURCEDIR/librewolf-$$(cat ../version)-$$(cat ../release)" >> env.sh
+	echo "SOURCEDIR=$$(pwd)/SOURCEDIR/librewolf-$$(cat ../version).$$(cat ../release)" >> env.sh
 	cat env.sh
 
 	mkdir WORKDIR
@@ -68,17 +68,17 @@ bsys6_x86_64_windows_zip_artifact:
 	git clone "https://codeberg.org/librewolf/bsys6.git"
 	(cd bsys6 && ${MAKE} -f ../assets/testing.mk full_build_stage2_windows)
 	cp -v bsys6/*.zip .
-	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version)-$$(cat release)/mozconfig" mozconfig.txt
+	cp -v "bsys6/SOURCEDIR/librewolf-$$(cat version).$$(cat release)/mozconfig" mozconfig.txt
 	rm -rf bsys6
 
 full_build_stage2_windows:
 
 	echo "[debug] Starting full_build_stage2_windows"
-	echo "VERSION=$$(cat ../version)-$$(cat ../release)" > env.sh
+	echo "VERSION=$$(cat ../version).$$(cat ../release)" > env.sh
 	echo "WORKDIR=$$(pwd)/WORKDIR" >> env.sh
 	echo "TARGET=windows" >> env.sh
 	echo "ARCH=x86_64" >> env.sh
-	echo "SOURCEDIR=$$(pwd)/SOURCEDIR/librewolf-$$(cat ../version)-$$(cat ../release)" >> env.sh
+	echo "SOURCEDIR=$$(pwd)/SOURCEDIR/librewolf-$$(cat ../version).$$(cat ../release)" >> env.sh
 	cat env.sh
 
 	mkdir WORKDIR

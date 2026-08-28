@@ -63,7 +63,7 @@ def patch(patchfile):
 
 def enter_srcdir(_dir = None):
     if _dir == None:
-        dir = "librewolf-{}-{}".format(version, release)
+        dir = "librewolf-{}.{}".format(version, release)
     else:
         dir = _dir
     print("cd {}".format(dir))
@@ -159,7 +159,7 @@ def librewolf_patches():
     # override the firefox version
     for file in ["browser/config/version.txt", "browser/config/version_display.txt"]:
         with open(file, "w") as f:
-            f.write("{}-{}".format(version,release))
+            f.write("{}.{}".format(version,release))
 
     if os.environ.get("SKIP_FETCHING_LOCALES") is None:
         print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
@@ -221,7 +221,7 @@ if len(args) != 2:
     sys.exit(1)
 version = args[0]
 release = args[1]
-srcdir = "librewolf-{}-{}".format(version, release)
+srcdir = "librewolf-{}.{}".format(version, release)
 if not os.path.exists(srcdir + '/configure.py'):
     sys.stderr.write('error: folder doesn\'t look like a Firefox folder.')
     sys.exit(1)
