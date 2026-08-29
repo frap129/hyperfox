@@ -30,6 +30,7 @@ patches/remove-openai.patch
 patches/remove-pingsender.patch
 patches/rs-blocker.patch
 patches/rust-gentoo-musl.patch
+patches/strip-dash-from-compare.patch
 patches/temp-macos-fix.patch
 patches/macos-relaunch-without-updater.patch
 patches/ui-patches/add-translate-page-context-menu.patch
