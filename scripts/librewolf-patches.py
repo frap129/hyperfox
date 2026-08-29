@@ -115,7 +115,7 @@ def librewolf_patches():
     exec('cp -v ../assets/2c4b8834-030c-4097-a887-c7506689095c.meta.json services/settings/dumps/main/search-config-icons')
 
     # read lines of .txt file into 'patches'
-    with open('../assets/patches.txt', "r") as f:
+    with open('../assets/patches.txt'.format(version), "r") as f:
         for line in f.readlines():
             patch('../'+line.strip())
 
