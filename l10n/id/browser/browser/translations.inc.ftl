@@ -1,6 +1,9 @@
 translations-panel-disable-translations =
     .label = Nonaktifkan terjemahan sepenuhnya
 translations-manage-enable =
-    .label = Aktifkan terjemahan Fullpage
+    .label = Aktifkan terjemahan pada seluruh halaman
 translations-manage-autopopup =
-    .label = Meminta untuk menerjemahkan halaman yang tidak ada dalam bahasa browser yang dikonfigurasi
+    .label = Meminta untuk menerjemahkan halaman yang tidak ada dalam bahasa yang dikonfigurasi di peramban
+main-context-menu-translate-page =
+    .label = Terjemahkan Halaman…
+    .accesskey = T

@@ -1,7 +1,6 @@
 patches/add-mojeek.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-setEnv.patch
-patches/backport-2053518.patch
 patches/bootstrap.patch
 patches/canvas-permission.patch
 patches/custom-ubo-assets-bootstrap-location.patch
@@ -31,11 +30,11 @@ patches/remove-openai.patch
 patches/remove-pingsender.patch
 patches/rs-blocker.patch
 patches/rust-gentoo-musl.patch
+patches/strip-dash-from-compare.patch
 patches/temp-macos-fix.patch
 patches/macos-relaunch-without-updater.patch
 patches/ui-patches/add-translate-page-context-menu.patch
 patches/ui-patches/allow_cookies_for_site.patch
-patches/ui-patches/backport-wallpapers.patch
 patches/ui-patches/home-preferences.patch
 patches/ui-patches/lw-logo-devtools.patch
 patches/ui-patches/neterror.patch
@@ -45,6 +44,7 @@ patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/settings-redesign.patch
 patches/ui-patches/trustpanel.patch
+patches/ui-patches/wallpapers.patch
 patches/ui-patches/website-appearance-ui-rfp.patch
 patches/vendor-name.patch
 patches/webgl-permission.patch

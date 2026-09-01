@@ -1,0 +1,86 @@
+diff --git a/xpcom/base/nsVersionComparator.cpp b/xpcom/base/nsVersionComparator.cpp
+index 21dd649..e7e3f50 100644
+--- a/xpcom/base/nsVersionComparator.cpp
++++ b/xpcom/base/nsVersionComparator.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include "nsVersionComparator.h"
+ 
++#include <ctype.h>
+ #include <errno.h>
+ #include <stdint.h>
+ #include <stdlib.h>
+@@ -16,6 +17,7 @@
+ 
+ #    include "nsString.h"
+ #  endif
++#  include <wctype.h>
+ #  include "mozilla/Char16.h"
+ #  include "nsAlgorithm.h"
+ #endif
+@@ -331,6 +333,22 @@ static int32_t CompareVP(VersionPartW& aVer1, VersionPartW& aVer2) {
+ namespace mozilla {
+ 
+ #ifdef XP_WIN
++static void StripVersionSuffix(wchar_t* aVersion) {
++  if (!aVersion) return;
++
++  size_t len = wcslen(aVersion);
++  if (len < 2) return;
++
++  int pos = (int)len - 1;
++  while (pos >= 0 && iswdigit(aVersion[pos])) {
++    pos--;
++  }
++
++  if (pos >= 0 && aVersion[pos] == L'-') {
++    aVersion[pos] = L'\0';
++  }
++}
++
+ int32_t CompareVersions(const char16_t* aStrA, const char16_t* aStrB) {
+   wchar_t* A2 = wcsdup(char16ptr_t(aStrA));
+   if (!A2) {
+@@ -343,6 +361,9 @@ int32_t CompareVersions(const char16_t* aStrA, const char16_t* aStrB) {
+     return 1;
+   }
+ 
++  StripVersionSuffix(A2);
++  StripVersionSuffix(B2);
++
+   int32_t result;
+   wchar_t* a = A2;
+   wchar_t* b = B2;
+@@ -367,6 +388,22 @@ int32_t CompareVersions(const char16_t* aStrA, const char16_t* aStrB) {
+ }
+ #endif
+ 
++static void StripVersionSuffix(char* aVersion) {
++  if (!aVersion) return;
++
++  size_t len = strlen(aVersion);
++  if (len < 2) return;
++
++  int pos = (int)len - 1;
++  while (pos >= 0 && isdigit(aVersion[pos])) {
++    pos--;
++  }
++
++  if (pos >= 0 && aVersion[pos] == '-') {
++    aVersion[pos] = '\0';
++  }
++}
++
+ int32_t CompareVersions(const char* aStrA, const char* aStrB) {
+   char* A2 = strdup(aStrA);
+   if (!A2) {
+@@ -379,6 +416,9 @@ int32_t CompareVersions(const char* aStrA, const char* aStrB) {
+     return 1;
+   }
+ 
++  StripVersionSuffix(A2);
++  StripVersionSuffix(B2);
++
+   int32_t result;
+   char* a = A2;
+   char* b = B2;

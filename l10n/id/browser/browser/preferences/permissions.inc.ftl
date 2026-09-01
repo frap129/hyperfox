@@ -1,6 +1,15 @@
 permissions-site-eme-disable-label =
-    .label = Blokir permintaan memutar konten DRM baru
-permissions-site-eme-disable-desc = Ini akan mencegah website yang tidak terdaftar di atas meminta izin memutar konten DRM
+    .label = Blokir permintaan baru untuk memutar konten yang dikontrol DRM
+permissions-site-eme-disable-desc = Ini akan mencegah situs apapun yang tidak terdaftar di atas untuk meminta izin memutar konten yang dikontrol DRM.
 permissions-site-webgl-window2 =
     .title = Pengaturan - Izin WebGL
     .style = { permissions-window2.style }
+permissions-site-eme-window2 =
+    .title = Pengaturan - Izin EME
+    .style = { permissions-window2.style }
+permissions-site-eme-desc = Situs di bawah ini telah meminta izin untuk memutar konten yang dikontrol DRM. Anda dapat menspesifikkan situs apa saja yang diizinkan untuk memutar konten yang dikontrol DRM. Anda juga dapat memblokir permintaan baru untuk memutar konten yang dikontrol DRM.
+permissions-site-webgl-desc = Situs di bawah ini telah meminta izin untuk membuat konteks WebGL. Anda dapat menspesifikkan situs apa saja yang diizinkan untuk membuat konteks WebGL. Anda juga dapat memblokir permintaan baru untuk membuat konteks WebGL.
+permissions-site-canvas-window2 =
+    .title = Pengaturan - Izin ekstraksi kanvas
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Situs di bawah ini telah meminta izin untuk mengekstraksi data kanvas. Anda dapat menspesifikkan situs apa saja yang diizinkan untuk mengekstraksi data kanvas. Anda juga dapat memblokir permintaan baru untuk mengekstraksi data kanvas.
