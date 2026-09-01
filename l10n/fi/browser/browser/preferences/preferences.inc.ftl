@@ -117,3 +117,7 @@ librewolf-JXL =
 librewolf-etp =
     .label = Tehostettu seurannan suojaus
     .description = LibreWolf tukee, ja käyttää oletusarvoisesti, tehostettua seurannan suojausta tiukassa tilassa. Tämä on yksi selaimen tärkeimpiä asetuksia, sillä se tarjoaa tilan osioinnin, tiukat estolistat ja muita hienostuneita tietosuoja-asetuksia. Tämän asetuksen muuttaminen ei ole suositeltavaa.
+librewolf-is-default-browser-2 =
+    .message = { -brand-short-name } on asetettu oletusselaimeksi.
+librewolf-is-not-default-browser-2 =
+    .message = { -brand-short-name } ei ole oletusselain.
