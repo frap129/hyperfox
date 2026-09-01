@@ -31,7 +31,7 @@ diff --git a/browser/components/tabbrowser/content/tabbrowser.js b/browser/compo
 index c0eafd4faf..399f19e095 100644
 --- a/browser/components/tabbrowser/content/tabbrowser.js
 +++ b/browser/components/tabbrowser/content/tabbrowser.js
-@@ -2410,6 +2410,10 @@
+@@ -2885,6 +2885,10 @@
        stack.className = "browserStack";
        stack.appendChild(b);
  
@@ -39,7 +39,7 @@ index c0eafd4faf..399f19e095 100644
 +      decorator.className = "browserDecorator";
 +      stack.appendChild(decorator);
 +
-       let browserContainer = document.createXULElement("vbox");
+       let browserContainer = document.createXULElement("box");
        browserContainer.className = "browserContainer";
        browserContainer.appendChild(stack);
 diff --git a/browser/themes/shared/tabbrowser/content-area.css b/browser/themes/shared/tabbrowser/content-area.css
