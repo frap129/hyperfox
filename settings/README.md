@@ -11,7 +11,7 @@ This is now easier thanks to the [overrides](https://librewolf.net/docs/settings
 - [Website](https://librewolf.net): read the docs.
 - [FAQ](https://librewolf.net/docs/faq): for any question you might have,
 and to help you creating your own pref file.
-- [All releases](https://codeberg.org/librewolf/bsys6/releases).
+- [All releases](https://librewolf.dev/librewolf/bsys6/releases).
 - Find us on:
   - [Matrix](https://matrix.to/#/#librewolf:matrix.org)
   - [Reddit](https://www.reddit.com/r/LibreWolf)

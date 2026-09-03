@@ -51,8 +51,8 @@ These are the locations where people have their repositories and build artifacts
 
 Active:
 
-- [Arch](https://codeberg.org/librewolf/arch) - Arch Linux package
-- [BSYS6](https://codeberg.org/librewolf/bsys6) - Linux Mint, Fedora,
+- [Arch](https://archlinux.org/packages/extra/x86_64/librewolf/) - Arch Linux package
+- [BSYS6](https://librewolf.dev/librewolf/bsys6) - Linux Mint, Fedora,
   Ubuntu, MacOS, portable and setup for Windows
 - [Gentoo](https://codeberg.org/librewolf/gentoo) - Gentoo GNU/Linux package
 
@@ -75,8 +75,8 @@ or compile directly with this repository.
 
 ### Build: Tarball
 
-1. Let's **[download the latest tarball](https://codeberg.org/librewolf/source/releases)**.
-   This tarball is the latest produced by the [CI](https://codeberg.org/librewolf/source/actions?workflow=source-release.yaml).
+1. Let's **[download the latest tarball](https://librewolf.dev/librewolf/source/releases)**.
+   This tarball is the latest produced by the [CI](https://librewolf.dev/librewolf/source/actions?workflow=source-release.yaml).
    You can also check the `sha256sum` of the tarball there:
 
    ```bash
@@ -113,7 +113,7 @@ or compile directly with this repository.
 1. Clone this repository with Git:
 
    ```bash
-   git clone --recursive git@codeberg.org:librewolf/source.git librewolf-source --depth=1 && cd librewolf-source
+   git clone --recursive git@librewolf.dev:librewolf/source.git librewolf-source --depth=1 && cd librewolf-source
    ```
 
 2. Build LibreWolf source code,

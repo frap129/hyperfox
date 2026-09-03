@@ -11,8 +11,8 @@ assets=$(curl https://raw.githubusercontent.com/gorhill/uBlock/master/assets/ass
 # Overwrite the contentURL of assets.json so that uBO will always use the LW provided version
 echo "-> Overwriting assets.json update location"
 assets=$(echo "$assets" | jq '
-  del(.["assets.json"].cdnURLs) | 
-  .["assets.json"].contentURL = "https://codeberg.org/librewolf/source/src/branch/main/assets/uBOAssets.json"
+  del(.["assets.json"].cdnURLs) |
+  .["assets.json"].contentURL = "https://librewolf.dev/librewolf/source/src/branch/main/assets/uBOAssets.json"
 ')
 
 # Enable some filter lists that are disabled by default
