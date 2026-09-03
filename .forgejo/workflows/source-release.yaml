@@ -7,7 +7,7 @@ jobs:
   build-source:
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: librewolf.dev/librewolf/bsys6:dind
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -34,7 +34,7 @@ jobs:
     runs-on: epsilon
     if: forgejo.ref == 'refs/heads/main'
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: librewolf.dev/librewolf/bsys6:dind
     needs: [build-source]
     steps:
       - name: Checkout Repository
