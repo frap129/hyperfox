@@ -37,7 +37,7 @@ jobs:
     if: ${{ !(forgejo.event_name == 'pull_request' && forgejo.head_ref == 'beta' && forgejo.base_ref == 'main') }}
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: librewolf.dev/librewolf/bsys6:dind
     outputs:
       ff_version: ${{ steps.detect.outputs.FF_VERSION }}
       ff_channel: ${{ steps.detect.outputs.FF_CHANNEL }}
@@ -76,7 +76,7 @@ jobs:
     if: inputs.Target == 'all' || inputs.Target == 'linux' || inputs.Target == ''
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:linux
+      image: librewolf.dev/librewolf/bsys6:linux
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -107,7 +107,7 @@ jobs:
     if: inputs.Target == 'all' || inputs.Target == 'windows'
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:windows
+      image: librewolf.dev/librewolf/bsys6:windows
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -138,7 +138,7 @@ jobs:
     if: inputs.Target == 'all' || inputs.Target == 'macos'
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:macos
+      image: librewolf.dev/librewolf/bsys6:macos
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6

@@ -7,7 +7,7 @@ jobs:
   build-source:
     runs-on: epsilon
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: librewolf.dev/librewolf/bsys6:dind
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -34,7 +34,7 @@ jobs:
     runs-on: epsilon
     if: forgejo.ref == 'refs/heads/main'
     container:
-      image: codeberg.org/librewolf/bsys6:dind
+      image: librewolf.dev/librewolf/bsys6:dind
     needs: [build-source]
     steps:
       - name: Checkout Repository
@@ -86,7 +86,7 @@ jobs:
           body=$(jq -n \
             --arg tag "$TAG" \
             --arg name "LibreWolf Source v${TAG}" \
-            --arg body $'## LibreWolf Source Release v'"${TAG}"$'\n\nBuilt on Codeberg by workflow [#${{ forgejo.run_number }}](${{ forgejo.server_url }}/${{ forgejo.repository }}/actions/runs/${{ forgejo.run_number }})' \
+            --arg body $'## LibreWolf Source Release v'"${TAG}"$'\n\nBuilt by workflow [#${{ forgejo.run_number }}](${{ forgejo.server_url }}/${{ forgejo.repository }}/actions/runs/${{ forgejo.run_number }})' \
             '{tag_name: $tag, name: $name, body: $body, draft: false, prerelease: false}')
 
           release_id=$(curl --fail-with-body --header 'Content-Type: application/json' \

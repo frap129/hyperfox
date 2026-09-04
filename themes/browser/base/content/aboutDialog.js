@@ -69,7 +69,7 @@ async function init(aEvent) {
     fetch(
       Services.prefs.getStringPref(
         "librewolf.aboutMenu.versionCheckGitlabUrl",
-        "https://codeberg.org/api/v1/repos/librewolf/source/releases"
+        "https://librewolf.dev/api/v1/repos/librewolf/source/releases"
       )
     )
       .then(response => response.json())

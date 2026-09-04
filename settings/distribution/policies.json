@@ -77,7 +77,7 @@
         "SkipTermsOfUse": true,
         "SupportMenu": {
             "Title": "LibreWolf Issue Tracker",
-            "URL": "https://codeberg.org/librewolf/issues"
+            "URL": "https://librewolf.dev/librewolf/issues"
         },
         "UserMessaging": {
             "UrlbarInterventions": false,
