@@ -2,99 +2,6 @@ diff --git a/browser/components/preferences/config/about-firefox.mjs b/browser/c
 index e90e8ec..fbab201 100644
 --- a/browser/components/preferences/config/about-firefox.mjs
 +++ b/browser/components/preferences/config/about-firefox.mjs
-@@ -472,92 +472,6 @@ Preferences.addSetting({
- });
- 
- SettingGroupManager.registerGroups({
--  updates: {
--    l10nId: "update-application-heading",
--    iconSrc: "chrome://browser/skin/update-badge.svg",
--    subcategory: "update-state",
--    headingLevel: 2,
--    items: [
--      {
--        id: "updatesManagedByOS",
--        l10nId: "update-application-updates-managed-by-os",
--        control: "moz-message-bar",
--        controlAttrs: {
--          role: "status",
--        },
--      },
--      {
--        id: "updateApp",
--        control: "moz-box-group",
--        items: [
--          {
--            id: "updateState",
--            control: "update-state",
--          },
--          {
--            id: "updateAppInfo",
--            control: "update-information",
--          },
--          {
--            id: "showUpdateHistory",
--            l10nId: "update-history-2",
--            control: "moz-box-button",
--            controlAttrs: {
--              "search-l10n-ids": "history-title,history-intro",
--            },
--          },
--        ],
--      },
--      {
--        id: "installationFieldset",
--        control: "moz-fieldset",
--        l10nId: "update-application-installation",
--        items: [
--          {
--            id: "updateSettingCrossUserWarning",
--            control: "moz-message-bar",
--            l10nId: "update-application-warning-cross-user-setting-2",
--            controlAttrs: {
--              role: "status",
--            },
--          },
--          {
--            id: "updateRadioGroup",
--            control: "moz-radio-group",
--            options: [
--              {
--                id: "autoDesktop",
--                value: true,
--                l10nId: "update-application-auto-2",
--                items: [
--                  {
--                    id: "backgroundUpdate",
--                    l10nId: "update-application-background-enabled",
--                  },
--                ],
--              },
--              {
--                id: "manualDesktop",
--                value: false,
--                l10nId: "update-application-check-choose-2",
--              },
--            ],
--          },
--        ],
--      },
--      {
--        id: "showUpdatePromptsHeader",
--        control: "moz-fieldset",
--        l10nId: "update-application-suppress-prompts-heading",
--        items: [
--          {
--            id: "showUpdatePrompts",
--            l10nId: "update-application-suppress-prompts-2",
--          },
--        ],
--      },
--    ],
--  },
-   support: {
-     inProgress: true,
-     l10nId: "support-application-heading",
 @@ -574,14 +488,6 @@ SettingGroupManager.registerGroups({
              control: "moz-box-link",
              supportPage: "preferences",
@@ -617,27 +524,10 @@ index 5a56d34..bc180bb 100644
    };
  
    const items = includeIsDefaultPane
-@@ -686,7 +678,6 @@ var gMainPane = {
-     initSettingGroup("browsing");
-     initSettingGroup("keyboardAndScrolling");
-     initSettingGroup("motionAndLink");
--    initSettingGroup("updates");
-     initSettingGroup("translations");
-     initSettingGroup("spellCheck");
-     initSettingGroup("performance");
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
 index 94612d8..4c82403 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
-@@ -244,7 +244,7 @@ const CONFIG_PANES = Object.freeze({
-   about: {
-     l10nId: "about-firefox-header",
-     iconSrc: "chrome://browser/skin/sidebar/firefox.svg",
--    groupIds: ["updates", "support"],
-+    groupIds: ["support"],
-     module: "chrome://browser/content/preferences/config/about-firefox.mjs",
-     visible: () => srdSectionPrefs.all,
-   },
 @@ -297,7 +297,6 @@ const CONFIG_PANES = Object.freeze({
        "httpsOnly",
        "networkProxy",
