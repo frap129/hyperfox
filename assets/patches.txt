@@ -13,6 +13,7 @@ patches/extensions-setUninstallURL.patch
 patches/firefox-in-ua.patch
 patches/fpp-canvas-fix.patch
 patches/fullpage-translations-customization.patch
+patches/include-policy-deletion.patch
 patches/languages.patch
 patches/limit-access.patch
 patches/link-preview.patch
