@@ -114,6 +114,10 @@ def librewolf_patches():
     exec('cp -v ../assets/2c4b8834-030c-4097-a887-c7506689095c services/settings/dumps/main/search-config-icons')
     exec('cp -v ../assets/2c4b8834-030c-4097-a887-c7506689095c.meta.json services/settings/dumps/main/search-config-icons')
 
+    # copy our public signing keys
+    exec('cp -v ../assets/marsigner.der toolkit/mozapps/update/updater/release_primary.der')
+    exec('cp -v ../assets/marsigner2.der toolkit/mozapps/update/updater/release_secondary.der')
+
     # read lines of .txt file into 'patches'
     with open('../assets/patches.txt'.format(version), "r") as f:
         for line in f.readlines():
