@@ -33,6 +33,7 @@ patches/rs-blocker.patch
 patches/rust-gentoo-musl.patch
 patches/strip-dash-from-compare.patch
 patches/temp-macos-fix.patch
+patches/updater.patch
 patches/ui-patches/add-translate-page-context-menu.patch
 patches/ui-patches/allow_cookies_for_site.patch
 patches/ui-patches/home-preferences.patch
