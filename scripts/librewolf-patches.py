@@ -119,7 +119,7 @@ def librewolf_patches():
     exec('cp -v ../assets/marsigner2.der toolkit/mozapps/update/updater/release_secondary.der')
 
     # read lines of .txt file into 'patches'
-    with open('../assets/patches.txt'.format(version), "r") as f:
+    with open('../assets/patches.txt', "r") as f:
         for line in f.readlines():
             patch('../'+line.strip())
 
