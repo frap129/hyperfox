@@ -1,0 +1,50 @@
+diff --git a/toolkit/components/urlformatter/URLFormatter.sys.mjs b/toolkit/components/urlformatter/URLFormatter.sys.mjs
+index 0485032..b802ffd 100644
+--- a/toolkit/components/urlformatter/URLFormatter.sys.mjs
++++ b/toolkit/components/urlformatter/URLFormatter.sys.mjs
+@@ -90,6 +90,9 @@ nsURLFormatterService.prototype = {
+     VERSION() {
+       return Services.appinfo.version;
+     },
++    VERSION_DISPLAY() {
++      return AppConstants.MOZ_APP_VERSION_DISPLAY;
++    },
+     MAJOR_VERSION() {
+       return Services.appinfo.version.replace(
+         /^([^\.]+\.[0-9]+[a-z]*).*/gi,
+diff --git a/toolkit/mozapps/update/UpdateListener.sys.mjs b/toolkit/mozapps/update/UpdateListener.sys.mjs
+index b689833..a38698c 100644
+--- a/toolkit/mozapps/update/UpdateListener.sys.mjs
++++ b/toolkit/mozapps/update/UpdateListener.sys.mjs
+@@ -188,30 +188,7 @@ export var UpdateListener = {
+ 
+   getReleaseNotesUrl(update) {
+     try {
+-      // Release notes are enabled by default for EN locales only, but can be
+-      // enabled for other locales within an experiment.
+-      if (
+-        !Services.locale.appLocaleAsBCP47.startsWith("en") &&
+-        !lazy.NimbusFeatures.updatePrompt.getVariable("showReleaseNotesLink")
+-      ) {
+-        return null;
+-      }
+-      // The release notes URL is set in the pref app.releaseNotesURL.prompt,
+-      // but can also be overridden by an experiment.
+-      let url = lazy.NimbusFeatures.updatePrompt.getVariable("releaseNotesURL");
+-      if (url) {
+-        let versionString = update.appVersion;
+-        switch (update.channel) {
+-          case "aurora":
+-          case "beta":
+-            versionString += "beta";
+-            break;
+-        }
+-        url = Services.urlFormatter.formatURL(
+-          url.replace("%VERSION%", versionString)
+-        );
+-      }
+-      return url || null;
++      return Services.urlFormatter.formatURLPref("app.releaseNotesURL.prompt");
+     } catch (error) {
+       return null;
+     }
