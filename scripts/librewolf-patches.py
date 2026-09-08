@@ -161,9 +161,11 @@ def librewolf_patches():
     exec('cp -v ../assets/mozconfig.new lw/')
 
     # override the firefox version
-    for file in ["browser/config/version.txt", "browser/config/version_display.txt"]:
-        with open(file, "w") as f:
-            f.write("{}-{}".format(version,release))
+    with open("browser/config/version.txt", "w") as f:
+        f.write(version)
+
+    with open("browser/config/version_display.txt", "w") as f:
+        f.write("{}-{}".format(version, release))
 
     if os.environ.get("SKIP_FETCHING_LOCALES") is None:
         print("-> Downloading locales from https://librewolf.dev/mirror/firefox-l10n")
