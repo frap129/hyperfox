@@ -1,8 +1,16 @@
 diff --git a/browser/components/preferences/config/permissions-data.mjs b/browser/components/preferences/config/permissions-data.mjs
-index dc5499a..d08cc67 100644
+index 0210368..aee85ec 100644
 --- a/browser/components/preferences/config/permissions-data.mjs
 +++ b/browser/components/preferences/config/permissions-data.mjs
-@@ -63,6 +63,11 @@ Preferences.addAll([
+@@ -11,6 +11,7 @@ const XPCOMUtils = ChromeUtils.importESModule(
+ 
+ const lazy = XPCOMUtils.declareLazy({
+   AppConstants: "resource://gre/modules/AppConstants.sys.mjs",
++  SitePermissions: "resource:///modules/SitePermissions.sys.mjs",
+   SelectableProfileService:
+     "resource:///modules/profiles/SelectableProfileService.sys.mjs",
+   AlertsServiceDND: () => {
+@@ -63,6 +64,11 @@ Preferences.addAll([
    { id: PREF_ADDON_RECOMMENDATIONS_ENABLED, type: "bool" },
    { id: PREF_UPLOAD_ENABLED, type: "bool" },
    { id: "datareporting.usage.uploadEnabled", type: "bool" },
@@ -14,7 +22,7 @@ index dc5499a..d08cc67 100644
  ]);
  
  /**
-@@ -498,6 +503,53 @@ Preferences.addSetting(
+@@ -498,6 +504,53 @@ Preferences.addSetting(
    })
  );
  
@@ -61,14 +69,14 @@ index dc5499a..d08cc67 100644
 +  onUserClick: () => showPermissionExceptions({ permissionType: "canvas" }),
 +  deps: ["resistFingerprinting"],
 +  visible: deps => {
-+    return deps.resistFingerprinting.value;
++    return deps.resistFingerprinting.value || lazy.SitePermissions._computeCanvasImageExtractionEnabled();
 +  },
 +});
 +
  SettingGroupManager.registerGroups({
    permissions: {
      id: "permissions",
-@@ -608,6 +660,36 @@ SettingGroupManager.registerGroups({
+@@ -607,6 +660,36 @@ SettingGroupManager.registerGroups({
                  "permissions-remove.label,permissions-remove-all.label,permissions-site-xr-window2.title,permissions-site-xr-desc,permissions-site-xr-disable-label,permissions-site-xr-disable-desc,",
              },
            },
