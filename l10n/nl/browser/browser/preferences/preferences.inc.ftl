@@ -125,3 +125,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } is de standaardbrowser.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } is niet de standaardbrowser.
+librewolf-h264 =
+    .label = OpenH264-plugin inschakelen
+    .description = Vereist voor het delen van het scherm op sommige websites, zoals Discord.
