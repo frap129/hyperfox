@@ -1,5 +1,5 @@
 diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
-index 6cee3dc..0483863 100644
+index 6cee3dc..dd91621 100644
 --- a/browser/components/ProfileDataUpgrader.sys.mjs
 +++ b/browser/components/ProfileDataUpgrader.sys.mjs
 @@ -1076,6 +1076,12 @@ export let ProfileDataUpgrader = {
@@ -7,11 +7,11 @@ index 6cee3dc..0483863 100644
        Services.prefs.clearUserBranch("cookiebanners.");
        Services.prefs.clearUserBranch("browser.promo.cookiebanners.");
 +
-+     if (Services.prefs.prefHasUserValue("media.eme.enabled")) {
-+       Services.prefs.setBoolPref("media.gmp-manager.updateEnabled", true);
-+       Services.prefs.setBoolPref("media.gmp-widevinecdm.enabled", true);
-+       Services.prefs.setBoolPref("media.gmp-widevinecdm.autoupdate", true);
-+     }
++      if (Services.prefs.prefHasUserValue("media.eme.enabled")) {
++        Services.prefs.setBoolPref("media.gmp-manager.updateEnabled", true);
++        Services.prefs.setBoolPref("media.gmp-widevinecdm.enabled", true);
++        Services.prefs.setBoolPref("media.gmp-widevinecdm.autoupdate", true);
++      }
      }
  
      if (existingDataVersion < 180) {
