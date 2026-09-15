@@ -423,10 +423,10 @@ index d06a45ed88..001483f751 100644
          id: "etpLevelWarning",
          control: "moz-promo",
 diff --git a/browser/components/preferences/config/tabs-browsing.mjs b/browser/components/preferences/config/tabs-browsing.mjs
-index 50ba8c2da3..7f9dee01fd 100644
+index 50fb553..daceb11 100644
 --- a/browser/components/preferences/config/tabs-browsing.mjs
 +++ b/browser/components/preferences/config/tabs-browsing.mjs
-@@ -124,7 +124,64 @@ if (srdEnabled) {
+@@ -125,7 +125,64 @@ if (srdEnabled) {
         document; when set to false, no search action happens */
      { id: "accessibility.browsewithcaret", type: "bool" },
      { id: "accessibility.typeaheadfind", type: "bool" },
@@ -491,7 +491,7 @@ index 50ba8c2da3..7f9dee01fd 100644
  }
  
  // Tabs settings
-@@ -492,6 +549,11 @@ Preferences.addSetting({
+@@ -493,6 +550,11 @@ Preferences.addSetting({
  Preferences.addSetting({
    id: "playDRMContent",
    pref: "media.eme.enabled",
@@ -503,7 +503,7 @@ index 50ba8c2da3..7f9dee01fd 100644
    visible: () => {
      if (!Services.prefs.getBoolPref("browser.eme.ui.enabled", false)) {
        return false;
-@@ -505,6 +567,35 @@ Preferences.addSetting({
+@@ -506,6 +568,35 @@ Preferences.addSetting({
      }
      return true;
    },
@@ -539,7 +539,7 @@ index 50ba8c2da3..7f9dee01fd 100644
  });
  
  // Performance settings
-@@ -728,6 +819,16 @@ SettingGroupManager.registerGroups({
+@@ -745,6 +836,16 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -556,13 +556,14 @@ index 50ba8c2da3..7f9dee01fd 100644
    media: {
      l10nId: "settings-media-group",
      headingLevel: 2,
-@@ -750,6 +851,14 @@ SettingGroupManager.registerGroups({
+@@ -767,6 +868,15 @@ SettingGroupManager.registerGroups({
          l10nId: "play-drm-content",
          supportPage: "drm-content",
        },
 +      {
 +        id: "librewolfh264",
 +        l10nId: "librewolf-h264",
++        supportPage: "open-h264-plugin-firefox",
 +      },
 +      {
 +        id: "librewolfJXL",
