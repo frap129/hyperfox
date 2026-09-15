@@ -879,45 +879,6 @@ index 0000000..7c552cc
 +       transform="matrix(0.23203125,0.40188991,-0.99392962,0.57384553,246.21921,73.888081)" />
 +  </g>
 +</svg>
-diff --git a/browser/extensions/newtab/css/activity-stream.css b/browser/extensions/newtab/css/activity-stream.css
-index 5f86582..20fad77 100644
---- a/browser/extensions/newtab/css/activity-stream.css
-+++ b/browser/extensions/newtab/css/activity-stream.css
-@@ -1072,13 +1072,13 @@ main.newtab-main section {
- }
- .logo-and-wordmark .wordmark {
-   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
--  background-size: 105px;
-+  background-size: 200px;
-   -moz-context-properties: fill;
-   display: inline-block;
-   fill: var(--newtab-wordmark-color);
-   height: 64px;
-   margin-inline-start: var(--space-large);
--  width: 105px;
-+  width: 200px;
- }
- .lightWallpaper .logo-and-wordmark .wordmark {
-   color-scheme: light;
-diff --git a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
-index ea50223..d782989 100644
---- a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
-+++ b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
-@@ -74,12 +74,12 @@ p {
- .wordmark {
-   display: inline-block;
-   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
--  background-size: 172px;
-+  background-size: 250px;
-   margin-inline-start: 15px;
-   -moz-context-properties: fill;
-   fill: currentColor;
-   height: 96px;
--  width: 172px;
-+  width: 250px;
- }
- 
- .search-inner-wrapper {
 diff --git a/browser/components/backup/BackupService.sys.mjs b/browser/components/backup/BackupService.sys.mjs
 index bd2f95db2d..23ed1d8e90 100644
 --- a/browser/components/backup/BackupService.sys.mjs
