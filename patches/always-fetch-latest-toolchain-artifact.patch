@@ -1,19 +1,18 @@
 diff --git a/python/mozbuild/mozbuild/artifact_commands.py b/python/mozbuild/mozbuild/artifact_commands.py
-index edbc11f..6f369ef 100644
+index 6e87866..2445c56 100644
 --- a/python/mozbuild/mozbuild/artifact_commands.py
 +++ b/python/mozbuild/mozbuild/artifact_commands.py
-@@ -9,8 +9,9 @@
- import logging
+@@ -10,6 +10,7 @@ import logging
  import os
  import pathlib
  import shutil
 +import requests
- from collections import OrderedDict
  
  import mozversioncontrol
  from mach.decorators import Command, CommandArgument, SubCommand
-
-@@ -452,28 +452,30 @@
+@@ -448,17 +449,19 @@ def artifact_toolchain(
+                 return 1
+ 
              artifact_name = task["attributes"].get(f"{task['kind']}-artifact")
 -            optimization = task.get("optimization", {})
 -            command_context.log(
@@ -24,8 +23,6 @@ index edbc11f..6f369ef 100644
 -                    "index": optimization.get("index-search"),
 -                },
 -                "Searching for {name} in {index}",
--            )
--            task_id = find_task_from_index(optimization.get("index-search", []))
 +            # Get the latest toolchain artifact from mozilla-central instead of
 +            # the toolchain artifact for our current checkout by retrieving the
 +            # task id of the task building the toolchain artifact from the
@@ -35,7 +32,8 @@ index edbc11f..6f369ef 100644
 +            # are.
 +            label_to_taskid_response = requests.get(
 +                "https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.latest.taskgraph.decision/artifacts/public%2Flabel-to-taskid.json"
-+            )
+             )
+-            task_id = find_task_from_index(optimization.get("index-search", []))
 +            label_to_taskid_response.raise_for_status()
 +            label_to_taskid = label_to_taskid_response.json()
 +            task_id = label_to_taskid.get(task["label"])
