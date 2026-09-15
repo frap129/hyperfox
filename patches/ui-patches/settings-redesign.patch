@@ -423,7 +423,7 @@ index d06a45ed88..001483f751 100644
          id: "etpLevelWarning",
          control: "moz-promo",
 diff --git a/browser/components/preferences/config/tabs-browsing.mjs b/browser/components/preferences/config/tabs-browsing.mjs
-index 50fb553..daceb11 100644
+index 50fb553..eae57d2 100644
 --- a/browser/components/preferences/config/tabs-browsing.mjs
 +++ b/browser/components/preferences/config/tabs-browsing.mjs
 @@ -125,7 +125,64 @@ if (srdEnabled) {
@@ -491,7 +491,7 @@ index 50fb553..daceb11 100644
  }
  
  // Tabs settings
-@@ -493,6 +550,11 @@ Preferences.addSetting({
+@@ -493,6 +550,12 @@ Preferences.addSetting({
  Preferences.addSetting({
    id: "playDRMContent",
    pref: "media.eme.enabled",
@@ -499,11 +499,12 @@ index 50fb553..daceb11 100644
 +    "librewolfGMPManager",
 +    "librewolfGMPWidevineEnabled",
 +    "librewolfGMPWidevineUpdate",
++    "librewolfh264",
 +  ],
    visible: () => {
      if (!Services.prefs.getBoolPref("browser.eme.ui.enabled", false)) {
        return false;
-@@ -506,6 +568,35 @@ Preferences.addSetting({
+@@ -506,6 +569,36 @@ Preferences.addSetting({
      }
      return true;
    },
@@ -513,7 +514,7 @@ index 50fb553..daceb11 100644
 +    deps.librewolfGMPWidevineEnabled.value &&
 +    deps.librewolfGMPWidevineUpdate.value,
 +  set: (val, deps) => {
-+    deps.librewolfGMPManager.value = val;
++    deps.librewolfGMPManager.value = val || deps.librewolfh264.value;
 +    deps.librewolfGMPWidevineEnabled.value = val;
 +    deps.librewolfGMPWidevineUpdate.value = val;
 +    return val;
@@ -526,20 +527,21 @@ index 50fb553..daceb11 100644
 +    "librewolfGMPManager",
 +    "librewolfGMPh264Enabled",
 +    "librewolfGMPh264Update",
++    "playDRMContent",
 +  ],
 +  get: (_, deps) =>
 +    deps.librewolfGMPManager.value &&
 +    deps.librewolfGMPh264Enabled.value &&
 +    deps.librewolfGMPh264Update.value,
 +  set: (val, deps) => {
-+    deps.librewolfGMPManager.value = val;
++    deps.librewolfGMPManager.value = val || deps.playDRMContent.value;
 +    deps.librewolfGMPh264Enabled.value = val;
 +    deps.librewolfGMPh264Update.value = val;
 +  },
  });
  
  // Performance settings
-@@ -745,6 +836,16 @@ SettingGroupManager.registerGroups({
+@@ -745,6 +838,16 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -556,7 +558,7 @@ index 50fb553..daceb11 100644
    media: {
      l10nId: "settings-media-group",
      headingLevel: 2,
-@@ -767,6 +868,15 @@ SettingGroupManager.registerGroups({
+@@ -767,6 +870,15 @@ SettingGroupManager.registerGroups({
          l10nId: "play-drm-content",
          supportPage: "drm-content",
        },
