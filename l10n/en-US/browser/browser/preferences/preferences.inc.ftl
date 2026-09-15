@@ -85,6 +85,10 @@ librewolf-mouse-heading2 =
 librewolf-JXL =
     .label = Enable JXL (JPEG XL) support
 
+librewolf-h264 =
+    .label = Enable the OpenH264 plugin
+    .description = Required for screen sharing on some websites, such as Discord.
+
 ## Permissions
 
 # (This label matches Fenix's preference_phone_feature_media_key_system_access string:

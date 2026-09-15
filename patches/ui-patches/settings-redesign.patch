@@ -423,10 +423,10 @@ index d06a45ed88..001483f751 100644
          id: "etpLevelWarning",
          control: "moz-promo",
 diff --git a/browser/components/preferences/config/tabs-browsing.mjs b/browser/components/preferences/config/tabs-browsing.mjs
-index ec183922fd..0b5db0e6ae 100644
+index 50fb553..5465014 100644
 --- a/browser/components/preferences/config/tabs-browsing.mjs
 +++ b/browser/components/preferences/config/tabs-browsing.mjs
-@@ -125,7 +125,34 @@ if (srdEnabled) {
+@@ -125,7 +125,64 @@ if (srdEnabled) {
         document; when set to false, no search action happens */
      { id: "accessibility.browsewithcaret", type: "bool" },
      { id: "accessibility.typeaheadfind", type: "bool" },
@@ -434,6 +434,13 @@ index ec183922fd..0b5db0e6ae 100644
 +    { id: "clipboard.autocopy", type: "bool" },
 +    { id: "middlemouse.paste", type: "bool" },
 +    { id: "image.jxl.enabled", type: "bool"},
++
++    // DRM/h264
++    { id: "media.gmp-manager.updateEnabled", type: "bool"},
++    { id: "media.gmp-gmpopenh264.enabled", type: "bool"},
++    { id: "media.gmp-gmpopenh264.autoupdate", type: "bool"},
++    { id: "media.gmp-widevinecdm.enabled", type: "bool"},
++    { id: "media.gmp-widevinecdm.autoupdate", type: "bool"},
    ]);
 +
 +  Preferences.addSetting({
@@ -458,10 +465,66 @@ index ec183922fd..0b5db0e6ae 100644
 +    id: "librewolfJXL",
 +    pref: "image.jxl.enabled",
 +  });
++
++  Preferences.addSetting({
++    id: "librewolfGMPManager",
++    pref: "media.gmp-manager.updateEnabled",
++  });
++
++  Preferences.addSetting({
++    id:        "librewolfGMPh264Enabled",
++    pref: "media.gmp-gmpopenh264.enabled",
++  });
++  Preferences.addSetting({
++    id:        "librewolfGMPh264Update",
++    pref: "media.gmp-gmpopenh264.autoupdate",
++  });
++
++  Preferences.addSetting({
++    id:        "librewolfGMPWidevineEnabled",
++    pref: "media.gmp-widevinecdm.enabled",
++  });
++  Preferences.addSetting({
++    id:        "librewolfGMPWidevineUpdate",
++    pref: "media.gmp-widevinecdm.autoupdate",
++  });
  }
  
  // Tabs settings
-@@ -711,6 +738,16 @@ SettingGroupManager.registerGroups({
+@@ -493,6 +550,7 @@ Preferences.addSetting({
+ Preferences.addSetting({
+   id: "playDRMContent",
+   pref: "media.eme.enabled",
++  deps: ["librewolfGMPManager", "librewolfGMPWidevineEnabled", "librewolfGMPWidevineUpdate"],
+   visible: () => {
+     if (!Services.prefs.getBoolPref("browser.eme.ui.enabled", false)) {
+       return false;
+@@ -506,6 +564,24 @@ Preferences.addSetting({
+     }
+     return true;
+   },
++  get: (val, deps) => val && deps.librewolfGMPManager.value && deps.librewolfGMPWidevineEnabled.value && deps.librewolfGMPWidevineUpdate.value,
++  set: (val, deps) => {
++    deps.librewolfGMPManager.value = val;
++    deps.librewolfGMPWidevineEnabled.value = val;
++    deps.librewolfGMPWidevineUpdate.value = val;
++    return val;
++  },
++});
++
++Preferences.addSetting({
++  id: "librewolfh264",
++  deps: ["librewolfGMPManager", "librewolfGMPh264Enabled", "librewolfGMPh264Update"],
++  get: (_, deps) => deps.librewolfGMPManager.value && deps.librewolfGMPh264Enabled.value && deps.librewolfGMPh264Update.value,
++  set: (val, deps) => {
++    deps.librewolfGMPManager.value = val;
++    deps.librewolfGMPh264Enabled.value = val;
++    deps.librewolfGMPh264Update.value = val;
++  },
+ });
+ 
+ // Performance settings
+@@ -745,6 +821,16 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -478,10 +541,13 @@ index ec183922fd..0b5db0e6ae 100644
    media: {
      l10nId: "settings-media-group",
      headingLevel: 2,
-@@ -733,6 +770,10 @@ SettingGroupManager.registerGroups({
+@@ -767,6 +853,13 @@ SettingGroupManager.registerGroups({
          l10nId: "play-drm-content",
          supportPage: "drm-content",
        },
++        id: "librewolfh264",
++        l10nId: "librewolf-h264",
++      },
 +      {
 +        id: "librewolfJXL",
 +        l10nId: "librewolf-JXL",
