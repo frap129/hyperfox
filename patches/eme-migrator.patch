@@ -1,17 +1,28 @@
 diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
-index 6cee3dc..dd91621 100644
+index ca6f1f6..0f97be2 100644
 --- a/browser/components/ProfileDataUpgrader.sys.mjs
 +++ b/browser/components/ProfileDataUpgrader.sys.mjs
-@@ -1076,6 +1076,12 @@ export let ProfileDataUpgrader = {
- 
-       Services.prefs.clearUserBranch("cookiebanners.");
-       Services.prefs.clearUserBranch("browser.promo.cookiebanners.");
-+
+@@ -1087,6 +1087,23 @@ export let ProfileDataUpgrader = {
+       if (!Services.prefs.prefHasUserValue(IPP_HAS_SEEN_FEATURE_PREF)) {
+         Services.prefs.setBoolPref(IPP_HAS_SEEN_FEATURE_PREF, true);
+       }
 +      if (Services.prefs.prefHasUserValue("media.eme.enabled")) {
-+        Services.prefs.setBoolPref("media.gmp-manager.updateEnabled", true);
-+        Services.prefs.setBoolPref("media.gmp-widevinecdm.enabled", true);
-+        Services.prefs.setBoolPref("media.gmp-widevinecdm.autoupdate", true);
++        if (!Services.prefs.prefHasUserValue("media.gmp-manager.updateEnabled")) {
++          Services.prefs.setBoolPref("media.gmp-manager.updateEnabled", true);
++        }
++        if (!Services.prefs.prefHasUserValue("media.gmp-widevinecdm.enabled")) {
++          Services.prefs.setBoolPref("media.gmp-widevinecdm.enabled", true);
++        }
++        if (!Services.prefs.prefHasUserValue("media.gmp-widevinecdm.autoupdate")) {
++          Services.prefs.setBoolPref("media.gmp-widevinecdm.autoupdate", true);
++        }
++      }
++
++      if (Services.prefs.prefHasUserValue("media.gmp-gmpopenh264.enabled")) {
++        if (!Services.prefs.prefHasUserValue("media.gmp-gmpopenh264.autoupdate")) {
++          Services.prefs.setBoolPref("media.gmp-gmpopenh264.autoupdate", true);
++        }
 +      }
      }
  
-     if (existingDataVersion < 180) {
+     if (existingDataVersion < 181) {
