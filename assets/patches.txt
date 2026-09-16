@@ -9,6 +9,7 @@ patches/delete-cookie-permission.patch
 patches/devtools-bypass.patch
 patches/disable-data-reporting-at-compile-time.patch
 patches/display-version.patch
+patches/eme-migrator.patch
 patches/eme-permission.patch
 patches/extensions-setUninstallURL.patch
 patches/firefox-in-ua.patch
