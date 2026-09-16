@@ -125,3 +125,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name }가 기본 브라우저로 설정되어 있습니다.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name }가 기본 브라우저로 설정되어 있지 않습니다.
+librewolf-h264 =
+    .label = OpenH264 플러그인 활성화
+    .description = 화면 공유를 사용하는 일부 웹사이트(Discord 등)에 필요합니다.
