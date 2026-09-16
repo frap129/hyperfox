@@ -122,3 +122,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } foi configurado como seu navegador padrão.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } não é o seu navegador padrão.
+librewolf-h264 =
+    .label = Habilitar o plugin OpenH264
+    .description = Necessário para compartilhar a tela em alguns sites como o Discord.

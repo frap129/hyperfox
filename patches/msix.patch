@@ -6,7 +6,7 @@
 # License:       MPL 2.0
 
 diff --git a/browser/installer/windows/msix/AppxManifest.xml.in b/browser/installer/windows/msix/AppxManifest.xml.in
-index b81a73518a..3e58515c5d 100644
+index 9bb9133..1d63bec 100644
 --- a/browser/installer/windows/msix/AppxManifest.xml.in
 +++ b/browser/installer/windows/msix/AppxManifest.xml.in
 @@ -30,13 +30,14 @@
@@ -25,11 +25,10 @@ index b81a73518a..3e58515c5d 100644
          <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
            <uap:ShowNameOnTiles>
              <uap:ShowOn Tile="square150x150Logo"/>
-@@ -119,20 +120,4 @@
-       </Extensions>
-     </Application>
-   </Applications>
--  <Extensions>
+@@ -138,19 +139,5 @@
+                           ThreadingModel="MTA" />
+       </InProcessServer>
+     </Extension>
 -    <!-- These COM registrations allow Windows/MSAA to access Firefox accessibility features. -->
 -    <com:Extension Category="windows.comInterface">
 -      <com:ComInterface>
@@ -44,7 +43,7 @@ index b81a73518a..3e58515c5d 100644
 -                       ProxyStubClsid="1814ceeb-49e2-407f-af99-fa755a7d2607" />
 -      </com:ComInterface>
 -    </com:Extension>
--  </Extensions>
+   </Extensions>
  </Package>
 diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuild/mach_commands.py
 index 58702a0734..08d7862509 100644

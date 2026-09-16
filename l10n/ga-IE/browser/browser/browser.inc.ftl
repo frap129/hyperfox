@@ -3,3 +3,5 @@ urlbar-webgl-notification-anchor =
     .tooltiptext = Bainistigh cead cruthaithe comhthéacs WebGL
 urlbar-webgl-blocked =
     .tooltiptext = Chuir tú bac ar chruthú comhthéacs WebGL don suíomh Gréasáin seo.
+urlbar-eme-blocked =
+    .tooltiptext = Chuir tú bac ar athsheinm ábhair atá rialaithe ag DRM don suíomh Gréasáin seo.

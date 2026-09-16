@@ -17,28 +17,28 @@ index d785e43..24e6026 100644
    },
  };
 diff --git a/toolkit/content/net-error-card.mjs b/toolkit/content/net-error-card.mjs
-index e86d1aa..b91a1b6 100644
+index 29ada4d..a1d289a 100644
 --- a/toolkit/content/net-error-card.mjs
 +++ b/toolkit/content/net-error-card.mjs
-@@ -1092,9 +1092,15 @@ export class NetErrorCard extends MozLitElement {
+@@ -1421,9 +1421,15 @@ export class NetErrorCard extends MozLitElement {
          aria-labelledby="error-title"
          aria-describedby="error-intro whatCanYouDo"
        >
 -        <div class="img-container">
 -          <img src=${src} class=${ifDefined(className)} alt=${alt} />
 -        </div>
-+       ${src &&
-+       html`
-+         <div class="img-container">
-+           <img
-+             src=${src}
-+             ${alt && `data-l10n-id=${alt} data-l10n-attrs="alt"`}
-+           />
-+         </div>
-+       `}
-         <div class="container">
-           ${this.showCustomNetErrorCard
-             ? html`${this.customNetErrorContainerTemplate()}`
++        ${src &&
++        html`
++          <div class="img-container">
++            <img
++              src=${src}
++              ${alt && `data-l10n-id=${alt} data-l10n-attrs="alt"`}
++            />
++          </div>
++        `}
+         <div class="container">${this.containerContentTemplate(title)}</div>
+       </article>`;
+   }
 diff --git a/toolkit/themes/shared/aboutNetError.css b/toolkit/themes/shared/aboutNetError.css
 index f1a707b988..658d3f34d3 100644
 --- a/toolkit/themes/shared/aboutNetError.css

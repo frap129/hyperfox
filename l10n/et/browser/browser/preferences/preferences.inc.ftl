@@ -125,3 +125,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } on määratud sinu vaikimisi veebibrauseriks.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } pole määratud sinu vaikimisi veebibrauseriks.
+librewolf-h264 =
+    .label = Luba OpenH264 lisamooduli kasutamist
+    .description = Vajalik ekraani jagamiseks mõnedes veebisaitides, näiteks Discordis.

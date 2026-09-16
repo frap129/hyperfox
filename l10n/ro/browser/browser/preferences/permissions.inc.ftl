@@ -9,3 +9,7 @@ permissions-site-webgl-window2 =
     .title = Setări - Permisiuni WebGL.
     .style = { permissions-window2.style }
 permissions-site-webgl-desc = Următoarele site-uri au cerut permisiunea de a crea un context WebGL. Poți speicifica care site-uri pot crea un context WebGL. Poți, de-asemenea, să blochezi noi cereri de a crea un context WebGL.
+permissions-site-canvas-window2 =
+    .title = Setări - Permisiuni de extragere al Canvas-ului
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = Urmatoarele site-uri au cerut permisiunea de a extrage date de canvas. Poți specifica care site-uri pot extrage date de canvas. Poți, de-asemenea, să blochezi cereri noi de extragere a datelor de canvas.

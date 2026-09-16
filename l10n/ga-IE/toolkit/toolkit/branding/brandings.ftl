@@ -4,4 +4,5 @@
 -firefox-suggest-brand-name = Moltaí
 -firefox-home-brand-name = Leathanach baile
 -firefoxview-brand-name = Amharc Cluaisíní
--firefoxlabs-brand-name = Gnéithe Turgnamhacha
+-firefoxlabs-brand-name = Saotharlanna Firefox le Mozilla
+-relay-brand-name = Relay le Mozilla

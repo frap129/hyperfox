@@ -1,1 +1,1 @@
-identity-allow-site-data = LibreWolf: Luôn lưu cookie / dữ liệu cho trang web này
+identity-allow-site-data = Luôn lưu cookie / dữ liệu cho trang web này

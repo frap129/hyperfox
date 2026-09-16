@@ -2,99 +2,6 @@ diff --git a/browser/components/preferences/config/about-firefox.mjs b/browser/c
 index e90e8ec..fbab201 100644
 --- a/browser/components/preferences/config/about-firefox.mjs
 +++ b/browser/components/preferences/config/about-firefox.mjs
-@@ -472,92 +472,6 @@ Preferences.addSetting({
- });
- 
- SettingGroupManager.registerGroups({
--  updates: {
--    l10nId: "update-application-heading",
--    iconSrc: "chrome://browser/skin/update-badge.svg",
--    subcategory: "update-state",
--    headingLevel: 2,
--    items: [
--      {
--        id: "updatesManagedByOS",
--        l10nId: "update-application-updates-managed-by-os",
--        control: "moz-message-bar",
--        controlAttrs: {
--          role: "status",
--        },
--      },
--      {
--        id: "updateApp",
--        control: "moz-box-group",
--        items: [
--          {
--            id: "updateState",
--            control: "update-state",
--          },
--          {
--            id: "updateAppInfo",
--            control: "update-information",
--          },
--          {
--            id: "showUpdateHistory",
--            l10nId: "update-history-2",
--            control: "moz-box-button",
--            controlAttrs: {
--              "search-l10n-ids": "history-title,history-intro",
--            },
--          },
--        ],
--      },
--      {
--        id: "installationFieldset",
--        control: "moz-fieldset",
--        l10nId: "update-application-installation",
--        items: [
--          {
--            id: "updateSettingCrossUserWarning",
--            control: "moz-message-bar",
--            l10nId: "update-application-warning-cross-user-setting-2",
--            controlAttrs: {
--              role: "status",
--            },
--          },
--          {
--            id: "updateRadioGroup",
--            control: "moz-radio-group",
--            options: [
--              {
--                id: "autoDesktop",
--                value: true,
--                l10nId: "update-application-auto-2",
--                items: [
--                  {
--                    id: "backgroundUpdate",
--                    l10nId: "update-application-background-enabled",
--                  },
--                ],
--              },
--              {
--                id: "manualDesktop",
--                value: false,
--                l10nId: "update-application-check-choose-2",
--              },
--            ],
--          },
--        ],
--      },
--      {
--        id: "showUpdatePromptsHeader",
--        control: "moz-fieldset",
--        l10nId: "update-application-suppress-prompts-heading",
--        items: [
--          {
--            id: "showUpdatePrompts",
--            l10nId: "update-application-suppress-prompts-2",
--          },
--        ],
--      },
--    ],
--  },
-   support: {
-     inProgress: true,
-     l10nId: "support-application-heading",
 @@ -574,14 +488,6 @@ SettingGroupManager.registerGroups({
              control: "moz-box-link",
              supportPage: "preferences",
@@ -181,7 +88,7 @@ index 14fea2901b..fdc3424676 100644
 +  Preferences.addAll([
 +    { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
 +  ]);
-+  
++
 +  Preferences.addSetting({
 +    id: "librewolfUserChrome",
 +    pref: "toolkit.legacyUserProfileCustomizations.stylesheets",
@@ -276,7 +183,7 @@ index d06a45ed88..001483f751 100644
 +      // Google safe browsing check downloads
 +      //{ id: "browser.safebrowsing.downloads.enabled", type: "bool" }, //Also already added
 +  ]);
-+  
++
 +  Preferences.addSetting({
 +    id: "librewolfExtensionUpdateEnabled",
 +    pref: "extensions.update.enabled",
@@ -516,17 +423,24 @@ index d06a45ed88..001483f751 100644
          id: "etpLevelWarning",
          control: "moz-promo",
 diff --git a/browser/components/preferences/config/tabs-browsing.mjs b/browser/components/preferences/config/tabs-browsing.mjs
-index ec183922fd..0b5db0e6ae 100644
+index 50fb553..eae57d2 100644
 --- a/browser/components/preferences/config/tabs-browsing.mjs
 +++ b/browser/components/preferences/config/tabs-browsing.mjs
-@@ -125,7 +125,34 @@ if (srdEnabled) {
+@@ -125,7 +125,64 @@ if (srdEnabled) {
         document; when set to false, no search action happens */
      { id: "accessibility.browsewithcaret", type: "bool" },
      { id: "accessibility.typeaheadfind", type: "bool" },
 +    // Clipboard autocopy/paste
 +    { id: "clipboard.autocopy", type: "bool" },
 +    { id: "middlemouse.paste", type: "bool" },
-+    { id: "image.jxl.enabled", type: "bool"},
++    { id: "image.jxl.enabled", type: "bool" },
++
++    // DRM/h264
++    { id: "media.gmp-manager.updateEnabled", type: "bool" },
++    { id: "media.gmp-gmpopenh264.enabled", type: "bool" },
++    { id: "media.gmp-gmpopenh264.autoupdate", type: "bool" },
++    { id: "media.gmp-widevinecdm.enabled", type: "bool" },
++    { id: "media.gmp-widevinecdm.autoupdate", type: "bool" },
    ]);
 +
 +  Preferences.addSetting({
@@ -539,7 +453,7 @@ index ec183922fd..0b5db0e6ae 100644
 +  });
 +  Preferences.addSetting({
 +    id: "librewolfMiddleClick",
-+    deps: ["librewolfAutocopy","librewolfPaste"],
++    deps: ["librewolfAutocopy", "librewolfPaste"],
 +    get: (_, deps) => deps.librewolfAutocopy.value && deps.librewolfPaste.value,
 +    set: (value, deps) => {
 +      deps.librewolfAutocopy.value = value;
@@ -551,10 +465,83 @@ index ec183922fd..0b5db0e6ae 100644
 +    id: "librewolfJXL",
 +    pref: "image.jxl.enabled",
 +  });
++
++  Preferences.addSetting({
++    id: "librewolfGMPManager",
++    pref: "media.gmp-manager.updateEnabled",
++  });
++
++  Preferences.addSetting({
++    id: "librewolfGMPh264Enabled",
++    pref: "media.gmp-gmpopenh264.enabled",
++  });
++  Preferences.addSetting({
++    id: "librewolfGMPh264Update",
++    pref: "media.gmp-gmpopenh264.autoupdate",
++  });
++
++  Preferences.addSetting({
++    id: "librewolfGMPWidevineEnabled",
++    pref: "media.gmp-widevinecdm.enabled",
++  });
++  Preferences.addSetting({
++    id: "librewolfGMPWidevineUpdate",
++    pref: "media.gmp-widevinecdm.autoupdate",
++  });
  }
  
  // Tabs settings
-@@ -711,6 +738,16 @@ SettingGroupManager.registerGroups({
+@@ -493,6 +550,12 @@ Preferences.addSetting({
+ Preferences.addSetting({
+   id: "playDRMContent",
+   pref: "media.eme.enabled",
++  deps: [
++    "librewolfGMPManager",
++    "librewolfGMPWidevineEnabled",
++    "librewolfGMPWidevineUpdate",
++    "librewolfh264",
++  ],
+   visible: () => {
+     if (!Services.prefs.getBoolPref("browser.eme.ui.enabled", false)) {
+       return false;
+@@ -506,6 +569,36 @@ Preferences.addSetting({
+     }
+     return true;
+   },
++  get: (val, deps) =>
++    val &&
++    deps.librewolfGMPManager.value &&
++    deps.librewolfGMPWidevineEnabled.value &&
++    deps.librewolfGMPWidevineUpdate.value,
++  set: (val, deps) => {
++    deps.librewolfGMPManager.value = val || deps.librewolfh264.value;
++    deps.librewolfGMPWidevineEnabled.value = val;
++    deps.librewolfGMPWidevineUpdate.value = val;
++    return val;
++  },
++});
++
++Preferences.addSetting({
++  id: "librewolfh264",
++  deps: [
++    "librewolfGMPManager",
++    "librewolfGMPh264Enabled",
++    "librewolfGMPh264Update",
++    "playDRMContent",
++  ],
++  get: (_, deps) =>
++    deps.librewolfGMPManager.value &&
++    deps.librewolfGMPh264Enabled.value &&
++    deps.librewolfGMPh264Update.value,
++  set: (val, deps) => {
++    deps.librewolfGMPManager.value = val || deps.playDRMContent.value;
++    deps.librewolfGMPh264Enabled.value = val;
++    deps.librewolfGMPh264Update.value = val;
++  },
+ });
+ 
+ // Performance settings
+@@ -745,6 +838,16 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -571,10 +558,15 @@ index ec183922fd..0b5db0e6ae 100644
    media: {
      l10nId: "settings-media-group",
      headingLevel: 2,
-@@ -733,6 +770,10 @@ SettingGroupManager.registerGroups({
+@@ -767,6 +870,15 @@ SettingGroupManager.registerGroups({
          l10nId: "play-drm-content",
          supportPage: "drm-content",
        },
++      {
++        id: "librewolfh264",
++        l10nId: "librewolf-h264",
++        supportPage: "open-h264-plugin-firefox",
++      },
 +      {
 +        id: "librewolfJXL",
 +        l10nId: "librewolf-JXL",
@@ -617,27 +609,10 @@ index 5a56d34..bc180bb 100644
    };
  
    const items = includeIsDefaultPane
-@@ -686,7 +678,6 @@ var gMainPane = {
-     initSettingGroup("browsing");
-     initSettingGroup("keyboardAndScrolling");
-     initSettingGroup("motionAndLink");
--    initSettingGroup("updates");
-     initSettingGroup("translations");
-     initSettingGroup("spellCheck");
-     initSettingGroup("performance");
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
 index 94612d8..4c82403 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
-@@ -244,7 +244,7 @@ const CONFIG_PANES = Object.freeze({
-   about: {
-     l10nId: "about-firefox-header",
-     iconSrc: "chrome://browser/skin/sidebar/firefox.svg",
--    groupIds: ["updates", "support"],
-+    groupIds: ["support"],
-     module: "chrome://browser/content/preferences/config/about-firefox.mjs",
-     visible: () => srdSectionPrefs.all,
-   },
 @@ -297,7 +297,6 @@ const CONFIG_PANES = Object.freeze({
        "httpsOnly",
        "networkProxy",
