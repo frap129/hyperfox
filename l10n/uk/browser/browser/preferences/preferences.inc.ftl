@@ -123,3 +123,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } встановлено вашим типовим браузером.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } не встановлено вашим типовим браузером.
+librewolf-h264 =
+    .label = Увімкнути розширення OpenH264
+    .description = Необхідно для запису екрана на деяких вебсайтах, наприклад Discord.
