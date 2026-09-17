@@ -125,3 +125,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } jest ustawiony jako Twoja domyślna przeglądarka.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } nie jest ustawiony jako Twoja domyślna przeglądarka.
+librewolf-h264 =
+    .label = Włącz wtyczkę OpenH264
+    .description = Wymagana do udostępniania ekranu na niektórych witrynach, takich jak Discord.
