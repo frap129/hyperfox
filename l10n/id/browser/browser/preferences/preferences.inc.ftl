@@ -122,3 +122,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } diatur sebagai peramban bawaan Anda.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } belum diatur sebagai peramban bawaan Anda.
+librewolf-h264 =
+    .label = Aktifkan plugin OpenH264
+    .description = Diperlukan untuk berbagi layar di beberapa situs web, seperti Discord.
