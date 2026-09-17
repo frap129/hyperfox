@@ -9,3 +9,7 @@ permissions-site-eme-desc = 下列網站已要求播放由 DRM 控制的內容�
 permissions-site-eme-disable-label =
     .label = 封鎖要求播放由 DRM 控制內容的新請求
 permissions-site-eme-disable-desc = 這將防止任何未列於上方的網站要求播放由 DRM 控制內容的權限。
+permissions-site-canvas-window2 =
+    .title = 設定 - Canvas 擷取權限
+    .style = { permissions-window2.style }
+permissions-site-canvas-desc = 以下網站要求擷取 Canvas 資料。您可以指定哪些網站允許擷取 Canvas 資料，也可以封鎖要求擷取 Canvas 資料的新請求。
