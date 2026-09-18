@@ -127,10 +127,6 @@ def librewolf_patches():
     # we don't want to disturbe those workflows.
     patch('../patches/xmas.patch')
 
-
-    # vs_pack.py issue... should be temporary
-    exec('cp -v ../patches/pack_vs.py build/vs/')
-
     #
     # Apply most recent `settings` repository files.
     #
