@@ -1,20 +1,17 @@
 diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
-index ca6f1f6..3fa4ef1 100644
+index ca6f1f6823ee2..f0a13f9fb9a16 100644
 --- a/browser/components/ProfileDataUpgrader.sys.mjs
 +++ b/browser/components/ProfileDataUpgrader.sys.mjs
-@@ -1087,6 +1087,26 @@ export let ProfileDataUpgrader = {
-       if (!Services.prefs.prefHasUserValue(IPP_HAS_SEEN_FEATURE_PREF)) {
+@@ -1088,6 +1088,20 @@ export let ProfileDataUpgrader = {
          Services.prefs.setBoolPref(IPP_HAS_SEEN_FEATURE_PREF, true);
        }
-+      if (Services.prefs.prefHasUserValue("media.eme.enabled")) {
+     }
++    if (Services.prefs.prefHasUserValue("media.eme.enabled")) {
 +        if (!Services.prefs.prefHasUserValue("media.gmp-manager.updateEnabled")) {
 +          Services.prefs.setBoolPref("media.gmp-manager.updateEnabled", true);
 +        }
 +        if (!Services.prefs.prefHasUserValue("media.gmp-widevinecdm.enabled")) {
 +          Services.prefs.setBoolPref("media.gmp-widevinecdm.enabled", true);
-+        }
-+        if (!Services.prefs.prefHasUserValue("media.gmp-widevinecdm.autoupdate")) {
-+          Services.prefs.setBoolPref("media.gmp-widevinecdm.autoupdate", true);
 +        }
 +      }
 +
@@ -22,10 +19,7 @@ index ca6f1f6..3fa4ef1 100644
 +        if (!Services.prefs.prefHasUserValue("media.gmp-manager.updateEnabled")) {
 +          Services.prefs.setBoolPref("media.gmp-manager.updateEnabled", true);
 +       }
-+        if (!Services.prefs.prefHasUserValue("media.gmp-gmpopenh264.autoupdate")) {
-+          Services.prefs.setBoolPref("media.gmp-gmpopenh264.autoupdate", true);
-+        }
 +      }
-     }
  
      if (existingDataVersion < 181) {
+       // Bug 2058359 - Re-enable "update service" setting for auto-disabled installations
