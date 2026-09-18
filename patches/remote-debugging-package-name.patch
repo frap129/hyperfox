@@ -1,0 +1,15 @@
+diff --git a/devtools/client/shared/remote-debugging/adb/adb-runtime.js b/devtools/client/shared/remote-debugging/adb/adb-runtime.js
+index 77d39d643ef79..6350be3a865cc 100644
+--- a/devtools/client/shared/remote-debugging/adb/adb-runtime.js
++++ b/devtools/client/shared/remote-debugging/adb/adb-runtime.js
+@@ -94,6 +94,10 @@ class AdbRuntime {
+       case "org.mozilla.fenix.nightly":
+         // Official Firefox Nightly app, based on Fenix
+         return "Firefox Nightly";
++      case "org.ironfoxoss.ironfox":
++        return "IronFox";
++      case "org.ironfoxoss.ironfox.nightly":
++        return "IronFox Nightly";
+       default:
+         // Unknown package name
+         return `Firefox (${packageName})`;
