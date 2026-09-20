@@ -148,7 +148,7 @@ index 7123cb0f46..47367e1642 100644
          id: "translationsManageButton",
          loadPane: "translations",
 diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
-index d06a45ed88..001483f751 100644
+index f32ccc4..0feeeb3 100644
 --- a/browser/components/preferences/config/privacy.mjs
 +++ b/browser/components/preferences/config/privacy.mjs
 @@ -533,6 +533,82 @@ if (SECURITY_PRIVACY_STATUS_CARD_ENABLED) {
@@ -351,7 +351,7 @@ index d06a45ed88..001483f751 100644
      ],
    },
    networkProxy: {
-@@ -982,13 +1022,10 @@ SettingGroupManager.registerGroups({
+@@ -1034,13 +1074,10 @@ SettingGroupManager.registerGroups({
      ],
    },
    historyAdvanced: {
@@ -367,7 +367,7 @@ index d06a45ed88..001483f751 100644
        {
          id: "rememberHistory",
          l10nId: "history-remember-browser-option",
-@@ -1159,18 +1196,14 @@ SettingGroupManager.registerGroups({
+@@ -1240,19 +1277,15 @@ SettingGroupManager.registerGroups({
    etpAdvanced: {
      inProgress: true,
      headingLevel: 2,
@@ -379,6 +379,7 @@ index d06a45ed88..001483f751 100644
        {
          id: "contentBlockingCategoryRadioGroup",
          control: "moz-radio-group",
+         l10nId: "preferences-etp-level-radio-group",
          options: [
 -          {
 -            id: "etpLevelStandard",
@@ -388,7 +389,7 @@ index d06a45ed88..001483f751 100644
            {
              id: "etpLevelStrict",
              subcategory: "etp-strict-control",
-@@ -1192,20 +1225,6 @@ SettingGroupManager.registerGroups({
+@@ -1274,20 +1307,6 @@ SettingGroupManager.registerGroups({
                },
              ],
            },
@@ -409,7 +410,7 @@ index d06a45ed88..001483f751 100644
          ],
        },
        {
-@@ -1221,12 +1240,6 @@ SettingGroupManager.registerGroups({
+@@ -1303,12 +1322,6 @@ SettingGroupManager.registerGroups({
            },
          ],
        },
