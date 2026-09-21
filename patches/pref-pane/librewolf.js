@@ -43,6 +43,7 @@ if (!Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)) {
     // Google safe browsing check downloads
     //{ id: "browser.safebrowsing.downloads.enabled", type: "bool" }, //Also already added
     { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
+    { id: "browser.nova.enabled", type: "bool" },
   ]);
 }
 
@@ -100,6 +101,11 @@ Preferences.addSetting({
       deps.librewolfAutocopy.value = value;
       deps.librewolfPaste.value = value;
   },
+});
+
+Preferences.addSetting({
+  id: "librewolfNova",
+  pref: "browser.nova.enabled",
 });
 
 Preferences.addSetting({

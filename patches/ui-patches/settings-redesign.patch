@@ -77,38 +77,48 @@ index ad333a5..76ba937 100644
    },
    sync: {
 diff --git a/browser/components/preferences/config/appearance.mjs b/browser/components/preferences/config/appearance.mjs
-index 14fea2901b..fdc3424676 100644
+index 7675fab..5cd14dd 100644
 --- a/browser/components/preferences/config/appearance.mjs
 +++ b/browser/components/preferences/config/appearance.mjs
-@@ -115,6 +115,17 @@ Preferences.addSetting({
+@@ -259,6 +259,23 @@ Preferences.addSetting({
    },
  });
  
 +if (Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)) {
 +  Preferences.addAll([
 +    { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
++    { id: "browser.nova.enabled", type: "bool" },
 +  ]);
 +
 +  Preferences.addSetting({
 +    id: "librewolfUserChrome",
 +    pref: "toolkit.legacyUserProfileCustomizations.stylesheets",
 +  });
++
++  Preferences.addSetting({
++    id: "librewolfNova",
++    pref: "browser.nova.enabled",
++  });
 +}
 +
  SettingGroupManager.registerGroups({
    appearance: {
      l10nId: "appearance-group2",
-@@ -186,6 +197,10 @@ SettingGroupManager.registerGroups({
+@@ -367,6 +384,14 @@ SettingGroupManager.registerGroups({
            href: "about:addons",
          },
        },
++      {
++        id: "librewolfNova",
++        l10nId: "librewolf-nova-checkbox2",
++      },
 +      {
 +        id: "librewolfUserChrome",
 +        l10nId: "librewolf-styling-checkbox2",
 +      },
      ],
    },
-   relatedSettings: {
+   browserIconEntry: {
 diff --git a/browser/components/preferences/config/languages.mjs b/browser/components/preferences/config/languages.mjs
 index 7123cb0f46..47367e1642 100644
 --- a/browser/components/preferences/config/languages.mjs
