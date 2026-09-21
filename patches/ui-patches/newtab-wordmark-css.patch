@@ -1,0 +1,32 @@
+diff --git a/browser/extensions/newtab/content-src/components/Logo/_Logo.scss b/browser/extensions/newtab/content-src/components/Logo/_Logo.scss
+index 541fb0b..9282363 100644
+--- a/browser/extensions/newtab/content-src/components/Logo/_Logo.scss
++++ b/browser/extensions/newtab/content-src/components/Logo/_Logo.scss
+@@ -12,7 +12,7 @@
+ 
+ .logo-and-wordmark {
+   $logo-size: 64px;
+-  $wordmark-size: 105px;
++  $wordmark-size: 200px;
+ 
+   // @nova-cleanup(remove-conditional): Make default behavior, remove .nova-enabled selector
+   .nova-enabled & {
+diff --git a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
+index e3b1b90..24caf7e 100644
+--- a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
++++ b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
+@@ -74,12 +74,12 @@ p {
+ .wordmark {
+   display: inline-block;
+   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
+-  background-size: 172px;
++  background-size: 250px;
+   margin-inline-start: 15px;
+   -moz-context-properties: fill;
+   fill: currentColor;
+   height: 96px;
+-  width: 172px;
++  width: 250px;
+ }
+ 
+ .search-inner-wrapper {
