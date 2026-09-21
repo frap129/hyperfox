@@ -130,7 +130,6 @@ $(lw_source_dir): $(ff_source_tarball) ./version ./release scripts/librewolf-pat
 	tar xf $(ff_source_tarball)
 	mv $(ff_source_dir) $(lw_source_dir)
 	python3 scripts/librewolf-patches.py $(version) $(release)
-	(cd $(lw_source_dir) && ./mach buildtokens)
 
 $(lw_source_tarball): $(lw_source_dir)
 	rm -f $(lw_source_tarball)
