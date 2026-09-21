@@ -127,3 +127,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } ist als Standardbrowser festgelegt.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } ist nicht als Standardbrowser festgelegt.
+librewolf-h264 =
+    .label = OpenH264-Plugin aktivieren
+    .description = Wird für die Bildschirmfreigabe auf einigen Websites, wie beispielsweise Discord, benötigt.

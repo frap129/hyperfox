@@ -125,3 +125,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } je vaším výchozím prohlížečem.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } není vaším výchozím prohlížečem.
+librewolf-h264 =
+    .label = Povolit zásuvný modul OpenH264
+    .description = Vyžadováno pro sdílení obrazovky na některých stránkách, jako je Discord.

@@ -1,7 +1,6 @@
 patches/add-mojeek.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-setEnv.patch
-patches/bootstrap.patch
 patches/canvas-permission.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
@@ -30,6 +29,7 @@ patches/pip-hide.patch
 patches/pip-hide-ui.patch
 patches/profile-directory.patch
 patches/refresh.patch
+patches/remote-debugging-package-name.patch
 patches/remove-language-packs.patch
 patches/remove-openai.patch
 patches/remove-pingsender.patch

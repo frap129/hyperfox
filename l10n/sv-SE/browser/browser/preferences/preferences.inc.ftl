@@ -125,3 +125,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } är inställd som din standardwebbläsare.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } är inte inställd som din standardwebbläsare.
+librewolf-h264 =
+    .label = Aktivera OpenH264-pluginet
+    .description = Krävs för skärmdelning på vissa webbplatser, till exempel Discord.
