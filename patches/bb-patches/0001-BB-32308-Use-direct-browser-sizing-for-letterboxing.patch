@@ -6,7 +6,7 @@ Subject: [PATCH] BB 32308: Use direct browser sizing for letterboxing.
 Bug 30556: align letterboxing with 200x100 new win width stepping
 ---
  browser/app/profile/firefox.js                |   7 +
- .../tabbrowser/content/tabbrowser.js          |   4 +
+ .../tabbrowser/Tabbrowser.sys.mjs             |   4 +
  .../themes/shared/tabbrowser/content-area.css |   5 +
  .../resistfingerprinting/RFPHelper.sys.mjs    | 343 ++++++++++++++++--
  .../content/letterboxing.css                  | 167 ++++++++-
@@ -27,28 +27,28 @@ index 33d8ea4110..998eee7d66 100644
 +pref("privacy.resistFingerprinting.letterboxing.vcenter", true);
 +// tor-browser#41917: Letterboxing gradient background
 +pref("privacy.resistFingerprinting.letterboxing.gradient", true);
-diff --git a/browser/components/tabbrowser/content/tabbrowser.js b/browser/components/tabbrowser/content/tabbrowser.js
+diff --git a/browser/components/tabbrowser/Tabbrowser.sys.mjs b/browser/components/tabbrowser/Tabbrowser.sys.mjs
 index c0eafd4faf..399f19e095 100644
---- a/browser/components/tabbrowser/content/tabbrowser.js
-+++ b/browser/components/tabbrowser/content/tabbrowser.js
-@@ -2885,6 +2885,10 @@
-       stack.className = "browserStack";
-       stack.appendChild(b);
+--- a/browser/components/tabbrowser/Tabbrowser.sys.mjs
++++ b/browser/components/tabbrowser/Tabbrowser.sys.mjs
+@@ -3061,6 +3061,10 @@
+     stack.className = "browserStack";
+     stack.appendChild(b);
  
-+      let decorator = document.createXULElement("hbox");
-+      decorator.className = "browserDecorator";
-+      stack.appendChild(decorator);
++    let decorator = this.document.createXULElement("hbox");
++    decorator.className = "browserDecorator";
++    stack.appendChild(decorator);
 +
-       let browserContainer = document.createXULElement("box");
-       browserContainer.className = "browserContainer";
-       browserContainer.appendChild(stack);
+     let browserContainer = this.document.createXULElement("box");
+     browserContainer.className = "browserContainer";
+     browserContainer.appendChild(stack);
 diff --git a/browser/themes/shared/tabbrowser/content-area.css b/browser/themes/shared/tabbrowser/content-area.css
 index db68a04d85..7d5562d1eb 100644
 --- a/browser/themes/shared/tabbrowser/content-area.css
 +++ b/browser/themes/shared/tabbrowser/content-area.css
-@@ -326,6 +326,11 @@
-   position: absolute;
-   inset: 0;
+@@ -752,6 +752,11 @@
+   right: max(anchor(--browser-with-dialog right), anchor(--devtools-right-host left, 0));
+   bottom: max(anchor(--browser-with-dialog bottom), anchor(--devtools-bottom-host top, 0));
  
 +  /* Override the <stack> `grid-area: 1 / 1` rule with an `auto` placement.
 +   * Otherwise the .dialogStack start edges are placed relative to the
