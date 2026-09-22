@@ -100,6 +100,16 @@ def librewolf_patches():
     exec('rm -vf toolkit/components/ml/content/backends/OpenAIPipeline.mjs')
     exec('rm -vrf toolkit/components/ml/vendor/openai')
 
+    # Add our display versioning for MOZ_PKG_VERSION
+    with open("../assets/mozconfig.new", "r") as f:
+        text = f.read().replace(
+            "export MOZ_PKG_VERSION=",
+            f"export MOZ_PKG_VERSION={version}-{release}"
+        )
+
+    with open("../assets/mozconfig.new", "w") as f:
+        f.write(text)
+
     # create the right mozconfig file..
     exec('cp -v ../assets/mozconfig.new mozconfig')
 
