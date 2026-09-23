@@ -116,6 +116,9 @@ def librewolf_patches():
     # copy branding files..
     exec("cp -r ../themes/browser .")
 
+    # copy our patch icons
+    exec('cp -v ../assets/icons/* toolkit/themes/shared/icons/')
+
     # copy the right search-config.json-v2 file and search-config-icons file
     exec('cp -v ../assets/search-config-v2.json services/settings/dumps/main/search-config-v2.json')
     exec('cp -v ../assets/search-config-icons.json services/settings/dumps/main/search-config-icons.json')
