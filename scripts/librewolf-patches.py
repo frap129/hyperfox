@@ -117,7 +117,9 @@ def librewolf_patches():
     exec("cp -r ../themes/browser .")
 
     # copy our patch icons
-    exec('cp -v ../assets/icons/* toolkit/themes/shared/icons/')
+    exec('cp -v ../assets/icons/canvas.svg toolkit/themes/shared/icons/')
+    exec('cp -v ../assets/icons/webgl.svg browser/themes/shared/icons/webgl.svg')
+    exec('cp -v ../assets/icons/webgl-blocked.svg browser/themes/shared/icons/webgl-blocked.svg')
 
     # copy the right search-config.json-v2 file and search-config-icons file
     exec('cp -v ../assets/search-config-v2.json services/settings/dumps/main/search-config-v2.json')
