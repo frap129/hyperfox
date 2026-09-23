@@ -13,9 +13,10 @@ index 7bcec0b856..1082970630 100644
 +
 +/* Hide most of graphic but show tracker count */
 +#trustpanel-graphic-image,
++#trustpanel-graphic-image-legacy,
 +#trustpanel-graphic-section-text,
 +#trustpanel-blocker-section > label:nth-child(2) {
-+  display: none;
++  display: none !important;
 +}
 +#trustpanel-graphic-section,
 +#trustpanel-blocker-section,
