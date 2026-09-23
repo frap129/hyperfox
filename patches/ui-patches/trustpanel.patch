@@ -2,7 +2,7 @@ diff --git a/browser/themes/shared/controlcenter/panel.css b/browser/themes/shar
 index 7bcec0b856..1082970630 100644
 --- a/browser/themes/shared/controlcenter/panel.css
 +++ b/browser/themes/shared/controlcenter/panel.css
-@@ -795,6 +795,49 @@
+@@ -795,6 +795,50 @@
  
  /* Trustpanel popup */
  
