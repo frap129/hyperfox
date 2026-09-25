@@ -18,10 +18,38 @@ index cd71c0ffc7..632d1b350f 100644
    }
  
 diff --git a/browser/components/preferences/config/about-firefox.mjs b/browser/components/preferences/config/about-firefox.mjs
-index c28905c8da..70670e007e 100644
+index c28905c..e8d5e0f 100644
 --- a/browser/components/preferences/config/about-firefox.mjs
 +++ b/browser/components/preferences/config/about-firefox.mjs
-@@ -289,12 +289,18 @@ Preferences.addSetting({
+@@ -20,6 +20,7 @@ const BACKGROUND_UPDATE_CHANGED_TOPIC =
+ if (AppConstants.MOZ_UPDATER) {
+   Preferences.addAll([
+     { id: "app.update.disable_button.showUpdateHistory", type: "bool" },
++    { id: "app.update.disabledForTesting", type: "bool" },
+   ]);
+ 
+   if (AppConstants.NIGHTLY_BUILD) {
+@@ -148,6 +149,19 @@ Preferences.addSetting({
+   visible: () => !UpdatesHelpers.showUpdatesSettings,
+ });
+ 
++Preferences.addSetting({
++  id: "updatesDisabledForTesting",
++  pref: AppConstants.MOZ_UPDATER
++    ? "app.update.disabledForTesting"
++    : undefined,
++});
++
++Preferences.addSetting({
++  id: "updatesDisabled",
++  deps: ["updatesDisabledForTesting"],
++  visible: () => UpdatesHelpers.showUpdatesSettings && deps.updatesDisabledForTesting.value,
++});
++
+ Preferences.addSetting({
+   id: "updateApp",
+   visible: () => UpdatesHelpers.showUpdatesSettings,
+@@ -289,12 +303,18 @@ Preferences.addSetting({
    },
  });
  
@@ -40,7 +68,7 @@ index c28905c8da..70670e007e 100644
      /** @type {boolean | null} */
      _pendingValue = null;
  
-@@ -314,8 +320,12 @@ Preferences.addSetting(
+@@ -314,8 +334,12 @@ Preferences.addSetting(
          return this._pendingValue;
        }
  
@@ -54,7 +82,7 @@ index c28905c8da..70670e007e 100644
      }
  
      /**
-@@ -329,7 +339,24 @@ Preferences.addSetting(
+@@ -329,7 +353,24 @@ Preferences.addSetting(
        );
  
        try {
@@ -80,7 +108,7 @@ index c28905c8da..70670e007e 100644
  
          // Wait for a second to prevent the disable/enable causing the
          // UI text to flicker.
-@@ -343,7 +370,7 @@ Preferences.addSetting(
+@@ -343,7 +384,7 @@ Preferences.addSetting(
  
        // If the value was changed to false the user should be given the option
        // to discard an update if there is one.
@@ -89,7 +117,7 @@ index c28905c8da..70670e007e 100644
          await UpdatesHelpers.checkUpdateInProgress();
        }
      }
-@@ -390,8 +417,8 @@ Preferences.addSetting(
+@@ -390,8 +431,8 @@ Preferences.addSetting(
  
        // If auto updates are turned off, background updates checkbox should be unchecked
        let updateAutoEnabled = this._updateRadioSetting.value;
@@ -100,7 +128,7 @@ index c28905c8da..70670e007e 100644
        }
  
        let checked = await UpdateUtils.readUpdateConfigSetting(this.prefName);
-@@ -422,7 +449,10 @@ Preferences.addSetting(
+@@ -422,7 +463,10 @@ Preferences.addSetting(
      }
  
      async disabled() {
@@ -112,7 +140,22 @@ index c28905c8da..70670e007e 100644
      }
  
      setup() {
-@@ -529,7 +559,7 @@ SettingGroupManager.registerGroups({
+@@ -487,6 +531,14 @@ SettingGroupManager.registerGroups({
+           role: "status",
+         },
+       },
++      {
++        id: "updatesDisabled",
++        l10nId: "update-application-updates-disabled",
++        control: "moz-message-bar",
++        controlAttrs: {
++          role: "warning",
++        },
++      },
+       {
+         id: "updateApp",
+         control: "moz-box-group",
+@@ -529,7 +581,7 @@ SettingGroupManager.registerGroups({
              options: [
                {
                  id: "autoDesktop",
@@ -121,7 +164,7 @@ index c28905c8da..70670e007e 100644
                  l10nId: "update-application-auto-2",
                  items: [
                    {
-@@ -540,9 +570,14 @@ SettingGroupManager.registerGroups({
+@@ -540,9 +592,14 @@ SettingGroupManager.registerGroups({
                },
                {
                  id: "manualDesktop",

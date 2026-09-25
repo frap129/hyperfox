@@ -118,3 +118,6 @@ librewolf-is-not-default-browser-2 =
 update-application-disabled-choose-2 =
     .label = Disable the updater
     .accesskey = D
+
+update-application-updates-disabled =
+    .message = The built-in updater has been disabled. Updates must be managed manually or through an external update mechanism.
