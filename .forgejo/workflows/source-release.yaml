@@ -34,7 +34,7 @@ jobs:
     runs-on: epsilon
     if: forgejo.ref == 'refs/heads/main'
     container:
-      image: librewolf.dev/librewolf/bsys6:dind
+      image: librewolf.dev/librewolf/bsys6:release
     needs: [build-source]
     steps:
       - name: Checkout Repository
@@ -73,6 +73,50 @@ jobs:
 
           for FILE in "${FILES[@]}"; do
             curl --http1.1 --user "${{ vars.FORGE_USER }}:${{ secrets.FORGE_TOKEN }}" --upload-file "${FILE}" "${{ forgejo.server_url }}/api/packages/${{ forgejo.repository_owner }}/generic/librewolf-source/${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}/${FILE}" >&2
+          done
+
+      - name: Upload to S3
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          S3_ENDPOINT: ${{ vars.S3_ENDPOINT }}
+          S3_BUCKET: ${{ vars.S3_BUCKET }}
+          S3_KEY: ${{ secrets.S3_KEY }}
+          S3_SECRET: ${{ secrets.S3_SECRET }}
+          S3_PUBLIC_URL: ${{ vars.S3_PUBLIC_URL }}
+        run: |
+          for required_var in S3_ENDPOINT S3_BUCKET S3_KEY S3_SECRET S3_PUBLIC_URL; do
+            if [ -z "${!required_var:-}" ]; then
+              echo "Error: '$required_var' is not set" >&2
+              exit 1
+            fi
+          done
+
+          TAG="${{ steps.version.outputs.VERSION }}-${{ steps.version.outputs.RELEASE }}"
+
+          FILES=(
+            "librewolf-${TAG}.source.tar.gz"
+            "librewolf-${TAG}.source.tar.gz.sha256sum"
+            "librewolf-${TAG}.source.tar.gz.sha512sum"
+          )
+
+          if [[ -n "$SIGNING_KEY" ]]; then
+            FILES+=("librewolf-${TAG}.source.tar.gz.sig")
+          fi
+
+          for FILE in "${FILES[@]}"; do
+            S3_PATH="/librewolf-source/${TAG}/${FILE}"
+            echo "-> Uploading ${FILE} to S3" >&2
+            if ! s3cmd put "${FILE}" "s3://${S3_BUCKET}${S3_PATH}" \
+              --access_key="$S3_KEY" \
+              --secret_key="$S3_SECRET" \
+              --host="$S3_ENDPOINT" \
+              --host-bucket="$S3_ENDPOINT" \
+              --guess-mime-type \
+              --no-mime-magic >&2; then
+              echo "Error: Failed to upload ${FILE} to S3" >&2
+              exit 1
+            fi
+            echo "${S3_PUBLIC_URL}${S3_PATH}"
           done
 
       - name: Create Release
