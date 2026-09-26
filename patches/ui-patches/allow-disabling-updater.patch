@@ -18,7 +18,7 @@ index cd71c0ffc7..632d1b350f 100644
    }
  
 diff --git a/browser/components/preferences/config/about-firefox.mjs b/browser/components/preferences/config/about-firefox.mjs
-index c28905c..e8d5e0f 100644
+index c28905c8da..cb10393b3d 100644
 --- a/browser/components/preferences/config/about-firefox.mjs
 +++ b/browser/components/preferences/config/about-firefox.mjs
 @@ -20,6 +20,7 @@ const BACKGROUND_UPDATE_CHANGED_TOPIC =
@@ -72,7 +72,7 @@ index c28905c..e8d5e0f 100644
          return this._pendingValue;
        }
  
-+      if (Services.prefs.getBoolpref(this.prefName, false)) {
++      if (Services.prefs.getBoolPref(this.prefName, false)) {
 +        return UPDATE_MODE_DISABLED;
 +      }
 +
@@ -89,17 +89,17 @@ index c28905c..e8d5e0f 100644
 -        await UpdateUtils.setAppUpdateAutoEnabled(value);
 +        switch (value) {
 +          case UPDATE_MODE_AUTO:
-+            Services.prefs.setBoolpref(this.prefName, false);
++            Services.prefs.setBoolPref(this.prefName, false);
 +            await UpdateUtils.setAppUpdateAutoEnabled(true);
 +            break;
 +
 +          case UPDATE_MODE_MANUAL:
-+            Services.prefs.setBoolpref(this.prefName, false);
++            Services.prefs.setBoolPref(this.prefName, false);
 +            await UpdateUtils.setAppUpdateAutoEnabled(false);
 +            break;
 +
 +          case UPDATE_MODE_DISABLED:
-+            Services.prefs.setBoolpref(this.prefName, true);
++            Services.prefs.setBoolPref(this.prefName, true);
 +            break;
 +
 +          default:
