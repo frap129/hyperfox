@@ -2,6 +2,7 @@ patches/add-mojeek.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-setEnv.patch
 patches/canvas-permission.patch
+patches/clear-alt-svc.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/delete-cookie-permission.patch
