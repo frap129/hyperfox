@@ -25,6 +25,7 @@ patches/moz-configure.patch
 patches/mozilla_dirs.patch
 patches/moz-official.patch
 patches/msix.patch
+patches/mullvad-dns-migration.patch
 patches/newtab-fix.patch
 patches/pip-hide-ui.patch
 patches/profile-directory.patch
