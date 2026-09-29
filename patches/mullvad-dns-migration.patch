@@ -16,16 +16,15 @@ new file mode 100644
 index 0000000..6295c42
 --- /dev/null
 +++ b/browser/base/content/mullvadDoHNotification.js
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,56 @@
 +"use strict";
 +
 +window.addEventListener("load", () => {
-+  // A notification to let users known that their DNS over HTTPS settings have
-+  // changed because the mullvad DoH services has been discontinued and
-+  // replaced.
++  // A notification to let users known that their DNS over HTTPS
++  // provider is being discontinued.
 +  const notification = {
 +    // ProfileDataUpgrader.upgradeMB migration will set the `showPref`
-+    // preference conditionally on whether the user is effected. We wait for
++    // preference conditionally on whether the user is affected. We wait for
 +    // this preference for confirmation.
 +    showPref: "librewolf.migration.show_doh_notification",
 +    shown: false,
