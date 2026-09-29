@@ -34,3 +34,17 @@ index 7cdf275..5f6b1a4 100644
          <vbox class="fxa-menu-sign-in-promo-text" flex="1">
            <label class="fxa-menu-sign-in-promo-heading"
                   data-l10n-id="fxa-menu-sign-in-promo-heading"/>
+diff --git a/browser/components/aboutlogins/content/components/login-intro.mjs b/browser/components/aboutlogins/content/components/login-intro.mjs
+index bebc7ea..323e2e9 100644
+--- a/browser/components/aboutlogins/content/components/login-intro.mjs
++++ b/browser/components/aboutlogins/content/components/login-intro.mjs
+@@ -44,9 +44,6 @@ export default class LoginIntro extends HTMLElement {
+       l10nId
+     );
+ 
+-    this.shadowRoot
+-      .querySelector(".illustration")
+-      .classList.toggle("logged-in", syncState.loggedIn);
+     let supportURL =
+       window.AboutLoginsUtils.supportBaseURL +
+       "password-manager-remember-delete-edit-logins";
