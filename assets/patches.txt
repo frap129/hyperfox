@@ -48,6 +48,7 @@ patches/ui-patches/neterror.patch
 patches/ui-patches/newtab-wordmark-css.patch
 patches/ui-patches/pref-naming.patch
 patches/ui-patches/privacy-preferences.patch
+patches/ui-patches/remove-branding.patch
 patches/ui-patches/remove-cfrprefs.patch
 patches/ui-patches/remove-organization-policy-banner.patch
 patches/ui-patches/settings-redesign.patch
