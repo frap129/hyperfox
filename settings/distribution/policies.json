@@ -19,6 +19,9 @@
             },
             "SmartWindow": {
                 "Value": "blocked"
+            },
+            "SpeechRecognition": {
+                "Value": "blocked"
             }
         },
         "AppUpdateURL": "https://localhost",
