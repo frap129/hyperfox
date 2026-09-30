@@ -59,8 +59,9 @@ ac_add_options --enable-eme=widevine
 # Client settings
 ac_add_options --disable-parental-controls
 ac_add_options --enable-geckodriver
-ac_add_options --enable-wasm-simd
-ac_add_options --enable-wasm-avx
+ac_add_options --enable-rust-simd
+ac_add_options --enable-jit-simd
+ac_add_options --enable-jit-avx
 ac_add_options --enable-jemalloc
 ac_add_options --enable-default-toolkit=cairo-gtk3-wayland
 ac_add_options --with-system-zlib
