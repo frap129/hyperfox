@@ -77,38 +77,48 @@ index ad333a5..76ba937 100644
    },
    sync: {
 diff --git a/browser/components/preferences/config/appearance.mjs b/browser/components/preferences/config/appearance.mjs
-index 14fea2901b..fdc3424676 100644
+index 7675fab..5cd14dd 100644
 --- a/browser/components/preferences/config/appearance.mjs
 +++ b/browser/components/preferences/config/appearance.mjs
-@@ -115,6 +115,17 @@ Preferences.addSetting({
+@@ -259,6 +259,23 @@ Preferences.addSetting({
    },
  });
  
 +if (Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)) {
 +  Preferences.addAll([
 +    { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
++    { id: "browser.nova.enabled", type: "bool" },
 +  ]);
 +
 +  Preferences.addSetting({
 +    id: "librewolfUserChrome",
 +    pref: "toolkit.legacyUserProfileCustomizations.stylesheets",
 +  });
++
++  Preferences.addSetting({
++    id: "librewolfNova",
++    pref: "browser.nova.enabled",
++  });
 +}
 +
  SettingGroupManager.registerGroups({
    appearance: {
      l10nId: "appearance-group2",
-@@ -186,6 +197,10 @@ SettingGroupManager.registerGroups({
+@@ -367,6 +384,14 @@ SettingGroupManager.registerGroups({
            href: "about:addons",
          },
        },
++      {
++        id: "librewolfNova",
++        l10nId: "librewolf-nova-checkbox2",
++      },
 +      {
 +        id: "librewolfUserChrome",
 +        l10nId: "librewolf-styling-checkbox2",
 +      },
      ],
    },
-   relatedSettings: {
+   browserIconEntry: {
 diff --git a/browser/components/preferences/config/languages.mjs b/browser/components/preferences/config/languages.mjs
 index 7123cb0f46..47367e1642 100644
 --- a/browser/components/preferences/config/languages.mjs
@@ -148,7 +158,7 @@ index 7123cb0f46..47367e1642 100644
          id: "translationsManageButton",
          loadPane: "translations",
 diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
-index d06a45ed88..001483f751 100644
+index f32ccc4..0feeeb3 100644
 --- a/browser/components/preferences/config/privacy.mjs
 +++ b/browser/components/preferences/config/privacy.mjs
 @@ -533,6 +533,82 @@ if (SECURITY_PRIVACY_STATUS_CARD_ENABLED) {
@@ -351,7 +361,7 @@ index d06a45ed88..001483f751 100644
      ],
    },
    networkProxy: {
-@@ -982,13 +1022,10 @@ SettingGroupManager.registerGroups({
+@@ -1034,13 +1074,10 @@ SettingGroupManager.registerGroups({
      ],
    },
    historyAdvanced: {
@@ -367,7 +377,7 @@ index d06a45ed88..001483f751 100644
        {
          id: "rememberHistory",
          l10nId: "history-remember-browser-option",
-@@ -1159,18 +1196,14 @@ SettingGroupManager.registerGroups({
+@@ -1240,19 +1277,15 @@ SettingGroupManager.registerGroups({
    etpAdvanced: {
      inProgress: true,
      headingLevel: 2,
@@ -379,6 +389,7 @@ index d06a45ed88..001483f751 100644
        {
          id: "contentBlockingCategoryRadioGroup",
          control: "moz-radio-group",
+         l10nId: "preferences-etp-level-radio-group",
          options: [
 -          {
 -            id: "etpLevelStandard",
@@ -388,7 +399,7 @@ index d06a45ed88..001483f751 100644
            {
              id: "etpLevelStrict",
              subcategory: "etp-strict-control",
-@@ -1192,20 +1225,6 @@ SettingGroupManager.registerGroups({
+@@ -1274,20 +1307,6 @@ SettingGroupManager.registerGroups({
                },
              ],
            },
@@ -409,7 +420,7 @@ index d06a45ed88..001483f751 100644
          ],
        },
        {
-@@ -1221,12 +1240,6 @@ SettingGroupManager.registerGroups({
+@@ -1303,12 +1322,6 @@ SettingGroupManager.registerGroups({
            },
          ],
        },
@@ -879,45 +890,6 @@ index 0000000..7c552cc
 +       transform="matrix(0.23203125,0.40188991,-0.99392962,0.57384553,246.21921,73.888081)" />
 +  </g>
 +</svg>
-diff --git a/browser/extensions/newtab/css/activity-stream.css b/browser/extensions/newtab/css/activity-stream.css
-index 5f86582..20fad77 100644
---- a/browser/extensions/newtab/css/activity-stream.css
-+++ b/browser/extensions/newtab/css/activity-stream.css
-@@ -1072,13 +1072,13 @@ main.newtab-main section {
- }
- .logo-and-wordmark .wordmark {
-   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
--  background-size: 105px;
-+  background-size: 200px;
-   -moz-context-properties: fill;
-   display: inline-block;
-   fill: var(--newtab-wordmark-color);
-   height: 64px;
-   margin-inline-start: var(--space-large);
--  width: 105px;
-+  width: 200px;
- }
- .lightWallpaper .logo-and-wordmark .wordmark {
-   color-scheme: light;
-diff --git a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
-index ea50223..d782989 100644
---- a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
-+++ b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
-@@ -74,12 +74,12 @@ p {
- .wordmark {
-   display: inline-block;
-   background: url("chrome://branding/content/firefox-wordmark.svg") no-repeat center center;
--  background-size: 172px;
-+  background-size: 250px;
-   margin-inline-start: 15px;
-   -moz-context-properties: fill;
-   fill: currentColor;
-   height: 96px;
--  width: 172px;
-+  width: 250px;
- }
- 
- .search-inner-wrapper {
 diff --git a/browser/components/backup/BackupService.sys.mjs b/browser/components/backup/BackupService.sys.mjs
 index bd2f95db2d..23ed1d8e90 100644
 --- a/browser/components/backup/BackupService.sys.mjs

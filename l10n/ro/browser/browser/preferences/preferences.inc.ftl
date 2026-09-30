@@ -82,3 +82,6 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } este setat ca browser-ul tău implicit.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } nu este setat ca browser-ul tău implicit.
+librewolf-h264 =
+    .label = Activează plugin-ul OpenH264.
+    .description = Necesar pentru partajarea ecranului pe unele site-uri, precum Discord.

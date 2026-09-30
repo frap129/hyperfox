@@ -1,8 +1,8 @@
 diff --git a/toolkit/components/extensions/parent/ext-runtime.js b/toolkit/components/extensions/parent/ext-runtime.js
-index 0d7a3e5..8853dd0 100644
+index abc30a2..bda1643 100644
 --- a/toolkit/components/extensions/parent/ext-runtime.js
 +++ b/toolkit/components/extensions/parent/ext-runtime.js
-@@ -333,7 +333,15 @@ this.runtime = class extends ExtensionAPIPersistent {
+@@ -334,7 +334,16 @@ this.runtime = class extends ExtensionAPIPersistent {
  
          getBrowserInfo: function () {
            const { name, vendor, version, appBuildID } = Services.appinfo;
@@ -12,18 +12,19 @@ index 0d7a3e5..8853dd0 100644
 +            true
 +          );
 +
++          const version_display = AppConstants.MOZ_APP_VERSION_DISPLAY;
 +          const info = useFirefoxDefaults
 +            ? { name: "Firefox", vendor: "Mozilla", version, buildID: appBuildID }
-+            : { name, vendor, version, buildID: appBuildID };
++            : { name, vendor, version: version_display, buildID: appBuildID };
 +
            return Promise.resolve(info);
          },
  
 diff --git a/toolkit/xre/nsAppRunner.cpp b/toolkit/xre/nsAppRunner.cpp
-index 0b0e8a1..cdc2e52 100644
+index 1cf5753..7c88751 100644
 --- a/toolkit/xre/nsAppRunner.cpp
 +++ b/toolkit/xre/nsAppRunner.cpp
-@@ -2245,9 +2245,6 @@ static void DumpHelp() {
+@@ -2256,9 +2256,6 @@ static void DumpHelp() {
  }
  
  static inline void DumpVersion() {
@@ -33,7 +34,7 @@ index 0b0e8a1..cdc2e52 100644
    printf("%s ", (const char*)gAppData->name);
  
    // Use the displayed version
-@@ -2261,9 +2258,6 @@ static inline void DumpVersion() {
+@@ -2272,9 +2269,6 @@ static inline void DumpVersion() {
  }
  
  static inline void DumpFullVersion() {

@@ -1,0 +1,106 @@
+# Adapted from https://gitlab.torproject.org/tpo/applications/mullvad-browser/-/merge_requests/263
+diff --git a/browser/base/content/browser-main.js b/browser/base/content/browser-main.js
+index 1ff101a..5e902fc 100644
+--- a/browser/base/content/browser-main.js
++++ b/browser/base/content/browser-main.js
+@@ -31,6 +31,7 @@
+   Services.scriptloader.loadSubScript("chrome://browser/content/places/places-menupopup.js", this);
+   Services.scriptloader.loadSubScript("chrome://browser/content/search/autocomplete-popup.js", this);
+   Services.scriptloader.loadSubScript("chrome://browser/content/search/searchbar.js", this);
++  Services.scriptloader.loadSubScript("chrome://browser/content/mullvadDoHNotification.js", this);
+   if (AIWindow.isOpeningAIWindow(window)) {
+     ChromeUtils.importESModule("chrome://browser/content/urlbar/SmartbarInput.mjs", { global: "current" });
+   }
+diff --git a/browser/base/content/mullvadDoHNotification.js b/browser/base/content/mullvadDoHNotification.js
+new file mode 100644
+index 0000000..6295c42
+--- /dev/null
++++ b/browser/base/content/mullvadDoHNotification.js
+@@ -0,0 +1,56 @@
++"use strict";
++
++window.addEventListener("load", () => {
++  // A notification to let users known that their DNS over HTTPS
++  // provider is being discontinued.
++  const notification = {
++    // ProfileDataUpgrader.upgradeMB migration will set the `showPref`
++    // preference conditionally on whether the user is affected. We wait for
++    // this preference for confirmation.
++    showPref: "librewolf.migration.show_doh_notification",
++    shown: false,
++
++    init() {
++      Services.prefs.addObserver(this.showPref, this);
++      this.maybeShow();
++    },
++
++    observe() {
++      this.maybeShow();
++    },
++
++    async maybeShow() {
++      if (this.shown || !Services.prefs.getBoolPref(this.showPref, false)) {
++        return;
++      }
++      this.shown = true;
++      Services.prefs.removeObserver(this.showPref, this);
++
++      gNotificationBox.appendNotification(
++        "mullvad-doh-notification",
++        {
++          label: { "l10n-id": "mullvad-doh-notification-body" },
++          priority: gNotificationBox.PRIORITY_INFO_HIGH,
++        },
++        [
++          {
++            "l10n-id": "moz-support-link-text",
++            link: "https://mullvad.net/en/blog/shutting-down-our-public-encrypted-dns-servers-and-sponsoring-quad9-instead",
++          },
++          {
++            "l10n-id": "mullvad-doh-notification-settings-button",
++            primary: true,
++            callback: () => {
++              window.openPreferences("privacy-doh");
++              Services.prefs.clearUserPref(this.showPref);
++              // Keep the notification open in case the user wants to click
++              // "Learn more".
++              return true;
++            },
++          },
++        ]
++      );
++    },
++  };
++  notification.init();
++});
+diff --git a/browser/base/jar.mn b/browser/base/jar.mn
+index 783c67d..071f294 100644
+--- a/browser/base/jar.mn
++++ b/browser/base/jar.mn
+@@ -101,6 +101,7 @@ browser.jar:
+         content/browser/spotlight.html                (content/spotlight.html)
+         content/browser/spotlight.js                  (content/spotlight.js)
+ *       content/browser/default-bookmarks.html        (content/default-bookmarks.html)
++        content/browser/mullvadDoHNotification.js     (content/mullvadDoHNotification.js)
+ 
+ # L10n resources and overrides.
+ % override chrome://global/locale/appstrings.properties chrome://browser/locale/appstrings.properties
+diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
+index 6cee3dc..f12514e 100644
+--- a/browser/components/ProfileDataUpgrader.sys.mjs
++++ b/browser/components/ProfileDataUpgrader.sys.mjs
+@@ -1139,6 +1139,14 @@ export let ProfileDataUpgrader = {
+ 
+       // We need to override this in order to roll the new sidebar out to everyone
+       Services.prefs.clearUserPref("sidebar.revamp");
++
++      const DOH_NOTIFICATION_PREF = "librewolf.migration.show_doh_notification";
++      const DOH_URI_PREF = "network.trr.uri";
++      const MULLVAD_DNS = "https://dns.mullvad.net/dns-query";
++
++      if (Services.prefs.getStringPref(DOH_URI_PREF, "") === MULLVAD_DNS) {
++        Services.prefs.setBoolPref(DOH_NOTIFICATION_PREF, true);
++      }
+     }
+ 
+     // Update the migration version.

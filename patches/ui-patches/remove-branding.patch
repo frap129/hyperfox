@@ -1,0 +1,50 @@
+diff --git a/browser/components/aboutlogins/content/aboutLogins.html b/browser/components/aboutlogins/content/aboutLogins.html
+index 9bbf5e6..5955410 100644
+--- a/browser/components/aboutlogins/content/aboutLogins.html
++++ b/browser/components/aboutlogins/content/aboutLogins.html
+@@ -238,7 +238,6 @@
+       <link rel="stylesheet" href="chrome://browser/content/aboutlogins/common.css">
+       <link rel="stylesheet" href="chrome://browser/content/aboutlogins/components/login-intro.css">
+ 
+-      <img class="illustration" src="chrome://global/content/megalist/icons/cpm-fox-illustration.svg" alt=""/>
+       <h1 class="heading" data-l10n-id="about-logins-login-intro-heading-message"></h1>
+       <section>
+         <p class="description" data-l10n-id="login-intro-description2">
+diff --git a/browser/base/content/appmenu-viewcache.inc.xhtml b/browser/base/content/appmenu-viewcache.inc.xhtml
+index 7cdf275..5f6b1a4 100644
+--- a/browser/base/content/appmenu-viewcache.inc.xhtml
++++ b/browser/base/content/appmenu-viewcache.inc.xhtml
+@@ -58,9 +58,6 @@
+       </toolbaritem>
+       <hbox id="appMenu-fxa-sign-in-promo"
+             align="center">
+-        <html:img class="fxa-menu-sign-in-promo-image"
+-                  alt=""
+-                  src="chrome://browser/content/kit-signed-out.svg"/>
+         <vbox class="fxa-menu-sign-in-promo-text" flex="1">
+           <label class="fxa-menu-sign-in-promo-heading"
+                  data-l10n-id="appmenu-fxa-sign-in-promo-heading"/>
+@@ -703,9 +700,6 @@
+       <hbox id="PanelUI-fxa-menu-sign-in-promo"
+             align="center"
+             hidden="true">
+-        <html:img class="fxa-menu-sign-in-promo-image"
+-                  alt=""
+-                  src="chrome://browser/content/kit-signed-out.svg"/>
+         <vbox class="fxa-menu-sign-in-promo-text" flex="1">
+           <label class="fxa-menu-sign-in-promo-heading"
+                  data-l10n-id="fxa-menu-sign-in-promo-heading"/>
+diff --git a/browser/components/aboutlogins/content/components/login-intro.mjs b/browser/components/aboutlogins/content/components/login-intro.mjs
+index bebc7ea..323e2e9 100644
+--- a/browser/components/aboutlogins/content/components/login-intro.mjs
++++ b/browser/components/aboutlogins/content/components/login-intro.mjs
+@@ -44,9 +44,6 @@ export default class LoginIntro extends HTMLElement {
+       l10nId
+     );
+ 
+-    this.shadowRoot
+-      .querySelector(".illustration")
+-      .classList.toggle("logged-in", syncState.loggedIn);
+     let supportURL =
+       window.AboutLoginsUtils.supportBaseURL +
+       "password-manager-remember-delete-edit-logins";

@@ -78,12 +78,12 @@ index c2bebf7e96..62ab632cec 100644
    skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
    skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index c86e54b..752a38b 100644
+index a8de115..c7e6f99 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -692,6 +692,70 @@ SettingGroupManager.registerGroups({
+@@ -571,6 +571,74 @@ SettingGroupManager.registerGroups({
    startup: createStartupConfig(
-     Services.prefs.getBoolPref("browser-settings-redesign.enabled", false)
+     Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)
    ),
 +  librewolfBehavior: {
 +    l10nId: "librewolf-general-heading2",
@@ -100,6 +100,10 @@ index c86e54b..752a38b 100644
 +      {
 +        id: "librewolfMiddleClick",
 +        l10nId: "librewolf-autocopy-checkbox2",
++      },
++      {
++        id: "librewolfNova",
++        l10nId: "librewolf-nova-checkbox2",
 +      },
 +      {
 +        id: "librewolfUserChrome",

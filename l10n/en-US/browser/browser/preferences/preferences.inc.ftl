@@ -24,6 +24,8 @@ librewolf-autocopy-checkbox2 =
 librewolf-styling-checkbox2 =
     .label = Allow userChrome.css customization
     .description = Enable this if you want to customize the UI with a manually loaded theme.
+librewolf-nova-checkbox2 =
+    .label = Enable the Nova redesign
 librewolf-network-heading2 =
     .label = Networking
 librewolf-ipv6-checkbox2 =
@@ -114,3 +116,10 @@ librewolf-is-default-browser-2 =
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } isn't set as your default browser.
 
+# Updates
+update-application-disabled-choose-2 =
+    .label = Disable the updater
+    .accesskey = D
+
+update-application-updates-disabled =
+    .message = The built-in updater has been disabled. Updates must be managed manually or through an external update mechanism.
