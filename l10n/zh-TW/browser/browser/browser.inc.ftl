@@ -5,3 +5,6 @@ urlbar-webgl-blocked =
     .tooltiptext = 您已封鎖此網站建立 WebGL context。
 urlbar-eme-blocked =
     .tooltiptext = 您已封鎖此網站播放受 DRM 控制的內容。
+mullvad-doh-notification-body = Mullvad 安全 DNS 即将 <strong>停止服务</strong>。请立即检查您的 DNS 设置。
+mullvad-doh-notification-settings-button =
+    .label = 检查设置

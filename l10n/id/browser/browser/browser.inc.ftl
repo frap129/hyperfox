@@ -5,3 +5,6 @@ urlbar-webgl-notification-anchor =
     .tooltiptext = Kelola izin pembuatan konteks WebGL
 urlbar-webgl-blocked =
     .tooltiptext = Anda telah memblokir pembuatan konteks WebGL untuk situs ini.
+mullvad-doh-notification-body = Mullvad Secure DNS sedang <strong>dipensiunkan</strong>. Mohon tinjau ulang pengaturan DNS Anda sekarang.
+mullvad-doh-notification-settings-button =
+    .label = Tinjau ulang pengaturan

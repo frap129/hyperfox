@@ -5,3 +5,6 @@ urlbar-webgl-blocked =
     .tooltiptext = Zablokovali jste vytváření kontextů WebGL pro tento web.
 urlbar-eme-blocked =
     .tooltiptext = Na tomto webu jste zablokovali přehrávání obsahu chráněného technologií DRM.
+mullvad-doh-notification-body = Služba Mullvad Secure DNS bude <strong>ukončena</strong>. Zkontrolujte prosím svá nastavení DNS.
+mullvad-doh-notification-settings-button =
+    .label = Zkontrolovat nastavení

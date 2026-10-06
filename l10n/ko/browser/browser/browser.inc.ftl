@@ -5,3 +5,6 @@ urlbar-webgl-blocked =
     .tooltiptext = 이 웹사이트에 대한 WebGL 컨텍스트 생성을 차단했습니다.
 urlbar-eme-blocked =
     .tooltiptext = 이 웹사이트의 DRM 제어 컨텐츠 재생을 차단했습니다.
+mullvad-doh-notification-body = Mullvad 보안 DNS가 <strong>중단</strong>될 예정입니다. 지금 DNS 설정을 검토하여 주십시오.
+mullvad-doh-notification-settings-button =
+    .label = 설정 검토

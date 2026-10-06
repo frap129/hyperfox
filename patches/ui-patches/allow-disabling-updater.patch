@@ -29,7 +29,7 @@ index c28905c8da..cb10393b3d 100644
    ]);
  
    if (AppConstants.NIGHTLY_BUILD) {
-@@ -148,6 +149,19 @@ Preferences.addSetting({
+@@ -148,6 +149,20 @@ Preferences.addSetting({
    visible: () => !UpdatesHelpers.showUpdatesSettings,
  });
  
@@ -43,7 +43,8 @@ index c28905c8da..cb10393b3d 100644
 +Preferences.addSetting({
 +  id: "updatesDisabled",
 +  deps: ["updatesDisabledForTesting"],
-+  visible: () => UpdatesHelpers.showUpdatesSettings && deps.updatesDisabledForTesting.value,
++  visible: deps =>
++    UpdatesHelpers.showUpdatesSettings && deps.updatesDisabledForTesting.value,
 +});
 +
  Preferences.addSetting({
