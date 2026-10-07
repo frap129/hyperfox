@@ -1,6 +1,6 @@
 FROM debian:trixie-slim as base
 
-ARG LLVM_VERSION=22
+ARG LLVM_VERSION=23
 
 # Enable deb-src so build-dep works
 RUN sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources
