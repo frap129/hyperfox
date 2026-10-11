@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Seadistused - kanvaa andmete tuvastamise õigused
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Järgnevad andmed on küsinud luba kanvaa andmete tuvastamiseks. Sa võid määratleda, saidid, mis võivad sellist võimalust kasutada. Lisaks saad reaalajas seda keelata.
+permissions-site-jit-window2 =
+    .title = Seadistused - JavaScripti dünaamilise kompileerimise (JIT) õigused
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Järgnevate saitide puhul on JavaScripti dünaamiline kompileerimine (JIT) lubatud. Selle väljalülitamine vähendab koodirünnete võimalusi ja võib parandada turvalisust, kuid võib veebisaitide ja -rakenduste tööd aeglustada. Kui JavaScripti dünaamiline kompileerimine (JIT) on lülitatud välja, siis Web Assembly ei toimi.

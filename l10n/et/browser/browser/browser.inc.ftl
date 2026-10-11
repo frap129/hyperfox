@@ -8,3 +8,4 @@ urlbar-eme-blocked =
 mullvad-doh-notification-body = Mullvadi turvaline nimelahendus <strong>on lõpetamas oma tegevust</strong>. Palun vaata oma brauseri nimelahenduse seadistused üle.
 mullvad-doh-notification-settings-button =
     .label = Vaata seadistused üle
+panel-enable-jit = Kasuta JavaScripti dünaamilist kompileerimist (Just-in-time Compilation ehk JIT)
