@@ -8,3 +8,4 @@ urlbar-webgl-blocked =
 mullvad-doh-notification-body = Mullvad Secure DNS sedang <strong>dipensiunkan</strong>. Mohon tinjau ulang pengaturan DNS Anda sekarang.
 mullvad-doh-notification-settings-button =
     .label = Tinjau ulang pengaturan
+panel-enable-jit = Aktifkan JavaScript JIT
