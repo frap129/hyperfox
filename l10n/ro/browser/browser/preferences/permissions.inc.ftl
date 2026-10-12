@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Setări - Permisiuni de extragere al Canvas-ului
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Urmatoarele site-uri au cerut permisiunea de a extrage date de canvas. Poți specifica care site-uri pot extrage date de canvas. Poți, de-asemenea, să blochezi cereri noi de extragere a datelor de canvas.
+permissions-site-jit-window2 =
+    .title = Setări - Permisiuni JavaScript JIT
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Următoarele site-uri au permisiunea de a activa JavaScript JIT. Dezactivarea JavaScript JIT vă poate spori securitatea prin reducerea expunerii la anumite atacuri prin executare de cod, dar poate încetini site-urile și aplicațiile. WebAssembly nu va funcționa cu JIT dezactivat.
