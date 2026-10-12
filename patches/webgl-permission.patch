@@ -1,8 +1,8 @@
 diff --git a/browser/base/content/popup-notifications.inc.xhtml b/browser/base/content/popup-notifications.inc.xhtml
-index cb57017aa9..c982089198 100644
+index 43c2429..99b5c5a 100644
 --- a/browser/base/content/popup-notifications.inc.xhtml
 +++ b/browser/base/content/popup-notifications.inc.xhtml
-@@ -168,6 +168,13 @@
+@@ -196,6 +196,13 @@
        </popupnotificationcontent>
      </popupnotification>
  
@@ -13,9 +13,9 @@ index cb57017aa9..c982089198 100644
 +      </popupnotificationcontent>
 +    </popupnotification>
 +
-     <popupnotification id="contextual-feature-recommendation-notification"
-                        buttonhighlight="true"
-                        hidden="true">
+     <popupnotification id="credential-chooser-notification" hidden="true">
+       <popupnotificationheader id="credential-chooser-header" orient="horizontal">
+         <html:div id="credential-chooser-header-container">
 diff --git a/browser/modules/ObserverForwarder.sys.mjs b/browser/modules/ObserverForwarder.sys.mjs
 index 8cf14355f3..bdecc6c230 100644
 --- a/browser/modules/ObserverForwarder.sys.mjs
