@@ -46,7 +46,6 @@ patches/ui-patches/allow-disabling-updater.patch
 patches/ui-patches/eme-enable.patch
 patches/ui-patches/home-preferences.patch
 patches/ui-patches/lw-logo-devtools.patch
-patches/ui-patches/neterror.patch
 patches/ui-patches/newtab-wordmark-css.patch
 patches/ui-patches/pref-naming.patch
 patches/ui-patches/privacy-preferences.patch
