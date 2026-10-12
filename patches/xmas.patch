@@ -32,12 +32,15 @@ index e69de29..8589aac 100644
 +  "local-settings.js",
 +]
 diff --git a/moz.build b/moz.build
-index 4b7fabd..734eee8 100644
+index 9e8ba36..cfec96b 100644
 --- a/moz.build
 +++ b/moz.build
-@@ -244,3 +244,5 @@ SPHINX_TREES["content-security"] = "docs/content-security"
- SPHINX_TREES["jsloader"] = "docs/jsloader"
+@@ -363,6 +363,8 @@ SPHINX_TREES["ai-agent-tools"] = "docs/ai-agent-tools"
  
  include("build/templates.mozbuild")
-+
+ 
 +DIRS += ["lw"]
++
+ if CONFIG["MOZ_GENERATE_SBOM"]:
+     # The document covers the whole tree rather than any one directory, and it
+     # reads the licenses.json the backend writes from the tree-wide LICENSES
