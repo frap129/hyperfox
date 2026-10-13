@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = 设置 - Canvas 画布读取权限
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = 下列网站已请求提取 Canvas 画布数据。您可以指定允许哪些网站提取 Canvas 数据。您也可以阻止新的 Canvas 数据提取请求。
+permissions-site-jit-window2 =
+    .title = 设置 - JavaScript JIT 权限
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = 以下网站已设置 JavaScript JIT 权限。禁用 JavaScript JIT 可减少遭受某些代码执行攻击的风险，从而提高安全性，但可能导致网站和应用运行速度变慢。停用 JIT 后，WebAssembly 将无法运行。

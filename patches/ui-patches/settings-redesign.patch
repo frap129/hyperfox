@@ -158,10 +158,10 @@ index 7123cb0f46..47367e1642 100644
          id: "translationsManageButton",
          loadPane: "translations",
 diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
-index f32ccc4..0feeeb3 100644
+index f32ccc4..1e4d6d9 100644
 --- a/browser/components/preferences/config/privacy.mjs
 +++ b/browser/components/preferences/config/privacy.mjs
-@@ -533,6 +533,82 @@ if (SECURITY_PRIVACY_STATUS_CARD_ENABLED) {
+@@ -533,6 +533,90 @@ if (SECURITY_PRIVACY_STATUS_CARD_ENABLED) {
    ]);
  }
  
@@ -192,6 +192,7 @@ index f32ccc4..0feeeb3 100644
 +      /**** Prefs that require changing a lockPref ****/
 +      // Google safe browsing check downloads
 +      //{ id: "browser.safebrowsing.downloads.enabled", type: "bool" }, //Also already added
++      { id: "librewolf.jit.enabled-by-default", type: "bool" },
 +  ]);
 +
 +  Preferences.addSetting({
@@ -239,12 +240,19 @@ index f32ccc4..0feeeb3 100644
 +    id: "librewolfLetterboxing",
 +    pref: "privacy.resistFingerprinting.letterboxing",
 +  });
++
++  Preferences.addSetting({
++    id: "librewolfJIT",
++    pref: "librewolf.jit.enabled-by-default",
++    get: (value) => value.value = !value,
++    set: (value) => value.value = !value,
++  });
 +}
 +
  SettingGroupManager.registerGroups({
    httpsOnly: {
      l10nId: "httpsonly-group",
-@@ -609,38 +685,6 @@ SettingGroupManager.registerGroups({
+@@ -609,38 +693,6 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -283,7 +291,7 @@ index f32ccc4..0feeeb3 100644
    nonTechnicalPrivacy: {
      l10nId: "non-technical-privacy-group",
      headingLevel: 2,
-@@ -690,39 +734,39 @@ SettingGroupManager.registerGroups({
+@@ -690,39 +742,44 @@ SettingGroupManager.registerGroups({
            role: "status",
          },
        },
@@ -306,6 +314,11 @@ index f32ccc4..0feeeb3 100644
 +      {
 +        id: "librewolfCrossOrigin",
 +        l10nId: "librewolf-xorigin-ref-checkbox2",
++      },
++      {
++        id: "librewolfJIT",
++        l10nId: "librewolf-jit-checkbox2",
++        supportPage: "jit-toggle",
        },
      ],
    },
@@ -350,7 +363,7 @@ index f32ccc4..0feeeb3 100644
        },
      ],
    },
-@@ -866,10 +910,6 @@ SettingGroupManager.registerGroups({
+@@ -866,10 +923,6 @@ SettingGroupManager.registerGroups({
            },
          ],
        },
@@ -361,7 +374,7 @@ index f32ccc4..0feeeb3 100644
      ],
    },
    networkProxy: {
-@@ -1034,13 +1074,10 @@ SettingGroupManager.registerGroups({
+@@ -1034,13 +1087,10 @@ SettingGroupManager.registerGroups({
      ],
    },
    historyAdvanced: {
@@ -377,7 +390,7 @@ index f32ccc4..0feeeb3 100644
        {
          id: "rememberHistory",
          l10nId: "history-remember-browser-option",
-@@ -1240,19 +1277,15 @@ SettingGroupManager.registerGroups({
+@@ -1240,19 +1290,15 @@ SettingGroupManager.registerGroups({
    etpAdvanced: {
      inProgress: true,
      headingLevel: 2,
@@ -399,7 +412,7 @@ index f32ccc4..0feeeb3 100644
            {
              id: "etpLevelStrict",
              subcategory: "etp-strict-control",
-@@ -1274,20 +1307,6 @@ SettingGroupManager.registerGroups({
+@@ -1274,20 +1320,6 @@ SettingGroupManager.registerGroups({
                },
              ],
            },
@@ -420,7 +433,7 @@ index f32ccc4..0feeeb3 100644
          ],
        },
        {
-@@ -1303,12 +1322,6 @@ SettingGroupManager.registerGroups({
+@@ -1303,12 +1335,6 @@ SettingGroupManager.registerGroups({
            },
          ],
        },
@@ -434,17 +447,16 @@ index f32ccc4..0feeeb3 100644
          id: "etpLevelWarning",
          control: "moz-promo",
 diff --git a/browser/components/preferences/config/tabs-browsing.mjs b/browser/components/preferences/config/tabs-browsing.mjs
-index 50ba8c2da3..06a5c0073a 100644
+index 50ba8c2..cee4a4b 100644
 --- a/browser/components/preferences/config/tabs-browsing.mjs
 +++ b/browser/components/preferences/config/tabs-browsing.mjs
-@@ -124,7 +124,52 @@ if (srdEnabled) {
+@@ -124,7 +124,46 @@ if (srdEnabled) {
         document; when set to false, no search action happens */
      { id: "accessibility.browsewithcaret", type: "bool" },
      { id: "accessibility.typeaheadfind", type: "bool" },
 +    // Clipboard autocopy/paste
 +    { id: "clipboard.autocopy", type: "bool" },
 +    { id: "middlemouse.paste", type: "bool" },
-+    { id: "image.jxl.enabled", type: "bool" },
 +
 +    // DRM/h264
 +    { id: "media.gmp-manager.updateEnabled", type: "bool" },
@@ -471,11 +483,6 @@ index 50ba8c2da3..06a5c0073a 100644
 +  });
 +
 +  Preferences.addSetting({
-+    id: "librewolfJXL",
-+    pref: "image.jxl.enabled",
-+  });
-+
-+  Preferences.addSetting({
 +    id: "librewolfGMPManager",
 +    pref: "media.gmp-manager.updateEnabled",
 +  });
@@ -490,7 +497,7 @@ index 50ba8c2da3..06a5c0073a 100644
  }
  
  // Tabs settings
-@@ -492,6 +537,7 @@ Preferences.addSetting({
+@@ -492,6 +531,7 @@ Preferences.addSetting({
  Preferences.addSetting({
    id: "playDRMContent",
    pref: "media.eme.enabled",
@@ -498,7 +505,7 @@ index 50ba8c2da3..06a5c0073a 100644
    visible: () => {
      if (!Services.prefs.getBoolPref("browser.eme.ui.enabled", false)) {
        return false;
-@@ -505,6 +551,26 @@ Preferences.addSetting({
+@@ -505,6 +545,26 @@ Preferences.addSetting({
      }
      return true;
    },
@@ -525,7 +532,7 @@ index 50ba8c2da3..06a5c0073a 100644
  });
  
  // Performance settings
-@@ -728,6 +794,16 @@ SettingGroupManager.registerGroups({
+@@ -728,6 +788,16 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -542,7 +549,7 @@ index 50ba8c2da3..06a5c0073a 100644
    media: {
      l10nId: "settings-media-group",
      headingLevel: 2,
-@@ -750,6 +826,15 @@ SettingGroupManager.registerGroups({
+@@ -750,6 +820,11 @@ SettingGroupManager.registerGroups({
          l10nId: "play-drm-content",
          supportPage: "drm-content",
        },
@@ -550,10 +557,6 @@ index 50ba8c2da3..06a5c0073a 100644
 +        id: "librewolfh264",
 +        l10nId: "librewolf-h264",
 +        supportPage: "open-h264-plugin-firefox",
-+      },
-+      {
-+        id: "librewolfJXL",
-+        l10nId: "librewolf-JXL",
 +      },
      ],
    },

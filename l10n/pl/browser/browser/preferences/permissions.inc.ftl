@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Ustawienia — uprawnienia wyodrębniania płócien
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Następujące witryny chciały wyodrębnić dane płócien (canvas). Możesz określić, którym witrynom można na to zezwolić. Możesz również zablokować nowe próby wyodrębniania danych płócien.
+permissions-site-jit-window2 =
+    .title = Ustawienia — uprawnienia kompilacji just‐in‐time JavaScriptu
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Następujące witryny mają włączone uprawnienie do kompilacji just‐in‐time JavaScriptu. Wyłączenie tego mechanizmu poprawia bezpieczeństwo poprzez ograniczenie ekspozycji na niektóre ataki wykonania kodu, ale może spowolnić strony internetowe i aplikacje. WebAssembly nie będzie działać z wyłączoną kompilacją just‐in‐time.

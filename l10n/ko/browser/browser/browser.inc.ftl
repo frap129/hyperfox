@@ -8,3 +8,4 @@ urlbar-eme-blocked =
 mullvad-doh-notification-body = Mullvad 보안 DNS가 <strong>중단</strong>될 예정입니다. 지금 DNS 설정을 검토하여 주십시오.
 mullvad-doh-notification-settings-button =
     .label = 설정 검토
+panel-enable-jit = JavaScript JIT 활성화

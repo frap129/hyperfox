@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Pengaturan - Izin ekstraksi kanvas
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Situs di bawah ini telah meminta izin untuk mengekstraksi data kanvas. Anda dapat menspesifikkan situs apa saja yang diizinkan untuk mengekstraksi data kanvas. Anda juga dapat memblokir permintaan baru untuk mengekstraksi data kanvas.
+permissions-site-jit-window2 =
+    .title = Pengaturan - Izin JavaScript JIT
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Situs web di bawah ini memiliki izin JavaScript JIT yang tersetel. Menonaktifkan JavaScript JIT dapat meningkatkan keamanan dengan mengurangi paparan terhadap serangan eksekusi kode khusus, namun dapat memperlambat situs web dan aplikasi. WebAssembly tidak dapat berfungsi jika JIT mati.

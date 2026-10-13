@@ -8,3 +8,4 @@ urlbar-eme-blocked =
 mullvad-doh-notification-body = Bezpieczny DNS od Mullvada jest <strong>wycofywany</strong>. Przejrzyj teraz Twoje ustawienia DNS‑a.
 mullvad-doh-notification-settings-button =
     .label = Przejrzyj ustawienia
+panel-enable-jit = Włącz kompilację just‐in‐time JavaScriptu

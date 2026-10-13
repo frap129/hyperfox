@@ -11,3 +11,6 @@ urlbar-webgl-blocked =
 mullvad-doh-notification-body = Mullvad Secure DNS is being <strong>discontinued</strong>. Please review your DNS settings now.
 mullvad-doh-notification-settings-button =
     .label = Review settings
+
+# JIT site setting
+panel-enable-jit = Enable JavaScript JIT

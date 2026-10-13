@@ -139,7 +139,7 @@ index a6ccf07..0d8d644 100644
        try {
          let baseDomain = SiteDataManager.getBaseDomainFromHost(this.#uri.host);
 diff --git a/browser/components/controlcenter/content/trustPanel.inc.xhtml b/browser/components/controlcenter/content/trustPanel.inc.xhtml
-index 65f8089..5179415 100644
+index 000e6bd..4ef1b46 100644
 --- a/browser/components/controlcenter/content/trustPanel.inc.xhtml
 +++ b/browser/components/controlcenter/content/trustPanel.inc.xhtml
 @@ -75,6 +75,13 @@
@@ -153,6 +153,6 @@ index 65f8089..5179415 100644
 +          </toolbarbutton>
 +        </vbox>
 +
-         <toolbarseparator></toolbarseparator>
-         <toolbarbutton id="trustpanel-privacy-link" data-l10n-id="trustpanel-privacy-link" class="subviewbutton"></toolbarbutton>
-       </vbox>
+         <vbox id="trustpanel-enable-jit-footer">
+           <toolbarbutton id="trust-panel-enable-jit-button" class="subviewbutton">
+             <label data-l10n-id="panel-enable-jit" flex="1"/>

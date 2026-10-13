@@ -23,7 +23,7 @@ index 7bcec0b856..1082970630 100644
 +#trustpanel-toggle-section {
 +  background: none !important;
 +  border: none !important;
-+  padding: 0 !important;
++  padding: 0 var(--panel-menuitem-padding-inline) !important;
 +}
 +#trustpanel-toggle-section {
 +  margin-bottom: 0 !important;

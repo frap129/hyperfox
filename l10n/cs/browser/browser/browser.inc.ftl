@@ -8,3 +8,4 @@ urlbar-eme-blocked =
 mullvad-doh-notification-body = Služba Mullvad Secure DNS bude <strong>ukončena</strong>. Zkontrolujte prosím svá nastavení DNS.
 mullvad-doh-notification-settings-button =
     .label = Zkontrolovat nastavení
+panel-enable-jit = Povolit JavaScript JIT

@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Configuración - Permisos de extracción de Canvas
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Las siguientes páginas web han solicitado extraer datos de canvas. Puedes especificar qué páginas web lo tienen permitido. También puedes bloquear las nuevas solicitudes.
+permissions-site-jit-window2 =
+    .title = Configuración - Permisos de JavaScript JIT
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Las siguientes páginas web tienen configurado el permiso para el JIT de JavaScript. Desactivar esta función mejora la seguridad al reducir el riesgo de sufrir ataques de ejecución de código, aunque puede ralentizar las páginas y aplicaciones. Ten en cuenta que si desactivas el JIT, WebAssembly dejará de funcionar.

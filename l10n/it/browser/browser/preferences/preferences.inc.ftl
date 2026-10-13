@@ -115,7 +115,5 @@ librewolf-swap-settings = Cambia l'aspetto delle impostazioni
     .title = Cambia l'aspetto delle impostazioni
 librewolf-mouse-heading2 =
     .label = Comportamento del mouse
-librewolf-JXL =
-    .label = Abilita il supporto del JXL (JPEG XL)
 librewolf-rfp-warning =
     .message = Questa funzionalità è disabilitata perché è abilitata la resistenza all'impronta digitale. Ciò significa che LibreWolf forzerà i contenuti a mostrarsi in modalità chiara.

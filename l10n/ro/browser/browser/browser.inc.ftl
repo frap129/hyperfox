@@ -5,3 +5,7 @@ urlbar-webgl-notification-anchor =
     .tooltiptext = Gestionează permisiunea de a crea un context WebGL
 urlbar-webgl-blocked =
     .tooltiptext = Ai blocat crearea unui context WebGL pentru acest site.
+mullvad-doh-notification-body = Serviciul Mullvad Secure DNS va fi <strong>suspendat</strong>. Vă rugăm să vă revizuiți setările DNS acum.
+mullvad-doh-notification-settings-button =
+    .label = Revizuiți setările
+panel-enable-jit = Activare JavaScript JIT

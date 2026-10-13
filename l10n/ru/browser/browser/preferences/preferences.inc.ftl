@@ -119,5 +119,3 @@ librewolf-swap-settings = Изменить оформление настроек
     .title = Изменить оформление настроек
 librewolf-mouse-heading2 =
     .label = Поведение мыши
-librewolf-JXL =
-    .label = Включить поддержку JXL (JPEG XL)

@@ -38,6 +38,9 @@ librewolf-xorigin-ref-checkbox2 =
     .description = Send a referrer only on same-origin.
 librewolf-broken-heading2 =
     .label = Fingerprinting
+librewolf-jit-checkbox2 =
+    .label = Disable JavaScript JIT by default
+    .description = This disables JIT execution by default to reduce the attack surface, while allowing it on a per-site basis.
 librewolf-webgl-checkbox2 =
     .label = Always allow WebGL
     .description = This will always allow WebGL without requiring permission.
@@ -84,9 +87,6 @@ librewolf-swap-settings = Swap settings design
 librewolf-mouse-heading2 =
     .label = Mouse behavior
 
-librewolf-JXL =
-    .label = Enable JXL (JPEG XL) support
-
 librewolf-h264 =
     .label = Enable the OpenH264 plugin
     .description = Required for screen sharing on some websites, such as Discord.
@@ -103,6 +103,9 @@ permissions-webgl2 =
 
 permissions-canvas2 =
     .label = Canvas extraction
+
+permissions-jit2 =
+    .label = JavaScript JIT
 
 ## General
 librewolf-rfp-warning =

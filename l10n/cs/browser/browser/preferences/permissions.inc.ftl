@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Nastavení – oprávnění k extrahování Canvas
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Následující webové stránky požádaly o extrahování dat o Canvas. Můžete určit, které weby mají extrahování dat o Canvas povoleno. Můžete také zablokovat nové žádosti žádající o tuto akci.
+permissions-site-jit-window2 =
+    .title = Nastavení - Oprávnění JavaScript JIT
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Následující webové stránky mají nastavené oprávnění JavaScript JIT. Zakázání JavaScript JIT může zlepšit bezpečnost tím, že sníží riziko určitých útoků založených na spuštění kódu, může však zpomalit fungování webových stránek a aplikací. WebAssembly nebude fungovat, pokud je JIT vypnuté.

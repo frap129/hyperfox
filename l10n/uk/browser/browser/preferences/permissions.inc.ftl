@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Налаштування - Дозвіл на отримання Canvas.
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Наступні сайти попросили витяг даних з Canvas. Ви можете вказати, яким сайтам можна отримувати дані Canvas. Також ви можете блокувати нові запити на витяг даних.
+permissions-site-jit-window2 =
+    .title = Налаштування - JavaScript JIT
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Ці сайти мають дозвіл на JavaScript JIT. Вимкнення JavaScript JIT може покращити безпеку, зменшивши вразливість до деяких атак з виконанням довільного коду, але може сповільнити сайти й додатки. WebAssembly не працюватиме без JIT.

@@ -6,11 +6,13 @@ ac_add_options --disable-default-browser-agent
 ac_add_options --disable-tests
 ac_add_options --disable-updater
 ac_add_options --disable-cargo-incremental
+ac_add_options --enable-update-channel=release
 ac_add_options --enable-hardening
 ac_add_options --enable-stl-hardening
 ac_add_options --enable-optimize
 ac_add_options --enable-release
 ac_add_options --enable-rust-simd
+ac_add_options --enable-proxy-bypass-protection
 # allow replacing malloc manually, will not affect regular systems
 # not compatible with ac_add_options --disable-jemalloc, which only works when preloading custom malloc
 ac_add_options --enable-replace-malloc

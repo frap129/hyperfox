@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Configurações - Permissão para extrair imagens
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Os seguintes sites pediram permissão para extrair dados da tela. Você pode especificar quais sites têm permissão para extrair dados da tela. Você também pode bloquear novas requisições para extrair dados da tela.
+permissions-site-jit-window2 =
+    .title = Configurações - Permissões JavaScript JIT
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Os seguintes sites têm permissão para executar JavaScript JIT. Desabilitá-lo pode melhorar a segurança por reduzir exposição a ataques de código malicioso, mas pode deixar sites e apps mais lentos. WebAssembly não funcionará com JIT desabilitado.

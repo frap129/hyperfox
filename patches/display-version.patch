@@ -48,3 +48,16 @@ index b689833..a38698c 100644
      } catch (error) {
        return null;
      }
+diff --git a/config/create_rc.py b/config/create_rc.py
+index a3cabd5..fe068c5 100644
+--- a/config/create_rc.py
++++ b/config/create_rc.py
+@@ -303,7 +303,7 @@ def generate_module_rc():
+         company=overrides.get("WIN32_MODULE_COMPANYNAME", "Mozilla Foundation"),
+         description=overrides.get("WIN32_MODULE_DESCRIPTION", ""),
+         mfversion=overrides.get("WIN32_MODULE_FILEVERSION_STRING", milestone_string),
+-        mpversion=overrides.get("WIN32_MODULE_PRODUCTVERSION_STRING", milestone_string),
++        mpversion=app_version_display,
+         module=overrides.get("WIN32_MODULE_NAME", ""),
+         trademarks=overrides.get("WIN32_MODULE_TRADEMARKS", "Mozilla"),
+         binary=overrides.get("WIN32_MODULE_ORIGINAL_FILENAME", binary),

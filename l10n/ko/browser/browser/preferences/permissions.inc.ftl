@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = 설정 - 캔버스 추출 권한
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = 다음 웹사이트들이 캔버스 데이터 추출을 요청했습니다. 캔버스 데이터 추출을 허용할 웹사이트를 지정할 수 있습니다. 신규 캔버스 데이터 추출 요청을 차단할 수도 있습니다.
+permissions-site-jit-window2 =
+    .title = 설정- JavaScript JIT 권한
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = 다음 웹사이트들이 JavaScript JIT 권한 설정을 요청했습니다. JavaScript JIT를 비활성화하면 특정 코드 실행 공격 노출을 감소시켜 보안을 향상시킬 수 있지만, 웹사이트 및 앱 속도가 저하될 수 있습니다. WebAssembly는 JIT를 비활성화할 경우 작동하지 않습니다.

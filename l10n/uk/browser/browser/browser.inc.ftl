@@ -8,3 +8,4 @@ urlbar-eme-blocked =
 mullvad-doh-notification-body = Mullvad Secure DNS <strong>закрився</strong>. Будь ласка, перевірте свої налаштування DNS.
 mullvad-doh-notification-settings-button =
     .label = Переглянути налаштування
+panel-enable-jit = Увімкнути JavaScript JIT

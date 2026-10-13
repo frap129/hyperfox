@@ -1,0 +1,54 @@
+name: Publish uBO Assets
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - assets/uBOAssets.json
+  workflow_dispatch:
+
+jobs:
+  upload-ubo-assets:
+    runs-on: tiny
+    if: forgejo.ref == 'refs/heads/main'
+    container:
+      image: librewolf.dev/librewolf/bsys6:release
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Validate JSON
+        run: |
+          jq empty assets/uBOAssets.json
+
+      - name: Upload to S3
+        env:
+          S3_ENDPOINT: ${{ vars.S3_ENDPOINT }}
+          S3_BUCKET: ${{ vars.S3_BUCKET }}
+          S3_KEY: ${{ secrets.S3_KEY }}
+          S3_SECRET: ${{ secrets.S3_SECRET }}
+          S3_PUBLIC_URL: ${{ vars.S3_PUBLIC_URL }}
+        run: |
+          for required_var in S3_ENDPOINT S3_BUCKET S3_KEY S3_SECRET S3_PUBLIC_URL; do
+            if [ -z "${!required_var:-}" ]; then
+              echo "Error: '$required_var' is not set" >&2
+              exit 1
+            fi
+          done
+
+          FILE="assets/uBOAssets.json"
+          S3_PATH="/librewolf-assets/uBOAssets.json"
+
+          echo "-> Uploading ${FILE} to S3" >&2
+          if ! s3cmd put "${FILE}" "s3://${S3_BUCKET}${S3_PATH}" \
+            --access_key="$S3_KEY" \
+            --secret_key="$S3_SECRET" \
+            --host="$S3_ENDPOINT" \
+            --host-bucket="$S3_ENDPOINT" \
+            --mime-type="application/json" \
+            --no-mime-magic >&2; then
+            echo "Error: Failed to upload ${FILE} to S3" >&2
+            exit 1
+          fi
+          echo "${S3_PUBLIC_URL}${S3_PATH}"

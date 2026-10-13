@@ -1,0 +1,66 @@
+diff --git a/browser/components/shell/StartupOSIntegration.sys.mjs b/browser/components/shell/StartupOSIntegration.sys.mjs
+index 84e32bb8d2..b7b68c9bd1 100644
+--- a/browser/components/shell/StartupOSIntegration.sys.mjs
++++ b/browser/components/shell/StartupOSIntegration.sys.mjs
+@@ -11,6 +11,7 @@ const PRIVATE_BROWSING_BINARY = "private_browsing.exe";
+ const PRIVATE_BROWSING_EXE_ICON_INDEX = 1;
+ const PREF_PRIVATE_BROWSING_SHORTCUT_CREATED =
+   "browser.privacySegmentation.createdShortcut";
++const PREF_REGULAR_SHORTCUT_CREATED = "librewolf.browser.createdShortcut";
+ 
+ const lazy = {};
+ 
+@@ -184,6 +185,7 @@ export let StartupOSIntegration = {
+         safeCall(() => this.maybePinMSIXToStartMenu());
+       }
+       safeCall(() => this.ensurePrivateBrowsingShortcutExists());
++      safeCall(() => this.ensureRegularBrowsingShortcutExists());
+       // Run these in order, not concurrently: otherwise ensureAppliedOrRevert
+       // can decide the shortcut was deleted while it is still being created.
+       safeCall(async () => {
+@@ -298,4 +300,45 @@ export let StartupOSIntegration = {
+     // again, which necessarily does pointless I/O.
+     Services.prefs.setBoolPref(PREF_PRIVATE_BROWSING_SHORTCUT_CREATED, true);
+   },
++  async ensureRegularBrowsingShortcutExists() {
++    if (
++      Services.sysinfo.getProperty("hasWinPackageId") ||
++      Services.prefs.getBoolPref(PREF_REGULAR_SHORTCUT_CREATED, false)
++    ) {
++      return;
++    }
++
++    const shellService = Cc["@mozilla.org/browser/shell-service;1"].getService(
++      Ci.nsIWindowsShellService
++    );
++    const winTaskbar = Cc["@mozilla.org/windows-taskbar;1"].getService(
++      Ci.nsIWinTaskbar
++    );
++
++    if (
++      !(await shellService.hasPinnableShortcut(winTaskbar.defaultGroupId, true))
++    ) {
++      const exe = Services.dirsvc.get("XREExeF", Ci.nsIFile);
++      const strings = new Localization(
++        ["branding/brand.ftl", "browser/browser.ftl"],
++        true
++      );
++      const [description] = await strings.formatValues([
++        "browser-shortcut-description",
++      ]);
++
++      await shellService.createShortcut(
++        exe,
++        [],
++        description,
++        exe,
++        0,
++        winTaskbar.defaultGroupId,
++        "Programs",
++        AppConstants.MOZ_APP_DISPLAYNAME_DO_NOT_USE + ".lnk"
++      );
++    }
++
++    Services.prefs.setBoolPref(PREF_REGULAR_SHORTCUT_CREATED, true);
++  },
+ };
