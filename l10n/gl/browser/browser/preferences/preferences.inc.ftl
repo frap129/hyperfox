@@ -115,5 +115,3 @@ librewolf-etp =
     .description = LibreWolf é compatible con - e activa de xeito predeterminado - Enhanced Tracking Protection no modo Strict. É un dos axustes máis importantes do navegador, porque proporciona a partición do estado, listas de bloqueo estritas e outros axustes moi covenientes para a privacidade. Non recomendamos cambiar a outros modos.
 librewolf-mouse-heading2 =
     .label = Comportamento do punteiro
-librewolf-JXL =
-    .label = Activar compatibilidade con JXL (JPEG XL)

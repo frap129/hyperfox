@@ -87,9 +87,6 @@ librewolf-swap-settings = Swap settings design
 librewolf-mouse-heading2 =
     .label = Mouse behavior
 
-librewolf-JXL =
-    .label = Enable JXL (JPEG XL) support
-
 librewolf-h264 =
     .label = Enable the OpenH264 plugin
     .description = Required for screen sharing on some websites, such as Discord.
