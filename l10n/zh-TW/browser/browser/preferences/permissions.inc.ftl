@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = 設定 - Canvas 擷取權限
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = 以下網站要求擷取 Canvas 資料。您可以指定哪些網站允許擷取 Canvas 資料，也可以封鎖要求擷取 Canvas 資料的新請求。
+permissions-site-jit-window2 =
+    .title = 設定 - JavaScript JIT 權限
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = 以下網站已設定 JavaScript JIT 權限。停用 JavaScript JIT 可減少遭受特定程式碼執行攻擊的風險，進而提升安全性，但可能會使網站與應用程式變慢。停用 JIT 後，WebAssembly 將無法運作。
