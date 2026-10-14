@@ -102,8 +102,8 @@ index 6dcfd4bd0ee..03312669335 100644
 +        l10nId: "librewolf-autocopy-checkbox2",
 +      },
 +      {
-+        id: "librewolfContainersOpenWithTab",
-+        l10nId: "librewolf-open-containers-check",
++        id: "librewolfUserContextContainNewTabs",
++        l10nId: "librewolf-usercontext-contain-new-tabs-check",
 +      },
 +      {
 +        id: "librewolfNova",

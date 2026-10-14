@@ -928,12 +928,12 @@ index ecd46c8cd47..df1d2f40afb 100644
  
 +if (Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)) {
 +  Preferences.addAll([
-+    { id: "librewolf.userContext.openWithTab", type: "bool" },
++    { id: "librewolf.userContext.containNewTabs", type: "bool" },
 +  ]);
 +
 +  Preferences.addSetting({
-+    id: "librewolf-containers-open-with-tab",
-+    pref: "librewolf.userContext.openWithTab",
++    id: "librewolf-usercontext-contain-new-tabs",
++    pref: "librewolf.userContext.containNewTabs",
 +  });
 +}
 +
@@ -945,8 +945,8 @@ index ecd46c8cd47..df1d2f40afb 100644
          l10nId: "containers-external-links-check",
        },
 +      {
-+        id: "librewolf-containers-open-with-tab",
-+        l10nId: "librewolf-open-containers-check",
++        id: "librewolf-usercontext-contain-new-tabs",
++        l10nId: "librewolf-usercontext-contain-new-tabs-check",
 +      },
      ],
    },

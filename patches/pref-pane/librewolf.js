@@ -45,7 +45,7 @@ if (!Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)) {
     { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
     { id: "browser.nova.enabled", type: "bool" },
     { id: "librewolf.jit.enabled-by-default", type: "bool" },
-    { id: "librewolf.userContext.openWithTab", type: "bool" },
+    { id: "librewolf.userContext.containNewTabs", type: "bool" },
   ]);
 }
 
@@ -106,8 +106,8 @@ Preferences.addSetting({
 });
 
 Preferences.addSetting({
-  id: "librewolfContainersOpenWithTab",
-  pref: "librewolf.userContext.openWithTab",
+  id: "librewolfUserContextContainNewTabs",
+  pref: "librewolf.userContext.containNewTabs",
 });
 
 Preferences.addSetting({

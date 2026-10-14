@@ -18,7 +18,7 @@ index 757c5b16612..bbc54f87234 100644
 +          if (
 +            userContextId !== undefined &&
 +            Services.prefs.getBoolPref(
-+              "librewolf.userContext.openWithTab",
++              "librewolf.userContext.containNewTabs",
 +              false
 +            )
 +          ) {
