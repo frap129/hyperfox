@@ -4,6 +4,7 @@ patches/autoconfig-pref.patch
 patches/autoconfig-setEnv.patch
 patches/canvas-permission.patch
 patches/clear-alt-svc.patch
+patches/container-tab.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/delete-cookie-permission.patch

@@ -1,0 +1,45 @@
+diff --git a/browser/base/content/browser-commands.js b/browser/base/content/browser-commands.js
+index 757c5b16612..bbc54f87234 100644
+--- a/browser/base/content/browser-commands.js
++++ b/browser/base/content/browser-commands.js
+@@ -225,7 +225,7 @@ var BrowserCommands = {
+     }
+   },
+ 
+-  openTab({ event, url } = {}) {
++  openTab({ event, url, userContextId } = {}) {
+     let werePassedURL = !!url;
+     url ??= BROWSER_NEW_TAB_URL;
+     let searchClipboard =
+@@ -269,6 +269,15 @@ var BrowserCommands = {
+             relatedToCurrent,
+             resolveOnNewTabCreated: resolve,
+           };
++          if (
++            userContextId !== undefined &&
++            Services.prefs.getBoolPref(
++              "librewolf.userContext.openWithTab",
++              false
++            )
++          ) {
++            options.userContextId = userContextId;
++          }
+           if (!werePassedURL && searchClipboard) {
+             let clipboard = readFromClipboard();
+             clipboard =
+diff --git a/browser/base/content/browser-sets.js b/browser/base/content/browser-sets.js
+index a61602d036f..efbf084b959 100644
+--- a/browser/base/content/browser-sets.js
++++ b/browser/base/content/browser-sets.js
+@@ -42,7 +42,10 @@ document.addEventListener(
+             BrowserCommands.openTab({ event });
+             break;
+           case "cmd_newNavigatorTabNoEvent":
+-            BrowserCommands.openTab();
++            BrowserCommands.openTab({
++              userContextId:
++                gBrowser.selectedBrowser.getAttribute("usercontextid") || 0,
++            });
+             break;
+           case "Browser:OpenFile":
+             BrowserCommands.openFileWindow();
