@@ -129,5 +129,5 @@ update-application-updates-disabled =
 
 # Containers
 librewolf-usercontext-contain-new-tabs-check =
-    .label = New tabs created via shortcut will be opened in the current container.
+    .label = New tabs created via shortcut will be opened in the current container
     .accesskey = N
