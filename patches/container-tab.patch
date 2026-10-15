@@ -43,3 +43,27 @@ index a61602d036f..efbf084b959 100644
              break;
            case "Browser:OpenFile":
              BrowserCommands.openFileWindow();
+diff --git a/browser/base/content/utilityOverlay.js b/browser/base/content/utilityOverlay.js
+index 3b8782f6fc3..ce8c723dc74 100644
+--- a/browser/base/content/utilityOverlay.js
++++ b/browser/base/content/utilityOverlay.js
+@@ -489,7 +489,8 @@ async function openPreferences(paneID, extraArgs) {
+         replaceQueryString: true,
+         triggeringPrincipal:
+           Services.scriptSecurityManager.getSystemPrincipal(),
+-      }
++      },
++      0
+     );
+     if (newLoad) {
+       newLoad = !win.switchToTabHavingURI(
+@@ -500,7 +501,8 @@ async function openPreferences(paneID, extraArgs) {
+           replaceQueryString: true,
+           triggeringPrincipal:
+             Services.scriptSecurityManager.getSystemPrincipal(),
+-        }
++        },
++        0
+       );
+     }
+     browser = win.gBrowser.selectedBrowser;
