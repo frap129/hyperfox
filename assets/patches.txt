@@ -19,6 +19,7 @@ patches/fullpage-translations-customization.patch
 patches/include-policy-deletion.patch
 patches/jit-permission.patch
 patches/languages.patch
+patches/letterboxing-restore.patch
 patches/limit-access.patch
 patches/link-preview.patch
 patches/lw-permissions.patch
