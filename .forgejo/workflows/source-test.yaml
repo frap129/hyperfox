@@ -35,7 +35,7 @@ on:
 jobs:
   detect-version:
     if: ${{ !(forgejo.event_name == 'pull_request' && forgejo.head_ref == 'beta' && forgejo.base_ref == 'main') }}
-    runs-on: epsilon
+    runs-on: tiny
     container:
       image: librewolf.dev/librewolf/bsys6:dind
     outputs:
