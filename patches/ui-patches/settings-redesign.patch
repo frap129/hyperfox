@@ -919,28 +919,30 @@ index 9ba778ccac..2e3c86ba5b 100644
                <label when-connection="secure secure-ev secure-etsi secure-cert-user-overridden chrome file extension net-error-page https-only-error-page"
                       id="trustpanel-header"
 diff --git a/browser/components/preferences/config/containers.mjs b/browser/components/preferences/config/containers.mjs
-index ecd46c8cd47..df1d2f40afb 100644
+index ecd46c8..dcfcb87 100644
 --- a/browser/components/preferences/config/containers.mjs
 +++ b/browser/components/preferences/config/containers.mjs
-@@ -23,6 +23,17 @@ Preferences.addAll([
+@@ -21,6 +21,7 @@ Preferences.addAll([
+     id: "browser.link.force_default_user_context_id_for_external_opens",
+     type: "bool",
    },
++  { id: "librewolf.userContext.containNewTabs", type: "bool" },
  ]);
  
-+if (Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)) {
-+  Preferences.addAll([
-+    { id: "librewolf.userContext.containNewTabs", type: "bool" },
-+  ]);
-+
-+  Preferences.addSetting({
-+    id: "librewolf-usercontext-contain-new-tabs",
-+    pref: "librewolf.userContext.containNewTabs",
-+  });
-+}
-+
  const IDENTITY_CHANGE_TOPICS = [
-   "contextual-identity-created",
-   "contextual-identity-updated",
-@@ -401,6 +412,10 @@ SettingGroupManager.registerGroups({
+@@ -227,6 +228,11 @@ Preferences.addSetting({
+   pref: "browser.link.force_default_user_context_id_for_external_opens",
+ });
+ 
++Preferences.addSetting({
++  id: "librewolf-usercontext-contain-new-tabs",
++  pref: "librewolf.userContext.containNewTabs",
++});
++
+ Preferences.addSetting(
+   class extends Preferences.AsyncSetting {
+     static id = "site-containers-add-button";
+@@ -401,6 +407,10 @@ SettingGroupManager.registerGroups({
          id: "containers-external-links-check",
          l10nId: "containers-external-links-check",
        },

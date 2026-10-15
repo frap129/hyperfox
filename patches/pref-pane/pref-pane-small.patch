@@ -78,10 +78,10 @@ index c2bebf7e96..62ab632cec 100644
    skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
    skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 6dcfd4bd0ee..03312669335 100644
+index a8de115..f6885f1 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -577,6 +577,83 @@ SettingGroupManager.registerGroups({
+@@ -571,6 +571,79 @@ SettingGroupManager.registerGroups({
    startup: createStartupConfig(
      Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)
    ),
@@ -102,10 +102,6 @@ index 6dcfd4bd0ee..03312669335 100644
 +        l10nId: "librewolf-autocopy-checkbox2",
 +      },
 +      {
-+        id: "librewolfUserContextContainNewTabs",
-+        l10nId: "librewolf-usercontext-contain-new-tabs-check",
-+      },
-+      {
 +        id: "librewolfNova",
 +        l10nId: "librewolf-nova-checkbox2",
 +      },
@@ -122,7 +118,7 @@ index 6dcfd4bd0ee..03312669335 100644
 +      {
 +        id: "librewolfIPv6",
 +        l10nId: "librewolf-ipv6-checkbox2",
-+      },
++      }
 +    ],
 +  },
 +  librewolfPrivacy: {
