@@ -918,38 +918,3 @@ index 9ba778ccac..2e3c86ba5b 100644
              <vbox id="trustpanel-graphic-section-text" class="trustpanel-card-content">
                <label when-connection="secure secure-ev secure-etsi secure-cert-user-overridden chrome file extension net-error-page https-only-error-page"
                       id="trustpanel-header"
-diff --git a/browser/components/preferences/config/containers.mjs b/browser/components/preferences/config/containers.mjs
-index ecd46c8..dcfcb87 100644
---- a/browser/components/preferences/config/containers.mjs
-+++ b/browser/components/preferences/config/containers.mjs
-@@ -21,6 +21,7 @@ Preferences.addAll([
-     id: "browser.link.force_default_user_context_id_for_external_opens",
-     type: "bool",
-   },
-+  { id: "librewolf.userContext.containNewTabs", type: "bool" },
- ]);
- 
- const IDENTITY_CHANGE_TOPICS = [
-@@ -227,6 +228,11 @@ Preferences.addSetting({
-   pref: "browser.link.force_default_user_context_id_for_external_opens",
- });
- 
-+Preferences.addSetting({
-+  id: "librewolf-usercontext-contain-new-tabs",
-+  pref: "librewolf.userContext.containNewTabs",
-+});
-+
- Preferences.addSetting(
-   class extends Preferences.AsyncSetting {
-     static id = "site-containers-add-button";
-@@ -401,6 +407,10 @@ SettingGroupManager.registerGroups({
-         id: "containers-external-links-check",
-         l10nId: "containers-external-links-check",
-       },
-+      {
-+        id: "librewolf-usercontext-contain-new-tabs",
-+        l10nId: "librewolf-usercontext-contain-new-tabs-check",
-+      },
-     ],
-   },
-   siteContainers: {

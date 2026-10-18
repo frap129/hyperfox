@@ -126,8 +126,3 @@ update-application-disabled-choose-2 =
 
 update-application-updates-disabled =
     .message = The built-in updater has been disabled. Updates must be managed manually or through an external update mechanism.
-
-# Containers
-librewolf-usercontext-contain-new-tabs-check =
-    .label = New tabs created via shortcut will be opened in the current container
-    .accesskey = N
