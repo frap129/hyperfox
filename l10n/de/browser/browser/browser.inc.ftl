@@ -5,3 +5,7 @@ urlbar-webgl-blocked =
     .tooltiptext = Sie haben die WebGL-Kontexterstellung für diese Website blockiert.
 urlbar-eme-blocked =
     .tooltiptext = Sie haben die Wiedergabe von DRM-geschützten Inhalten auf dieser Website blockiert.
+mullvad-doh-notification-body = Mullvad Secure DNS wird <strong>eingestellt</strong>. Bitte überprüfen Sie jetzt Ihre DNS-Einstellungen.
+mullvad-doh-notification-settings-button =
+    .label = Einstellungen überprüfen
+panel-enable-jit = JavaScript-JIT aktivieren

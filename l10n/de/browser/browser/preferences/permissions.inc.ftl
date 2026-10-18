@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Einstellungen – Berechtigungen für die Canvas-Extraktion
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Die folgenden Websites haben die Erlaubnis zum Abrufen von Canvas-Daten angefordert. Sie können festlegen, welche Websites Canvas-Daten abrufen dürfen. Außerdem können Sie neue Anfragen zum Abrufen von Canvas-Daten blockieren.
+permissions-site-jit-window2 =
+    .title = Einstellungen – JavaScript-JIT-Berechtigungen
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Für die folgenden Webseiten wurde eine JavaScript-JIT-Berechtigung festgelegt. Die Deaktivierung von JavaScript JIT kann die Sicherheit erhöhen, indem die Angriffsfläche für bestimmte Code-Ausführungs-Angriffe reduziert wird, doch dies könnte Webseiten und Apps verlangsamen. Wenn JIT deaktiviert ist, wird WebAssembly nicht funktionieren.
