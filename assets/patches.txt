@@ -2,8 +2,10 @@ patches/add-mojeek.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-pref.patch
 patches/autoconfig-setEnv.patch
+patches/backport-2084311.patch
 patches/canvas-permission.patch
 patches/clear-alt-svc.patch
+patches/container-tab.patch
 patches/custom-ubo-assets-bootstrap-location.patch
 patches/dbus_name.patch
 patches/delete-cookie-permission.patch
@@ -19,6 +21,7 @@ patches/fullpage-translations-customization.patch
 patches/include-policy-deletion.patch
 patches/jit-permission.patch
 patches/languages.patch
+patches/letterboxing-restore.patch
 patches/limit-access.patch
 patches/link-preview.patch
 patches/lw-permissions.patch
