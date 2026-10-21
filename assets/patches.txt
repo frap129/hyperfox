@@ -2,6 +2,7 @@ patches/add-mojeek.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-pref.patch
 patches/autoconfig-setEnv.patch
+patches/backport-2084311.patch
 patches/canvas-permission.patch
 patches/clear-alt-svc.patch
 patches/container-tab.patch
