@@ -5,3 +5,7 @@ urlbar-webgl-blocked =
     .tooltiptext = Chuir tú bac ar chruthú comhthéacs WebGL don suíomh Gréasáin seo.
 urlbar-eme-blocked =
     .tooltiptext = Chuir tú bac ar athsheinm ábhair atá rialaithe ag DRM don suíomh Gréasáin seo.
+mullvad-doh-notification-body = Tá <strong>deireadh á chur</strong> le Mullvad Secure DNS. Déan athbhreithniú ar do shocruithe DNS anois, le do thoil.
+mullvad-doh-notification-settings-button =
+    .label = Socruithe athbhreithnithe
+panel-enable-jit = Cumasaigh JIT JavaScript
