@@ -1,5 +1,5 @@
 librewolf-goog-safe-download-checkbox =
-    .label = Проверять скачанные файла
+    .label = Проверять скачанные файлы
 librewolf-extension-update-description = Всегда обновлять расширения без уточнения. Хорошая практика для вашей безопасности.
 pane-librewolf-title = LibreWolf
 librewolf-header = Настройки LibreWolf
