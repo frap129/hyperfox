@@ -1,8 +1,8 @@
 diff --git a/browser/themes/shared/controlcenter/panel.css b/browser/themes/shared/controlcenter/panel.css
-index 7a5d6a7..21f2a1a 100644
+index 7a5d6a7..0ba3304 100644
 --- a/browser/themes/shared/controlcenter/panel.css
 +++ b/browser/themes/shared/controlcenter/panel.css
-@@ -828,6 +828,118 @@
+@@ -828,6 +828,127 @@
    padding-block-end: var(--space-small);
  }
  
@@ -116,6 +116,15 @@ index 7a5d6a7..21f2a1a 100644
 +
 +#trustpanel-blocker-items {
 +  padding-bottom: var(--space-medium) !important;
++  > div.protections-popup-list-item {
++    display: list-item;
++    padding: 0;
++    margin: 5px calc(var(--space-xxlarge) + 5px);
++    > label {
++      display: block;
++      margin: 0;
++    }
++  }
 +}
 +
  #trustpanel-header-row {
