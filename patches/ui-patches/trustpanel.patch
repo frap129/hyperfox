@@ -1,5 +1,5 @@
 diff --git a/browser/themes/shared/controlcenter/panel.css b/browser/themes/shared/controlcenter/panel.css
-index 7a5d6a777..c4ac3409c 100644
+index 7a5d6a7..225bfc1 100644
 --- a/browser/themes/shared/controlcenter/panel.css
 +++ b/browser/themes/shared/controlcenter/panel.css
 @@ -828,6 +828,111 @@
@@ -14,7 +14,7 @@ index 7a5d6a777..c4ac3409c 100644
 +
 +.trustpanel-card-content,
 +#trustpanel-popup-host-wrapper {
-+  gap: calc(var(--space-small) / 2);
++  gap: var(--space-xsmall);
 +}
 +
 +#trustpanel-etp-label,
@@ -76,7 +76,7 @@ index 7a5d6a777..c4ac3409c 100644
 +#trustpanel-popup-security-httpsonlymode {
 +  margin-bottom: var(--space-medium);
 +  > label {
-+    margin-bottom: calc(var(--space-small) / 2);
++    margin-bottom: var(--space-xsmall);
 +  }
 +}
 +
@@ -85,7 +85,7 @@ index 7a5d6a777..c4ac3409c 100644
 +  margin-bottom: var(--space-medium);
 +}
 +
-+/* Fix "Fingerprints Blocked" menu spacing */
++/* Fix "Fingerprinters Blocked" menu spacing */
 +#trustpanel-blocked + toolbarseparator {
 +  display: none !important;
 +}
@@ -100,7 +100,7 @@ index 7a5d6a777..c4ac3409c 100644
 +}
 +
 +#trustpanel-blocked-header {
-+  margin-block: var(--space-medium) calc(var(--space-small) / 2) !important;
++  margin-block: var(--space-medium) var(--space-xsmall) !important;
 +}
 +
 +#trustpanel-blocker-details-content {
