@@ -97,7 +97,7 @@ def librewolf_patches():
     exec("sed -i 's/1753c69b71ae24a9b339d98e9b71166740a15506cfc46245251eb63c0222568f/af3ae3d026bd2e26fd9cc7c710847ac4f853b0c899412ddc9ee7e0ef1027de87/g' third_party/rust/glean-core/.cargo-checksum.json")
 
     # Have all pings follow the datareporting preference
-    exec("find . -type f -exec sed -i 's/follows_collection_enabled: false/follows_collection_enabled: true/g' {} +")
+    exec("find . -type f -name '*.yaml' -exec sed -i 's/follows_collection_enabled: false/follows_collection_enabled: true/g' {} +")
 
     # remove OpenAI integration
     exec('rm -vf toolkit/components/ml/content/backends/OpenAIPipeline.mjs')
