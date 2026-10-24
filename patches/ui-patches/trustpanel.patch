@@ -1,8 +1,8 @@
 diff --git a/browser/themes/shared/controlcenter/panel.css b/browser/themes/shared/controlcenter/panel.css
-index 7a5d6a7..8acea1b 100644
+index 7a5d6a7..1997c45 100644
 --- a/browser/themes/shared/controlcenter/panel.css
 +++ b/browser/themes/shared/controlcenter/panel.css
-@@ -828,6 +828,134 @@
+@@ -828,6 +828,138 @@
    padding-block-end: var(--space-small);
  }
  
@@ -73,6 +73,10 @@ index 7a5d6a7..8acea1b 100644
 +  color: var(--link-color);
 +  font-weight: normal;
 +  text-decoration: underline;
++}
++
++#trustpanel-blocker-see-all::part(moz-button-label) {
++  cursor: pointer !important;
 +}
 +
 +/* Fix "Connection protections" menu spacing */
