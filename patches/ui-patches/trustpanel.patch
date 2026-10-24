@@ -1,8 +1,8 @@
 diff --git a/browser/themes/shared/controlcenter/panel.css b/browser/themes/shared/controlcenter/panel.css
-index 7a5d6a7..0ba3304 100644
+index 7a5d6a7..8acea1b 100644
 --- a/browser/themes/shared/controlcenter/panel.css
 +++ b/browser/themes/shared/controlcenter/panel.css
-@@ -828,6 +828,127 @@
+@@ -828,6 +828,134 @@
    padding-block-end: var(--space-small);
  }
  
@@ -30,6 +30,13 @@ index 7a5d6a7..0ba3304 100644
 +#trustpanel-graphic-section {
 +  margin-inline: var(--panel-menuitem-margin-inline) !important;
 +  padding-inline: var(--panel-menuitem-padding-inline) !important;
++}
++
++#trustpanel-insecure-section {
++  padding: var(--space-large) !important;
++  border: 1px solid var(--border-color-error) !important;
++  color: var(--text-color-error) !important;
++  border-radius: var(--border-radius-xlarge);
 +}
 +
 +#trustpanel-header-row {
@@ -107,7 +114,7 @@ index 7a5d6a7..0ba3304 100644
 +}
 +
 +#trustpanel-tracking-description {
-+  margin-block: var(--space-small) !important;
++  margin-block: var(--space-small) var(--space-xsmall) !important;
 +}
 +
 +#trustpanel-blocker-details-content {
