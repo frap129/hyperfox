@@ -1,0 +1,16 @@
+diff --git a/browser/themes/shared/identity-block/identity-block.css b/browser/themes/shared/identity-block/identity-block.css
+index 18bd129..35cd2d9 100644
+--- a/browser/themes/shared/identity-block/identity-block.css
++++ b/browser/themes/shared/identity-block/identity-block.css
+@@ -338,6 +338,11 @@
+     display: none;
+   }
+ 
++  #trust-icon-container.insecure {
++    border: 1px solid var(--border-color-error);
++    color: var(--text-color-error);
++  }
++
+   #trust-icon-container {
+     padding-inline: var(--urlbar-icon-padding);
+     border-radius: var(--urlbar-inner-border-radius);

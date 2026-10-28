@@ -24,3 +24,34 @@ index bebc7ea..323e2e9 100644
      let supportURL =
        window.AboutLoginsUtils.supportBaseURL +
        "password-manager-remember-delete-edit-logins";
+diff --git a/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs b/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs
+index 2f03f94..de35f43 100644
+--- a/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs
++++ b/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs
+@@ -21,11 +21,6 @@ export class AITabError extends MozLitElement {
+       />
+       <main class="aitab-error">
+         <div class="aitab-error-wrapper">
+-          <img
+-            class="aitab-error-image"
+-            src="chrome://browser/content/aiwindow/assets/aitab-error-kit.svg"
+-            alt=""
+-          />
+           <div class="aitab-error-text-group" role="alert">
+             <h1
+               class="aitab-error-heading"
+diff --git a/browser/themes/shared/addons/unified-extensions.css b/browser/themes/shared/addons/unified-extensions.css
+index 756325b..3a24503 100644
+--- a/browser/themes/shared/addons/unified-extensions.css
++++ b/browser/themes/shared/addons/unified-extensions.css
+@@ -19,6 +19,10 @@
+   }
+ }
+ 
++.extensions-onboardingpanel-state {
++  display: none;
++}
++
+ #unified-extensions-panel {
+   --uei-dot-horizontal-position-in-panel: calc(var(--uei-icon-size) / 2 + var(--panel-menuitem-padding-inline) - var(--uei-attention-dot-size) / 2);
+   --uei-dot-vertical-position-in-panel: max(0px, calc(var(--panel-menuitem-padding-block) / 2 - var(--uei-attention-dot-size) / 2));

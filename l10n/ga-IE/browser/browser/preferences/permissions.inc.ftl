@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Socruithe - Ceadanna Eastóscadh Canbhás
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = Tá iarratas déanta ag na suíomhanna gréasáin seo a leanas chun sonraí canbháis a bhaint amach. Is féidir leat a shonrú cé na suíomhanna gréasáin a bhfuil cead acu sonraí canbháis a bhaint amach. Is féidir leat iarratais nua a bhac freisin a iarrann sonraí canbháis a bhaint amach.
+permissions-site-jit-window2 =
+    .title = Socruithe - Ceadanna JIT JavaScript
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Tá cead JavaScript JIT socraithe do na suíomhanna gréasáin seo a leanas. Trí JavaScript JIT a dhíchumasú, is féidir an tslándáil a fheabhsú trí laghdú a dhéanamh ar an mbaol a bhaineann le cineálacha áirithe ionsaithe a bhaineann le cód a rith; áfach, d’fhéadfadh sé seo moill a chur ar shuíomhanna gréasáin agus ar aipeanna. Ní oibreoidh WebAssembly má bhíonn JIT díchumasaithe.

@@ -1,53 +1,141 @@
 diff --git a/browser/themes/shared/controlcenter/panel.css b/browser/themes/shared/controlcenter/panel.css
-index 7bcec0b856..1082970630 100644
+index 7a5d6a7..1997c45 100644
 --- a/browser/themes/shared/controlcenter/panel.css
 +++ b/browser/themes/shared/controlcenter/panel.css
-@@ -795,6 +795,50 @@
+@@ -828,6 +828,138 @@
+   padding-block-end: var(--space-small);
+ }
  
- /* Trustpanel popup */
- 
-+/* Hide ETP description (reads like ad) */
++/* Trustpanel improvements */
++.trustpanel-card-main,
 +#trustpanel-etp-description {
-+  display: none;
-+}
-+
-+/* Hide most of graphic but show tracker count */
-+#trustpanel-graphic-image,
-+#trustpanel-graphic-image-legacy,
-+#trustpanel-graphic-section-text,
-+#trustpanel-blocker-section > label:nth-child(2) {
 +  display: none !important;
 +}
++
++.trustpanel-card-content,
++#trustpanel-popup-host-wrapper {
++  gap: var(--space-xsmall);
++}
++
++#trustpanel-etp-label,
 +#trustpanel-graphic-section,
 +#trustpanel-blocker-section,
-+#trustpanel-toggle-section {
-+  background: none !important;
-+  border: none !important;
-+  padding: 0 var(--panel-menuitem-padding-inline) !important;
++#trustpanel-insecure-section {
++  border: 0 !important;
++  padding: 0 !important;
++  margin: 0 !important;
++  background: 0 !important;
 +}
-+#trustpanel-toggle-section {
-+  margin-bottom: 0 !important;
-+}
++
 +#trustpanel-graphic-section {
-+  margin-top: 0 !important;
-+}
-+#trustpanel-blocker-section {
-+  flex-direction: row;
-+  justify-content: space-between;
-+  align-items: start;
++  margin-inline: var(--panel-menuitem-margin-inline) !important;
++  padding-inline: var(--panel-menuitem-padding-inline) !important;
 +}
 +
-+/* Make tracker count non-bold */
-+#trustpanel-blocker-section > label:nth-child(1) {
-+  font-weight: normal;
++#trustpanel-insecure-section {
++  padding: var(--space-large) !important;
++  border: 1px solid var(--border-color-error) !important;
++  color: var(--text-color-error) !important;
++  border-radius: var(--border-radius-xlarge);
 +}
 +
-+/* Place toggle before tracker count */
 +#trustpanel-header-row {
 +  order: -2;
 +}
++
 +#trustpanel-toggle-section {
 +  order: -1;
++  margin-block: var(--space-medium) var(--space-large) !important;
++}
++
++#trustpanel-blocker-section,
++#trustpanel-insecure-section {
++  margin-bottom: var(--space-medium) !important;
++}
++
++/* Tracker count improvements */
++#trustpanel-blocker-section {
++  flex-direction: row;
++  align-items: center;
++  justify-content: space-between;
++  > label:nth-child(1) {
++    font-weight: normal;
++  }
++  > label:nth-child(2) {
++    display: none;
++  }
++}
++
++#trustpanel-blocker-see-all::part(button) {
++  min-height: auto;
++  padding: 0 !important;
++  background: 0;
++  color: var(--link-color);
++  font-weight: normal;
++  text-decoration: underline;
++}
++
++#trustpanel-blocker-see-all::part(moz-button-label) {
++  cursor: pointer !important;
++}
++
++/* Fix "Connection protections" menu spacing */
++#identity-popup-content-cert-info {
++  border: 0 !important;
++}
++
++#trustpanel-popup-security-httpsonlymode {
++  margin-bottom: var(--space-medium);
++  > label {
++    margin-bottom: var(--space-xsmall);
++  }
++}
++
++/* Fix "Clear cookies and site data" menu spacing */
++label[data-l10n-id="trustpanel-clear-cookies-description"] {
++  margin-bottom: var(--space-medium);
++}
++
++/* Fix "Fingerprinters Blocked" menu spacing */
++#trustpanel-blocked + toolbarseparator {
++  display: none !important;
++}
++
++#trustpanel-blocked-header,
++#trustpanel-tracking-header,
++#trustpanel-tracking-description,
++#trustpanel-blocker-details-header,
++#trustpanel-blocker-details-content,
++#trustpanel-blocker-details-list-header {
++  margin-block: var(--space-medium) 0 !important;
++  margin-inline: var(--panel-menuitem-margin-inline);
++  padding-inline: var(--panel-menuitem-padding-inline);
++}
++
++#trustpanel-blocked-header,
++#trustpanel-tracking-header {
++  margin-block: var(--space-medium) var(--space-xsmall) !important;
++}
++
++#trustpanel-tracking-description {
++  margin-block: var(--space-small) var(--space-xsmall) !important;
++}
++
++#trustpanel-blocker-details-content {
++  margin-bottom: var(--space-medium) !important;
++}
++
++#trustpanel-blocker-items {
++  padding-bottom: var(--space-medium) !important;
++  > div.protections-popup-list-item {
++    display: list-item;
++    padding: 0;
++    margin: 5px calc(var(--space-xxlarge) + 5px);
++    > label {
++      display: block;
++      margin: 0;
++    }
++  }
 +}
 +
  #trustpanel-header-row {

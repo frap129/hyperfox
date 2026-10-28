@@ -2,7 +2,6 @@ patches/add-mojeek.patch
 patches/always-fetch-latest-toolchain-artifact.patch
 patches/autoconfig-pref.patch
 patches/autoconfig-setEnv.patch
-patches/backport-2084311.patch
 patches/canvas-permission.patch
 patches/clear-alt-svc.patch
 patches/container-tab.patch
@@ -31,7 +30,6 @@ patches/mozilla_dirs.patch
 patches/moz-official.patch
 patches/msix.patch
 patches/mullvad-dns-migration.patch
-patches/newtab-fix.patch
 patches/pip-hide-ui.patch
 patches/profile-directory.patch
 patches/remote-debugging-package-name.patch
@@ -48,6 +46,7 @@ patches/ui-patches/allow_cookies_for_site.patch
 patches/ui-patches/allow-disabling-updater.patch
 patches/ui-patches/eme-enable.patch
 patches/ui-patches/home-preferences.patch
+patches/ui-patches/identity-block.patch
 patches/ui-patches/lw-logo-devtools.patch
 patches/ui-patches/newtab-wordmark-css.patch
 patches/ui-patches/pref-naming.patch
