@@ -14,22 +14,21 @@ diff --git a/extensions/auth/nsHttpNegotiateAuth.cpp b/extensions/auth/nsHttpNeg
 index a3ec224b59..46da4d015f 100644
 --- a/extensions/auth/nsHttpNegotiateAuth.cpp
 +++ b/extensions/auth/nsHttpNegotiateAuth.cpp
-@@ -145,6 +145,10 @@ nsHttpNegotiateAuth::ChallengeReceived(nsIHttpAuthenticableChannel* authChannel,
-   nsIAuthModule* rawModule = (nsIAuthModule*)*continuationState;
- 
+@@ -184,5 +184,9 @@ nsHttpNegotiateAuth::ChallengeReceived(nsIHttpAuthenticableChannel* authChannel,
    *identityInvalid = false;
 +
 +  /* Always fail Negotiate auth for Tor Browser. We don't need it. */
 +  return NS_ERROR_ABORT;
 +
-   if (rawModule) {
-     return NS_OK;
+   if (*continuationState) {
+     nsCOMPtr<nsIAuthModule> existing = do_QueryInterface(*continuationState);
+     return existing ? NS_OK : NS_ERROR_UNEXPECTED;
    }
 diff --git a/netwerk/protocol/http/nsHttpNTLMAuth.cpp b/netwerk/protocol/http/nsHttpNTLMAuth.cpp
 index 0d8f5f083a..c02bd97d69 100644
 --- a/netwerk/protocol/http/nsHttpNTLMAuth.cpp
 +++ b/netwerk/protocol/http/nsHttpNTLMAuth.cpp
-@@ -167,6 +167,9 @@ nsHttpNTLMAuth::ChallengeReceived(nsIHttpAuthenticableChannel* channel,
+@@ -184,6 +184,9 @@ nsHttpNTLMAuth::ChallengeReceived(nsIHttpAuthenticableChannel* channel,
  
    *identityInvalid = false;
  
