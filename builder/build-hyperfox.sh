@@ -19,7 +19,7 @@ ac_add_options --disable-elf-hack
 ac_add_options --enable-linker=mold
 ac_add_options --disable-lto
 END
-make build || exit
+(cd "$srcdir" && ./mach build --priority normal) || exit
 
 # Generate PGO profdata
 (
@@ -48,7 +48,7 @@ ac_add_options --enable-profile-use=cross
 ac_add_options --with-pgo-profile-path=$srcdir/merged.profdata
 ac_add_options --with-pgo-jarlog=$srcdir/jarlog
 END
-make build || exit
+(cd "$srcdir" && ./mach build --priority normal) || exit
 make package || exit
 
 mkdir /src/out
