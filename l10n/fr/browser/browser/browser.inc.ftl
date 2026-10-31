@@ -7,3 +7,5 @@ urlbar-eme-blocked =
     .tooltiptext = Vous avez bloqué la lecture du contenu protégé par DRM pour ce site web.
 mullvad-doh-notification-body = Mullvad Secure DNS va <strong>fermer</strong>. Veuillez vérifier vos paramètres DNS dès maintenant.
 panel-enable-jit = Activer JavaScript JIT
+mullvad-doh-notification-settings-button =
+    .label = Paramètres de vérification
