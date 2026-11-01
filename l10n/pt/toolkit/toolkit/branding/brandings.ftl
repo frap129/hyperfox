@@ -1,0 +1,8 @@
+-screenshots-brand-name = Capturas de ecrã
+-profiler-brand-name = Criador de perfil
+-translations-brand-name = Traduções
+-firefox-suggest-brand-name = Sugestões
+-firefox-home-brand-name = Página inicial
+-firefoxview-brand-name = Visualização de separador
+-firefoxlabs-brand-name = Firefox Labs da Mozilla
+-relay-brand-name = Mozilla Relay
