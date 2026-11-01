@@ -1,6 +1,5 @@
-.POSIX
-.DEFAULT_GOAL help
-.PHONY build run package clean release_tarball help
+.POSIX:
+.PHONY: build run package clean release_tarball help
 
 VERSION = 159.0
 RELEASE = 1
