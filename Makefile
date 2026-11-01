@@ -1,5 +1,5 @@
 .POSIX:
-.PHONY: build run package clean release_tarball help
+.PHONY: help bootstrap build run package clean release_tarball
 
 VERSION = 159.0
 RELEASE = 1
@@ -14,6 +14,9 @@ ff_source_tarball = firefox-$(VERSION)$(FF_BETA_SUFFIX).source.tar.xz
 
 lw_source_dir = librewolf-$(VERSION)-$(RELEASE)
 lw_source_tarball = librewolf-$(VERSION)-$(RELEASE).source.tar.gz
+
+help:
+	@echo "idk :)"
 
 $(ff_source_tarball):
 	gpg --import assets/MOZILLA_PUBKEY.asc
@@ -33,7 +36,7 @@ $(ff_source_dir): $(ff_source_tarball)
 
 $(lw_source_dir): $(ff_source_dir) scripts/patch.sh
 	cp -R $(ff_source_dir) $(lw_source_dir)
-	./scripts/patch.sh
+	(cd $(lw_source_dir) && ../scripts/patch.sh $(VERSION) $(RELEASE))
 
 $(lw_source_tarball): $(lw_source_dir)
 	tar cf librewolf-$(VERSION)-$(RELEASE).source.tar $(lw_source_dir)
@@ -43,6 +46,9 @@ $(lw_source_tarball): $(lw_source_dir)
 	sha512sum $(lw_source_tarball) > $(lw_source_tarball).sha512sum
 	sha512sum -c $(lw_source_tarball).sha512sum
 	if [ -n "$${SIGNING_KEY}" ]; then printf '%s\n' "$${SIGNING_KEY}" | gpg --import && gpg --detach-sign $(lw_source_tarball); fi
+
+bootstrap: $(lw_source_dir)
+	(cd $(lw_source_dir) && ./mach --no-interactive bootstrap --application-choice=browser)
 
 build: $(lw_source_dir)
 	(cd $(lw_source_dir) && ./mach build)
@@ -58,6 +64,3 @@ tarball: $(lw_source_tarball)
 
 clean:
 	rm -rf $(ff_source_tarball) $(ff_source_tarball).asc $(ff_source_dir) $(lw_source_dir) $(lw_source_tarball) $(lw_source_tarball).sha256sum $(lw_source_tarball).sha512sum $(lw_source_tarball).sig
-
-help:
-	@echo "idk :)"

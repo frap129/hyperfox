@@ -57,7 +57,7 @@ fi
 
 while read -r file || [ -n "$file" ]; do
   printf 'Applying %s\n' "$file"
-  "$patch_cmd" -p1 -i "$file"
+  "$patch_cmd" -p1 -i "../$file"
 done < "../assets/patches.txt"
 
 # copy our extra files
