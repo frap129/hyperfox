@@ -1,0 +1,19 @@
+FROM debian:trixie-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+	curl gnupg ca-certificates lsb-release && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 https://download.docker.com/linux/debian/gpg | \
+        gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        mono-complete jq nodejs git pigz python3 \
+        gettext-base make lbzip2 zip patch xz-utils unzip \
+        docker-ce docker-ce-cli containerd.io docker-compose-plugin && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
