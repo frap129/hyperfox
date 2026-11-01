@@ -1,0 +1,46 @@
+name: Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-images:
+    runs-on: tiny
+    container:
+      image: librewolf.dev/librewolf/librewolf:dind
+    strategy:
+      matrix:
+        target: [windows, macos, linux, dind, release]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ vars.FORGE_REGISTRY || 'librewolf.dev' }}
+          username: ${{ vars.FORGE_USER }}
+          password: ${{ secrets.FORGE_TOKEN }}
+
+      - name: Build Docker Image
+        env:
+          TARGET: ${{ matrix.target }}
+          FORGE_URL: ${{ forgejo.server_url }}
+          FORGE_REGISTRY: ${{ vars.FORGE_REGISTRY || 'librewolf.dev' }}
+          FORGE_REPO: ${{ forgejo.repository }}
+          FORGE_REPO_OWNER: ${{ forgejo.repository_owner }}
+        run: |
+          echo "Building docker for target: $TARGET using assets/Dockerfile.$TARGET"
+          VERSION=$(curl -qfA "" --no-sessionid --proto =https --tlsv1.2 "$FORGE_URL/api/v1/repos/$FORGE_REPO_OWNER/source/releases/latest" | jq -r '.tag_name')
+          docker build --progress=plain --no-cache \
+            -t "$FORGE_REGISTRY/$FORGE_REPO_OWNER/librewolf:$TARGET" \
+            --build-arg VERSION="$VERSION" \
+            --build-arg FORGE_URL="$FORGE_URL" \
+            --build-arg FORGE_REPO_OWNER="$FORGE_REPO_OWNER" \
+            . -f assets/Dockerfile.$TARGET
+      - name: Push Docker Image
+        run: |
+          docker push ${{ vars.FORGE_REGISTRY || 'librewolf.dev' }}/${{ forgejo.repository_owner }}/librewolf:${{ matrix.target }}
