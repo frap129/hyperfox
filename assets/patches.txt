@@ -57,7 +57,6 @@ patches/remove-language-packs.patch
 patches/remove-openai.patch
 patches/remove-pingsender.patch
 patches/rs-blocker.patch
-patches/rust-gentoo-musl.patch
 patches/shortcut.patch
 patches/temp-macos-fix.patch
 patches/updater.patch
