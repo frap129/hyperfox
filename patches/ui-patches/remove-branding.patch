@@ -1,5 +1,7 @@
+Remove unwanted branding elements
+---
 diff --git a/browser/components/aboutlogins/content/aboutLogins.html b/browser/components/aboutlogins/content/aboutLogins.html
-index 9bbf5e6..5955410 100644
+index 9bbf5e69b1..5955410031 100644
 --- a/browser/components/aboutlogins/content/aboutLogins.html
 +++ b/browser/components/aboutlogins/content/aboutLogins.html
 @@ -238,7 +238,6 @@
@@ -11,7 +13,7 @@ index 9bbf5e6..5955410 100644
        <section>
          <p class="description" data-l10n-id="login-intro-description2">
 diff --git a/browser/components/aboutlogins/content/components/login-intro.mjs b/browser/components/aboutlogins/content/components/login-intro.mjs
-index bebc7ea..323e2e9 100644
+index bebc7eadff..323e2e9973 100644
 --- a/browser/components/aboutlogins/content/components/login-intro.mjs
 +++ b/browser/components/aboutlogins/content/components/login-intro.mjs
 @@ -44,9 +44,6 @@ export default class LoginIntro extends HTMLElement {
@@ -25,7 +27,7 @@ index bebc7ea..323e2e9 100644
        window.AboutLoginsUtils.supportBaseURL +
        "password-manager-remember-delete-edit-logins";
 diff --git a/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs b/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs
-index 2f03f94..de35f43 100644
+index 2f03f94424..de35f432e8 100644
 --- a/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs
 +++ b/browser/components/aiwindow/ui/components/aitab-page/aitab-error/aitab-error.mjs
 @@ -21,11 +21,6 @@ export class AITabError extends MozLitElement {
@@ -40,8 +42,39 @@ index 2f03f94..de35f43 100644
            <div class="aitab-error-text-group" role="alert">
              <h1
                class="aitab-error-heading"
+diff --git a/browser/components/sidebar/sidebar.css b/browser/components/sidebar/sidebar.css
+index ec6d952..e279ee2 100644
+--- a/browser/components/sidebar/sidebar.css
++++ b/browser/components/sidebar/sidebar.css
+@@ -46,6 +46,26 @@
+   }
+ }
+ 
++/* Remove Firefox's kit from 'History' and 'Tabs from other devices' */
++fxview-empty-state {
++  &::part(container) {
++    justify-content: center;
++  }
++  &::part(image-container) {
++    display: none;
++  }
++}
++
++/* Remove Firefox's kit from 'Passwords' */
++.no-logins-card-content {
++  img {
++    display: none;
++  }
++  p[data-l10n-id="contextual-manager-passwords-no-passwords-get-started-message"] {
++    margin-top: 0;
++  }
++}
++
+ body {
+   margin: 0;
+   height: 100%;
 diff --git a/browser/themes/shared/addons/unified-extensions.css b/browser/themes/shared/addons/unified-extensions.css
-index 756325b..3a24503 100644
+index 756325bbad..3a2450355a 100644
 --- a/browser/themes/shared/addons/unified-extensions.css
 +++ b/browser/themes/shared/addons/unified-extensions.css
 @@ -19,6 +19,10 @@

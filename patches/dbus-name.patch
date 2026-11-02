@@ -1,5 +1,7 @@
+Replaced hardcoded org.mozilla D-Bus identifier with our own
+---
 diff --git a/toolkit/components/remote/nsDBusRemoteClient.cpp b/toolkit/components/remote/nsDBusRemoteClient.cpp
-index bd1fe5f..bb68321 100644
+index bd1fe5f9cf..bb68321ba9 100644
 --- a/toolkit/components/remote/nsDBusRemoteClient.cpp
 +++ b/toolkit/components/remote/nsDBusRemoteClient.cpp
 @@ -73,14 +73,14 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
@@ -29,7 +31,7 @@ index bd1fe5f..bb68321 100644
    LOG("  DBus destination: %s\n", destinationName.get());
    LOG("  DBus path: %s\n", pathName.get());
 diff --git a/toolkit/components/remote/nsDBusRemoteServer.cpp b/toolkit/components/remote/nsDBusRemoteServer.cpp
-index 226b2dc..f247779 100644
+index 226b2dc528..f2477798ae 100644
 --- a/toolkit/components/remote/nsDBusRemoteServer.cpp
 +++ b/toolkit/components/remote/nsDBusRemoteServer.cpp
 @@ -25,7 +25,7 @@ static const char* introspect_template =

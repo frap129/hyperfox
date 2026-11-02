@@ -119,3 +119,7 @@ librewolf-is-default-browser-2 =
     .message = { -brand-short-name } on asetettu oletusselaimeksi.
 librewolf-is-not-default-browser-2 =
     .message = { -brand-short-name } ei ole oletusselain.
+librewolf-nova-checkbox2 =
+    .label = Käytä uudistettua Nova-käyttöliittymää
+permissions-jit2 =
+    .label = JavaScript JIT

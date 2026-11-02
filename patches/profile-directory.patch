@@ -1,5 +1,7 @@
+Changes the default value of our overrides file location depending on where the profile is located at
+---
 diff --git a/extensions/pref/autoconfig/src/prefcalls.js b/extensions/pref/autoconfig/src/prefcalls.js
-index 66b3977..5469b51 100644
+index 78dd0ee547..4231262f29 100644
 --- a/extensions/pref/autoconfig/src/prefcalls.js
 +++ b/extensions/pref/autoconfig/src/prefcalls.js
 @@ -9,6 +9,54 @@ const LDAPSyncQueryContractID = "@mozilla.org/ldapsyncquery;1";

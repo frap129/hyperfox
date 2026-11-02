@@ -1,5 +1,7 @@
+Make the insecure site UI element more obvious
+---
 diff --git a/browser/themes/shared/identity-block/identity-block.css b/browser/themes/shared/identity-block/identity-block.css
-index 18bd129..35cd2d9 100644
+index 18bd129c43..35cd2d9cd6 100644
 --- a/browser/themes/shared/identity-block/identity-block.css
 +++ b/browser/themes/shared/identity-block/identity-block.css
 @@ -338,6 +338,11 @@

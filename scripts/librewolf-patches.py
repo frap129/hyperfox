@@ -139,10 +139,6 @@ def librewolf_patches():
         for line in f.readlines():
             patch('../'+line.strip())
 
-    # apply xmas.patch seperately because not all builders use this repo the same way, and
-    # we don't want to disturbe those workflows.
-    patch('../patches/xmas.patch')
-
     #
     # Apply most recent `settings` repository files.
     #
@@ -160,9 +156,7 @@ def librewolf_patches():
     # pref-pane patches
     #
 
-    # 1) patch it in
-    patch('../patches/pref-pane/pref-pane-small.patch')
-    # 2) new files
+    # new files
     exec('cp ../patches/pref-pane/category-librewolf.svg browser/themes/shared/preferences/category-librewolf.svg')
     exec('cp ../patches/pref-pane/librewolf.css browser/themes/shared/preferences/librewolf.css')
     exec('cp ../patches/pref-pane/librewolf.inc.xhtml browser/components/preferences/librewolf.inc.xhtml')

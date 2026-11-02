@@ -1,12 +1,15 @@
+Set Firefox for the User Agent string
+---
 diff --git a/toolkit/moz.configure b/toolkit/moz.configure
+index a16fc0e924..b0d6cd97d5 100644
 --- a/toolkit/moz.configure
 +++ b/toolkit/moz.configure
-@@ -28,7 +28,7 @@ project_flag(
+@@ -26,7 +26,7 @@ project_flag(
  
  project_flag(
      env="MOZ_APP_UA_NAME",
 -    default="",
 +    default="Firefox",
      nargs=1,
-     help="application name in the User Agent string",
+     help="Application name in the User Agent string",
  )

@@ -1,8 +1,10 @@
+Prevent extensions from using setUninstallURL due to potential abuse of this feature
+---
 diff --git a/toolkit/components/extensions/parent/ext-runtime.js b/toolkit/components/extensions/parent/ext-runtime.js
-index 0d7a3e5..473e4f1 100644
+index abc30a2e13..22f03e99a8 100644
 --- a/toolkit/components/extensions/parent/ext-runtime.js
 +++ b/toolkit/components/extensions/parent/ext-runtime.js
-@@ -353,7 +353,7 @@ this.runtime = class extends ExtensionAPIPersistent {
+@@ -354,7 +354,7 @@ this.runtime = class extends ExtensionAPIPersistent {
          },
  
          setUninstallURL: function (url) {

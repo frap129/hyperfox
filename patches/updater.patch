@@ -1,5 +1,7 @@
+Set our own builtin updater values to use
+---
 diff --git a/build/application.ini.in b/build/application.ini.in
-index 6df1323..b85d07b 100644
+index 6df13230a4..be15c1ad92 100644
 --- a/build/application.ini.in
 +++ b/build/application.ini.in
 @@ -52,5 +52,5 @@ ServerURL=@MOZ_CRASHREPORTER_URL@/submit?id=@MOZ_APP_ID@&version=@MOZ_APP_VERSIO
@@ -10,7 +12,7 @@ index 6df1323..b85d07b 100644
 +URL=https://@MOZ_APPUPDATE_HOST@/%BUILD_TARGET%/%CHANNEL%/update.xml
  #endif
 diff --git a/build/moz.build b/build/moz.build
-index 0182121..47aac55 100644
+index e0178d6e9c..5b4a8de3cc 100644
 --- a/build/moz.build
 +++ b/build/moz.build
 @@ -92,7 +92,7 @@ if CONFIG["MOZ_APP_BASENAME"]:

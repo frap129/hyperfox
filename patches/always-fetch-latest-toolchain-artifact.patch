@@ -1,5 +1,7 @@
+Get the latest toolchain artifact from mozilla-central instead of the toolchain artifact for our current checkout by retrieving the task id of the task building the toolchain artifact from the latest mozilla-central decision task. Using index.findArtifactFromTask for this would be nicer instead of hardcoding the URL, but that doesn't follow redirects, so here we are.
+---
 diff --git a/python/mozbuild/mozbuild/artifact_commands.py b/python/mozbuild/mozbuild/artifact_commands.py
-index 6e87866..2445c56 100644
+index 2c9bcf68c0..0d2b7c0929 100644
 --- a/python/mozbuild/mozbuild/artifact_commands.py
 +++ b/python/mozbuild/mozbuild/artifact_commands.py
 @@ -10,6 +10,7 @@ import logging
@@ -10,7 +12,7 @@ index 6e87866..2445c56 100644
  
  import mozversioncontrol
  from mach.decorators import Command, CommandArgument, SubCommand
-@@ -448,17 +449,19 @@ def artifact_toolchain(
+@@ -465,17 +466,19 @@ def artifact_toolchain(
                  return 1
  
              artifact_name = task["attributes"].get(f"{task['kind']}-artifact")

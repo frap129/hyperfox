@@ -1,5 +1,7 @@
+Display IronFox correctly with remote debugging
+---
 diff --git a/devtools/client/shared/remote-debugging/adb/adb-runtime.js b/devtools/client/shared/remote-debugging/adb/adb-runtime.js
-index 77d39d643ef79..6350be3a865cc 100644
+index 77d39d643e..6350be3a86 100644
 --- a/devtools/client/shared/remote-debugging/adb/adb-runtime.js
 +++ b/devtools/client/shared/remote-debugging/adb/adb-runtime.js
 @@ -94,6 +94,10 @@ class AdbRuntime {

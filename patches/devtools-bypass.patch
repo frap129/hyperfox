@@ -1,5 +1,7 @@
+Allow blocking debugger attachments and suppressing console messages
+---
 diff --git a/devtools/server/actors/thread.js b/devtools/server/actors/thread.js
-index 2d70647..fbc95fe 100644
+index 6363c0c511..d14799d4cc 100644
 --- a/devtools/server/actors/thread.js
 +++ b/devtools/server/actors/thread.js
 @@ -8,6 +8,7 @@
@@ -22,7 +24,7 @@ index 2d70647..fbc95fe 100644
      }
  
 diff --git a/devtools/server/actors/webconsole/listeners/console-api.js b/devtools/server/actors/webconsole/listeners/console-api.js
-index cdf6a84..ccdd19e 100644
+index cdf6a841a8..ccdd19e95a 100644
 --- a/devtools/server/actors/webconsole/listeners/console-api.js
 +++ b/devtools/server/actors/webconsole/listeners/console-api.js
 @@ -98,7 +98,8 @@ class ConsoleAPIListener {
@@ -36,10 +38,10 @@ index cdf6a84..ccdd19e 100644
      }
  
 diff --git a/devtools/shared/flags.js b/devtools/shared/flags.js
-index 1b0ec26..942de1e 100644
+index 95b1be41d2..562b559103 100644
 --- a/devtools/shared/flags.js
 +++ b/devtools/shared/flags.js
-@@ -67,3 +67,5 @@ makePrefTrackedFlag(exports, "wantVerbose", "devtools.debugger.log.verbose");
+@@ -60,3 +60,5 @@ makePrefTrackedFlag(exports, "wantLogging", "devtools.debugger.log");
   * behaviors typically enable easier testing or enhanced debugging features.
   */
  makePrefTrackedFlag(exports, "testing", "devtools.testing");

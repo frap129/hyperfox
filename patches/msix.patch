@@ -1,12 +1,7 @@
-# LibreWolf msix.patch
-#
-# Author:        Malte Jürgens <maltejur@dismail.de>
-# Description:   Allows us to build a msix for the Microsoft Store
-# Last Updated:  2025-05-27
-# License:       MPL 2.0
-
+Allows us to build a msix for the Microsoft Store
+---
 diff --git a/browser/installer/windows/msix/AppxManifest.xml.in b/browser/installer/windows/msix/AppxManifest.xml.in
-index 9bb9133..1d63bec 100644
+index 9bb91330f6..1d63becb50 100644
 --- a/browser/installer/windows/msix/AppxManifest.xml.in
 +++ b/browser/installer/windows/msix/AppxManifest.xml.in
 @@ -30,13 +30,14 @@
@@ -46,10 +41,10 @@ index 9bb9133..1d63bec 100644
    </Extensions>
  </Package>
 diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuild/mach_commands.py
-index 58702a0734..08d7862509 100644
+index 1bfbf65ac8..d558b27a86 100644
 --- a/python/mozbuild/mozbuild/mach_commands.py
 +++ b/python/mozbuild/mozbuild/mach_commands.py
-@@ -3003,7 +3003,7 @@ def repackage_msi(
+@@ -3421,7 +3421,7 @@ def repackage_msi(
  @CommandArgument(
      "--vendor",
      type=str,
@@ -58,7 +53,7 @@ index 58702a0734..08d7862509 100644
      required=False,
      help="The vendor to use in the Package/Identity/Name string to use in the App Manifest."
      + " Defaults to 'Mozilla'.",
-@@ -3162,7 +3162,7 @@ def repackage_msix(
+@@ -3579,7 +3579,7 @@ def repackage_msix(
          command_context.topsrcdir,
          channel=channel,
          arch=arch,
@@ -68,7 +63,7 @@ index 58702a0734..08d7862509 100644
          publisher=publisher,
          publisher_display_name=publisher_display_name,
 diff --git a/python/mozbuild/mozbuild/repackaging/msix.py b/python/mozbuild/mozbuild/repackaging/msix.py
-index 133944f06f..81c9ab2465 100644
+index 47a067c4c1..d516df8250 100644
 --- a/python/mozbuild/mozbuild/repackaging/msix.py
 +++ b/python/mozbuild/mozbuild/repackaging/msix.py
 @@ -106,68 +106,19 @@ def get_embedded_version(version, buildid):

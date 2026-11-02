@@ -1,9 +1,10 @@
-# https://codeberg.org/ironfox-oss/IronFox/src/branch/dev/patches/gecko-support-autoconfig.patch#L14
+Allow setting environment values from the autoconfig
+---
 diff --git a/extensions/pref/autoconfig/src/prefcalls.js b/extensions/pref/autoconfig/src/prefcalls.js
-index fcd0554e9598..71bf90dc473e 100644
+index 47eb92982c..78dd0ee547 100644
 --- a/extensions/pref/autoconfig/src/prefcalls.js
 +++ b/extensions/pref/autoconfig/src/prefcalls.js
-@@ -196,7 +196,17 @@ function getenv(name) {
+@@ -205,7 +205,17 @@ function getenv(name) {
    return undefined;
  }
  

@@ -5,3 +5,6 @@ permissions-site-webgl-desc = Seuraavat verkkosivustot ovat pyytäneet luvan saa
 permissions-site-eme-window2 =
     .title = Asetukset - EME-oikeudet
     .style = { permissions-window2.style }
+permissions-site-jit-window2 =
+    .title = Asetukset - JavaScriptin JIT-oikeudet
+    .style = { permissions-window2.style }

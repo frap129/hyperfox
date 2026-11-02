@@ -1,5 +1,7 @@
+Allow setting autoconfig files as a user pref, to allow setting a custom librewolf.overrides.cfg location
+---
 diff --git a/extensions/pref/autoconfig/src/nsReadConfig.cpp b/extensions/pref/autoconfig/src/nsReadConfig.cpp
-index dfc39ce..9a3333a 100644
+index dfc39ce12d..9a3333a376 100644
 --- a/extensions/pref/autoconfig/src/nsReadConfig.cpp
 +++ b/extensions/pref/autoconfig/src/nsReadConfig.cpp
 @@ -8,7 +8,6 @@

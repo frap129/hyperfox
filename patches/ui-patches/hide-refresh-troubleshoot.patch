@@ -1,0 +1,15 @@
+Remove the refresh option when manually starting in troubleshoot mode due to users accidentally refreshing their profiles
+---
+diff --git a/browser/base/content/safeMode.js b/browser/base/content/safeMode.js
+index 48d4ddb..5bdb620 100644
+--- a/browser/base/content/safeMode.js
++++ b/browser/base/content/safeMode.js
+@@ -63,7 +63,7 @@ window.addEventListener("load", () => {
+       // Hide the reset button is it's not supported.
+       dialog.getButton("extra1").hidden = true;
+     }
+-  } else if (!ResetProfile.resetSupported()) {
++  } else {
+     // Hide the reset button and text if it's not supported.
+     dialog.getButton("extra1").hidden = true;
+     document.getElementById("resetProfileInstead").hidden = true;

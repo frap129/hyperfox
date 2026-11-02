@@ -1,5 +1,7 @@
+Create a shortcut for regular browsing, which is not correctly created when ASRouter onboarding is disabled
+---
 diff --git a/browser/components/shell/StartupOSIntegration.sys.mjs b/browser/components/shell/StartupOSIntegration.sys.mjs
-index 84e32bb8d2..b7b68c9bd1 100644
+index 84e32bb8d2..82e33178f3 100644
 --- a/browser/components/shell/StartupOSIntegration.sys.mjs
 +++ b/browser/components/shell/StartupOSIntegration.sys.mjs
 @@ -11,6 +11,7 @@ const PRIVATE_BROWSING_BINARY = "private_browsing.exe";

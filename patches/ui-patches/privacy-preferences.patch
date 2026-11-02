@@ -1,192 +1,10 @@
-diff --git a/browser/components/preferences/privacy.inc.xhtml b/browser/components/preferences/privacy.inc.xhtml
-index 4a4759e925..eefd978cfc 100644
---- a/browser/components/preferences/privacy.inc.xhtml
-+++ b/browser/components/preferences/privacy.inc.xhtml
-@@ -49,20 +49,6 @@
-                 permissions-exceptions-manage-etp-desc,
-               "/>
-     </hbox>
--    <hbox id="rfpIncompatibilityWarning" class="info-box-container" hidden="true">
--      <vbox class="info-icon-container">
--        <html:img class="info-icon"></html:img>
--      </vbox>
--      <vbox flex="1">
--        <description>
--          <html:span data-l10n-id="content-blocking-rfp-incompatibility-warning"/>
--          <html:a is="moz-support-link"
--                  class="learnMore"
--                  support-page="resist-fingerprinting"
--          />
--        </description>
--      </vbox>
--    </hbox>
-     <hbox id="fpiIncompatibilityWarning" class="info-box-container" hidden="true">
-       <vbox class="info-icon-container">
-         <html:img class="info-icon"></html:img>
-@@ -77,7 +63,7 @@
-       <radiogroup id="contentBlockingCategoryRadio"
-                   preference="browser.contentblocking.category"
-                   aria-labelledby="trackingProtectionMenuDesc">
--        <vbox id="contentBlockingOptionStandard" class="privacy-detailedoption info-box-container">
-+        <vbox id="contentBlockingOptionStandard" class="privacy-detailedoption info-box-container" hidden="true">
-           <hbox>
-             <radio id="standardRadio"
-                    value="standard"
-@@ -242,7 +228,7 @@
-                         is="highlightable-button"
-                         data-l10n-id="content-blocking-reload-tabs-button"/>
-               </html:div>
--              <vbox class="content-blocking-warning info-box-container">
-+              <vbox class="content-blocking-warning info-box-container" hidden="true">
-                 <hbox>
-                   <image class="content-blocking-warning-image"/>
-                   <label class="content-blocking-warning-title" data-l10n-id="content-blocking-warning-title-2"/>
-@@ -258,7 +244,7 @@
-             </vbox>
-           </vbox>
-         </vbox>
--        <vbox id="contentBlockingOptionCustom" class="privacy-detailedoption info-box-container">
-+        <vbox id="contentBlockingOptionCustom" class="privacy-detailedoption info-box-container" hidden="true">
-           <hbox>
-             <radio id="customRadio"
-                    value="custom"
-@@ -391,6 +377,20 @@
-         </vbox>
-       </radiogroup>
-     </vbox>
-+    <hbox id="rfpIncompatibilityWarning" class="info-box-container" hidden="true">
-+      <vbox class="info-icon-container">
-+        <html:img class="info-icon"></html:img>
-+      </vbox>
-+      <vbox flex="1">
-+        <description>
-+          <html:span data-l10n-id="content-blocking-rfp-incompatibility-warning"/>
-+          <html:a is="moz-support-link"
-+                  class="learnMore"
-+                  support-page="resist-fingerprinting"
-+          />
-+        </description>
-+      </vbox>
-+    </hbox>
-   </vbox>
- </groupbox>
- <html:setting-group id="nonTechnicalPrivacyGroup" groupid="nonTechnicalPrivacy" data-category="panePrivacy" hidden="true" data-srd-groupid="nonTechnicalPrivacy2"/>
-diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index 5091571fa6..3a008ecd66 100644
---- a/browser/locales/en-US/browser/preferences/preferences.ftl
-+++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1830,8 +1830,6 @@ cookie-banner-blocker-checkbox-label =
- 
- content-blocking-enhanced-tracking-protection = Enhanced Tracking Protection
- 
--content-blocking-section-top-level-description = Trackers follow you around online to collect information about your browsing habits and interests. { -brand-short-name } blocks many of these trackers and other malicious scripts.
--
- content-blocking-learn-more = Learn more
- 
- content-blocking-fpi-incompatibility-warning = You are using First Party Isolation (FPI), which overrides some of { -brand-short-name }’s cookie settings.
-diff --git a/browser/themes/shared/preferences/privacy.css b/browser/themes/shared/preferences/privacy.css
-index 1cfe9a9eef..d18112d234 100644
---- a/browser/themes/shared/preferences/privacy.css
-+++ b/browser/themes/shared/preferences/privacy.css
-@@ -221,7 +221,7 @@
- }
- 
- .extra-information-label {
--  margin-top: 18px;
-+  margin-top: 5px;
- }
- 
- /* Apply display: block to the containers of all the category information, as
-@@ -257,9 +257,8 @@
- }
- 
- .content-blocking-extra-blocking-desc {
--  margin-inline-start: 0.5em;
--  position: relative;
--  top: 0.65em;
-+  margin-top: 1em;
-+  margin-bottom: 0.5em;
- }
- 
- .content-blocking-label,
-
-diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
-index 8b67ea2..1b34787 100644
---- a/browser/components/preferences/config/privacy.mjs
-+++ b/browser/components/preferences/config/privacy.mjs
-@@ -1156,34 +1156,6 @@ SettingGroupManager.registerGroups({
-     l10nId: "history-group",
-     headingLevel: 2,
-     items: [
--      {
--        id: "historyMode",
--        control: "moz-select",
--        options: [
--          {
--            value: "remember",
--            l10nId: "history-remember-option-all2",
--          },
--          { value: "dontremember", l10nId: "history-remember-option-never2" },
--          { value: "custom", l10nId: "history-remember-option-custom2" },
--        ],
--        controlAttrs: {
--          "search-l10n-ids": `
--            history-remember-description4,
--            history-dontremember-description4,
--            history-custom-description4,
--            history-private-browsing-permanent.label,
--            history-remember-browser-option.label,
--            history-remember-search-option.label,
--            history-clear-on-close-option.label,
--            history-clear-on-close-settings.label
--          `,
--        },
--      },
--      {
--        id: "privateBrowsingAutoStart",
--        l10nId: "history-private-browsing-permanent",
--      },
-       {
-         id: "rememberHistory",
-         l10nId: "history-remember-browser-option",
-diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index 57add34..53a648c 100644
---- a/browser/components/preferences/preferences.js
-+++ b/browser/components/preferences/preferences.js
-@@ -363,7 +363,7 @@ const CONFIG_PANES = Object.freeze({
-   permissionsData: {
-     l10nId: "permissions-data-section",
-     iconSrc: "chrome://browser/skin/permissions.svg",
--    groupIds: ["permissions", "dataCollection"],
-+    groupIds: ["permissions"],
-     module: "chrome://browser/content/preferences/config/permissions-data.mjs",
-     visible: () => srdSectionEnabled("permissionsData"),
-   },
-diff --git a/browser/components/preferences/privacy.js b/browser/components/preferences/privacy.js
-index 08e25a2..26eb7be 100644
---- a/browser/components/preferences/privacy.js
-+++ b/browser/components/preferences/privacy.js
-@@ -618,7 +618,6 @@ var gPrivacyPane = {
-     initSettingGroup("securityPrivacyStatus");
-     initSettingGroup("securityPrivacyWarnings");
-     initSettingGroup("httpsOnly");
--    initSettingGroup("browsingProtection");
-     initSettingGroup("cookiesAndSiteData");
-     initSettingGroup("cookiesAndSiteData2");
-     initSettingGroup("certificates");
-@@ -626,7 +625,6 @@ var gPrivacyPane = {
-     initSettingGroup("history");
-     initSettingGroup("history2");
-     initSettingGroup("permissions");
--    initSettingGroup("dataCollection");
-     initSettingGroup("privacyPanel");
-     initSettingGroup("dnsOverHttps");
-     initSettingGroup("dnsOverHttpsAdvanced");
+Remove various unwanted UI elements from the old settings design
+---
 diff --git a/browser/components/preferences/config/permissions-data.mjs b/browser/components/preferences/config/permissions-data.mjs
-index e25447b..7adaa40 100644
+index 597ef85042..2e85796a91 100644
 --- a/browser/components/preferences/config/permissions-data.mjs
 +++ b/browser/components/preferences/config/permissions-data.mjs
-@@ -646,112 +646,4 @@ SettingGroupManager.registerGroups({
+@@ -759,112 +759,4 @@ SettingGroupManager.registerGroups({
        },
      ],
    },
@@ -299,3 +117,186 @@ index e25447b..7adaa40 100644
 -    ],
 -  },
  });
+diff --git a/browser/components/preferences/config/privacy.mjs b/browser/components/preferences/config/privacy.mjs
+index 18a24a31c6..0d56216d7c 100644
+--- a/browser/components/preferences/config/privacy.mjs
++++ b/browser/components/preferences/config/privacy.mjs
+@@ -949,34 +949,6 @@ SettingGroupManager.registerGroups({
+     l10nId: "history-group",
+     headingLevel: 2,
+     items: [
+-      {
+-        id: "historyMode",
+-        control: "moz-select",
+-        options: [
+-          {
+-            value: "remember",
+-            l10nId: "history-remember-option-all2",
+-          },
+-          { value: "dontremember", l10nId: "history-remember-option-never2" },
+-          { value: "custom", l10nId: "history-remember-option-custom2" },
+-        ],
+-        controlAttrs: {
+-          "search-l10n-ids": `
+-            history-remember-description4,
+-            history-dontremember-description4,
+-            history-custom-description4,
+-            history-private-browsing-permanent.label,
+-            history-remember-browser-option.label,
+-            history-remember-search-option.label,
+-            history-clear-on-close-option.label,
+-            history-clear-on-close-settings.label
+-          `,
+-        },
+-      },
+-      {
+-        id: "privateBrowsingAutoStart",
+-        l10nId: "history-private-browsing-permanent",
+-      },
+       {
+         id: "rememberHistory",
+         l10nId: "history-remember-browser-option",
+diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
+index e41240a380..b808c56226 100644
+--- a/browser/components/preferences/preferences.js
++++ b/browser/components/preferences/preferences.js
+@@ -393,7 +393,7 @@ const CONFIG_PANES = Object.freeze({
+   permissionsData: {
+     l10nId: "permissions-data-section",
+     iconSrc: "chrome://browser/skin/permissions.svg",
+-    groupIds: ["permissions", "dataCollection"],
++    groupIds: ["permissions"],
+     module: "chrome://browser/content/preferences/config/permissions-data.mjs",
+     visible: () => srdSectionEnabled("permissionsData"),
+   },
+diff --git a/browser/components/preferences/privacy.inc.xhtml b/browser/components/preferences/privacy.inc.xhtml
+index 7148155afc..8645ebf73b 100644
+--- a/browser/components/preferences/privacy.inc.xhtml
++++ b/browser/components/preferences/privacy.inc.xhtml
+@@ -47,20 +47,6 @@
+                 permissions-exceptions-manage-etp-desc,
+               "/>
+     </hbox>
+-    <hbox id="rfpIncompatibilityWarning" class="info-box-container" hidden="true">
+-      <vbox class="info-icon-container">
+-        <html:img class="info-icon"></html:img>
+-      </vbox>
+-      <vbox flex="1">
+-        <description>
+-          <html:span data-l10n-id="content-blocking-rfp-incompatibility-warning"/>
+-          <html:a is="moz-support-link"
+-                  class="learnMore"
+-                  support-page="resist-fingerprinting"
+-          />
+-        </description>
+-      </vbox>
+-    </hbox>
+     <hbox id="fpiIncompatibilityWarning" class="info-box-container" hidden="true">
+       <vbox class="info-icon-container">
+         <html:img class="info-icon"></html:img>
+@@ -75,7 +61,7 @@
+       <radiogroup id="contentBlockingCategoryRadio"
+                   preference="browser.contentblocking.category"
+                   aria-labelledby="trackingProtectionMenuDesc">
+-        <vbox id="contentBlockingOptionStandard" class="privacy-detailedoption info-box-container">
++        <vbox id="contentBlockingOptionStandard" class="privacy-detailedoption info-box-container" hidden="true">
+           <hbox>
+             <radio id="standardRadio"
+                    value="standard"
+@@ -240,7 +226,7 @@
+                         is="highlightable-button"
+                         data-l10n-id="content-blocking-reload-tabs-button"/>
+               </html:div>
+-              <vbox class="content-blocking-warning info-box-container">
++              <vbox class="content-blocking-warning info-box-container" hidden="true">
+                 <hbox>
+                   <image class="content-blocking-warning-image"/>
+                   <label class="content-blocking-warning-title" data-l10n-id="content-blocking-warning-title-2"/>
+@@ -256,7 +242,7 @@
+             </vbox>
+           </vbox>
+         </vbox>
+-        <vbox id="contentBlockingOptionCustom" class="privacy-detailedoption info-box-container">
++        <vbox id="contentBlockingOptionCustom" class="privacy-detailedoption info-box-container" hidden="true">
+           <hbox>
+             <radio id="customRadio"
+                    value="custom"
+@@ -389,6 +375,20 @@
+         </vbox>
+       </radiogroup>
+     </vbox>
++    <hbox id="rfpIncompatibilityWarning" class="info-box-container" hidden="true">
++      <vbox class="info-icon-container">
++        <html:img class="info-icon"></html:img>
++      </vbox>
++      <vbox flex="1">
++        <description>
++          <html:span data-l10n-id="content-blocking-rfp-incompatibility-warning"/>
++          <html:a is="moz-support-link"
++                  class="learnMore"
++                  support-page="resist-fingerprinting"
++          />
++        </description>
++      </vbox>
++    </hbox>
+   </vbox>
+ </groupbox>
+ <html:setting-group id="nonTechnicalPrivacyGroup" groupid="nonTechnicalPrivacy" data-category="panePrivacy" hidden="true" data-srd-groupid="nonTechnicalPrivacy2"/>
+diff --git a/browser/components/preferences/privacy.js b/browser/components/preferences/privacy.js
+index 8a35e5fdd9..c371d4a858 100644
+--- a/browser/components/preferences/privacy.js
++++ b/browser/components/preferences/privacy.js
+@@ -616,7 +616,6 @@ var gPrivacyPane = {
+     initSettingGroup("nonTechnicalPrivacy");
+     initSettingGroup("nonTechnicalPrivacy2");
+     initSettingGroup("httpsOnly");
+-    initSettingGroup("browsingProtection");
+     initSettingGroup("cookiesAndSiteData");
+     initSettingGroup("cookiesAndSiteData2");
+     initSettingGroup("certificates");
+@@ -624,7 +623,6 @@ var gPrivacyPane = {
+     initSettingGroup("history");
+     initSettingGroup("history2");
+     initSettingGroup("permissions");
+-    initSettingGroup("dataCollection");
+     initSettingGroup("privacyPanel");
+     initSettingGroup("dnsOverHttps");
+     initSettingGroup("dnsOverHttpsAdvanced");
+diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
+index a9f3fe86dc..9f211fbcb0 100644
+--- a/browser/locales/en-US/browser/preferences/preferences.ftl
++++ b/browser/locales/en-US/browser/preferences/preferences.ftl
+@@ -1923,8 +1923,6 @@ sitedata-cookies-exceptions3 =
+ 
+ content-blocking-enhanced-tracking-protection = Enhanced Tracking Protection
+ 
+-content-blocking-section-top-level-description = Trackers follow you around online to collect information about your browsing habits and interests. { -brand-short-name } blocks many of these trackers and other malicious scripts.
+-
+ content-blocking-learn-more = Learn more
+ 
+ content-blocking-fpi-incompatibility-warning = You are using First Party Isolation (FPI), which overrides some of { -brand-short-name }’s cookie settings.
+diff --git a/browser/themes/shared/preferences/privacy.css b/browser/themes/shared/preferences/privacy.css
+index 8792ec189a..168c427f22 100644
+--- a/browser/themes/shared/preferences/privacy.css
++++ b/browser/themes/shared/preferences/privacy.css
+@@ -233,7 +233,7 @@
+ }
+ 
+ .extra-information-label {
+-  margin-top: 18px;
++  margin-top: 5px;
+ }
+ 
+ /* Apply display: block to the containers of all the category information, as
+@@ -269,9 +269,8 @@
+ }
+ 
+ .content-blocking-extra-blocking-desc {
+-  margin-inline-start: 0.5em;
+-  position: relative;
+-  top: 0.65em;
++  margin-top: 1em;
++  margin-bottom: 0.5em;
+ }
+ 
+ .content-blocking-label,

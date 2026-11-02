@@ -1,5 +1,20 @@
+Use the display version for our release notes and allow showing them for all locales. Use our display version in the rc file to allow correctly comparing versions with WinUpdater
+---
+diff --git a/config/create_rc.py b/config/create_rc.py
+index a3cabd5064..fe068c5b3d 100644
+--- a/config/create_rc.py
++++ b/config/create_rc.py
+@@ -303,7 +303,7 @@ def generate_module_rc():
+         company=overrides.get("WIN32_MODULE_COMPANYNAME", "Mozilla Foundation"),
+         description=overrides.get("WIN32_MODULE_DESCRIPTION", ""),
+         mfversion=overrides.get("WIN32_MODULE_FILEVERSION_STRING", milestone_string),
+-        mpversion=overrides.get("WIN32_MODULE_PRODUCTVERSION_STRING", milestone_string),
++        mpversion=app_version_display,
+         module=overrides.get("WIN32_MODULE_NAME", ""),
+         trademarks=overrides.get("WIN32_MODULE_TRADEMARKS", "Mozilla"),
+         binary=overrides.get("WIN32_MODULE_ORIGINAL_FILENAME", binary),
 diff --git a/toolkit/components/urlformatter/URLFormatter.sys.mjs b/toolkit/components/urlformatter/URLFormatter.sys.mjs
-index 0485032..b802ffd 100644
+index 0485032ec5..b802ffdb43 100644
 --- a/toolkit/components/urlformatter/URLFormatter.sys.mjs
 +++ b/toolkit/components/urlformatter/URLFormatter.sys.mjs
 @@ -90,6 +90,9 @@ nsURLFormatterService.prototype = {
@@ -13,7 +28,7 @@ index 0485032..b802ffd 100644
        return Services.appinfo.version.replace(
          /^([^\.]+\.[0-9]+[a-z]*).*/gi,
 diff --git a/toolkit/mozapps/update/UpdateListener.sys.mjs b/toolkit/mozapps/update/UpdateListener.sys.mjs
-index b689833..a38698c 100644
+index b689833c27..a38698cb38 100644
 --- a/toolkit/mozapps/update/UpdateListener.sys.mjs
 +++ b/toolkit/mozapps/update/UpdateListener.sys.mjs
 @@ -188,30 +188,7 @@ export var UpdateListener = {
@@ -48,16 +63,3 @@ index b689833..a38698c 100644
      } catch (error) {
        return null;
      }
-diff --git a/config/create_rc.py b/config/create_rc.py
-index a3cabd5..fe068c5 100644
---- a/config/create_rc.py
-+++ b/config/create_rc.py
-@@ -303,7 +303,7 @@ def generate_module_rc():
-         company=overrides.get("WIN32_MODULE_COMPANYNAME", "Mozilla Foundation"),
-         description=overrides.get("WIN32_MODULE_DESCRIPTION", ""),
-         mfversion=overrides.get("WIN32_MODULE_FILEVERSION_STRING", milestone_string),
--        mpversion=overrides.get("WIN32_MODULE_PRODUCTVERSION_STRING", milestone_string),
-+        mpversion=app_version_display,
-         module=overrides.get("WIN32_MODULE_NAME", ""),
-         trademarks=overrides.get("WIN32_MODULE_TRADEMARKS", "Mozilla"),
-         binary=overrides.get("WIN32_MODULE_ORIGINAL_FILENAME", binary),

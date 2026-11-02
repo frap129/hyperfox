@@ -1,5 +1,7 @@
+Allow setting a custom uBO bootstrap location via the librewolf.uBO.assetsBootstrapLocation preference
+---
 diff --git a/toolkit/components/extensions/parent/ext-storage.js b/toolkit/components/extensions/parent/ext-storage.js
-index 0d6109c..3bd8454 100644
+index 0d6109c250..3dce60b6d5 100644
 --- a/toolkit/components/extensions/parent/ext-storage.js
 +++ b/toolkit/components/extensions/parent/ext-storage.js
 @@ -411,6 +411,23 @@ this.storage = class extends ExtensionAPIPersistent {

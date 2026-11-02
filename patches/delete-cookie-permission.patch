@@ -1,5 +1,7 @@
+Delete the cookie permission on profile upgrade, due to it having being used for both sanitzing on shutdown exceptions and partitioning removal in the past
+---
 diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
-index 344f311..9197788 100644
+index 6cee3dcd7d..0f397dc74e 100644
 --- a/browser/components/ProfileDataUpgrader.sys.mjs
 +++ b/browser/components/ProfileDataUpgrader.sys.mjs
 @@ -1030,6 +1030,9 @@ export let ProfileDataUpgrader = {

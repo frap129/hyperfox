@@ -1,5 +1,7 @@
+Include the required files to the dump for shipping Mojeek as a default search engine option
+---
 diff --git a/services/settings/dumps/main/moz.build b/services/settings/dumps/main/moz.build
-index 88e740b..ee06f1f 100644
+index 88e740b90e..ee06f1ff23 100644
 --- a/services/settings/dumps/main/moz.build
 +++ b/services/settings/dumps/main/moz.build
 @@ -62,6 +62,8 @@ if CONFIG["MOZ_BUILD_APP"] == "browser":

@@ -1,5 +1,7 @@
+Add kurdish language support
+---
 diff --git a/browser/locales/shipped-locales b/browser/locales/shipped-locales
-index 41ee3f7..7f501f4 100644
+index 41ee3f73d9..7f501f4c73 100644
 --- a/browser/locales/shipped-locales
 +++ b/browser/locales/shipped-locales
 @@ -57,6 +57,7 @@ kk

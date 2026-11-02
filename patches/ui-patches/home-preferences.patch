@@ -1,9 +1,11 @@
+Hide UI elements to support Firefox
+---
 diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
-index fd2400d4d6..aadd970e24 100644
+index e30a31aa52..b0bdc2d102 100644
 --- a/browser/themes/shared/preferences/preferences.css
 +++ b/browser/themes/shared/preferences/preferences.css
-@@ -1523,6 +1523,11 @@
-   }
+@@ -1542,6 +1542,11 @@ setting-pane[onsearchpane] {
+   margin-block-start: var(--space-large);
  }
  
 +#support-firefox,

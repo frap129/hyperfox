@@ -1,5 +1,7 @@
+Various visual improvements to the trustpanel
+---
 diff --git a/browser/themes/shared/controlcenter/panel.css b/browser/themes/shared/controlcenter/panel.css
-index 7a5d6a7..1997c45 100644
+index 7a5d6a777c..1997c45d3f 100644
 --- a/browser/themes/shared/controlcenter/panel.css
 +++ b/browser/themes/shared/controlcenter/panel.css
 @@ -828,6 +828,138 @@

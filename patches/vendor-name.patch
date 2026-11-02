@@ -1,5 +1,7 @@
+Have getBrowserInfo return the same values as Firefox does by default, while allowing this to be toggled off for use with certain extensions. Do not print the vendor with --version or --full-version
+---
 diff --git a/toolkit/components/extensions/parent/ext-runtime.js b/toolkit/components/extensions/parent/ext-runtime.js
-index abc30a2..bda1643 100644
+index 22f03e99a8..65dc2a2ce9 100644
 --- a/toolkit/components/extensions/parent/ext-runtime.js
 +++ b/toolkit/components/extensions/parent/ext-runtime.js
 @@ -334,7 +334,16 @@ this.runtime = class extends ExtensionAPIPersistent {
@@ -21,10 +23,10 @@ index abc30a2..bda1643 100644
          },
  
 diff --git a/toolkit/xre/nsAppRunner.cpp b/toolkit/xre/nsAppRunner.cpp
-index 1cf5753..7c88751 100644
+index 003fc8545a..fdf8bcc141 100644
 --- a/toolkit/xre/nsAppRunner.cpp
 +++ b/toolkit/xre/nsAppRunner.cpp
-@@ -2256,9 +2256,6 @@ static void DumpHelp() {
+@@ -2250,9 +2250,6 @@ static void DumpHelp() {
  }
  
  static inline void DumpVersion() {
@@ -34,7 +36,7 @@ index 1cf5753..7c88751 100644
    printf("%s ", (const char*)gAppData->name);
  
    // Use the displayed version
-@@ -2272,9 +2269,6 @@ static inline void DumpVersion() {
+@@ -2266,9 +2263,6 @@ static inline void DumpVersion() {
  }
  
  static inline void DumpFullVersion() {

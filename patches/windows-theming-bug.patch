@@ -1,34 +1,108 @@
-# LibreWolf windows-theming-bug.patch
-#
-# Author:        Malte Jürgens <maltejur@dismail.de>
-# Description:   Fix broken titlebar on Windows
-# Last Updated:  2023-03-17
-# License:       MPL 2.0
-#
-# If we use `--with-app-name=librewolf`, Firefox will think it is running on a
-# super old windows version. This will cause it to make some changes
-# which break the titlebar styling (and probably also some other things).
-#
-# See:
-# https://codeberg.org/librewolf/issues/issues/908
-# https://bugzilla.mozilla.org/show_bug.cgi?id=1801640
-diff --git a/browser/app/firefox.exe.manifest b/browser/app/librewolf.exe.manifest
-similarity index 96%
-rename from browser/app/firefox.exe.manifest
-rename to browser/app/librewolf.exe.manifest
+If we use --with-app-name=librewolf, Firefox will think it is running on a super old windows version. This will cause it to make some changes which break the titlebar styling (and probably also some other things). See: https://codeberg.org/librewolf/issues/issues/908 https://bugzilla.mozilla.org/show_bug.cgi?id=1801640
+---
+diff --git a/browser/app/firefox.exe.manifest b/browser/app/firefox.exe.manifest
+deleted file mode 100644
+index 995b2fc869..0000000000
 --- a/browser/app/firefox.exe.manifest
-+++ b/browser/app/librewolf.exe.manifest
-@@ -3,10 +3,10 @@
- <assemblyIdentity
-         version="1.0.0.0"
-         processorArchitecture="*"
++++ /dev/null
+@@ -1,47 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+-<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+-<assemblyIdentity
+-        version="1.0.0.0"
+-        processorArchitecture="*"
 -        name="Firefox"
-+        name="LibreWolf"
-         type="win32"
- />
+-        type="win32"
+-/>
 -<description>Firefox</description>
+-<dependency>
+-        <dependentAssembly>
+-                <assemblyIdentity
+-                        type="win32"
+-                        name="Microsoft.Windows.Common-Controls"
+-                        version="6.0.0.0"
+-                        processorArchitecture="*"
+-                        publicKeyToken="6595b64144ccf1df"
+-                        language="*"
+-                />
+-        </dependentAssembly>
+-</dependency>
+-<dependency>
+-        <dependentAssembly>
+-                <assemblyIdentity
+-                        type="win32"
+-                        name="mozglue"
+-                        version="1.0.0.0"
+-                        language="*"
+-                />
+-        </dependentAssembly>
+-</dependency>
+-<ms_asmv3:trustInfo xmlns:ms_asmv3="urn:schemas-microsoft-com:asm.v3">
+-  <ms_asmv3:security>
+-    <ms_asmv3:requestedPrivileges>
+-      <ms_asmv3:requestedExecutionLevel level="asInvoker" uiAccess="false" />
+-    </ms_asmv3:requestedPrivileges>
+-  </ms_asmv3:security>
+-</ms_asmv3:trustInfo>
+-  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+-    <application>
+-      <supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"/>
+-      <supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}"/>
+-      <supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"/>
+-      <supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>
+-    </application>
+-  </compatibility>
+-</assembly>
+diff --git a/browser/app/librewolf.exe.manifest b/browser/app/librewolf.exe.manifest
+new file mode 100644
+index 0000000000..cad0ac6b6a
+--- /dev/null
++++ b/browser/app/librewolf.exe.manifest
+@@ -0,0 +1,47 @@
++<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
++<assemblyIdentity
++        version="1.0.0.0"
++        processorArchitecture="*"
++        name="LibreWolf"
++        type="win32"
++/>
 +<description>LibreWolf</description>
- <dependency>
-         <dependentAssembly>
-                 <assemblyIdentity
-
++<dependency>
++        <dependentAssembly>
++                <assemblyIdentity
++                        type="win32"
++                        name="Microsoft.Windows.Common-Controls"
++                        version="6.0.0.0"
++                        processorArchitecture="*"
++                        publicKeyToken="6595b64144ccf1df"
++                        language="*"
++                />
++        </dependentAssembly>
++</dependency>
++<dependency>
++        <dependentAssembly>
++                <assemblyIdentity
++                        type="win32"
++                        name="mozglue"
++                        version="1.0.0.0"
++                        language="*"
++                />
++        </dependentAssembly>
++</dependency>
++<ms_asmv3:trustInfo xmlns:ms_asmv3="urn:schemas-microsoft-com:asm.v3">
++  <ms_asmv3:security>
++    <ms_asmv3:requestedPrivileges>
++      <ms_asmv3:requestedExecutionLevel level="asInvoker" uiAccess="false" />
++    </ms_asmv3:requestedPrivileges>
++  </ms_asmv3:security>
++</ms_asmv3:trustInfo>
++  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
++    <application>
++      <supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"/>
++      <supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}"/>
++      <supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"/>
++      <supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>
++    </application>
++  </compatibility>
++</assembly>

@@ -13,3 +13,7 @@ permissions-site-canvas-window2 =
     .title = Instellingen - Canvas-toestemming
     .style = { permissions-window2.style }
 permissions-site-canvas-desc = De volgende websites hebben toestemming gevraagd om canvasgegevens op te halen. Geef hier aan welke websites toestemming krijgen om canvasgegevens op te halen of expliciet geen toestemming hebben.
+permissions-site-jit-window2 =
+    .title = Instellingen - JavaScript JIT-toestemming
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Voor onderstaande websites is ingesteld of ze JavaScript JIT mogen gebruiken. Het uitschakelen van JavaScript JIT kan de beveiliging verbeteren door de kans op bepaalde code execution-aanvallen te verminderen, maar kan websites en apps trager maken. WebAssembly kan niet functioneren als JIT is uitgeschakeld.

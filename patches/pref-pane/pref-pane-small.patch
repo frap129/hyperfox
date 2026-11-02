@@ -1,87 +1,22 @@
+Patch the old settings design to include our own pane and changes
+---
 diff --git a/browser/components/preferences/jar.mn b/browser/components/preferences/jar.mn
-index 6fd90b4..43d2421 100644
+index e6e04daba9..545579c164 100644
 --- a/browser/components/preferences/jar.mn
 +++ b/browser/components/preferences/jar.mn
-@@ -12,6 +12,7 @@ browser.jar:
-    content/browser/preferences/home.js
+@@ -11,6 +11,7 @@ browser.jar:
+    content/browser/preferences/translations.js
     content/browser/preferences/search.js
     content/browser/preferences/privacy.js
 +   content/browser/preferences/librewolf.js
     content/browser/preferences/sync.js
     content/browser/preferences/moreFromMozilla.js
     content/browser/preferences/fxaPairDevice.xhtml
-diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index c76a064..845d0dc 100644
---- a/browser/components/preferences/preferences.js
-+++ b/browser/components/preferences/preferences.js
-@@ -7,6 +7,7 @@
- /* import-globals-from home.js */
- /* import-globals-from search.js */
- /* import-globals-from privacy.js */
-+/* import-globals-from librewolf.js */
- /* import-globals-from sync.js */
- /* import-globals-from moreFromMozilla.js */
- /* import-globals-from findInPage.js */
-diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
-index 1b8c381..b5531ac 100644
---- a/browser/components/preferences/preferences.xhtml
-+++ b/browser/components/preferences/preferences.xhtml
-@@ -35,6 +35,7 @@
-   <link rel="stylesheet" href="chrome://browser/skin/preferences/search.css" />
-   <link rel="stylesheet" href="chrome://browser/content/usercontext/usercontext.css" />
-   <link rel="stylesheet" href="chrome://browser/skin/preferences/privacy.css" />
-+  <link rel="stylesheet" href="chrome://browser/skin/preferences/librewolf.css" />
-   <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-group.css" />
-   <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-pane.css" />
-   <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-control.css" />
-@@ -170,10 +171,10 @@
-         iconsrc="chrome://browser/skin/translations.svg"
-         data-l10n-id="pane-languages-title2">
-       </html:moz-page-nav-button>
--      <html:moz-page-nav-button id="category-ai-features"
--        view="paneAi"
--        iconsrc="chrome://global/skin/icons/highlights.svg"
--        data-l10n-id="pane-ai-controls-title2">
-+      <html:moz-page-nav-button id="category-librewolf"
-+        view="paneLibrewolf"
-+        iconsrc="chrome://browser/skin/preferences/category-librewolf.svg"
-+        data-l10n-id="pane-librewolf-title2">
-       </html:moz-page-nav-button>
-       <html:moz-page-nav-button id="category-permissions-data"
-         view="panePermissionsData"
-@@ -246,6 +247,7 @@
- #include home.inc.xhtml
- #include search.inc.xhtml
- #include privacy.inc.xhtml
-+#include librewolf.inc.xhtml
- #include sync.inc.xhtml
- #include moreFromMozilla.inc.xhtml
-         </vbox>
-diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index c2bebf7e96..62ab632cec 100644
---- a/browser/themes/shared/jar.inc.mn
-+++ b/browser/themes/shared/jar.inc.mn
-@@ -114,6 +114,7 @@
-   skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
-   skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
-   skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
-+  skin/classic/browser/preferences/category-librewolf.svg    (../shared/preferences/category-librewolf.svg)
-   skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
-   skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
-   skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -131,6 +132,7 @@
-   skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
-   skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
-   skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
-+  skin/classic/browser/preferences/librewolf.css               (../shared/preferences/librewolf.css)
-   skin/classic/browser/translations/panel.css                  (../shared/translations/panel.css)
-   skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
-   skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index a8de115..f6885f1 100644
+index 79ace61162..725c226b2c 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -571,6 +571,79 @@ SettingGroupManager.registerGroups({
+@@ -577,6 +577,79 @@ SettingGroupManager.registerGroups({
    startup: createStartupConfig(
      Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)
    ),
@@ -161,3 +96,70 @@ index a8de115..f6885f1 100644
  });
  
  /**
+diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
+index 8b3acf475a..b4c3b04330 100644
+--- a/browser/components/preferences/preferences.js
++++ b/browser/components/preferences/preferences.js
+@@ -6,6 +6,7 @@
+ /* import-globals-from main.js */
+ /* import-globals-from search.js */
+ /* import-globals-from privacy.js */
++/* import-globals-from librewolf.js */
+ /* import-globals-from sync.js */
+ /* import-globals-from moreFromMozilla.js */
+ /* import-globals-from findInPage.js */
+diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
+index e8da75f2c2..038d6f631f 100644
+--- a/browser/components/preferences/preferences.xhtml
++++ b/browser/components/preferences/preferences.xhtml
+@@ -35,6 +35,7 @@
+   <link rel="stylesheet" href="chrome://browser/skin/preferences/search.css" />
+   <link rel="stylesheet" href="chrome://browser/content/usercontext/usercontext.css" />
+   <link rel="stylesheet" href="chrome://browser/skin/preferences/privacy.css" />
++  <link rel="stylesheet" href="chrome://browser/skin/preferences/librewolf.css" />
+   <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-group.css" />
+   <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-pane.css" />
+   <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-control.css" />
+@@ -173,10 +174,10 @@
+         iconsrc="chrome://browser/skin/translations.svg"
+         data-l10n-id="pane-languages-title2">
+       </html:moz-page-nav-button>
+-      <html:moz-page-nav-button id="category-ai-features"
+-        view="paneAi"
+-        iconsrc="chrome://global/skin/icons/highlights.svg"
+-        data-l10n-id="pane-ai-controls-title2">
++      <html:moz-page-nav-button id="category-librewolf"
++        view="paneLibrewolf"
++        iconsrc="chrome://browser/skin/preferences/category-librewolf.svg"
++        data-l10n-id="pane-librewolf-title2">
+       </html:moz-page-nav-button>
+       <html:moz-page-nav-button id="category-permissions-data"
+         view="panePermissionsData"
+@@ -255,6 +256,7 @@
+ #include main.inc.xhtml
+ #include search.inc.xhtml
+ #include privacy.inc.xhtml
++#include librewolf.inc.xhtml
+ #include sync.inc.xhtml
+ #include moreFromMozilla.inc.xhtml
+         </vbox>
+diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
+index 25f91e51e3..d278bd8139 100644
+--- a/browser/themes/shared/jar.inc.mn
++++ b/browser/themes/shared/jar.inc.mn
+@@ -169,6 +169,7 @@
+   skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
+   skin/classic/browser/preferences/category-accessibility.svg  (../shared/preferences/category-accessibility.svg)
+   skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
++  skin/classic/browser/preferences/category-librewolf.svg    (../shared/preferences/category-librewolf.svg)
+   skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
+   skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
+   skin/classic/browser/preferences/dialog.css                  (../shared/preferences/dialog.css)
+@@ -185,6 +186,7 @@
+   skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
+   skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
+   skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
++  skin/classic/browser/preferences/librewolf.css               (../shared/preferences/librewolf.css)
+   skin/classic/browser/translations/panel.css                  (../shared/translations/panel.css)
+   skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
+   skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)

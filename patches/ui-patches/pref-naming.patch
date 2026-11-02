@@ -1,20 +1,24 @@
+Adjust the DRM and update strings
+---
+diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
+index 0097319b49..a9f3fe86dc 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -489,7 +491,7 @@ play-drm-content =
+@@ -743,7 +743,7 @@ play-drm-content =
      .label = Play DRM-controlled content
      .accesskey = P
  
 -play-drm-content-learn-more = Learn more
 +play-drm-content-learn-more = Why we disable it
  
- update-application-title = { -brand-short-name } Updates
+ ## About Firefox
  
-@@ -497,7 +499,7 @@ update-application-description = Keep { -brand-short-name } up to date for the b
+@@ -764,7 +764,7 @@ update-application-updates-managed-by-os =
  
  # Variables:
  # $version (string) - Firefox version
 -update-application-version = Version { $version } <a data-l10n-name="learn-more">What’s new</a>
 +update-application-version = Version { $version } <a data-l10n-name="learn-more">Visit the repositories</a>
  
- update-history =
-     .label = Show Update History…
+ update-history-2 =
+     .label = Show update history

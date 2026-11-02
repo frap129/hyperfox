@@ -1,8 +1,10 @@
+Add a per-site toggle in the legacy identity and the new trust panel UI to add the site to the sanitizing exceptions
+---
 diff --git a/browser/base/content/browser-siteIdentity.js b/browser/base/content/browser-siteIdentity.js
-index d0ba6ac670f4..a7dc8393e9de 100644
+index 5db8eb880c..a309d8647a 100644
 --- a/browser/base/content/browser-siteIdentity.js
 +++ b/browser/base/content/browser-siteIdentity.js
-@@ -204,6 +204,9 @@ var gIdentityHandler = {
+@@ -234,6 +234,9 @@ var gIdentityHandler = {
        "identity-popup-clear-sitedata-button": event => {
          this.clearSiteData(event);
        },
@@ -12,7 +14,7 @@ index d0ba6ac670f4..a7dc8393e9de 100644
        "identity-popup-remove-cert-exception": () => {
          this.removeCertException();
        },
-@@ -457,6 +460,33 @@ var gIdentityHandler = {
+@@ -504,6 +507,33 @@ var gIdentityHandler = {
      event.stopPropagation();
    },
  
@@ -46,7 +48,7 @@ index d0ba6ac670f4..a7dc8393e9de 100644
    /**
     * Handler for mouseclicks on the "More Information" button in the
     * "identity-popup" panel.
-@@ -1217,6 +1247,8 @@ var gIdentityHandler = {
+@@ -1255,6 +1285,8 @@ var gIdentityHandler = {
      this._identityPopupContentOwner.textContent = owner;
      this._identityPopupContentSupp.textContent = supplemental;
      this._identityPopupContentVerif.textContent = verifier;
@@ -55,27 +57,11 @@ index d0ba6ac670f4..a7dc8393e9de 100644
    },
  
    setURI(uri) {
-diff --git a/browser/components/controlcenter/content/identityPanel.inc.xhtml b/browser/components/controlcenter/content/identityPanel.inc.xhtml
-index 768768c7d448..08602d9460c6 100644
---- a/browser/components/controlcenter/content/identityPanel.inc.xhtml
-+++ b/browser/components/controlcenter/content/identityPanel.inc.xhtml
-@@ -98,6 +98,11 @@
-         <toolbarbutton id="identity-popup-clear-sitedata-button"
-                 data-l10n-id="identity-clear-site-data"
-                 class="subviewbutton"/>
-+        <toolbarbutton id="identity-popup-allow-sitedata-button"
-+                class="subviewbutton">
-+          <label data-l10n-id="identity-allow-site-data" flex="1"></label>
-+          <html:moz-toggle id="identity-popup-allow-sitedata-toggle" style="pointer-events: none;"></html:moz-toggle>
-+        </toolbarbutton>
-       </vbox>
-     </panelview>
-
 diff --git a/browser/base/content/browser-trustPanel.js b/browser/base/content/browser-trustPanel.js
-index a6ccf07..0d8d644 100644
+index 3b692ef7bf..3673c1ff69 100644
 --- a/browser/base/content/browser-trustPanel.js
 +++ b/browser/base/content/browser-trustPanel.js
-@@ -310,6 +310,9 @@ class TrustPanel {
+@@ -345,6 +345,9 @@ class TrustPanel {
        document
          .getElementById("trustpanel-toggle")
          .addEventListener("click", () => this.#toggleTrackingProtection());
@@ -85,8 +71,8 @@ index a6ccf07..0d8d644 100644
        document
          .getElementById("identity-popup-remove-cert-exception")
          .addEventListener("click", () => this.#removeCertException());
-@@ -322,6 +325,30 @@ class TrustPanel {
-     }
+@@ -445,6 +448,30 @@ class TrustPanel {
+     BrowserCommands.reload();
    }
  
 +  #toggleCookiesAllowed() {
@@ -114,19 +100,19 @@ index a6ccf07..0d8d644 100644
 +  }
 +
    async showPopup(opts = {}) {
-     this.#initializePopup();
- 
-@@ -531,6 +558,9 @@ class TrustPanel {
-       { host: this.#host }
+     // Avoid flicker between the mouseup and panel shown by manually
+     // setting open attribute.
+@@ -839,6 +866,9 @@ class TrustPanel {
+       { host: this.#displayHost }
      );
  
 +    let toggleCookies = document.getElementById("identity-popup-allow-sitedata-toggle");
 +    toggleCookies.toggleAttribute("pressed", this.#areCookiesAllowed());
 +
      let hostElement = document.getElementById("trustpanel-popup-host");
-     hostElement.setAttribute("value", this.#host);
-     hostElement.setAttribute("tooltiptext", this.#host);
-@@ -570,6 +600,11 @@ class TrustPanel {
+     hostElement.setAttribute("value", this.#displayHost);
+     hostElement.setAttribute("tooltiptext", this.#displayHost);
+@@ -878,6 +908,11 @@ class TrustPanel {
        "hidden",
        isPrivate
      );
@@ -138,8 +124,24 @@ index a6ccf07..0d8d644 100644
      if (!isPrivate) {
        try {
          let baseDomain = SiteDataManager.getBaseDomainFromHost(this.#uri.host);
+diff --git a/browser/components/controlcenter/content/identityPanel.inc.xhtml b/browser/components/controlcenter/content/identityPanel.inc.xhtml
+index 7135a8cb0d..ff6b46d5dd 100644
+--- a/browser/components/controlcenter/content/identityPanel.inc.xhtml
++++ b/browser/components/controlcenter/content/identityPanel.inc.xhtml
+@@ -98,6 +98,11 @@
+         <toolbarbutton id="identity-popup-clear-sitedata-button"
+                 data-l10n-id="identity-clear-site-data"
+                 class="subviewbutton"/>
++        <toolbarbutton id="identity-popup-allow-sitedata-button"
++                class="subviewbutton">
++          <label data-l10n-id="identity-allow-site-data" flex="1"></label>
++          <html:moz-toggle id="identity-popup-allow-sitedata-toggle" style="pointer-events: none;"></html:moz-toggle>
++        </toolbarbutton>
+       </vbox>
+       <vbox id="identity-popup-jit-footer"
+             class="panel-subview-footer-button">
 diff --git a/browser/components/controlcenter/content/trustPanel.inc.xhtml b/browser/components/controlcenter/content/trustPanel.inc.xhtml
-index 000e6bd..4ef1b46 100644
+index 000e6bd625..4ef1b460af 100644
 --- a/browser/components/controlcenter/content/trustPanel.inc.xhtml
 +++ b/browser/components/controlcenter/content/trustPanel.inc.xhtml
 @@ -75,6 +75,13 @@

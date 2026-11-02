@@ -1,8 +1,10 @@
+Use LibreWolf specific data and extension paths while retaining Mozilla native-manifest paths for compatibility
+---
 diff --git a/toolkit/components/extensions/NativeManifests.sys.mjs b/toolkit/components/extensions/NativeManifests.sys.mjs
-index 59313e821f..f3a7caa057 100644
+index 48d7d50cde..fbf39fba0d 100644
 --- a/toolkit/components/extensions/NativeManifests.sys.mjs
 +++ b/toolkit/components/extensions/NativeManifests.sys.mjs
-@@ -40,6 +40,8 @@
+@@ -37,6 +37,8 @@ export var NativeManifests = {
          let dirs = [
            Services.dirsvc.get("XREUserNativeManifests", Ci.nsIFile).path,
            Services.dirsvc.get("XRESysNativeManifests", Ci.nsIFile).path,
@@ -12,10 +14,10 @@ index 59313e821f..f3a7caa057 100644
          this._lookup = (type, name, context) =>
            this._tryPaths(type, name, dirs, context);
 diff --git a/toolkit/xre/nsXREDirProvider.cpp b/toolkit/xre/nsXREDirProvider.cpp
-index 6445643..6eff23e 100644
+index 2f4f5aab15..24d83195ed 100644
 --- a/toolkit/xre/nsXREDirProvider.cpp
 +++ b/toolkit/xre/nsXREDirProvider.cpp
-@@ -316,23 +316,25 @@ nsresult nsXREDirProvider::GetBackgroundTasksProfilesRootDir(
+@@ -332,23 +332,25 @@ nsresult nsXREDirProvider::GetBackgroundTasksProfilesRootDir(
   * On Linux this is /usr/{lib,lib64}/mozilla
   *   (for 32- and 64-bit systems respsectively)
   */
@@ -47,7 +49,7 @@ index 6445643..6eff23e 100644
  #    endif
        ;
    rv = NS_NewNativeLocalFile(dirname, getter_AddRefs(localDir));
-@@ -400,11 +402,21 @@ nsXREDirProvider::GetFile(const char* aProperty, bool* aPersistent,
+@@ -416,11 +418,21 @@ nsXREDirProvider::GetFile(const char* aProperty, bool* aPersistent,
  #if defined(XP_UNIX) || defined(XP_MACOSX)
    else if (!strcmp(aProperty, XRE_SYS_NATIVE_MANIFESTS)) {
      rv = ::GetSystemParentDirectory(getter_AddRefs(file));
@@ -69,7 +71,7 @@ index 6445643..6eff23e 100644
  #  if defined(XP_MACOSX)
      rv = file->AppendNative("Mozilla"_ns);
  #  else   // defined(XP_MACOSX)
-@@ -438,9 +450,9 @@ nsXREDirProvider::GetFile(const char* aProperty, bool* aPersistent,
+@@ -454,9 +466,9 @@ nsXREDirProvider::GetFile(const char* aProperty, bool* aPersistent,
    else if (!strcmp(aProperty, XRE_SYS_SHARE_EXTENSION_PARENT_DIR)) {
  #  ifdef ENABLE_SYSTEM_EXTENSION_DIRS
  #    if defined(__OpenBSD__) || defined(__FreeBSD__)
@@ -81,7 +83,7 @@ index 6445643..6eff23e 100644
  #    endif
      rv = NS_NewNativeLocalFile(nsDependentCString(sysLExtDir),
                                 getter_AddRefs(file));
-@@ -967,13 +979,7 @@ nsresult nsXREDirProvider::GetUpdateRootDir(nsIFile** aResult,
+@@ -980,13 +992,7 @@ nsresult nsXREDirProvider::GetUpdateRootDir(nsIFile** aResult,
    }
    appDirPath = Substring(appDirPath, 1, dotIndex - 1);
  
@@ -96,7 +98,7 @@ index 6445643..6eff23e 100644
      return NS_ERROR_FAILURE;
    }
  
-@@ -1266,7 +1272,7 @@ nsresult nsXREDirProvider::AppendSysUserExtensionPath(nsIFile* aFile) {
+@@ -1283,7 +1289,7 @@ nsresult nsXREDirProvider::AppendSysUserExtensionPath(nsIFile* aFile) {
  
  #if defined(XP_MACOSX) || defined(XP_WIN)
  
@@ -105,7 +107,7 @@ index 6445643..6eff23e 100644
    rv = aFile->AppendNative(nsDependentCString(sXR));
    NS_ENSURE_SUCCESS(rv, rv);
  
-@@ -1276,7 +1282,7 @@ nsresult nsXREDirProvider::AppendSysUserExtensionPath(nsIFile* aFile) {
+@@ -1293,7 +1299,7 @@ nsresult nsXREDirProvider::AppendSysUserExtensionPath(nsIFile* aFile) {
  
  #elif defined(XP_UNIX)
  
@@ -114,7 +116,7 @@ index 6445643..6eff23e 100644
    rv = aFile->AppendNative(nsDependentCString(sXR));
    NS_ENSURE_SUCCESS(rv, rv);
  
-@@ -1562,10 +1568,6 @@ nsresult nsXREDirProvider::AppendProfilePath(nsIFile* aFile, bool aLocal) {
+@@ -1598,10 +1604,6 @@ nsresult nsXREDirProvider::AppendProfilePath(nsIFile* aFile, bool aLocal) {
    if (!profile.IsEmpty()) {
      rv = AppendProfileString(aFile, profile.get());
    } else {
@@ -125,9 +127,9 @@ index 6445643..6eff23e 100644
      rv = aFile->AppendNative(appName);
    }
    NS_ENSURE_SUCCESS(rv, rv);
-@@ -1603,16 +1605,6 @@ nsresult nsXREDirProvider::AppendProfilePath(nsIFile* aFile, bool aLocal) {
+@@ -1639,16 +1641,6 @@ nsresult nsXREDirProvider::AppendProfilePath(nsIFile* aFile, bool aLocal) {
  
-     rv = AppendProfileString(aFile, folder.BeginReading());
+     rv = AppendProfileString(aFile, folder.get());
    } else {
 -    if (!vendor.IsEmpty()) {
 -      folder.Append(vendor);
@@ -143,10 +145,10 @@ index 6445643..6eff23e 100644
      if (!appName.IsEmpty()) {
        folder.Append(appName);
 diff --git a/xpcom/build/nsXULAppAPI.h b/xpcom/build/nsXULAppAPI.h
-index 28a2a68c63..b0917fb9b8 100644
+index 3e099cd130..8a56a132c3 100644
 --- a/xpcom/build/nsXULAppAPI.h
 +++ b/xpcom/build/nsXULAppAPI.h
-@@ -116,6 +116,8 @@
+@@ -113,6 +113,8 @@ struct BootstrapConfig;
   */
  #  define XRE_SYS_NATIVE_MANIFESTS "XRESysNativeManifests"
  #  define XRE_USER_NATIVE_MANIFESTS "XREUserNativeManifests"
@@ -155,4 +157,3 @@ index 28a2a68c63..b0917fb9b8 100644
  #endif
  
  /**
-

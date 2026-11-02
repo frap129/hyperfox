@@ -1,9 +1,10 @@
-# Adapted from https://gitlab.torproject.org/tpo/applications/mullvad-browser/-/merge_requests/263
+Add a notification that the Mullvad DNS service is being discontinued. Adapted from https://gitlab.torproject.org/tpo/applications/mullvad-browser/-/merge_requests/263
+---
 diff --git a/browser/base/content/browser-main.js b/browser/base/content/browser-main.js
-index 1ff101a..5e902fc 100644
+index 64f1449df6..650a869138 100644
 --- a/browser/base/content/browser-main.js
 +++ b/browser/base/content/browser-main.js
-@@ -31,6 +31,7 @@
+@@ -30,6 +30,7 @@
    Services.scriptloader.loadSubScript("chrome://browser/content/places/places-menupopup.js", this);
    Services.scriptloader.loadSubScript("chrome://browser/content/search/autocomplete-popup.js", this);
    Services.scriptloader.loadSubScript("chrome://browser/content/search/searchbar.js", this);
@@ -13,7 +14,7 @@ index 1ff101a..5e902fc 100644
    }
 diff --git a/browser/base/content/mullvadDoHNotification.js b/browser/base/content/mullvadDoHNotification.js
 new file mode 100644
-index 00000000000..08731072dd7
+index 0000000000..08731072dd
 --- /dev/null
 +++ b/browser/base/content/mullvadDoHNotification.js
 @@ -0,0 +1,67 @@
@@ -85,10 +86,10 @@ index 00000000000..08731072dd7
 +  );
 +});
 diff --git a/browser/base/jar.mn b/browser/base/jar.mn
-index 783c67d..071f294 100644
+index 8a0563fdc6..eb8e3727df 100644
 --- a/browser/base/jar.mn
 +++ b/browser/base/jar.mn
-@@ -101,6 +101,7 @@ browser.jar:
+@@ -99,6 +99,7 @@ browser.jar:
          content/browser/spotlight.html                (content/spotlight.html)
          content/browser/spotlight.js                  (content/spotlight.js)
  *       content/browser/default-bookmarks.html        (content/default-bookmarks.html)
@@ -97,10 +98,10 @@ index 783c67d..071f294 100644
  # L10n resources and overrides.
  % override chrome://global/locale/appstrings.properties chrome://browser/locale/appstrings.properties
 diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
-index 6cee3dc..f12514e 100644
+index e16e297b64..ce4f444716 100644
 --- a/browser/components/ProfileDataUpgrader.sys.mjs
 +++ b/browser/components/ProfileDataUpgrader.sys.mjs
-@@ -1139,6 +1139,14 @@ export let ProfileDataUpgrader = {
+@@ -1164,6 +1164,14 @@ export let ProfileDataUpgrader = {
  
        // We need to override this in order to roll the new sidebar out to everyone
        Services.prefs.clearUserPref("sidebar.revamp");
