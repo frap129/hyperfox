@@ -1,0 +1,30 @@
+FROM debian:trixie-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+ARG OSSIGN_ASC_KEY
+
+RUN printf '%s' "$OSSIGN_ASC_KEY" > /etc/apt/keyrings/forgejo-OSSign.asc && \
+    echo "deb [signed-by=/etc/apt/keyrings/forgejo-OSSign.asc] https://vcs.fi/api/packages/OSSign/debian stable main" > /etc/apt/sources.list.d/forgejo.list
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        curl ca-certificates gnupg lsb-release nodejs s3cmd ossign gawk git libnss3-tools libnss3 libnspr4 \
+        make lbzip2 zip mono-complete jq gettext-base python3-pip xz-utils && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
+        "https://librewolf.dev/api/packages/librewolf/generic/signmar/latest/signmar" -o "signmar" && \
+    printf '%s  %s\n' 'ac0e32bedf1027fa292bf42a22ef4126885f08d58124a9cb84f1c2164cb831906eba28e581e3e7d88dd31791858525fadf6f4abc94139beefd997712e11ccb0' 'signmar' | sha512sum -c - && \
+    chmod +x signmar && \
+    mv signmar /usr/local/bin/
+
+RUN curl -qfLA "" --no-sessionid --proto =https --tlsv1.2 \
+        https://github.com/chocolatey/choco/releases/download/2.7.5/chocolatey.v2.7.5.tar.gz -o "chocolatey.tar.gz" && \
+    printf '%s  %s\n' '995dae978d9fb0c0a5fae96c84fb90cc2fe1bb86bb33b358bb3d49611713648b' 'chocolatey.tar.gz' | sha256sum -c - && \
+    mkdir -p /root/.mozbuild/chocolatey && \
+    tar -xzf chocolatey.tar.gz -C /root/.mozbuild/chocolatey && \
+    printf '#!/bin/bash\nset -e\nmono "$(dirname $(readlink -f "$0"))/choco.exe" "$@"\n' > /root/.mozbuild/chocolatey/choco && \
+    chmod +x /root/.mozbuild/chocolatey/choco
+
+RUN pip3 install --break-system-packages azure-storage-blob
