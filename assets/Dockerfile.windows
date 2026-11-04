@@ -1,0 +1,65 @@
+FROM debian:trixie-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+ARG OSSIGN_ASC_KEY
+
+RUN printf '%s' "$OSSIGN_ASC_KEY" > /etc/apt/keyrings/forgejo-OSSign.asc && \
+    echo "deb [signed-by=/etc/apt/keyrings/forgejo-OSSign.asc] https://vcs.fi/api/packages/OSSign/debian stable main" > /etc/apt/sources.list.d/forgejo.list
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3-pip msitools zstd libc6-i386 jq file xz-utils \
+        nodejs zip unzip mono-complete gettext-base pkg-config \
+        mingw-w64-tools git-lfs ossign make patch pigz gnupg s3cmd && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+        sh -s -- -y --profile minimal --default-toolchain 1.99.1 --target x86_64-pc-windows-msvc --target aarch64-pc-windows-msvc
+
+RUN curl -qfLA "" --no-sessionid --proto =https --tlsv1.2 \
+        https://github.com/chocolatey/choco/releases/download/2.7.5/chocolatey.v2.7.5.tar.gz -o "chocolatey.tar.gz" && \
+    printf '%s  %s\n' '995dae978d9fb0c0a5fae96c84fb90cc2fe1bb86bb33b358bb3d49611713648b' 'chocolatey.tar.gz' | sha256sum -c - && \
+    mkdir -p /root/.mozbuild/chocolatey && \
+    tar -xzf chocolatey.tar.gz -C /root/.mozbuild/chocolatey && \
+    printf '#!/bin/bash\nset -e\nmono "$(dirname $(readlink -f "$0"))/choco.exe" "$@"\n' > /root/.mozbuild/chocolatey/choco && \
+    chmod +x /root/.mozbuild/chocolatey/choco
+
+ARG FORGE_URL=https://librewolf.dev
+ARG FORGE_REPO_OWNER=librewolf
+ARG VERSION
+ARG PUBKEY
+
+RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
+        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz \
+        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz.sig && \
+    printf '%s' "$PUBKEY" | gpg --import && \
+    gpg --verify librewolf-${VERSION}.source.tar.gz.sig librewolf-${VERSION}.source.tar.gz && \
+    tar -xf librewolf-${VERSION}.source.tar.gz && \
+    # Download needed build artifacts
+    ./librewolf-${VERSION}/mach artifact toolchain --from-build \
+        linux64-clang-23 sysroot-x86_64-linux-gnu linux64-pkgconf \
+        linux64-cbindgen linux64-node-24 linux64-nasm sysroot-wasm32-wasi-clang-23 \
+        linux64-winchecksec dxc-aarch64-pc-windows-msvc dxc-x86_64-pc-windows-msvc \
+        winappsdk-x86_64-pc-windows-msvc winappsdk-aarch64-pc-windows-msvc onnxruntime-x86_64-linux-gnu \
+        linux64-wine linux64-msix-packaging linux64-mingw-fxc2-x86 nsis fetch-windows-rs linux64-7zz && \
+    cd librewolf-${VERSION} && \
+    ./mach --no-interactive python --virtualenv build \
+        taskcluster/scripts/misc/get_vs.py build/vs/vs2026.yaml \
+        /root/.mozbuild/win-cross/vs && \
+    cd .. && \
+    # Move artifacts to .mozbuild
+    mv  clang sysroot-x86_64-linux-gnu pkgconf \
+        cbindgen node nasm sysroot-wasm32-wasi \
+        onnxruntime-x86_64-linux-gnu winchecksec \
+        wine msix-packaging fxc2 nsis dxc-aarch64-pc-windows-msvc \
+        dxc-x86_64-pc-windows-msvc winappsdk-x86_64-pc-windows-msvc winappsdk-aarch64-pc-windows-msvc windows-rs 7zz \
+        /root/.mozbuild/ && \
+    # Cleanup
+    rm -rf \
+        librewolf-${VERSION}.source.tar.gz \
+        librewolf-${VERSION}.source.tar.gz.sig \
+        /root/.mozbuild/toolchains librewolf-${VERSION} \
+        /root/.mozbuild/srcdirs /root/.mozbuild/mach_func_cache \
+        /root/.mozbuild/glean /root/.cache \
+        /root/.gnupg
