@@ -46,7 +46,7 @@ RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
     cd librewolf-${VERSION} && \
     ./mach --no-interactive python --virtualenv build \
         taskcluster/scripts/misc/get_vs.py build/vs/vs2026.yaml \
-        /root/.mozbuild/win-cross/vs && \
+        /root/.mozbuild/vs && \
     cd .. && \
     # Move artifacts to .mozbuild
     mv  clang sysroot-x86_64-linux-gnu pkgconf \
