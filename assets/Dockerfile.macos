@@ -1,0 +1,61 @@
+FROM debian:trixie-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        curl ca-certificates python3-pip rsync zip unzip python3-testresources libnss3 libnspr4 \
+        jq file nodejs git-lfs make patch pigz gnupg xz-utils s3cmd xattr libnss3-tools && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+        sh -s -- -y --profile minimal --default-toolchain 1.99.1 --target x86_64-apple-darwin --target aarch64-apple-darwin
+
+RUN curl -qfLA "" --no-sessionid --proto =https --tlsv1.2 \
+        "https://github.com/indygreg/apple-platform-rs/releases/download/apple-codesign/0.29.0/apple-codesign-0.29.0-x86_64-unknown-linux-musl.tar.gz" -o "rcodesign.tar.gz" && \
+    printf '%s  %s\n' 'dbe85cedd8ee4217b64e9a0e4c2aef92ab8bcaaa41f20bde99781ff02e600002' 'rcodesign.tar.gz' | sha256sum -c - && \
+    tar -xzf rcodesign.tar.gz --strip-components=1 -C /usr/local/bin apple-codesign-0.29.0-x86_64-unknown-linux-musl/rcodesign && \
+    rm rcodesign.tar.gz
+
+RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
+        "https://librewolf.dev/api/packages/librewolf/generic/signmar/latest/signmar" -o "signmar" && \
+    printf '%s  %s\n' 'ac0e32bedf1027fa292bf42a22ef4126885f08d58124a9cb84f1c2164cb831906eba28e581e3e7d88dd31791858525fadf6f4abc94139beefd997712e11ccb0' 'signmar' | sha512sum -c - && \
+    chmod +x signmar && \
+    mv signmar /usr/local/bin/
+
+
+ARG FORGE_URL=https://librewolf.dev
+ARG FORGE_REPO_OWNER=librewolf
+ARG VERSION
+ARG PUBKEY
+
+RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
+        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz \
+        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz.sig && \
+    printf '%s' "$PUBKEY" | gpg --import && \
+    gpg --verify librewolf-${VERSION}.source.tar.gz.sig librewolf-${VERSION}.source.tar.gz && \
+    tar -xf librewolf-${VERSION}.source.tar.gz && \
+    # Download needed build artifacts
+    ./librewolf-${VERSION}/mach artifact toolchain --from-build \
+        linux64-clang-23 sysroot-wasm32-wasi-clang-23 linux64-cbindgen linux64-libdmg \
+        linux64-cctools-port linux64-binutils linux64-nasm sysroot-x86_64-linux-gnu linux64-hfsplus && \
+    cd librewolf-${VERSION} && \
+    ./mach --no-interactive python --virtualenv build \
+        taskcluster/scripts/misc/unpack-sdk.py \
+        https://swcdn.apple.com/content/downloads/33/19/140-17812-A_21ZLMMLY4E/zu3xwktttpoe71qiawhzgzvqss6rovawsa/CLTools_macOSNMOS_SDK.pkg \
+        864172616f1e625d6a7669a515965f34908f2b4c733beb4b29dcf008dbe1b8fe93470ab7d54c99bae9092928bb531ffba26da62d079f67e6f1150d3de13eb26c \
+        Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk \
+        /root/.mozbuild/MacOSX26.5.sdk && \
+    cd .. && \
+    # Move artifacts to .mozbuild
+    mv clang sysroot-wasm32-wasi cbindgen dmg hfsplus \
+        cctools binutils nasm sysroot-x86_64-linux-gnu  \
+	/root/.mozbuild/ && \
+    # Cleanup
+    rm -rf \
+        librewolf-${VERSION}.source.tar.gz \
+        librewolf-${VERSION}.source.tar.gz.sig \
+        /root/.mozbuild/toolchains librewolf-${VERSION} \
+        /root/.mozbuild/srcdirs /root/.mozbuild/mach_func_cache \
+        /root/.mozbuild/glean /root/.cache \
+        /root/.gnupg
