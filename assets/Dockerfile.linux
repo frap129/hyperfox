@@ -45,7 +45,8 @@ RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
     # Move artifacts to .mozbuild
     mv clang sysroot-x86_64-linux-gnu pkgconf \
         cbindgen node nasm sysroot-wasm32-wasi \
-        onnxruntime-x86_64-linux-gnu sysroot-aarch64-linux-gnu /root/.mozbuild/ && \
+        onnxruntime-x86_64-linux-gnu sysroot-aarch64-linux-gnu
+        /root/.mozbuild/ && \
     # Cleanup
     rm -rf \
         librewolf-${VERSION}.source.tar.gz \
