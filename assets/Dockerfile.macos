@@ -48,7 +48,7 @@ RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
         /root/.mozbuild/MacOSX26.5.sdk && \
     cd .. && \
     # Move artifacts to .mozbuild
-    mv clang sysroot-wasm32-wasi cbindgen dmg hfsplus \
+    mv  clang sysroot-wasm32-wasi cbindgen dmg hfsplus \
         cctools binutils nasm sysroot-x86_64-linux-gnu  \
         /root/.mozbuild/ && \
     # Cleanup
