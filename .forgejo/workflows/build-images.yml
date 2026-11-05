@@ -40,6 +40,9 @@ jobs:
             --build-arg VERSION="$VERSION" \
             --build-arg FORGE_URL="$FORGE_URL" \
             --build-arg FORGE_REPO_OWNER="$FORGE_REPO_OWNER" \
+            --build-arg FORGE_REPO_OWNER="$DOCKER_GPG_KEY" \
+            --build-arg FORGE_REPO_OWNER="$PUBKEY" \
+            --build-arg FORGE_REPO_OWNER="$OSSIGN_ASC_KEY" \
             . -f docker/Dockerfile.$TARGET
       - name: Push Docker Image
         run: |
