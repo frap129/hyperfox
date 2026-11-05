@@ -9,3 +9,7 @@ permissions-site-eme-desc = Sajtet vijues kanë kërkuar të luajnë lëndë në
 permissions-site-eme-disable-label =
     .label = Blloko kërkesa të reja për luajtje lënde nën DRM
 permissions-site-eme-disable-desc = Kjo do t’i pengojë cilitdo sajt jo të pranishëm më sipër të kërkojë leje për luajtje lënde nën DRM.
+permissions-site-jit-window2 =
+    .title = Rregullime - Leje JIT JavaScript
+    .style = { permissions-window2.style }
+permissions-site-jit-desc = Sajtet vijues kanë të ujdisur një leje JIT JavaScript. Çaktivizimi i JavaScript JIT-it mund të përmirësojë sigurinë duke zvogëluar ekspozimin ndaj disa sulmesh me ekzekutim kodi, por mund të ngadalësojë sajte dhe aplikacione. WebAssembly s’do të funksionojë me JIT të çaktivizuar.
