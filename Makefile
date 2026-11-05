@@ -1,5 +1,5 @@
 .POSIX:
-.PHONY: help version release bootstrap build run package clean release_tarball
+.PHONY: help version release bootstrap build run package tarball clean
 
 VERSION = 159.0.1
 RELEASE = 1
