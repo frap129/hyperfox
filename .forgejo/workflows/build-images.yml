@@ -32,6 +32,9 @@ jobs:
           FORGE_REGISTRY: ${{ vars.FORGE_REGISTRY || 'librewolf.dev' }}
           FORGE_REPO: ${{ forgejo.repository }}
           FORGE_REPO_OWNER: ${{ forgejo.repository_owner }}
+          DOCKER_GPG_KEY: ${{ vars.DOCKER_GPG_KEY }}
+          PUBKEY: ${{ vars.PUBKEY }}
+          OSSIGN_ASC_KEY: ${{ vars.OSSIGN_ASC_KEY }}
         run: |
           echo "Building docker for target: $TARGET using docker/Dockerfile.$TARGET"
           VERSION=$(curl -qfA "" --no-sessionid --proto =https --tlsv1.2 "$FORGE_URL/api/v1/repos/$FORGE_REPO_OWNER/source/releases/latest" | jq -r '.tag_name')
