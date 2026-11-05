@@ -1,7 +1,7 @@
 .POSIX:
 .PHONY: help bootstrap build run package clean release_tarball
 
-VERSION = 159.0
+VERSION = 159.0.1
 RELEASE = 1
 
 TARGET=
@@ -63,7 +63,7 @@ run: $(lw_source_dir)
 
 package: $(lw_source_dir)
 	(cd $(lw_source_dir) && cat browser/locales/shipped-locales | xargs ./mach package-multi-locale --locales)
-	cp -v $(lw_source_dir)/obj-*/dist/librewolf-$(version)-$(release).en-US.*.tar.xz .
+	cp -v $(lw_source_dir)/obj-*/dist/librewolf-$(VERSION)-$(RELEASE).en-US.*.tar.xz .
 
 tarball: $(lw_source_tarball)
 
