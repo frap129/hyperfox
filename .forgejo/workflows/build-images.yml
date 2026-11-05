@@ -7,7 +7,7 @@ jobs:
   build-images:
     runs-on: tiny
     container:
-      image: librewolf.dev/librewolf/librewolf:dind
+      image: librewolf.dev/librewolf/bsys6:dind
     strategy:
       matrix:
         target: [windows, macos, linux, dind, release]
