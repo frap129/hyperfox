@@ -26,8 +26,8 @@ RUN curl -qfLA "" --no-sessionid --proto =https --tlsv1.2 \
     mv runtime-x86_64 /usr/local/lib/appimage-runtime-x86_64 && \
     mv runtime-aarch64 /usr/local/lib/appimage-runtime-aarch64
 
-ARG FORGE_URL=https://librewolf.dev
-ARG FORGE_REPO_OWNER=librewolf
+ARG FORGE_URL
+ARG FORGE_REPO_OWNER
 ARG VERSION
 ARG PUBKEY
 

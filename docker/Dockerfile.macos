@@ -24,8 +24,8 @@ RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
     mv signmar /usr/local/bin/
 
 
-ARG FORGE_URL=https://librewolf.dev
-ARG FORGE_REPO_OWNER=librewolf
+ARG FORGE_URL
+ARG FORGE_REPO_OWNER
 ARG VERSION
 ARG PUBKEY
 

@@ -25,8 +25,8 @@ RUN curl -qfLA "" --no-sessionid --proto =https --tlsv1.2 \
     printf '#!/bin/bash\nset -e\nmono "$(dirname $(readlink -f "$0"))/choco.exe" "$@"\n' > /root/.mozbuild/chocolatey/choco && \
     chmod +x /root/.mozbuild/chocolatey/choco
 
-ARG FORGE_URL=https://librewolf.dev
-ARG FORGE_REPO_OWNER=librewolf
+ARG FORGE_URL
+ARG FORGE_REPO_OWNER
 ARG VERSION
 ARG PUBKEY
 
