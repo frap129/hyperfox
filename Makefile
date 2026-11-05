@@ -4,6 +4,8 @@
 VERSION = 159.0
 RELEASE = 1
 
+TARGET=
+
 FF_BASE_URL = https://archive.mozilla.org/pub/firefox
 FF_CHANNEL = releases
 FF_BUILD = build1
@@ -51,6 +53,9 @@ bootstrap: $(lw_source_dir)
 	(cd $(lw_source_dir) && ./mach --no-interactive bootstrap --application-choice=browser)
 
 build: $(lw_source_dir)
+	if [ -n "$(TARGET)" ]; then \
+		echo "ac_add_options --target=$(TARGET)" >> $(lw_source_dir)/mozconfig; \
+	fi
 	(cd $(lw_source_dir) && ./mach build)
 
 run: $(lw_source_dir)
