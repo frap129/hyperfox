@@ -1,6 +1,10 @@
 name: Create Test Builds
 
 on:
+  push:
+    branches:
+      - main
+      - beta
   workflow_dispatch:
     inputs:
       Target:
@@ -23,6 +27,10 @@ on:
           - beta
           - rc
           - stable
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   detect-version:
