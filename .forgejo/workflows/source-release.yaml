@@ -7,7 +7,7 @@ jobs:
   build-source:
     runs-on: epsilon
     container:
-      image: librewolf.dev/librewolf/bsys6:dind
+      image: librewolf.dev/librewolf/librewolf:dind
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -16,7 +16,7 @@ jobs:
         env:
             SIGNING_KEY: ${{ forgejo.ref == 'refs/heads/main' && secrets.SIGNING_KEY || '' }}
         run: |
-          make all
+          make tarball
 
       - name: Upload artifacts
         uses: https://data.forgejo.org/forgejo/upload-artifact@v4
@@ -27,14 +27,13 @@ jobs:
             librewolf-*.source.tar.gz.sha256sum
             librewolf-*.source.tar.gz.sha512sum
             librewolf-*.source.tar.gz.sig
-            patchfail-fuzz.out
           retention-days: 7
 
   publish-release:
     runs-on: epsilon
     if: forgejo.ref == 'refs/heads/main'
     container:
-      image: librewolf.dev/librewolf/bsys6:release
+      image: librewolf.dev/librewolf/librewolf:release
     needs: [build-source]
     steps:
       - name: Checkout Repository
@@ -48,8 +47,8 @@ jobs:
       - name: Set variables
         id: version
         run: |
-          echo "VERSION=$(cat version)" >> $FORGEJO_OUTPUT
-          echo "RELEASE=$(cat release)" >> $FORGEJO_OUTPUT
+          echo "VERSION=$(make version)" >> $FORGEJO_OUTPUT
+          echo "RELEASE=$(make release)" >> $FORGEJO_OUTPUT
           echo "BUILD_JOB_ID=$FORGEJO_RUN_NUMBER" >> $FORGEJO_OUTPUT
 
       - name: Upload to Package Registry

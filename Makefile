@@ -1,5 +1,5 @@
 .POSIX:
-.PHONY: help bootstrap build run package clean release_tarball
+.PHONY: help version release bootstrap build run package clean release_tarball
 
 VERSION = 159.0.1
 RELEASE = 1
@@ -19,6 +19,12 @@ lw_source_tarball = librewolf-$(VERSION)-$(RELEASE).source.tar.gz
 
 help:
 	@echo "idk :)"
+
+version:
+	@printf '%s\n' '$(VERSION)'
+
+release:
+	@printf '%s\n' '$(RELEASE)'
 
 $(ff_source_tarball):
 	gpg --import assets/MOZILLA_PUBKEY.asc
