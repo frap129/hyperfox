@@ -35,10 +35,10 @@ index 0000000000..8589aac5a4
 +  "local-settings.js",
 +]
 diff --git a/moz.build b/moz.build
-index 9e8ba36810..cfec96ba92 100644
+index d839dd7756..43d17cf333 100644
 --- a/moz.build
 +++ b/moz.build
-@@ -363,6 +363,8 @@ SPHINX_TREES["ai-agent-tools"] = "docs/ai-agent-tools"
+@@ -365,6 +365,8 @@ SPHINX_TREES["ai-agent-tools/skills"] = ".agents/skills"
  
  include("build/templates.mozbuild")
  

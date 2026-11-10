@@ -98,7 +98,7 @@ index 8a0563fdc6..eb8e3727df 100644
  # L10n resources and overrides.
  % override chrome://global/locale/appstrings.properties chrome://browser/locale/appstrings.properties
 diff --git a/browser/components/ProfileDataUpgrader.sys.mjs b/browser/components/ProfileDataUpgrader.sys.mjs
-index e16e297b64..ce4f444716 100644
+index d64682c7ae..f1f86631b0 100644
 --- a/browser/components/ProfileDataUpgrader.sys.mjs
 +++ b/browser/components/ProfileDataUpgrader.sys.mjs
 @@ -1164,6 +1164,14 @@ export let ProfileDataUpgrader = {
@@ -115,4 +115,4 @@ index e16e297b64..ce4f444716 100644
 +      }
      }
  
-     // Update the migration version.
+     if (existingDataVersion < 184) {

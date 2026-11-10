@@ -1,10 +1,10 @@
 Support the new .config profile paths in a somewhat convoluted way, due to legacy reasons
 ---
 diff --git a/toolkit/xre/nsXREDirProvider.cpp b/toolkit/xre/nsXREDirProvider.cpp
-index 24d83195ed..f1108e2397 100644
+index 4cedc64ef4..09d2f166a4 100644
 --- a/toolkit/xre/nsXREDirProvider.cpp
 +++ b/toolkit/xre/nsXREDirProvider.cpp
-@@ -1340,7 +1340,8 @@ nsresult nsXREDirProvider::AppendFromAppData(nsIFile* aFile, bool aIsDotted) {
+@@ -1355,7 +1355,8 @@ nsresult nsXREDirProvider::AppendFromAppData(nsIFile* aFile, bool aIsDotted) {
    // Similar to nsXREDirProvider::AppendProfilePath.
    // TODO: Bug 1990407 - Evaluate if refactoring might be required there in the
    // future?
@@ -14,7 +14,7 @@ index 24d83195ed..f1108e2397 100644
      nsAutoCString profile;
  #  if defined(MOZ_THUNDERBIRD)
      if (gAppData->profile[0] != '.') {
-@@ -1348,6 +1349,7 @@ nsresult nsXREDirProvider::AppendFromAppData(nsIFile* aFile, bool aIsDotted) {
+@@ -1363,6 +1364,7 @@ nsresult nsXREDirProvider::AppendFromAppData(nsIFile* aFile, bool aIsDotted) {
      }
  #  endif
      profile.Append(gAppData->profile);
@@ -22,7 +22,7 @@ index 24d83195ed..f1108e2397 100644
      MOZ_TRY(aFile->AppendRelativeNativePath(profile));
    } else {
      nsAutoCString vendor;
-@@ -1357,8 +1359,6 @@ nsresult nsXREDirProvider::AppendFromAppData(nsIFile* aFile, bool aIsDotted) {
+@@ -1372,8 +1374,6 @@ nsresult nsXREDirProvider::AppendFromAppData(nsIFile* aFile, bool aIsDotted) {
      ToLowerCase(vendor);
      ToLowerCase(appName);
  
@@ -31,7 +31,7 @@ index 24d83195ed..f1108e2397 100644
      MOZ_TRY(aFile->AppendRelativeNativePath(appName));
    }
  
-@@ -1395,6 +1395,14 @@ bool nsXREDirProvider::LegacyHomeExists(nsIFile** aFile) {
+@@ -1410,6 +1410,14 @@ bool nsXREDirProvider::LegacyHomeExists(nsIFile** aFile) {
    rv = localDir->Exists(&exists);
    NS_ENSURE_SUCCESS(rv, false);
  
@@ -46,7 +46,7 @@ index 24d83195ed..f1108e2397 100644
    // Give a chance to (3)
    if (!exists) {
      nsCOMPtr<nsIFile> userDir;
-@@ -1525,41 +1533,22 @@ nsresult nsXREDirProvider::GetLegacyOrXDGHomePath(const char* aHomeDir,
+@@ -1540,41 +1548,22 @@ nsresult nsXREDirProvider::GetLegacyOrXDGHomePath(const char* aHomeDir,
        return NS_OK;
      }
  

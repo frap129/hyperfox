@@ -43,10 +43,10 @@ index 2f03f94424..de35f432e8 100644
              <h1
                class="aitab-error-heading"
 diff --git a/browser/components/sidebar/sidebar.css b/browser/components/sidebar/sidebar.css
-index ec6d952..e279ee2 100644
+index 1365ee66f0..45d244134c 100644
 --- a/browser/components/sidebar/sidebar.css
 +++ b/browser/components/sidebar/sidebar.css
-@@ -46,6 +46,26 @@
+@@ -44,6 +44,26 @@
    }
  }
  

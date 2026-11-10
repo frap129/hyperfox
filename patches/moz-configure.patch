@@ -1,7 +1,7 @@
 Set our own default values
 ---
 diff --git a/toolkit/moz.configure b/toolkit/moz.configure
-index b0d6cd97d5..5b27f972e7 100644
+index 28c939f8e7..b914b52434 100644
 --- a/toolkit/moz.configure
 +++ b/toolkit/moz.configure
 @@ -20,6 +20,7 @@ def check_moz_app_id(moz_app_id, build_project):

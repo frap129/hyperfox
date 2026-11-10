@@ -1,7 +1,7 @@
 Set Firefox for the User Agent string
 ---
 diff --git a/toolkit/moz.configure b/toolkit/moz.configure
-index a16fc0e924..b0d6cd97d5 100644
+index bc3cdce65c..28c939f8e7 100644
 --- a/toolkit/moz.configure
 +++ b/toolkit/moz.configure
 @@ -26,7 +26,7 @@ project_flag(

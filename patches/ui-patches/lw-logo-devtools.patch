@@ -16,7 +16,7 @@ index 52148f80b2..74eac40db7 100644
  
  function onRemoteDevToolsClientClosed() {
 diff --git a/devtools/client/jar.mn b/devtools/client/jar.mn
-index a584a2158c..288280af5e 100644
+index 6c45a96da7..fd607cc0ad 100644
 --- a/devtools/client/jar.mn
 +++ b/devtools/client/jar.mn
 @@ -388,6 +388,7 @@ devtools.jar:
