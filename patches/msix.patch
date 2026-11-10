@@ -41,7 +41,7 @@ index 9bb91330f6..1d63becb50 100644
    </Extensions>
  </Package>
 diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuild/mach_commands.py
-index 1bfbf65ac8..d558b27a86 100644
+index 9bb196cc22..7ca8a6caa3 100644
 --- a/python/mozbuild/mozbuild/mach_commands.py
 +++ b/python/mozbuild/mozbuild/mach_commands.py
 @@ -3421,7 +3421,7 @@ def repackage_msi(

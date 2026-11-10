@@ -1,7 +1,7 @@
 Allow setting autoconfig files as a user pref, to allow setting a custom librewolf.overrides.cfg location
 ---
 diff --git a/extensions/pref/autoconfig/src/nsReadConfig.cpp b/extensions/pref/autoconfig/src/nsReadConfig.cpp
-index dfc39ce12d..9a3333a376 100644
+index f39c117477..d1de9220e4 100644
 --- a/extensions/pref/autoconfig/src/nsReadConfig.cpp
 +++ b/extensions/pref/autoconfig/src/nsReadConfig.cpp
 @@ -8,7 +8,6 @@
@@ -12,7 +12,7 @@ index dfc39ce12d..9a3333a376 100644
  #include "nsAppDirectoryServiceDefs.h"
  #include "nsIAppStartup.h"
  #include "nsIChannel.h"
-@@ -120,21 +119,6 @@ NS_IMETHODIMP nsReadConfig::Observe(nsISupports* aSubject, const char* aTopic,
+@@ -120,20 +119,6 @@ NS_IMETHODIMP nsReadConfig::Observe(nsISupports* aSubject, const char* aTopic,
   */
  static const char* gBlockedConfigs[] = {"dsengine.cfg"};
  
@@ -25,16 +25,15 @@ index dfc39ce12d..9a3333a376 100644
 - * can still set them with pref().
 - */
 -static const char* const gAutoConfigInputPrefs[] = {
--    "general.config.filename",      "general.config.vendor",
--    "autoadmin.global_config_url",  "autoadmin.offline_failover",
--    "autoadmin.append_emailaddr",   "autoadmin.refresh_interval",
--    "autoadmin.failover_to_cached",
+-    "general.config.filename",    "autoadmin.global_config_url",
+-    "autoadmin.offline_failover", "autoadmin.append_emailaddr",
+-    "autoadmin.refresh_interval", "autoadmin.failover_to_cached",
 -};
 -
  nsresult nsReadConfig::readConfigFile() {
    nsresult rv = NS_OK;
    nsAutoCString lockFileName;
-@@ -165,10 +149,6 @@ nsresult nsReadConfig::readConfigFile() {
+@@ -162,10 +147,6 @@ nsresult nsReadConfig::readConfigFile() {
    MOZ_LOG(MCD, LogLevel::Debug,
            ("general.config.filename = %s\n", lockFileName.get()));
  

@@ -1,7 +1,7 @@
 Create a shortcut for regular browsing, which is not correctly created when ASRouter onboarding is disabled
 ---
 diff --git a/browser/components/shell/StartupOSIntegration.sys.mjs b/browser/components/shell/StartupOSIntegration.sys.mjs
-index 84e32bb8d2..82e33178f3 100644
+index ec1f44a4a7..da6e838462 100644
 --- a/browser/components/shell/StartupOSIntegration.sys.mjs
 +++ b/browser/components/shell/StartupOSIntegration.sys.mjs
 @@ -11,6 +11,7 @@ const PRIVATE_BROWSING_BINARY = "private_browsing.exe";
@@ -12,7 +12,7 @@ index 84e32bb8d2..82e33178f3 100644
  
  const lazy = {};
  
-@@ -184,6 +185,7 @@ export let StartupOSIntegration = {
+@@ -164,6 +165,7 @@ export let StartupOSIntegration = {
          safeCall(() => this.maybePinMSIXToStartMenu());
        }
        safeCall(() => this.ensurePrivateBrowsingShortcutExists());
@@ -20,7 +20,7 @@ index 84e32bb8d2..82e33178f3 100644
        // Run these in order, not concurrently: otherwise ensureAppliedOrRevert
        // can decide the shortcut was deleted while it is still being created.
        safeCall(async () => {
-@@ -298,4 +300,45 @@ export let StartupOSIntegration = {
+@@ -278,4 +280,45 @@ export let StartupOSIntegration = {
      // again, which necessarily does pointless I/O.
      Services.prefs.setBoolPref(PREF_PRIVATE_BROWSING_SHORTCUT_CREATED, true);
    },

@@ -14,7 +14,7 @@ index 1d2a4edfbe..4253eae729 100644
    // @nova-cleanup(remove-conditional): Make default behavior, remove .nova-enabled selector
    .nova-enabled & {
 diff --git a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
-index d6f89130de..4a5eda6095 100644
+index b19b0061c2..2558ba1b94 100644
 --- a/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
 +++ b/browser/themes/shared/privatebrowsing/aboutPrivateBrowsing.css
 @@ -70,12 +70,12 @@ p {

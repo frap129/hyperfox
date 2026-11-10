@@ -58,10 +58,10 @@ index 5db8eb880c..a309d8647a 100644
  
    setURI(uri) {
 diff --git a/browser/base/content/browser-trustPanel.js b/browser/base/content/browser-trustPanel.js
-index 3b692ef7bf..3673c1ff69 100644
+index e1dfc8bb41..439b547065 100644
 --- a/browser/base/content/browser-trustPanel.js
 +++ b/browser/base/content/browser-trustPanel.js
-@@ -345,6 +345,9 @@ class TrustPanel {
+@@ -396,6 +396,9 @@ class TrustPanel {
        document
          .getElementById("trustpanel-toggle")
          .addEventListener("click", () => this.#toggleTrackingProtection());
@@ -71,7 +71,7 @@ index 3b692ef7bf..3673c1ff69 100644
        document
          .getElementById("identity-popup-remove-cert-exception")
          .addEventListener("click", () => this.#removeCertException());
-@@ -445,6 +448,30 @@ class TrustPanel {
+@@ -496,6 +499,30 @@ class TrustPanel {
      BrowserCommands.reload();
    }
  
@@ -102,7 +102,7 @@ index 3b692ef7bf..3673c1ff69 100644
    async showPopup(opts = {}) {
      // Avoid flicker between the mouseup and panel shown by manually
      // setting open attribute.
-@@ -839,6 +866,9 @@ class TrustPanel {
+@@ -894,6 +921,9 @@ class TrustPanel {
        { host: this.#displayHost }
      );
  
@@ -112,7 +112,7 @@ index 3b692ef7bf..3673c1ff69 100644
      let hostElement = document.getElementById("trustpanel-popup-host");
      hostElement.setAttribute("value", this.#displayHost);
      hostElement.setAttribute("tooltiptext", this.#displayHost);
-@@ -878,6 +908,11 @@ class TrustPanel {
+@@ -933,6 +963,11 @@ class TrustPanel {
        "hidden",
        isPrivate
      );

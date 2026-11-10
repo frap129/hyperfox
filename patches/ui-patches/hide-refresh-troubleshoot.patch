@@ -1,7 +1,7 @@
 Remove the refresh option when manually starting in troubleshoot mode due to users accidentally refreshing their profiles
 ---
 diff --git a/browser/base/content/safeMode.js b/browser/base/content/safeMode.js
-index 48d4ddb..5bdb620 100644
+index 48d4ddb299..5bdb620984 100644
 --- a/browser/base/content/safeMode.js
 +++ b/browser/base/content/safeMode.js
 @@ -63,7 +63,7 @@ window.addEventListener("load", () => {
