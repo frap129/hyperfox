@@ -14,7 +14,7 @@ RUN printf '%s' "$OSSIGN_ASC_KEY" > /etc/apt/keyrings/forgejo-OSSign.asc && \
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        python3-pip msitools zstd libc6-i386 jq file xz-utils \
+        curl python3-pip msitools zstd libc6-i386 jq file xz-utils \
         nodejs zip unzip mono-complete gettext-base pkg-config \
         mingw-w64-tools git-lfs ossign make patch pigz gnupg s3cmd && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -37,7 +37,7 @@ ARG PUBKEY
 
 RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
         ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz \
-        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz.sig && \
+        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz.sig -o librewolf-${VERSION}.source.tar.gz.sig && \
     printf '%s' "$PUBKEY" | gpg --import && \
     gpg --verify librewolf-${VERSION}.source.tar.gz.sig librewolf-${VERSION}.source.tar.gz && \
     tar -xf librewolf-${VERSION}.source.tar.gz && \

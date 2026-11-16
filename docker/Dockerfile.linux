@@ -33,7 +33,7 @@ ARG PUBKEY
 
 RUN curl -qfA "" --no-sessionid --proto =https --tlsv1.2 \
         ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz \
-        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz -o librewolf-${VERSION}.source.tar.gz.sig && \
+        ${FORGE_URL}/api/packages/${FORGE_REPO_OWNER}/generic/librewolf-source/${VERSION}/librewolf-${VERSION}.source.tar.gz.sig -o librewolf-${VERSION}.source.tar.gz.sig && \
     printf '%s' "$PUBKEY" | gpg --import && \
     gpg --verify librewolf-${VERSION}.source.tar.gz.sig librewolf-${VERSION}.source.tar.gz && \
     tar -xf librewolf-${VERSION}.source.tar.gz && \
