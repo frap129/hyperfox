@@ -20,7 +20,7 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
-        sh -s -- -y --profile minimal --default-toolchain 1.99.1 --target x86_64-pc-windows-msvc --target aarch64-pc-windows-msvc
+        sh -s -- -y --profile minimal --default-toolchain 1.100 --target x86_64-pc-windows-msvc --target aarch64-pc-windows-msvc
 
 RUN curl -qfLA "" --no-sessionid --proto =https --tlsv1.2 \
         https://github.com/chocolatey/choco/releases/download/2.7.5/chocolatey.v2.7.5.tar.gz -o "chocolatey.tar.gz" && \
