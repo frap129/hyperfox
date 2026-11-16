@@ -1,7 +1,7 @@
 .POSIX:
 .PHONY: help version release bootstrap build run package tarball clean
 
-VERSION = 159.0.1
+VERSION = 160.0
 RELEASE = 1
 
 TARGET=
