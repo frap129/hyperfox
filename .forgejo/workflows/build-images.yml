@@ -39,7 +39,7 @@ jobs:
           echo "Building docker for target: $TARGET using docker/Dockerfile.$TARGET"
           VERSION=$(curl -qfA "" --no-sessionid --proto =https --tlsv1.2 "$FORGE_URL/api/v1/repos/$FORGE_REPO_OWNER/source/releases/latest" | jq -r '.tag_name')
           docker build --progress=plain --no-cache \
-            -t "$FORGE_REGISTRY/$FORGE_REPO_OWNER/librewolf:$TARGET" \
+            -t "$FORGE_REGISTRY/$FORGE_REPO_OWNER/buildenv:$TARGET" \
             --build-arg VERSION="$VERSION" \
             --build-arg FORGE_URL="$FORGE_URL" \
             --build-arg FORGE_REPO_OWNER="$FORGE_REPO_OWNER" \
@@ -49,4 +49,4 @@ jobs:
             . -f docker/Dockerfile.$TARGET
       - name: Push Docker Image
         run: |
-          docker push ${{ vars.FORGE_REGISTRY || 'librewolf.dev' }}/${{ forgejo.repository_owner }}/librewolf:${{ matrix.target }}
+          docker push ${{ vars.FORGE_REGISTRY || 'librewolf.dev' }}/${{ forgejo.repository_owner }}/buildenv:${{ matrix.target }}

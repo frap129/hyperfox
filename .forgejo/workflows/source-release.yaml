@@ -7,7 +7,7 @@ jobs:
   build-source:
     runs-on: epsilon
     container:
-      image: librewolf.dev/librewolf/librewolf:dind
+      image: librewolf.dev/librewolf/buildenv:dind
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -33,7 +33,7 @@ jobs:
     runs-on: epsilon
     if: forgejo.ref == 'refs/heads/main'
     container:
-      image: librewolf.dev/librewolf/librewolf:release
+      image: librewolf.dev/librewolf/buildenv:release
     needs: [build-source]
     steps:
       - name: Checkout Repository
