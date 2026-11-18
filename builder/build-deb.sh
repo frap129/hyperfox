@@ -4,7 +4,7 @@
 
 set -eu
 
-VERSION="$(cat /src/version)-$(cat /src/release)"
+VERSION="$(make -C /src version)-$(make -C /src release)"
 DIST_TAR=/src/out/hyperfox-${VERSION}.en-US.linux-x86_64.tar.xz
 
 deb_arch() {
