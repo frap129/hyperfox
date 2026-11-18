@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-srcdir="/src/librewolf-$(make -C /src version)-$(make -C /src release)"
+srcdir="/src/librewolf-$(make --no-print-directory -C /src version)-$(make --no-print-directory -C /src release)"
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=pip
 export MOZBUILD_STATE_PATH="$srcdir/mozbuild"
 export MOZ_BUILD_DATE="$(date -u${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH} +%Y%m%d%H%M%S)"
@@ -9,7 +9,7 @@ export SCCACHE_DIR="/src/sccache"
 export SCCACHE_DIRECT=true
 
 cd /src || exit
-make dir || exit
+make "$(basename "$srcdir")" || exit
 
 # Build without PGO
 cat >$srcdir/mozconfig assets/mozconfig.new - <<END
@@ -52,4 +52,4 @@ END
 make package || exit
 
 mkdir /src/out
-mv /src/hyperfox-$(make -C /src version)-$(make -C /src release).en-US.linux-x86_64.tar.xz /src/out
+mv /src/hyperfox-$(make --no-print-directory -C /src version)-$(make --no-print-directory -C /src release).en-US.linux-x86_64.tar.xz /src/out

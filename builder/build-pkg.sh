@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -eu
 
-VERSION="$(make -C /src version)"
-RELEASE="$(make -C /src release)"
+VERSION="$(make --no-print-directory -C /src version)"
+RELEASE="$(make --no-print-directory -C /src release)"
 DIST="/src/out/hyperfox-${VERSION}-${RELEASE}.en-US.linux-x86_64.tar.xz"
 SHA256SUM="$(sha256sum $DIST | cut -d ' ' -f1)"
 
