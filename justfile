@@ -23,7 +23,7 @@ arch:
 
 # Delete sources and build artifacts
 clean:
-    make veryclean
+    make clean
     rm -rf librewolf-* firefox-* hyperfox-* out/
 
 release version:
